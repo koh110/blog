@@ -5,7 +5,7 @@ date: '2019-06-07T17:00:00.000Z'
 
 ## はじめに
 
-MongoDB (node-mongodb-native) + Ndoe.js + TypeScript で RDB 並のスキーマ定義と、NoSQL の開発しやすさを両立できたのでまとめます。
+MongoDB (node-mongodb-native) + Node.js + TypeScript で RDB 並のスキーマ定義と、NoSQL の開発しやすさを両立できたのでまとめます。
 
 ## Node.js と MongoDB
 
@@ -150,4 +150,4 @@ export async function getStudent(studentId: ObjectId) {
 
 ## まとめ
 
-MongoDB (node-mongodb-native) + Ndoe.js + TypeScript の組み合わせを用いることで RDB 並のスキーマ定義と、NoSQL の開発しやすさを両立できました。
+MongoDB (node-mongodb-native) + Node.js + TypeScript の組み合わせを用いることで RDB 並のスキーマ定義と、NoSQL の開発しやすさを両立できました。
