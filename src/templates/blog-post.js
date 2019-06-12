@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import Bio from '../components/Bio'
 import Layout from '../components/Layout'
 import SEO from '../components/seo'
+import HatenaButton from '../components/HatenaButton'
+import TweetButton from '../components/TweetButton'
 import { rhythm, scale } from '../utils/typography'
 
 const TableOfContentsWrapper = styled.nav`
@@ -43,6 +45,21 @@ const Date = styled.time`
   margin-top: ${rhythm(1)};
 `
 
+const ButtonsWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-width: 200px;
+`
+
+function Buttons() {
+  return (
+    <ButtonsWrap>
+      <TweetButton />
+      <HatenaButton />
+    </ButtonsWrap>
+  )
+}
+
 function BlogPostTemplate(props) {
   const post = props.data.markdownRemark
   const siteTitle = props.data.site.siteMetadata.title
@@ -53,6 +70,7 @@ function BlogPostTemplate(props) {
       <SEO title={post.frontmatter.title} description={post.excerpt} />
       <h1>{post.frontmatter.title}</h1>
       <Date style={{ ...scale(-1 / 5) }}>{post.frontmatter.date}</Date>
+      <Buttons />
       {post.tableOfContents && (
         <TableOfContentsWrapper>
           <h4>目次</h4>

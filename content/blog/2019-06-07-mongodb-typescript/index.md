@@ -19,7 +19,7 @@ MySQL や Postgres などの RDB と違い、事前に CREATE TABLE のような
 
 しかし、その柔軟さ故に後から加わった開発者がコードからデータの構造を読み取るのが難しいという難点もあります。
 
-Node.js + MongoDB では <a href="https://mongoosejs.com/" target="_blank">mongoose</a> か <a href="http://mongodb.github.io/node-mongodb-native/">node-mongodb-native</a> が多く利用されます。
+Node.js + MongoDB では <a href="https://mongoosejs.com/" target="_blank">mongoose</a> か <a href="http://mongodb.github.io/node-mongodb-native/" target="_blank">node-mongodb-native</a> が多く利用されます。
 
 今までは上記のデータ構造の問題に対処するため、mongoose を利用してオブジェクトのスキーマ定義などを行ったりしていました。しかし、mongoose は ORM という特性上内部的に Object へのマッピングなど、パフォーマンスに影響を与えてしまうことが少なくありませんでした。そのためパフォーマンスが要求されるような箇所では mongoose から Object への変換が行われないようにするなど工夫されることが多いですが、そうしてしまうことでまたスキーマ定義がなく自由に使えてしまうというトレードオフが発生していました。
 
