@@ -45,12 +45,15 @@ Wordpress2016.overrideThemeStyles = ({ rhythm }, options) => ({
   },
   'h2,h3': {
     fontWeight: '700'
+  },
+  p: {
+    lineHeight: '32px',
+    marginBottom: '1em'
   }
 })
 
 const typography = new Typography({
-  ...Wordpress2016,
-  baseFontSize: '18px'
+  ...Wordpress2016
 })
 
 // Hot reload typography in development.

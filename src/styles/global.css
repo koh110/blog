@@ -26,3 +26,7 @@
   padding: 2px 5px;
   margin: 0 2px;
 }
+
+:not(pre) > code.language-text {
+  border-radius: 2px;
+}
