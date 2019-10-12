@@ -30,3 +30,7 @@
 :not(pre) > code.language-text {
   border-radius: 2px;
 }
+
+h1 {
+  font-weight: 800;
+}
