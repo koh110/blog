@@ -56,7 +56,7 @@ function Layout({ location, title, children, description }) {
       style={{
         marginLeft: `auto`,
         marginRight: `auto`,
-        maxWidth: rhythm(24),
+        maxWidth: location.pathname === rootPath ? rhythm(24) : rhythm(36),
         padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`
       }}
     >
