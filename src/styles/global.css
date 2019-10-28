@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP|Roboto&display=swap');
+
 .gatsby-highlight-code-line {
   background-color: #feb;
   display: block;
@@ -31,6 +33,18 @@
   border-radius: 2px;
 }
 
-h1 {
-  font-weight: 800;
+:root {
+  --color-black: #545454;
+  --color-border: rgb(211, 212, 228);
+  --color-border: rgb(211, 212, 228);
+  --color-link: #1da1f2;
+  --color-background-body: #ffffff;
+  --color-body: #545454;
+  --color-on-background: #f7f9f9;
+}
+
+[data-theme='dark'] {
+  --color-background-body: #15202b;
+  --color-body: #ffffff;
+  --color-on-background: #1c2938;
 }

@@ -10,7 +10,7 @@ import TweetButton from '../components/TweetButton'
 import { rhythm, scale } from '../utils/typography'
 
 const TableOfContentsWrapper = styled.nav`
-  background-color: #f7f9f9;
+  background-color: var(--color-on-background);
   padding: 16px;
   color: #787c7b;
   margin-bottom: 40px;

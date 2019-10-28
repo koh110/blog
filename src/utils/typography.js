@@ -12,6 +12,8 @@ Wordpress2016.overrideThemeStyles = () => {
 delete Wordpress2016.googleFonts
 
 const fontFamily = [
+  'Roboto',
+  'Noto Sans JP',
   '-apple-system',
   'BlinkMacSystemFont',
   'Segoe UI',
@@ -37,11 +39,16 @@ Wordpress2016.bodyFontFamily = [...fontFamily, ...Wordpress2016.bodyFontFamily]
 
 Wordpress2016.overrideThemeStyles = ({ rhythm }, options) => ({
   a: {
-    boxShadow: 'none'
+    boxShadow: 'none',
+    color: '#1da1f2'
   },
   body: {
     fontKerning: 'normal',
-    color: 'hsla(0, 0%, 0%, 0.8)'
+    background: 'var(--color-background-body)',
+    color: 'var(--color-body)'
+  },
+  h1: {
+    fontWeight: 800
   },
   'h2,h3': {
     fontWeight: '700'
