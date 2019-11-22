@@ -47,12 +47,6 @@ Wordpress2016.overrideThemeStyles = ({ rhythm }, options) => ({
     background: 'var(--color-background-body)',
     color: 'var(--color-body)'
   },
-  h1: {
-    fontWeight: 800
-  },
-  'h2,h3': {
-    fontWeight: '700'
-  },
   p: {
     lineHeight: '32px',
     marginBottom: '1em'

@@ -107,6 +107,7 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`
       }
     },
-    `gatsby-plugin-twitter`
+    `gatsby-plugin-twitter`,
+    `gatsby-plugin-catch-links`
   ]
 }

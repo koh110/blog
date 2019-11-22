@@ -19,6 +19,14 @@ const TableOfContentsWrapper = styled.nav`
     margin: 0;
     margin-bottom: 20px;
   }
+  li {
+    > p {
+      margin-bottom: 0;
+    }
+    > ul {
+      margin-left: 1.5em;
+    }
+  }
 `
 
 const TableOfContents = styled.div`
@@ -60,6 +68,26 @@ function Buttons() {
   )
 }
 
+const Post = styled.div`
+  line-height: 36px;
+  h1 {
+    font-weight: 800;
+    background-color: var(--color-background-head);
+    border-left: 12px solid var(--color-body);
+    padding: 8px 24px;
+  }
+  h2, h3 {
+    font-weight: 700;
+    background-color: var(--color-background-head);
+    border-left: 12px solid var(--color-body);
+    padding: 8px 24px;
+  }
+  blockquote: {
+    border-left: 0.32813rem solid var(--color-blockquote-border-left);
+    color: var(--color-blockquote);
+  }
+`
+
 function BlogPostTemplate(props) {
   const post = props.data.markdownRemark
   const siteTitle = props.data.site.siteMetadata.title
@@ -77,7 +105,7 @@ function BlogPostTemplate(props) {
           <TableOfContents dangerouslySetInnerHTML={{ __html: post.tableOfContents }} />
         </TableOfContentsWrapper>
       )}
-      <div style={{ lineHeight: '36px' }} dangerouslySetInnerHTML={{ __html: post.html }} />
+      <Post dangerouslySetInnerHTML={{ __html: post.html }} />
       <hr
         style={{
           marginTop: rhythm(1),

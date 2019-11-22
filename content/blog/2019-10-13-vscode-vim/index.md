@@ -5,6 +5,8 @@ date: '2019-10-13T00:00:00.000Z'
 
 # 結論
 
+設定を変えることである程度軽くはなったが、耐えきれなくなって[自分で作った](../2019-11-18-vscode-zenvim/)。 (追記: 2019/11/18)
+
 自分の環境では、`vim.statusBarColorControl` という設定を切ったら実用に耐えるレベルになった。
 
 https://github.com/VSCodeVim/Vim#vim-airline
