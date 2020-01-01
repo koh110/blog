@@ -1,4 +1,168 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kohsweblog]]></title><description><![CDATA[気になった技術などをまとめていくブログです。]]></description><link>https://blog.koh.dev</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 22 Nov 2019 12:36:43 GMT</lastBuildDate><item><title><![CDATA[VSCodeにZenVimというVim拡張を作った]]></title><description><![CDATA[前回の記事 で VSCode/Vim が重くなってしまう件について対処法を調べたが、それでもどうしても重くて厳しかったので自分用に作ってしまった。 作った拡張は ZenVim…]]></description><link>https://blog.koh.dev/2019-11-22-vscode-zenvim/</link><guid isPermaLink="false">https://blog.koh.dev/2019-11-22-vscode-zenvim/</guid><pubDate>Fri, 22 Nov 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;../2019-10-13-vscode-vim/&quot;&gt;前回の記事&lt;/a&gt; で &lt;a href=&quot;http://aka.ms/vscodevim&quot;&gt;VSCode/Vim&lt;/a&gt; が重くなってしまう件について対処法を調べたが、それでもどうしても重くて厳しかったので自分用に作ってしまった。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kohsweblog]]></title><description><![CDATA[気になった技術などをまとめていくブログです。]]></description><link>https://blog.koh.dev</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 01 Jan 2020 16:11:35 GMT</lastBuildDate><item><title><![CDATA[WireGuardでVPNごしに自宅サーバ開発できる環境を作った]]></title><description><![CDATA[まえおき 自分は普段 MacBook Pro の 13 インチを開発機として利用しています。メモリは 16GB にしているので Web…]]></description><link>https://blog.koh.dev/2020-01-01-vpn/</link><guid isPermaLink="false">https://blog.koh.dev/2020-01-01-vpn/</guid><pubDate>Wed, 01 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;まえおき&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%88%E3%81%8A%E3%81%8D&quot; aria-label=&quot;まえおき permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まえおき&lt;/h1&gt;
+&lt;p&gt;自分は普段 MacBook Pro の 13 インチを開発機として利用しています。メモリは 16GB にしているので Web 開発をする時にはあまり不便に感じることはありません。
+ただ、サービスの開発のステージ環境や、自宅内の自動化や副業で受けている調査案件などはそれぞれ環境ごとに仮想サーバを立ち上げています。&lt;/p&gt;
+&lt;p&gt;仮想サーバは nuc に入れた Windows 上の Hyper-V で運用しています。nuc は 24 時間立ち上げたままでテレビにつないで Amazon プライムの再生機も兼ねています。
+メモリも 32GB 積んであるので開発サーバが立ち上がってても通常使用するぶんには割と余裕があります。&lt;/p&gt;
+&lt;p&gt;この自宅環境は割と便利で、自宅で開発しているときは十分活躍してくれるのですが、外出中にも開発サーバに ssh で入りたくなることがちょくちょくあります。（あーあのサーバにコード書き捨てたままだったとか、自動化コードが死んだ通知が外出中にきたりとか）&lt;/p&gt;
+&lt;p&gt;この問題を解消するために自宅に VPN を導入しようと以前から考えていたのですが、ソフトウェアの利用方法も自分にとっては難しく実現していませんでした。
+そんな折たまたま &lt;a href=&quot;https://www.wireguard.com/&quot;&gt;WireGuard&lt;/a&gt; という文字列を目にして、調べてみたらシンプルで高速な VPN だということがわかりました。&lt;/p&gt;
+&lt;p&gt;参考: &lt;a href=&quot;https://speakerdeck.com/fadis/zuo-tuteli-jie-suruwireguard?slide=2&quot;&gt;https://speakerdeck.com/fadis/zuo-tuteli-jie-suruwireguard?slide=2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;さらに調べていくと、かなり設定もシンプルで自分でも理解できそうだったので、家に転がっていた Raspberry Pi を再利用して環境を構築してみることにしました。&lt;/p&gt;
+&lt;p&gt;Hyper-V にたてないで Raspberry Pi で構築した理由は、Windows が落ちたときに VPN が落ちてしまうと外から何もできなくなってしまうので、物理的に分割したかったからです。&lt;/p&gt;
+&lt;h1 id=&quot;wireguard-のインストール&quot;&gt;&lt;a href=&quot;#wireguard-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB&quot; aria-label=&quot;wireguard のインストール permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;WireGuard のインストール&lt;/h1&gt;
+&lt;p&gt;Raspberry Pi の OS は情報が多そうだったので無難に Raspbian を選択しました。&lt;/p&gt;
+&lt;p&gt;各種 OS のインストール方法は公式サイトに詳しくのっているのですが、Raspbian は Debian 系にまとめられているようでした。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.wireguard.com/install/&quot;&gt;https://www.wireguard.com/install/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;他に参考にできるドキュメントを探していたら下記のリポジトリに永続化も含めて詳細に載っていたので、こちらを参考に環境を構築しました。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/adrianmihalko/raspberrypiwireguard&quot;&gt;https://github.com/adrianmihalko/raspberrypiwireguard&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;やっていることは ubuntu のレポを追加してインストールできるようにしているっぽいです。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;apt-get&lt;/span&gt; update
+$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;apt-get&lt;/span&gt; upgrade
+$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;apt-get&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; raspberrypi-kernel-headers
+$ &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;deb http://deb.debian.org/debian/ unstable main&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;tee&lt;/span&gt; --append /etc/apt/sources.list.d/unstable.list
+$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;apt-get&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; dirmngr
+$ &lt;span class=&quot;token builtin class-name&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;Package: *&lt;span class=&quot;token entity&quot; title=&quot;\n&quot;&gt;\n&lt;/span&gt;Pin: release a=unstable&lt;span class=&quot;token entity&quot; title=&quot;\n&quot;&gt;\n&lt;/span&gt;Pin-Priority: 150&lt;span class=&quot;token entity&quot; title=&quot;\n&quot;&gt;\n&lt;/span&gt;&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;tee&lt;/span&gt; --append /etc/apt/preferences.d/limit-unstable
+$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; apt-key adv --keyserver   keyserver.ubuntu.com --recv-keys 8B48AD6246925553
+$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; apt-key adv --keyserver   keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC
+$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; apt-key adv --keyserver   keyserver.ubuntu.com --recv-keys 7638D0442B90D010
+$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;apt-get&lt;/span&gt; update
+$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;apt-get&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; wireguard&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;/etc/sysctl.conf を vi でいじる。net.ipv4.ip_forward の項目を 1 にする。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# Uncomment the next line to enable packet forwarding for IPv4&lt;/span&gt;
+net.ipv4.ip_forward&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1 id=&quot;wireguard-の設定&quot;&gt;&lt;a href=&quot;#wireguard-%E3%81%AE%E8%A8%AD%E5%AE%9A&quot; aria-label=&quot;wireguard の設定 permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;WireGuard の設定&lt;/h1&gt;
+&lt;p&gt;まずは VPN を使って外部ネットワークから Raspberry Pi に ssh できるようにします。それができたら Raspberry Pi を踏み台に他のサーバにも ssh できるようにします。&lt;/p&gt;
+&lt;p&gt;WireGuard の設定にサーバとクライアントという概念は出ず Peer to Peer のような仕組みになっています。VPN を接続する Peer 同士で秘密鍵と公開鍵の生成が必要になります。&lt;/p&gt;
+&lt;p&gt;便宜上ここから先では Raspberry Pi 上の WireGuard をサーバ、Mac に入れる WireGuard アプリをクライアントと考えて説明します。&lt;/p&gt;
+&lt;p&gt;WireGuard がインストールできたら、wg というコマンドが利用できるようになるので、サーバ用の秘密鍵と公開鍵を生成します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; wgkeys
+$ &lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; wgkeys
+&lt;span class=&quot;token comment&quot;&gt;# 秘密鍵の生成&lt;/span&gt;
+$ wg genkey &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; server_private.key
+&lt;span class=&quot;token comment&quot;&gt;# 秘密鍵から公開鍵を生成&lt;/span&gt;
+$ wg pubkey &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; server_public.key &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; server_private.key&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Mac 用のアプリは公式のストアにあるので、ここからダウンロードします。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://apps.apple.com/jp/app/wireguard/id1451685025&quot;&gt;https://apps.apple.com/jp/app/wireguard/id1451685025&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;アプリを起動したら左下の+ボタンから &lt;code class=&quot;language-text&quot;&gt;Add Empty Tunnel&lt;/code&gt; を選択すると秘密鍵と公開鍵が生成されるので、名前をつけて一旦 save します。
+&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 512px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/5bd5714f5a4a92092f943006c2ea1627/e585c/mac.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 36.71875%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAABuklEQVQozz2MS28SYRSGx39gN21py6XQASqF4nBxsJfUYaRggc7AQAW5VRtrbDFBdKExJrqRhaSt0Z2/yURjQjFx7c94/BiqiyfP+57vnE+KxeIEgkH8/oCNLPtZEfhWZDvLk5n/n6dM3ldvhFDEraLEhK8QWUqlVHrPTuj3ujzqNLDMIi9EPvv4gWa9ilUqUjbzU4wrzAJmcY+EEkFZFx9H1wTCNyNIsXiCdKHBnXyTzd0aarqMvt9m13qMqlfYzFRIaha3BGraIqVb3NanDqtZQskMEeGwmiMS30IKRVNIxjdmOpfob3+h9MckXo7Zfj0mcHopGBF9Lvqb31xv/UTa/y72f9i+Vh0hlUdsvBqjvf+DKzdECkeT+Ha6JK13mE8vyB+fk24NMJ4MyR0N2Tv+ROn0C3p7IPIFG7UB2uE5WucMWe/j3u5inHym0vuKnDCQvL4ganyNnL5F60GFo06dQk7DLGRp3Ddp1kocNg8w8hm7V817VIws7XqJuzsqaixEvWrwsHXAeiSE5Pau4lwO4FjyMutwMTvvYn5xWeBhzuGezhwuu088t+CxmeRFp48lt/x/x+nx8xd3FwB9RwJRlwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Mac設定&quot;
+        title=&quot;Mac設定&quot;
+        src=&quot;/static/5bd5714f5a4a92092f943006c2ea1627/e585c/mac.png&quot;
+        srcset=&quot;/static/5bd5714f5a4a92092f943006c2ea1627/00d96/mac.png 148w,
+/static/5bd5714f5a4a92092f943006c2ea1627/0b23c/mac.png 295w,
+/static/5bd5714f5a4a92092f943006c2ea1627/e585c/mac.png 512w&quot;
+        sizes=&quot;(max-width: 512px) 100vw, 512px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;ここで生成された公開鍵をサーバの方の設定ファイルに書くことになります。
+&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ea456aa65c36071d77a1be1894d7a32d/5f584/mac_key.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 32.482993197278915%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAABH0lEQVQY043Q2VLCMBQG4L5HodAigjQtYs3SJZQC0rRFqzIu7/8iv0mseuvFN//JyczJ4nDOwRiDSUopql0JeajBKwVR1f+gkB1a5McOYneCw/kwjFGUZYmua3FUHdTzGxqtfXm3utePX+fLp03Tr58uEOURaXWCkHs9kHFwyiFYikY16Pse9ekBj3qw0aoa57aBzDPIIre2Q8oiQ5Gl4PoywrxSp8Oye7D9nZZgQzcIozVIfGuZOozXNperEAttOVgMblYEURSBaEmSwCn0vynK0IsclIQo4ynycApJDB+72EehM9e2cQAZ+chC0w8svppiPB7DdV0QQuBE+gTfnWDuBZhNfMyDCa58vR5cB3/1D7sffJvp2vM8jEYjO/ALBO7Di49lEdcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Mac鍵&quot;
+        title=&quot;Mac鍵&quot;
+        src=&quot;/static/ea456aa65c36071d77a1be1894d7a32d/799d3/mac_key.png&quot;
+        srcset=&quot;/static/ea456aa65c36071d77a1be1894d7a32d/00d96/mac_key.png 148w,
+/static/ea456aa65c36071d77a1be1894d7a32d/0b23c/mac_key.png 295w,
+/static/ea456aa65c36071d77a1be1894d7a32d/799d3/mac_key.png 590w,
+/static/ea456aa65c36071d77a1be1894d7a32d/2a3d6/mac_key.png 885w,
+/static/ea456aa65c36071d77a1be1894d7a32d/5f584/mac_key.png 1176w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;サーバの設定ファイルは /etc/wireguard/wg0.conf に配置します。&lt;/p&gt;
+&lt;p&gt;Interface に自分自身の設定（ここでは Raspberry Pi）、Peer に接続させる端末の設定（ここでは Mac）を書きます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;Interface&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# VPN の仮想的なネットワークで使うIPアドレスを設定する。今回はわかりやすいように10.0.0.1/24で設定した。&lt;/span&gt;
+Address &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10.0&lt;/span&gt;.0.1/24
+&lt;span class=&quot;token comment&quot;&gt;# WireGuard を listen させるポート。ルータのポート開放に使うので適当に変える。&lt;/span&gt;
+ListenPort &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;123456&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# wgコマンドで生成した秘密鍵を文字列で記入する&lt;/span&gt;
+PrivateKey &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;server_private.key&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# replace eth0 with the interface open to the internet (e.g might be wlan0 if wifi)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# 起動時と終了時に動くコマンドがかける。ひとまずnatするための呪文だと思っておく。&lt;/span&gt;
+PostUp &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; iptables -A FORWARD -i %i -j ACCEPT&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; iptables -A FORWARD -o %i -j ACCEPT&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; iptables -D FORWARD -i %i -j ACCEPT&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; iptables -D FORWARD -o %i -j ACCEPT&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
+&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;Peer&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# Macで生成した公開鍵を文字列で記入する&lt;/span&gt;
+PublicKey &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;client_public.key&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# わかりやすくするためにクライアントの仮想IPを 10.0.0.2/32 に設定する。サーバへの接続許可IPに追加する。&lt;/span&gt;
+AllowedIPs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10.0&lt;/span&gt;.0.2/32&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Mac 側は Peer の反対側なので逆に設定していく。違いは ListenPort がないことと、Endpoint を設定することです。&lt;/p&gt;
+&lt;p&gt;Endpoint を設定することで接続先を探しにいけるようになります。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;Interface&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+PrivateKey &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;client_private.key&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# クライアントの仮想IP&lt;/span&gt;
+Address &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10.0&lt;/span&gt;.0.2/24
+
+&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;Peer&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# serverの公開鍵を文字列で記入する&lt;/span&gt;
+PublicKey &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;server_public.key&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+AllowedIPs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10.0&lt;/span&gt;.0.1/32
+&lt;span class=&quot;token comment&quot;&gt;# サーバのグローバルIPとListenPortを設定する。こんなグローバルIPはありえないけど各環境に合わせてよみかえる。&lt;/span&gt;
+Endpoint &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;192.168&lt;/span&gt;.11.1:123456&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ここまで設定が終わったらルーターの設定をいじって、Raspberry Pi の IP と ListenPort に指定したポートをインターネットに公開します。
+WireGuard が利用するのは TCP ではなく UDP なので公開するときはその点も注意が必要です。&lt;/p&gt;
+&lt;p&gt;設定し終わったらサーバで WireGuard を起動します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; wg-quick up wg0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;サーバが起動できていることを確認したら Mac を携帯でテザリングしてから WireGuard アプリで先程設定した Activate ボタンを押します。&lt;/p&gt;
+&lt;p&gt;うちのルーターはヘアピン NAT に対応していないので、同じネットワーク内から自分自身のグローバル IP を解決できないので、必ず Mac を別のネットワークにつなぐ必要がありました。（ここに気づくのに結構時間がかかった）&lt;/p&gt;
+&lt;p&gt;うまく接続が成功すると自分で設定した仮想 IP に対して ssh で Raspberry Pi に接続できるようになります。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;ssh&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10.0&lt;/span&gt;.0.1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1 id=&quot;lan-内の他の機器にも-vpn-ごしに接続できるようにする&quot;&gt;&lt;a href=&quot;#lan-%E5%86%85%E3%81%AE%E4%BB%96%E3%81%AE%E6%A9%9F%E5%99%A8%E3%81%AB%E3%82%82-vpn-%E3%81%94%E3%81%97%E3%81%AB%E6%8E%A5%E7%B6%9A%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B&quot; aria-label=&quot;lan 内の他の機器にも vpn ごしに接続できるようにする permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;LAN 内の他の機器にも VPN ごしに接続できるようにする&lt;/h1&gt;
+&lt;p&gt;この状態では Raspberry Pi 以外にアクセスできないので、Raspberry Pi を踏み台にして家の LAN 内の機器にアクセスできるようにします。&lt;/p&gt;
+&lt;p&gt;これは Raspberry Pi 側の設定で PostUp で iptables の MASQUERADE ルールを追加するとできるようになります。&lt;/p&gt;
+&lt;p&gt;PostUp の最後に &lt;code class=&quot;language-text&quot;&gt;iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -j MASQUERADE&lt;/code&gt; を追加します。PostDown で -D することでお掃除も忘れないようにします。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;PostUp &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; iptables -A FORWARD -i %i -j ACCEPT&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; iptables -A FORWARD -o %i -j ACCEPT&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; iptables -t nat -A POSTROUTING -s &lt;span class=&quot;token number&quot;&gt;10.0&lt;/span&gt;.0.0/24 -j MASQUERADE
+PostDown &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; iptables -D FORWARD -i %i -j ACCEPT&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; iptables -D FORWARD -o %i -j ACCEPT&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; iptables -t nat -D POSTROUTING -s &lt;span class=&quot;token number&quot;&gt;10.0&lt;/span&gt;.0.0/24 -j MASQUERADE&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Mac 側では Peer の AllowedIPs に他の機器の IP を追加します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;AllowedIPs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10.0&lt;/span&gt;.0.1/32, &lt;span class=&quot;token number&quot;&gt;192.168&lt;/span&gt;.11.0/24&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;この設定で Mac から 192.168.11.0/24 のレンジにある機器に到達できるようになります。（もちろん ssh だけでなく Remote Desktop 等もできます）&lt;/p&gt;
+&lt;h1 id=&quot;wireguard-を自動起動させる&quot;&gt;&lt;a href=&quot;#wireguard-%E3%82%92%E8%87%AA%E5%8B%95%E8%B5%B7%E5%8B%95%E3%81%95%E3%81%9B%E3%82%8B&quot; aria-label=&quot;wireguard を自動起動させる permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;WireGuard を自動起動させる&lt;/h1&gt;
+&lt;p&gt;このままだと Raspberry Pi が再起動すると WireGuard が自動起動しないので、systemctl で自動起動するようにします。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ sudo systemctl start wg-quick@wg0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1 id=&quot;おわりに&quot;&gt;&lt;a href=&quot;#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB&quot; aria-label=&quot;おわりに permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;おわりに&lt;/h1&gt;
+&lt;p&gt;これで WireGuard を利用して外部ネットワークから自宅の開発サーバにアクセスできるようになりました。&lt;/p&gt;
+&lt;p&gt;家に強力なサーバを用意しておけば、カフェなどでも開発ができるのはなかなかよい体験だなと思っています。&lt;/p&gt;
+&lt;p&gt;自宅 VPN は思った以上に Quality of Development に貢献するので、簡単に環境を用意できるようになる WireGuard はおすすめです。&lt;/p&gt;
+&lt;p&gt;自宅 VPN を用意して快適な開発ライフを送りましょう！&lt;/p&gt;</content:encoded></item><item><title><![CDATA[VSCodeにZenVimというVim拡張を作った]]></title><description><![CDATA[前回の記事 で VSCode/Vim が重くなってしまう件について対処法を調べたが、それでもどうしても重くて厳しかったので自分用に作ってしまった。 作った拡張は ZenVim…]]></description><link>https://blog.koh.dev/2019-11-22-vscode-zenvim/</link><guid isPermaLink="false">https://blog.koh.dev/2019-11-22-vscode-zenvim/</guid><pubDate>Fri, 22 Nov 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;../2019-10-13-vscode-vim/&quot;&gt;前回の記事&lt;/a&gt; で &lt;a href=&quot;http://aka.ms/vscodevim&quot;&gt;VSCode/Vim&lt;/a&gt; が重くなってしまう件について対処法を調べたが、それでもどうしても重くて厳しかったので自分用に作ってしまった。&lt;/p&gt;
 &lt;p&gt;作った拡張は &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=koh110.zenvim&quot;&gt;ZenVim&lt;/a&gt; という名前でマーケットに公開したので、作り方と公開の仕方を備忘録にまとめる。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/koh110/zenvim/issues&quot;&gt;フィードバック募集中です&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;特徴&lt;/p&gt;
@@ -25,7 +189,7 @@
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;src/extension.ts&lt;/code&gt; がエントリポイントなのでそこに内部の実装をしていく。(package.json の main プロパティで変更はできそう)&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;function activate(context: vscode.ExtensionContext)&lt;/code&gt; が VSCode が立ち上がったときに呼び出されるときのライフサイクルイベントに対する hook になる。&lt;/p&gt;
 &lt;h2 id=&quot;registercommand&quot;&gt;&lt;a href=&quot;#registercommand&quot; aria-label=&quot;registercommand permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;registerCommand&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;vscode.commands.registerCommand(key, handler)&lt;/code&gt; という API で VSCode のイベントに bind できる。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;vscode.commands.registerCommand(keyundefined handler)&lt;/code&gt; という API で VSCode のイベントに bind できる。&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;registerCommand&lt;/code&gt; で返ってくるオブジェクトは activate メソッドの引数に入っている context に必ず push しなければならない。でないとゴミが残るらしい。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;context&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;subscriptions&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;vscode&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;commands&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;registerCommand&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token parameter&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;これは何度も登場するのでラッピングする関数を定義しておくとよい。&lt;/p&gt;
@@ -198,7 +362,7 @@ vscode&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span 
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/2f70f77fefde39558cf40c0fb7e3b1d2/f562b/token.jpg&quot;
+    href=&quot;/static/2f70f77fefde39558cf40c0fb7e3b1d2/8b928/token.jpg&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -211,11 +375,12 @@ vscode&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span 
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;アクセストークン&quot;
         title=&quot;アクセストークン&quot;
-        src=&quot;/static/2f70f77fefde39558cf40c0fb7e3b1d2/f562b/token.jpg&quot;
-        srcset=&quot;/static/2f70f77fefde39558cf40c0fb7e3b1d2/8ee9c/token.jpg 148w,
-/static/2f70f77fefde39558cf40c0fb7e3b1d2/ebbe7/token.jpg 295w,
-/static/2f70f77fefde39558cf40c0fb7e3b1d2/f562b/token.jpg 320w&quot;
+        src=&quot;/static/2f70f77fefde39558cf40c0fb7e3b1d2/8b928/token.jpg&quot;
+        srcset=&quot;/static/2f70f77fefde39558cf40c0fb7e3b1d2/7237a/token.jpg 148w,
+/static/2f70f77fefde39558cf40c0fb7e3b1d2/0cfdf/token.jpg 295w,
+/static/2f70f77fefde39558cf40c0fb7e3b1d2/8b928/token.jpg 320w&quot;
         sizes=&quot;(max-width: 320px) 100vw, 320px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
