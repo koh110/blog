@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kohsweblog]]></title><description><![CDATA[気になった技術などをまとめていくブログです。]]></description><link>https://blog.koh.dev</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 01 Jan 2020 16:11:35 GMT</lastBuildDate><item><title><![CDATA[WireGuardでVPNごしに自宅サーバ開発できる環境を作った]]></title><description><![CDATA[まえおき 自分は普段 MacBook Pro の 13 インチを開発機として利用しています。メモリは 16GB にしているので Web…]]></description><link>https://blog.koh.dev/2020-01-01-vpn/</link><guid isPermaLink="false">https://blog.koh.dev/2020-01-01-vpn/</guid><pubDate>Wed, 01 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;まえおき&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%88%E3%81%8A%E3%81%8D&quot; aria-label=&quot;まえおき permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まえおき&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kohsweblog]]></title><description><![CDATA[気になった技術などをまとめていくブログです。]]></description><link>https://blog.koh.dev</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 02 Jan 2020 06:08:24 GMT</lastBuildDate><item><title><![CDATA[WireGuardでVPNごしに自宅サーバ開発できる環境を作った]]></title><description><![CDATA[まえおき 自分は普段 MacBook Pro の 13 インチを開発機として利用しています。メモリは 16GB にしているので Web…]]></description><link>https://blog.koh.dev/2020-01-01-vpn/</link><guid isPermaLink="false">https://blog.koh.dev/2020-01-01-vpn/</guid><pubDate>Wed, 01 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;まえおき&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%88%E3%81%8A%E3%81%8D&quot; aria-label=&quot;まえおき permalink&quot; class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まえおき&lt;/h1&gt;
 &lt;p&gt;自分は普段 MacBook Pro の 13 インチを開発機として利用しています。メモリは 16GB にしているので Web 開発をする時にはあまり不便に感じることはありません。
 ただ、サービスの開発のステージ環境や、自宅内の自動化や副業で受けている調査案件などはそれぞれ環境ごとに仮想サーバを立ち上げています。&lt;/p&gt;
 &lt;p&gt;仮想サーバは nuc に入れた Windows 上の Hyper-V で運用しています。nuc は 24 時間立ち上げたままでテレビにつないで Amazon プライムの再生機も兼ねています。
@@ -46,28 +46,28 @@ $ wg pubkey &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; serve
 &lt;p&gt;アプリを起動したら左下の+ボタンから &lt;code class=&quot;language-text&quot;&gt;Add Empty Tunnel&lt;/code&gt; を選択すると秘密鍵と公開鍵が生成されるので、名前をつけて一旦 save します。
 &lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 512px;&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 320px;&quot;
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/5bd5714f5a4a92092f943006c2ea1627/e585c/mac.png&quot;
+    href=&quot;/static/ee3c8e26d4e6c479fbd22e16adfeb546/8b928/mac.jpg&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
   &gt;
     &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 36.71875%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAABuklEQVQozz2MS28SYRSGx39gN21py6XQASqF4nBxsJfUYaRggc7AQAW5VRtrbDFBdKExJrqRhaSt0Z2/yURjQjFx7c94/BiqiyfP+57vnE+KxeIEgkH8/oCNLPtZEfhWZDvLk5n/n6dM3ldvhFDEraLEhK8QWUqlVHrPTuj3ujzqNLDMIi9EPvv4gWa9ilUqUjbzU4wrzAJmcY+EEkFZFx9H1wTCNyNIsXiCdKHBnXyTzd0aarqMvt9m13qMqlfYzFRIaha3BGraIqVb3NanDqtZQskMEeGwmiMS30IKRVNIxjdmOpfob3+h9MckXo7Zfj0mcHopGBF9Lvqb31xv/UTa/y72f9i+Vh0hlUdsvBqjvf+DKzdECkeT+Ha6JK13mE8vyB+fk24NMJ4MyR0N2Tv+ROn0C3p7IPIFG7UB2uE5WucMWe/j3u5inHym0vuKnDCQvL4ganyNnL5F60GFo06dQk7DLGRp3Ddp1kocNg8w8hm7V817VIws7XqJuzsqaixEvWrwsHXAeiSE5Pau4lwO4FjyMutwMTvvYn5xWeBhzuGezhwuu088t+CxmeRFp48lt/x/x+nx8xd3FwB9RwJRlwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 36.875%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAHABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAIE/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAcAsgH//xAAZEAADAAMAAAAAAAAAAAAAAAAAAQIREiH/2gAIAQEAAQUCSnGsj4f/xAAVEQEBAAAAAAAAAAAAAAAAAAAQEf/aAAgBAwEBPwGH/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQIBAT8Bqv/EABQQAQAAAAAAAAAAAAAAAAAAABD/2gAIAQEABj8Cf//EABgQAQEBAQEAAAAAAAAAAAAAAAERACEx/9oACAEBAAE/IU0nch5oiK83/9oADAMBAAIAAwAAABCH3//EABcRAQADAAAAAAAAAAAAAAAAAAARYXH/2gAIAQMBAT8Q0i3/xAAXEQADAQAAAAAAAAAAAAAAAAAAEVEB/9oACAECAQE/EFmCQ//EABoQAQADAAMAAAAAAAAAAAAAAAEAITERUWH/2gAIAQEAAT8QPGFWO97NicnjC1kC1k//2Q==&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;Mac設定&quot;
         title=&quot;Mac設定&quot;
-        src=&quot;/static/5bd5714f5a4a92092f943006c2ea1627/e585c/mac.png&quot;
-        srcset=&quot;/static/5bd5714f5a4a92092f943006c2ea1627/00d96/mac.png 148w,
-/static/5bd5714f5a4a92092f943006c2ea1627/0b23c/mac.png 295w,
-/static/5bd5714f5a4a92092f943006c2ea1627/e585c/mac.png 512w&quot;
-        sizes=&quot;(max-width: 512px) 100vw, 512px&quot;
+        src=&quot;/static/ee3c8e26d4e6c479fbd22e16adfeb546/8b928/mac.jpg&quot;
+        srcset=&quot;/static/ee3c8e26d4e6c479fbd22e16adfeb546/7237a/mac.jpg 148w,
+/static/ee3c8e26d4e6c479fbd22e16adfeb546/0cfdf/mac.jpg 295w,
+/static/ee3c8e26d4e6c479fbd22e16adfeb546/8b928/mac.jpg 320w&quot;
+        sizes=&quot;(max-width: 320px) 100vw, 320px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
@@ -76,30 +76,28 @@ $ wg pubkey &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; serve
 &lt;p&gt;ここで生成された公開鍵をサーバの方の設定ファイルに書くことになります。
 &lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 320px;&quot;
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/ea456aa65c36071d77a1be1894d7a32d/5f584/mac_key.png&quot;
+    href=&quot;/static/1d0ca5d5829b4d18b69a27c46e449903/8b928/mac_key.jpg&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
   &gt;
     &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 32.482993197278915%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAABH0lEQVQY043Q2VLCMBQG4L5HodAigjQtYs3SJZQC0rRFqzIu7/8iv0mseuvFN//JyczJ4nDOwRiDSUopql0JeajBKwVR1f+gkB1a5McOYneCw/kwjFGUZYmua3FUHdTzGxqtfXm3utePX+fLp03Tr58uEOURaXWCkHs9kHFwyiFYikY16Pse9ekBj3qw0aoa57aBzDPIIre2Q8oiQ5Gl4PoywrxSp8Oye7D9nZZgQzcIozVIfGuZOozXNperEAttOVgMblYEURSBaEmSwCn0vynK0IsclIQo4ynycApJDB+72EehM9e2cQAZ+chC0w8svppiPB7DdV0QQuBE+gTfnWDuBZhNfMyDCa58vR5cB3/1D7sffJvp2vM8jEYjO/ALBO7Di49lEdcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    style=&quot;padding-bottom: 32.49999999999999%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAHABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAABywQH/8QAFRABAQAAAAAAAAAAAAAAAAAAABL/2gAIAQEAAQUCpSn/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAUEAEAAAAAAAAAAAAAAAAAAAAQ/9oACAEBAAY/An//xAAYEAACAwAAAAAAAAAAAAAAAAAAARARgf/aAAgBAQABPyGqMx//2gAMAwEAAgADAAAAEPAP/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPxA//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPxA//8QAGRABAAIDAAAAAAAAAAAAAAAAAQAhEXHR/9oACAEBAAE/ECgA7I34is0T/9k=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;Mac鍵&quot;
         title=&quot;Mac鍵&quot;
-        src=&quot;/static/ea456aa65c36071d77a1be1894d7a32d/799d3/mac_key.png&quot;
-        srcset=&quot;/static/ea456aa65c36071d77a1be1894d7a32d/00d96/mac_key.png 148w,
-/static/ea456aa65c36071d77a1be1894d7a32d/0b23c/mac_key.png 295w,
-/static/ea456aa65c36071d77a1be1894d7a32d/799d3/mac_key.png 590w,
-/static/ea456aa65c36071d77a1be1894d7a32d/2a3d6/mac_key.png 885w,
-/static/ea456aa65c36071d77a1be1894d7a32d/5f584/mac_key.png 1176w&quot;
-        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        src=&quot;/static/1d0ca5d5829b4d18b69a27c46e449903/8b928/mac_key.jpg&quot;
+        srcset=&quot;/static/1d0ca5d5829b4d18b69a27c46e449903/7237a/mac_key.jpg 148w,
+/static/1d0ca5d5829b4d18b69a27c46e449903/0cfdf/mac_key.jpg 295w,
+/static/1d0ca5d5829b4d18b69a27c46e449903/8b928/mac_key.jpg 320w&quot;
+        sizes=&quot;(max-width: 320px) 100vw, 320px&quot;
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
