@@ -280,7 +280,9 @@ Token につける権限もかなり細かく設定でき、npmに比べて安�
 
 ## Publish するための Token を取得する
 
-名前はなんでもいいがマーケットプレイスに露出するので、気にする人はモジュール名と同じにするといいかもしれない。自分はアカウントと一致させた。
+名前はなんでもいいが `all accessible accounts` を選択しないと Token を入力する段階で `ERROR  Failed request: (401)` となり vsce にログインできないので注意。
+
+https://code.visualstudio.com/api/working-with-extensions/publishing-extension#i-get-403-forbidden-or-401-unauthorized-error-when-i-try-to-publish-my-extension
 
 ## Token を取得する
 
