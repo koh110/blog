@@ -2,11 +2,12 @@
 import 'typeface-montserrat'
 import 'typeface-merriweather'
 
-import 'prism-themes/themes/prism-darcula.css'
+import 'prism-themes/themes/prism-base16-ateliersulphurpool.light.css'
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
 
 import './src/styles/global.css'
 
+/*
 const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)')
 darkModeQuery.addListener(e => {
   if (e.matches) {
@@ -21,3 +22,4 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 } else {
   document.documentElement.setAttribute('data-theme', 'light')
 }
+*/

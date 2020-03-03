@@ -11,8 +11,8 @@ import { rhythm, scale } from '../utils/typography'
 
 const TableOfContentsWrapper = styled.nav`
   background-color: var(--color-on-background);
-  padding: 16px;
-  color: #787c7b;
+  padding: 32px;
+  color: #24292e;
   margin-bottom: 40px;
   h4 {
     font-size: 14px;
@@ -34,29 +34,26 @@ const TableOfContents = styled.div`
     margin: 0;
     padding: 0;
     list-style: none;
-    li:first-child {
-      border-top: none;
-    }
     li {
       margin: 0;
       padding: 8px 0;
       font-size: 14px;
       list-style-type: none;
-      border-top: 1px solid #e6e6e6;
+      border-top: 1px solid #d1d5da;
     }
   }
 `
 
 const Date = styled.time`
   display: block;
-  margin-bottom: ${rhythm(1)};
-  margin-top: ${rhythm(1)};
+  margin-top: 16px;
 `
 
 const ButtonsWrap = styled.div`
   display: flex;
   justify-content: space-between;
   max-width: 200px;
+  margin-top: 10px;
 `
 
 function Buttons() {
@@ -73,14 +70,13 @@ const Post = styled.div`
   h1 {
     font-weight: 800;
     background-color: var(--color-background-head);
-    border-left: 12px solid var(--color-body);
-    padding: 8px 24px;
+    padding: 8px 0 0 0;
   }
-  h2, h3 {
+  h2,
+  h3 {
     font-weight: 700;
     background-color: var(--color-background-head);
-    border-left: 12px solid var(--color-body);
-    padding: 8px 24px;
+    padding: 8px 0 0 0;
   }
   blockquote: {
     border-left: 0.32813rem solid var(--color-blockquote-border-left);
