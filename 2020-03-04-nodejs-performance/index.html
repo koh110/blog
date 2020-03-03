@@ -1,0 +1,553 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.75 'Roboto','Noto Sans JP',-apple-system,'BlinkMacSystemFont','Segoe UI','Helvetica',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Hiragino Kaku Gothic ProN W3','HiraKakuProN-W3','ヒラギノ角ゴ ProN W3','メイリオ','Arial','Osaka','ＭＳ Ｐゴシック','MS PGothic','Helvetica','Merriweather','Georgia',serif;box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:var(--color-body);font-family:'Roboto','Noto Sans JP',-apple-system,'BlinkMacSystemFont','Segoe UI','Helvetica',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Hiragino Kaku Gothic ProN W3','HiraKakuProN-W3','ヒラギノ角ゴ ProN W3','メイリオ','Arial','Osaka','ＭＳ Ｐゴシック','MS PGothic','Helvetica','Merriweather','Georgia',serif;font-weight:400;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";background:var(--color-background-body);}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}h1{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:Montserrat,sans-serif;font-weight:900;text-rendering:optimizeLegibility;font-size:2.5rem;line-height:1.1;}h2{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Roboto','Noto Sans JP',-apple-system,'BlinkMacSystemFont','Segoe UI','Helvetica',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Hiragino Kaku Gothic ProN W3','HiraKakuProN-W3','ヒラギノ角ゴ ProN W3','メイリオ','Arial','Osaka','ＭＳ Ｐゴシック','MS PGothic','Helvetica','Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.73286rem;line-height:1.1;}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Roboto','Noto Sans JP',-apple-system,'BlinkMacSystemFont','Segoe UI','Helvetica',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Hiragino Kaku Gothic ProN W3','HiraKakuProN-W3','ヒラギノ角ゴ ProN W3','メイリオ','Arial','Osaka','ＭＳ Ｐゴシック','MS PGothic','Helvetica','Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1.4427rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Roboto','Noto Sans JP',-apple-system,'BlinkMacSystemFont','Segoe UI','Helvetica',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Hiragino Kaku Gothic ProN W3','HiraKakuProN-W3','ヒラギノ角ゴ ProN W3','メイリオ','Arial','Osaka','ＭＳ Ｐゴシック','MS PGothic','Helvetica','Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;letter-spacing:0.140625em;text-transform:uppercase;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Roboto','Noto Sans JP',-apple-system,'BlinkMacSystemFont','Segoe UI','Helvetica',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Hiragino Kaku Gothic ProN W3','HiraKakuProN-W3','ヒラギノ角ゴ ProN W3','メイリオ','Arial','Osaka','ＭＳ Ｐゴシック','MS PGothic','Helvetica','Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.83255rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;color:inherit;font-family:'Roboto','Noto Sans JP',-apple-system,'BlinkMacSystemFont','Segoe UI','Helvetica',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Hiragino Kaku Gothic ProN W3','HiraKakuProN-W3','ヒラギノ角ゴ ProN W3','メイリオ','Arial','Osaka','ＭＳ Ｐゴシック','MS PGothic','Helvetica','Merriweather','Georgia',serif;font-weight:900;text-rendering:optimizeLegibility;font-size:0.75966rem;line-height:1.1;font-style:italic;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}ul{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;list-style:disc;}ol{margin-left:1.75rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1em;line-height:32px;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:0.85rem;line-height:1.75rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1rem;line-height:1.75rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}blockquote{margin-left:-1.75rem;margin-right:1.75rem;margin-top:0;padding-bottom:0;padding-left:1.42188rem;padding-right:0;padding-top:0;margin-bottom:1.75rem;font-size:1.20112rem;line-height:1.75rem;color:hsla(0,0%,0%,0.59);font-style:italic;border-left:0.32813rem solid hsla(0,0%,0%,0.9);}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(1.75rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.75rem;}b{font-weight:700;}strong{font-weight:700;}dt{font-weight:700;}th{font-weight:700;}li{margin-bottom:calc(1.75rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}li > ul{margin-left:1.75rem;margin-bottom:calc(1.75rem / 2);margin-top:calc(1.75rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(1.75rem / 2);}code{font-size:0.85rem;line-height:1.75rem;}kbd{font-size:0.85rem;line-height:1.75rem;}samp{font-size:0.85rem;line-height:1.75rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.16667rem;padding-right:1.16667rem;padding-top:0.875rem;padding-bottom:calc(0.875rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}blockquote > :last-child{margin-bottom:0;}blockquote cite{font-size:1rem;line-height:1.75rem;color:hsla(0,0%,0%,0.9);font-weight:400;}blockquote cite:before{content:"— ";}ul,ol{margin-left:0;}@media only screen and (max-width:480px){ul,ol{margin-left:1.75rem;}blockquote{margin-left:-1.3125rem;margin-right:0;padding-left:0.98438rem;}}h1,h2,h3,h4,h5,h6{margin-top:3.5rem;}a{box-shadow:none;color:#1da1f2;text-decoration:none;}a:hover,a:active{box-shadow:none;}mark,ins{background:#007acc;color:white;padding:0.10938rem 0.21875rem;text-decoration:none;}</style><style data-href="/styles.2f4c27aea009a931444b.css">@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/static/montserrat-latin-100-191cc9f50f3b76b9617cb383f19acb7d.woff2) format("woff2"),url(/static/montserrat-latin-100-370318464551d5f25b0f0a78f374faac.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/static/montserrat-latin-100italic-bdeaeb79db315697bd173a55b097dc18.woff2) format("woff2"),url(/static/montserrat-latin-100italic-ecf7d49386e8f265878e735db34a7c4b.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/static/montserrat-latin-200-85d5ef9db7f2dc6979172a4a3b2c57cb.woff2) format("woff2"),url(/static/montserrat-latin-200-1fc98e126a3d152549240e6244d7e669.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/static/montserrat-latin-200italic-49095760a498d024fe1a85a078850df9.woff2) format("woff2"),url(/static/montserrat-latin-200italic-fe46cf8b9462c820457d3bf537e4057f.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/static/montserrat-latin-300-7c3daf12b706645b5d3710f863a4da04.woff2) format("woff2"),url(/static/montserrat-latin-300-8dc95fab9cf98d02ca8d76e97d3dff60.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/static/montserrat-latin-300italic-f20b178ca2024a5eac8e42e6649db86c.woff2) format("woff2"),url(/static/montserrat-latin-300italic-3fe16939288856e8e828fa2661bf2354.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/static/montserrat-latin-400-bc3aa95dca08f5fee5291e34959c27bc.woff2) format("woff2"),url(/static/montserrat-latin-400-8102c4838f9e3d08dad644290a9cb701.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/static/montserrat-latin-400italic-5cad650422a7184467af5a4d17b264c4.woff2) format("woff2"),url(/static/montserrat-latin-400italic-d191f22af3bb50902b99ac577f81a322.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/static/montserrat-latin-500-92d16e458625f4d2c8940f6bdca0ff09.woff2) format("woff2"),url(/static/montserrat-latin-500-8b763220218ffc11c57c84ddb80e7b26.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/static/montserrat-latin-500italic-47bfcca6b69d6a9acca7a8bff17193e2.woff2) format("woff2"),url(/static/montserrat-latin-500italic-72c01f753c3940c0b9cb6bf2389caddf.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/static/montserrat-latin-600-6fb1b5623e528e27c18658fecf5ee0ee.woff2) format("woff2"),url(/static/montserrat-latin-600-7c839d15a6f54e7025ba8c0c4b333e8f.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/static/montserrat-latin-600italic-60789af1c9338ed1a9546722ec54b4f7.woff2) format("woff2"),url(/static/montserrat-latin-600italic-f3d4de8d0afb19e777c79032ce828e3d.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/static/montserrat-latin-700-39d93cf678c740f9f6b2b1cfde34bee3.woff2) format("woff2"),url(/static/montserrat-latin-700-80f10bd382f0df1cd650fec59f3c9394.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/static/montserrat-latin-700italic-ba136d97b14e82284dd595e257f11c47.woff2) format("woff2"),url(/static/montserrat-latin-700italic-8c98142b425630821139c24bd1698700.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/static/montserrat-latin-800-b7018be9ed6cd94da8b6675b3a468c3b.woff2) format("woff2"),url(/static/montserrat-latin-800-9a9befcf50d64f9d2d19d8b1d1984add.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/static/montserrat-latin-800italic-540ffdd223d1a9ad3d4e678e1a23372e.woff2) format("woff2"),url(/static/montserrat-latin-800italic-897086f99f4e1f45e6b1e9368527d0bc.woff) format("woff")}@font-face{font-family:Montserrat;font-style:normal;font-display:swap;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/static/montserrat-latin-900-58cd789700850375b834e8b6776002eb.woff2) format("woff2"),url(/static/montserrat-latin-900-26d42c9428780e545a540bbb50c84bce.woff) format("woff")}@font-face{font-family:Montserrat;font-style:italic;font-display:swap;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/static/montserrat-latin-900italic-451157bc8861fe54f523b3669a3def71.woff2) format("woff2"),url(/static/montserrat-latin-900italic-a8ec4957e1c24f5793305763ad9845b3.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:300;src:local("Merriweather Light "),local("Merriweather-Light"),url(/static/merriweather-latin-300-b1158cfcd4aacb9d8fb61625e37af46a.woff2) format("woff2"),url(/static/merriweather-latin-300-cc7de05e166e90320d7d896e0f72a19d.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:300;src:local("Merriweather Light italic"),local("Merriweather-Lightitalic"),url(/static/merriweather-latin-300italic-8fe52a48089d6ebe46db0b8e7cc66263.woff2) format("woff2"),url(/static/merriweather-latin-300italic-e1331f5397c2a673f9d3765138debdb5.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:400;src:local("Merriweather Regular "),local("Merriweather-Regular"),url(/static/merriweather-latin-400-8276fdb72ae8f4714d4e6eba704cc39f.woff2) format("woff2"),url(/static/merriweather-latin-400-69f09800f4f6479d06e44eba837df872.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:400;src:local("Merriweather Regular italic"),local("Merriweather-Regularitalic"),url(/static/merriweather-latin-400italic-3a9be9ea9f7aa4af6de7307df21d9fc0.woff2) format("woff2"),url(/static/merriweather-latin-400italic-d76079ed7541a433a54f79316de086e9.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:700;src:local("Merriweather Bold "),local("Merriweather-Bold"),url(/static/merriweather-latin-700-fa534be7ffa380e39a7f6e03bf9a5e03.woff2) format("woff2"),url(/static/merriweather-latin-700-ba56ea84b8084b7ff9677f50d3cd81bd.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:700;src:local("Merriweather Bold italic"),local("Merriweather-Bolditalic"),url(/static/merriweather-latin-700italic-1ef5edaaa20ae53ea50399884c5e48c6.woff2) format("woff2"),url(/static/merriweather-latin-700italic-534bc9e7ce93c73d73426e46acd78092.woff) format("woff")}@font-face{font-family:Merriweather;font-style:normal;font-display:swap;font-weight:900;src:local("Merriweather Black "),local("Merriweather-Black"),url(/static/merriweather-latin-900-7528fb70e8a4a82c7305e72ff43ac25f.woff2) format("woff2"),url(/static/merriweather-latin-900-3799b6e2f5ed3fcccf9d7a708d7419fa.woff) format("woff")}@font-face{font-family:Merriweather;font-style:italic;font-display:swap;font-weight:900;src:local("Merriweather Black italic"),local("Merriweather-Blackitalic"),url(/static/merriweather-latin-900italic-e1b4d2aaa78e12ad84aaf8a56321e4c2.woff2) format("woff2"),url(/static/merriweather-latin-900italic-2ae22f731b3424e8dbb4b37f7ca6e708.woff) format("woff")}code[class*=language-],pre[class*=language-]{font-family:Consolas,Menlo,Monaco,Andale Mono WT,Andale Mono,Lucida Console,Lucida Sans Typewriter,DejaVu Sans Mono,Bitstream Vera Sans Mono,Liberation Mono,Nimbus Mono L,Courier New,Courier,monospace;font-size:14px;line-height:1.375;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none;background:#f5f7ff;color:#5e6687}pre>code[class*=language-]{font-size:1em}code[class*=language-]::selection,code[class*=language-] ::selection,pre[class*=language-]::selection,pre[class*=language-] ::selection{text-shadow:none;background:#dfe2f1}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#898ea4}.token.punctuation{color:#5e6687}.token.namespace{opacity:.7}.token.boolean,.token.number,.token.operator{color:#c76b29}.token.property{color:#c08b30}.token.tag{color:#3d8fd1}.token.string{color:#22a2c9}.token.selector{color:#6679cc}.token.attr-name{color:#c76b29}.language-css .token.string,.style .token.string,.token.entity,.token.url{color:#22a2c9}.token.attr-value,.token.control,.token.directive,.token.keyword,.token.unit{color:#ac9739}.token.atrule,.token.regex,.token.statement{color:#22a2c9}.token.placeholder,.token.variable{color:#3d8fd1}.token.deleted{text-decoration:line-through}.token.inserted{border-bottom:1px dotted #202746;text-decoration:none}.token.italic{font-style:italic}.token.bold,.token.important{font-weight:700}.token.important{color:#c94922}.token.entity{cursor:help}pre>code.highlight{outline:.4em solid #c94922;outline-offset:.4em}.line-numbers .line-numbers-rows{border-right-color:#dfe2f1}.line-numbers-rows>span:before{color:#979db4}.line-highlight{background:rgba(107,115,148,.2);background:-webkit-gradient(linear,left top,right top,color-stop(70%,rgba(107,115,148,.2)),to(rgba(107,115,148,0)));background:linear-gradient(90deg,rgba(107,115,148,.2) 70%,rgba(107,115,148,0))}pre[class*=language-].line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}pre[class*=language-].line-numbers>code{position:relative;white-space:inherit}.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:0;font-size:100%;left:-3.8em;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-ms-user-select:none;user-select:none}.line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}ul{padding-left:2em}li{margin-top:.25em;margin-bottom:0}.gatsby-highlight-code-line{background-color:#feb;display:block;margin-right:-1em;margin-left:-1em;padding-right:1em;padding-left:.75em;border-left:.25em solid #f99}.gatsby-highlight{background-color:#f6f8fa;border-radius:.3em;margin:.5em 0;padding:1em;overflow:auto}.gatsby-highlight pre[class*=language-].line-numbers{padding:0 0 0 2.8em;overflow:initial}:not(pre)>code[class*=language-]{padding:2px 5px;margin:0 2px}:not(pre)>code.language-text{border-radius:2px}:root{--color-black:#545454;--color-border:#d3d4e4;--color-link:#1da1f2;--color-background-body:#fff;--color-body:#545454;--color-on-background:#f7f9f9;--color-blockquote-border-left:rgba(0,0,0,0.9);--color-blockquote:rgba(0,0,0,0.59);--color-background-head:rgba(0,0,0,0.02)}[data-theme=dark]{--color-background-body:#15202b;--color-body:#fff;--color-on-background:#1c2938;--color-blockquote-border-left:rgba(255,255,255,0.9);--color-blockquote:rgba(255,255,255,0.59);--color-background-head:#2b2b2b}</style><meta name="generator" content="Gatsby 2.19.23"/><style type="text/css">
+    .anchor.before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      padding-right: 4px;
+    }
+    .anchor.after {
+      display: inline-block;
+      padding-left: 4px;
+    }
+    h1 .anchor svg,
+    h2 .anchor svg,
+    h3 .anchor svg,
+    h4 .anchor svg,
+    h5 .anchor svg,
+    h6 .anchor svg {
+      visibility: hidden;
+    }
+    h1:hover .anchor svg,
+    h2:hover .anchor svg,
+    h3:hover .anchor svg,
+    h4:hover .anchor svg,
+    h5:hover .anchor svg,
+    h6:hover .anchor svg,
+    h1 .anchor:focus svg,
+    h2 .anchor:focus svg,
+    h3 .anchor:focus svg,
+    h4 .anchor:focus svg,
+    h5 .anchor:focus svg,
+    h6 .anchor:focus svg {
+      visibility: visible;
+    }
+  </style><script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var hash = window.decodeURI(location.hash.replace('#', ''))
+      if (hash !== '') {
+        var element = document.getElementById(hash)
+        if (element) {
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+          var clientTop = document.documentElement.clientTop || document.body.clientTop || 0
+          var offset = element.getBoundingClientRect().top + scrollTop - clientTop
+          // Wait for the browser to finish rendering before scrolling.
+          setTimeout((function() {
+            window.scrollTo(0, offset - 0)
+          }), 0)
+        }
+      }
+    })
+  </script><link rel="preconnect dns-prefetch" href="https://www.google-analytics.com"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><link rel="icon" href="/icons/icon-48x48.png?v=c2575822e56e2b168aa0b6712bc92808"/><link rel="manifest" href="/manifest.webmanifest"/><meta name="theme-color" content="#663399"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=c2575822e56e2b168aa0b6712bc92808"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=c2575822e56e2b168aa0b6712bc92808"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=c2575822e56e2b168aa0b6712bc92808"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=c2575822e56e2b168aa0b6712bc92808"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=c2575822e56e2b168aa0b6712bc92808"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=c2575822e56e2b168aa0b6712bc92808"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=c2575822e56e2b168aa0b6712bc92808"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=c2575822e56e2b168aa0b6712bc92808"/><title data-react-helmet="true">0から始めるNode.jsパフォーマンスチューニング | kohsweblog</title><meta data-react-helmet="true" name="description" content="近年の Node.js は API のサーバとしてはもちろん、Nuxt.js や Next.js といった SSR や BFF…"/><meta data-react-helmet="true" property="og:title" content="0から始めるNode.jsパフォーマンスチューニング"/><meta data-react-helmet="true" property="og:description" content="近年の Node.js は API のサーバとしてはもちろん、Nuxt.js や Next.js といった SSR や BFF…"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" name="twitter:creator" content="koh110"/><meta data-react-helmet="true" name="twitter:title" content="0から始めるNode.jsパフォーマンスチューニング"/><meta data-react-helmet="true" name="twitter:description" content="近年の Node.js は API のサーバとしてはもちろん、Nuxt.js や Next.js といった SSR や BFF…"/><link as="script" rel="preload" href="/webpack-runtime-3241d3b175d211795bc4.js"/><link as="script" rel="preload" href="/styles-d92fff196de3ab39b810.js"/><link as="script" rel="preload" href="/app-2b62e15b1f057ff3d791.js"/><link as="script" rel="preload" href="/commons-f3fb9eddd369eaac2070.js"/><link as="script" rel="preload" href="/component---src-templates-blog-post-js-24a39d7f82e175c5f8d2.js"/><link as="fetch" rel="preload" href="/page-data/2020-03-04-nodejs-performance/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div style="margin-left:auto;margin-right:auto;max-width:52.5rem;padding:2.625rem 1.3125rem"><h3 style="margin-top:0"><a style="box-shadow:none;text-decoration:none;color:inherit" href="/">kohsweblog</a></h3><h1>0から始めるNode.jsパフォーマンスチューニング</h1><time style="font-size:0.83255rem;line-height:1.75rem" class="sc-AxiKw eSbheu">2020-03-04</time><div class="sc-AxhCb eSwYtm"><a class="twitter-share-button" href="https://twitter.com/intent/tweet?via=koh110" data-size="large"></a><div><a href = "https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-label-counter" data-hatena-bookmark-lang="ja" data-hatena-bookmark-height="28" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a></div></div><nav class="sc-AxjAm bcMPWx"><h4>目次</h4><div class="sc-AxirZ bJCmFu"><ul>
+<li>
+<p><a href="/2020-03-04-nodejs-performance/#1-%E8%A8%88%E6%B8%AC%E3%82%B9%E3%83%86%E3%83%83%E3%83%97">1. 計測ステップ</a></p>
+<ul>
+<li><a href="/2020-03-04-nodejs-performance/#%E6%9C%AC%E7%95%AA%E3%81%A8%E5%90%8C%E7%AD%89%E3%81%AE%E6%8C%99%E5%8B%95%E3%82%92%E3%81%99%E3%82%8B%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B">本番と同等の挙動をする環境を作る</a></li>
+<li><a href="/2020-03-04-nodejs-performance/#%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%E8%A8%88%E6%B8%AC%E3%83%84%E3%83%BC%E3%83%AB%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B">パフォーマンス計測ツールを入れる</a></li>
+</ul>
+</li>
+<li>
+<p><a href="/2020-03-04-nodejs-performance/#2-%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%E6%94%B9%E5%96%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97">2. パフォーマンス改善ステップ</a></p>
+<ul>
+<li>
+<p><a href="/2020-03-04-nodejs-performance/#%E8%A8%AD%E5%AE%9A%E7%A2%BA%E8%AA%8D">設定確認</a></p>
+<ul>
+<li><a href="/2020-03-04-nodejs-performance/#linux-%E7%B7%A8">linux 編</a></li>
+<li><a href="/2020-03-04-nodejs-performance/#nodejs-%E7%B7%A8">Node.js 編</a></li>
+</ul>
+</li>
+<li><a href="/2020-03-04-nodejs-performance/#cluster-%E5%AF%BE%E5%BF%9C">cluster 対応</a></li>
+<li>
+<p><a href="/2020-03-04-nodejs-performance/#%E3%83%97%E3%83%AD%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AA%E3%83%B3%E3%82%B0">プロファイリング</a></p>
+<ul>
+<li><a href="/2020-03-04-nodejs-performance/#nodejs-%E7%B7%A8-1">Node.js 編</a></li>
+<li><a href="/2020-03-04-nodejs-performance/#flamegraph-%E7%B7%A8">flamegraph 編</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="/2020-03-04-nodejs-performance/#3-%E5%85%B7%E4%BD%93%E7%9A%84%E3%81%AA%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%E3%82%A4%E3%82%B7%E3%83%A5%E3%83%BC%E7%B7%A8">3. 具体的なパフォーマンスイシュー編</a></p>
+<ul>
+<li><a href="/2020-03-04-nodejs-performance/#%E5%B7%A8%E5%A4%A7%E3%81%AA-json-%E3%82%92%E6%89%B1%E3%81%86">巨大な JSON を扱う</a></li>
+<li><a href="/2020-03-04-nodejs-performance/#%E5%90%8C%E6%9C%9F%E9%96%A2%E6%95%B0%E3%82%92%E4%BD%BF%E3%81%86">同期関数を使う</a></li>
+<li><a href="/2020-03-04-nodejs-performance/#%E9%95%B7%E3%81%84%E3%83%AB%E3%83%BC%E3%83%97%E3%81%8C%E5%9B%9E%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B">長いループが回っている</a></li>
+</ul>
+</li>
+<li>
+<p><a href="/2020-03-04-nodejs-performance/#4-%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%AF%E8%AA%BF%E6%9F%BB%E7%B7%A8">4. メモリリーク調査編</a></p>
+<ul>
+<li><a href="/2020-03-04-nodejs-performance/#%E3%83%AA%E3%83%BC%E3%82%AF%E3%81%8C%E8%B5%B7%E3%81%8D%E3%81%A6%E3%81%84%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E7%A2%BA%E8%AA%8D">リークが起きていることを確認</a></li>
+<li><a href="/2020-03-04-nodejs-performance/#%E3%83%92%E3%83%BC%E3%83%97%E3%83%80%E3%83%B3%E3%83%97%E3%81%AE%E5%8F%96%E5%BE%97">ヒープダンプの取得</a></li>
+</ul>
+</li>
+<li><a href="/2020-03-04-nodejs-performance/#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
+</ul></div></nav><div class="sc-AxhUy fxWvvr"><p>近年の Node.js は API のサーバとしてはもちろん、Nuxt.js や Next.js といった SSR や BFF などフロントエンドのためのバックエンド言語としての人気が高まっています。</p>
+<p>フロントエンドエンジニアがコンテキストスイッチ少なくバックエンドの整備ができることは非常に大きな利点です。</p>
+<p>ですが、フロントエンド（ブラウザ側）とバックエンド（サーバ側）ではパフォーマンスチューニングで見るべき点が大きく違います。</p>
+<p>しかし Node.js アプリケーションのパフォーマンスイシューの見つけ方などがまとまっている資料は少ないです。</p>
+<p>そこで、本記事ではフロントエンドエンジニアが Node.js でパフォーマンスイシューを見つけ、改善するため自分が普段パフォーマンスチューニングを依頼されているときにみている基礎的なポイトをまとめていきます。</p>
+<h1 id="1-計測ステップ" style="position:relative;"><a href="#1-%E8%A8%88%E6%B8%AC%E3%82%B9%E3%83%86%E3%83%83%E3%83%97" aria-label="1 計測ステップ permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1. 計測ステップ</h1>
+<p>Node.js のパフォーマンスチューニングは「性能をよりよくする」というよりは「コードの書き方によって落ちてしまったパフォーマンスを元に戻していく」というイメージになります。どのような API や書き方がパフォーマンスを劣化させているのかを知ることが一番重要になります。</p>
+<p>そこでまず最初のステップはパフォーマンスの計測です。</p>
+<p>何はともあれ計測をしない限り、そのシステムのパフォーマンスが高いのか、もしくは劣化してしまっているのかを判断することはできません。どこがボトルネックなのかを調査するためにも、まずは現状の測定からです。</p>
+<p>そのために最初は下記の準備から入ります。</p>
+<ul>
+<li>本番と同等の挙動をする環境を作る</li>
+<li>パフォーマンス計測ツールを入れる</li>
+</ul>
+<h2 id="本番と同等の挙動をする環境を作る" style="position:relative;"><a href="#%E6%9C%AC%E7%95%AA%E3%81%A8%E5%90%8C%E7%AD%89%E3%81%AE%E6%8C%99%E5%8B%95%E3%82%92%E3%81%99%E3%82%8B%E7%92%B0%E5%A2%83%E3%82%92%E4%BD%9C%E3%82%8B" aria-label="本番と同等の挙動をする環境を作る permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>本番と同等の挙動をする環境を作る</h2>
+<p>ステージング環境などすでに自由にいじれる環境がある場合にはこのステップは飛ばすことがあります。</p>
+<p>ここで重要なことは <code class="language-text">NODE_ENV=production</code> で起動する環境を作ることです。</p>
+<p>Node.js のモジュールは慣例的に <code class="language-text">NODE_ENV=production</code> という環境変数が与えられた時に本番環境とみなしているものが多いです。</p>
+<p>例えば express は production の時に static files や view contents をキャッシュする仕組みが入っていたり、出力されるログが少なくなったりします。</p>
+<p>余談ですが <a href="http://expressjs.com/en/advanced/best-practice-performance.html#set-node_env-to-production">express の本番環境のベストプラクティスドキュメント</a>はとてもよくできていて参考になります。</p>
+<p>他にも React の Server Side Rendering に利用する <a href="https://www.npmjs.com/package/react-dom">react-dom-server</a> は <code class="language-text">NODE_ENV=production</code> の時に<a href="https://github.com/facebook/react/blob/master/packages/react-dom/npm/server.node.js">読み込むファイルが本番用のファイルに切り替わります</a>。
+デバッグログや不要なロジックが削除されることにより、大幅にパフォーマンスが変わるので <code class="language-text">NODE_ENV=production</code> を与えて起動することが本番環境で運用する上で必須条件となります。</p>
+<p>具体的にこのステップでやることは、アプリケーションコードから <code class="language-text">process.env.NODE_ENV</code> が含まれるコードの grep です。</p>
+<p>実際のアプリケーションコードはデータベースの接続先や別環境の API の呼び出しなど、環境によって挙動を変えることが多いでしょう。</p>
+<p>この環境の切り替えを <code class="language-text">process.env.NODE_ENV</code> を利用してやっていると、パフォーマンステストで高負荷をかけたものが本番を向いてしまう危険性があります。</p>
+<p>こういった環境ごとに変わる挙動を制御する変数はなるべく一箇所に集めるのがパフォーマンステストがしやすいアプリケーションです。デバッグログの出力を本番環境以外では行いたい、という時などに <code class="language-text">process.env.NODE_ENV</code> を直接アプリケーションコードに if 文で埋め込んでしまうことも多いですが、できる限り避けたほうがよいと思います。</p>
+<p>例えば自分はアプリケーションを作るときには config ファイルに env を判断するパラメータを作成し、アプリケーションコードでは必ずこのパラメータにアクセスすると決めて作成しています。</p>
+<p>データベースの接続情報なども、環境変数を production にした場合にも開発環境のデータベースにつなげるようにするため、接続モジュールの中に書いてしまうのではなく、どこか一箇所の config ファイルの中に書いておくのがよいと思います。</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token comment">// config.js</span>
+<span class="token keyword">const</span> production <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">===</span> <span class="token string">'production'</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  production<span class="token punctuation">,</span>
+  db<span class="token operator">:</span> <span class="token punctuation">{</span>
+    url<span class="token operator">:</span> production <span class="token operator">?</span> <span class="token string">'mongodb://localhost:27017/prod'</span> <span class="token operator">:</span> <span class="token string">'mongodb://localhost:27017/dev'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<h2 id="パフォーマンス計測ツールを入れる" style="position:relative;"><a href="#%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%E8%A8%88%E6%B8%AC%E3%83%84%E3%83%BC%E3%83%AB%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B" aria-label="パフォーマンス計測ツールを入れる permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>パフォーマンス計測ツールを入れる</h2>
+<p>次のステップではパフォーマンスの計測に入ります。ここは各自使い慣れているツールを利用しましょう。
+様々なツールがありますが、最近の自分は <a href="https://github.com/tsenart/vegeta">vegeta</a> という計測ツールを利用することが多いです。</p>
+<p>パラメータは毎回変わりますが、大体以下のようなコマンドでパフォーマンスを計測します。ログインが必要なページでは header に Cookie を渡して計測します。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ <span class="token builtin class-name">echo</span> <span class="token string">"GET http://localhost"</span> <span class="token operator">|</span> vegeta attack -rate<span class="token operator">=</span><span class="token number">30</span> -duration<span class="token operator">=</span>10s -workers<span class="token operator">=</span><span class="token number">10</span> -header <span class="token string">'Cookie: xxx'</span> <span class="token operator">|</span> vegeta report</code></pre></div>
+<p>duration で継続時間を指定して、rate で req/s を調整します。この辺は自分の感覚値ですが <code class="language-text">rate=30</code> くらいは最低でも食えることを目標にします。</p>
+<p>もちろん食えるリクエスト数が増えれば増えるほどよいのですが、パフォーマンスチューニングのためにトリッキーなコードになったりするより、サーバを並列に並べてしまったほうが運用コストが低くなることもあるので、見極めが重要です。</p>
+<p>結果の中で一番注目するべきは Latencies と Success です。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">Requests      <span class="token punctuation">[</span>total, rate, throughput<span class="token punctuation">]</span>  <span class="token number">300</span>, <span class="token number">30.09</span>, <span class="token number">29.75</span>
+Duration      <span class="token punctuation">[</span>total, attack, wait<span class="token punctuation">]</span>      <span class="token number">10</span>.084217496s, <span class="token number">9</span>.969010607s, <span class="token number">115</span>.206889ms
+Latencies     <span class="token punctuation">[</span>mean, <span class="token number">50</span>, <span class="token number">95</span>, <span class="token number">99</span>, max<span class="token punctuation">]</span>    <span class="token number">118</span>.262733ms, <span class="token number">115</span>.071858ms, <span class="token number">152</span>.870202ms, <span class="token number">274</span>.895501ms, <span class="token number">337</span>.340772ms
+Bytes In      <span class="token punctuation">[</span>total, mean<span class="token punctuation">]</span>              <span class="token number">5559600</span>, <span class="token number">18532.00</span>
+Bytes Out     <span class="token punctuation">[</span>total, mean<span class="token punctuation">]</span>              <span class="token number">0</span>, <span class="token number">0.00</span>
+Success       <span class="token punctuation">[</span>ratio<span class="token punctuation">]</span>                    <span class="token number">100.00</span>%
+Status Codes  <span class="token punctuation">[</span>code:count<span class="token punctuation">]</span>               <span class="token number">200</span>:300
+Error Set:</code></pre></div>
+<p><code class="language-text">Success</code> はレスポンスがステータスコード 200 で返ってきた率で、ここは 100% を維持する必要があります。</p>
+<p>たまに結果がすごくよくなった！と感動していると Success が 0% になっていて、全部エラー処理に入っていたから早かっただけということがあります。</p>
+<p>Latencies は平均, 50%, 95%, 99%, 最大のレスポンスタイムが表示されています。ここはシステムによっても目標とする数字は変わりますが、自分は１秒以内を目安としてチューニングを行っていることが多いです。</p>
+<h1 id="2-パフォーマンス改善ステップ" style="position:relative;"><a href="#2-%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%E6%94%B9%E5%96%84%E3%82%B9%E3%83%86%E3%83%83%E3%83%97" aria-label="2 パフォーマンス改善ステップ permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2. パフォーマンス改善ステップ</h1>
+<p>先のステップでパフォーマンスを計測する準備ができたので次はいよいよ改善に取り掛かります。</p>
+<p>自分は重要度順にファイルディスクリプタ > cluster > アプリケーションコードの改善の順番で見ています。</p>
+<p>パフォーマンスチューニングというとアプリケーションコードの改善にまず取り掛かかってしまいたいところですが、優先度は一番低く最後の最後で手をつける部分です。表層を改善するより一番下の層を改善するほうが効果が大きいことが多く、コスト対効果が高いです。</p>
+<h2 id="設定確認" style="position:relative;"><a href="#%E8%A8%AD%E5%AE%9A%E7%A2%BA%E8%AA%8D" aria-label="設定確認 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>設定確認</h2>
+<h3 id="linux-編" style="position:relative;"><a href="#linux-%E7%B7%A8" aria-label="linux 編 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>linux 編</h3>
+<p>Linux 上で Node.js を運用するときにまず自分が気にするのは、プロセスが開けるファイルディスクリプタの上限数です。</p>
+<p>Node.js は「ノンブロッキング I/O」や「非同期イベント駆動モデル」という特徴を持つ言語です。これに対して Apache などは１つのクライアントのアクセスに１つのプロセスを割り当てるモデルを採用しています。</p>
+<p>一時期 C10K 問題が大きく話題に上がったことがありましたが、Node.js や Nginx は「ノンブロッキング I/O」や「非同期イベント駆動モデル」などを採用し、ひとつのプロセスで受けるクライアントの数を増やすことでこの問題に対処できます。</p>
+<p>しかしこれらのモデルを採用したことで、逆にひとつのプロセスが同時にオープンするファイルも多くもなっています。それに伴い今度は OS 側が持っているプロセスが開けるファイルオープン数の上限に引っかかってしまう問題に直面することがあります。</p>
+<p>そこでまずは <code class="language-text">ulimit</code> コマンドで設定されている上限を確認します。例えば下記の例ではひとつのプロセスが同時にオープンできるファイル数は 1024 です。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ <span class="token builtin class-name">ulimit</span> -n
+<span class="token number">1024</span></code></pre></div>
+<p>この数値は Node.js にとって少なすぎます。このままではパフォーマンステストなどで高付加をかけると <code class="language-text">Too many open files</code> というエラーが高確率ででます。</p>
+<p>自分は systemd を利用してシステムをデーモン化することが多いので <code class="language-text">LimitNOFILE</code> の設定を忘れないようにしています。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="token punctuation">[</span>Service<span class="token punctuation">]</span>
+<span class="token assign-left variable">LimitNOFILE</span><span class="token operator">=</span><span class="token number">65535</span>
+<span class="token punctuation">..</span>.</code></pre></div>
+<p>パフォーマンステスト中は頻繁にサーバを起動するので bash に起動コマンドを書くことも多いです。その時は bash の先頭で ulimit を使って上限を設定します。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+
+<span class="token builtin class-name">set</span> -exuo pipefail
+
+<span class="token builtin class-name">ulimit</span> -n <span class="token number">65535</span>
+
+<span class="token assign-left variable">NODE_ENV</span><span class="token operator">=</span>production node server.js</code></pre></div>
+<h3 id="nodejs-編" style="position:relative;"><a href="#nodejs-%E7%B7%A8" aria-label="nodejs 編 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Node.js 編</h3>
+<p>Node.js v12 から JSON.parse の高速化や async/await が Promise より高速化するなど、コアコードレベルで様々な高速化が行われています。まずは最新の LTS バージョンにあげることが Node.js アプリケーションでは重要です。<a href="https://speakerdeck.com/ajido/callback-to-promise-and-beyond?slide=14">参考</a></p>
+<p>JavaScript は非常に後方互換性の高い言語ということもあり、Node.js はランタイムのバージョンアップでアプリケーションコードが大きく壊れてしまうことは少ないため、積極的なアップデートはパフォーマンス対策という意味でも非常に有効な手段です。</p>
+<p>Node.js v12 はその他にメモリの割当にも改善が行われました。Node.js v10 では起動時に 1400MB のヒープメモリが必ず確保されていましたが、v12 からは実行環境のメモリサイズに合わせたヒープサイズになるような改修が行われました。（これは近年の Kubernetes や Docker 上で動かす事を考慮した対応になります。）</p>
+<p>しかし、これによって合計メモリサイズの低い環境では、今までより確保できるメモリサイズが少なくなってしまうことがあります。具体的には合計メモリサイズが <em>2.8GB 以下</em> の場合は Node.js v12 にバージョンアップすると最大ヒープサイズが半減します。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ docker run --memory<span class="token operator">=</span><span class="token number">1</span>.5g -it node:10.19.0-alpine node -e <span class="token string">'console.log(Math.round(v8.getHeapStatistics().total_available_size/1024/1024) + " MB")'</span>
+<span class="token number">1450</span> MB
+
+$ docker run --memory<span class="token operator">=</span><span class="token number">1</span>.5g -it node:12.16.1-alpine node -e <span class="token string">'console.log(Math.round(v8.getHeapStatistics().total_available_size/1024/1024) + " MB")'</span>
+<span class="token number">789</span> MB</code></pre></div>
+<p>そのためメモリの少ない環境で起動している場合は <code class="language-text">--max-old-space-size</code> オプションを使って確保するヒープサイズを調整します。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ <span class="token assign-left variable">NODE_ENV</span><span class="token operator">=</span>production node --max-old-space-size<span class="token operator">=</span><span class="token number">8192</span> server.js</code></pre></div>
+<h2 id="cluster-対応" style="position:relative;"><a href="#cluster-%E5%AF%BE%E5%BF%9C" aria-label="cluster 対応 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cluster 対応</h2>
+<p>デプロイ先の環境がマルチコア環境の場合は cluster モジュールを使ってマルチコア対応を行います。Node.js はそのままだとマルチコア環境でも１コアしか利用できません。</p>
+<p>サンプルコードを下記に示しますが cluster モジュールによるマルチコア対応はとてもシンプルです。たったこれだけで fork 数倍のパフォーマンスを向上できます。非常にコスト対効果の高い対応と言えます。</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> cluster <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'cluster'</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'http'</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> server <span class="token operator">=</span> http<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>cluster<span class="token punctuation">.</span>isMaster<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// コア数以内まで fork する</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">4</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    cluster<span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+
+  cluster<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'exit'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">worker<span class="token punctuation">,</span> code<span class="token punctuation">,</span> signal</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> s <span class="token operator">=</span> signal <span class="token operator">||</span> code
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">exit worker #</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>worker<span class="token punctuation">.</span>process<span class="token punctuation">.</span>pid<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> (</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>s<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">)</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+    cluster<span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+  server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">80</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Listening on'</span><span class="token punctuation">,</span> server<span class="token punctuation">.</span><span class="token function">address</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre></div>
+<p>コア数全部 fork する場合は <code class="language-text">require(&#39;os&#39;).cpus().length</code> でコア数を取得することもできます。</p>
+<p>ここはシステムの運用方針にもよるのですが、コア数全部使い切ってしまうとアプリケーションが CPU 使用率 100% で張り付いてしまった場合に、何もできなくなってしまう危険性もあるのでサーバ内で動いているアプリケーションの数などサーバの構成によって調整してください。</p>
+<h2 id="プロファイリング" style="position:relative;"><a href="#%E3%83%97%E3%83%AD%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AA%E3%83%B3%E3%82%B0" aria-label="プロファイリング permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>プロファイリング</h2>
+<p>ここまできたらついにアプリケーションコードの改善に着手します。</p>
+<h3 id="nodejs-編-1" style="position:relative;"><a href="#nodejs-%E7%B7%A8-1" aria-label="nodejs 編 1 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Node.js 編</h3>
+<p>Node.js には CPU のプロファイリングを行える <code class="language-text">--prof</code> という起動オプションがあります。<a href="https://nodejs.org/es/docs/guides/simple-profiling/">参考</a></p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ node --prof index.js</code></pre></div>
+<p>このオプションをつけて起動しプロセスを終了すると <code class="language-text">isolate-xxxxx-xxxx-v8.log</code> というファイルが吐き出されます。このファイルは人間が読み解くにはすこし難易度が高いので、さらにこのファイルを Node.js に食わせます。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ node --prof-process isolate-xxxxx-xxxx-v8.log <span class="token operator">></span> isolate.txt</code></pre></div>
+<p>こうして吐き出された isolate.txt ファイルの中身を見てみます。</p>
+<p>注目するべき場所は <code class="language-text">[Summary]</code> です。ここは JavaScript や C++ レイヤーのコードがどれだけ CPU を専有しているかを表しています。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="token punctuation">[</span>Summary<span class="token punctuation">]</span>:
+  ticks  total  nonlib   name
+     <span class="token number">0</span>    <span class="token number">0.2</span>%    <span class="token number">0.2</span>%  JavaScript
+   <span class="token number">114</span>   <span class="token number">82.4</span>%   <span class="token number">89.6</span>%  C++
+     <span class="token number">3</span>    <span class="token number">2.2</span>%    <span class="token number">2.4</span>%  GC
+    <span class="token number">11</span>    <span class="token number">8.0</span>%          Shared libraries
+    <span class="token number">13</span>    <span class="token number">9.4</span>%          Unaccounted</code></pre></div>
+<p>上記の例では C++ レイヤーの処理が全体の 80%を占めていることがわかります。つまり Node.js のコアコードが占める割合が多くあるということが読み取れます。</p>
+<p>逆に JavaScript の割合が大きければ、アプリケーションにかかれている JavaScript 文法で書かれた部分が多くを占めるということになります。</p>
+<p>コアコードの割合が大きかったら手を出せないじゃないかと思うかもしれませんが、これはアプリケーションコードやライブラリがコアコード（標準モジュール）を大量に呼び出していれば比率が高くなります。</p>
+<p>例えば <code class="language-text">fs.readFilesync</code> のような同期コードを呼ぶと、その処理中他の JavaScript コードは動くことができないので C++ の total 時間が加算されます。なのでコアコードだからといって改善できない訳ではありません。</p>
+<p>GC はガベージコレクションが走ったことを表します。例えばここが <code class="language-text">1453 6.0% 168.8% GC</code> のように大量に呼ばれていた場合「頻繁な GC が起きている」=「メモリリークが起きてしまっている可能性がある」と読み解けます。</p>
+<p>他にも <code class="language-text">Bottom up (heavy) profile</code> の欄を見ると具体的にどういった関数が重い処理なのかを確認することができます。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="token punctuation">[</span>Bottom up <span class="token punctuation">(</span>heavy<span class="token punctuation">)</span> profile<span class="token punctuation">]</span>:
+ Note: percentage shows a share of a particular <span class="token builtin class-name">caller</span> <span class="token keyword">in</span> the total
+ amount of its parent calls.
+ Callers occupying <span class="token function">less</span> than <span class="token number">1.0</span>% are not shown.
+
+  ticks parent  name
+    <span class="token number">78</span>   <span class="token number">39.4</span>%  T __ZN2v88internal40Builtin_CallSitePrototypeGetPromiseIndexEiPmPNS0_7IsolateE
+    <span class="token number">34</span>   <span class="token number">43.6</span>%    T __ZN2v88internal40Builtin_CallSitePrototypeGetPromiseIndexEiPmPNS0_7IsolateE
+    <span class="token number">18</span>   <span class="token number">52.9</span>%      LazyCompile: ~promise /tmp/index.js:14:23
+    <span class="token number">18</span>  <span class="token number">100.0</span>%        T __ZN2v88internal40Builtin_CallSitePrototypeGetPromiseIndexEiPmPNS0_7IsolateE
+    <span class="token number">18</span>  <span class="token number">100.0</span>%          t node::task_queue::RunMicrotasks<span class="token punctuation">(</span>v8::FunctionCallbackInfo<span class="token operator">&lt;</span>v8::Value<span class="token operator">></span> const<span class="token operator">&amp;</span><span class="token punctuation">)</span>
+    <span class="token number">18</span>  <span class="token number">100.0</span>%            LazyCompile: ~processTicksAndRejections internal/process/task_queues.js:65:35
+     <span class="token number">2</span>    <span class="token number">5.9</span>%      T __ZN2v88internal40Builtin_CallSitePrototypeGetPromiseIndexEiPmPNS0_7IsolateE
+     <span class="token number">1</span>   <span class="token number">50.0</span>%        t node::task_queue::RunMicrotasks<span class="token punctuation">(</span>v8::FunctionCallbackInfo<span class="token operator">&lt;</span>v8::Value<span class="token operator">></span> const<span class="token operator">&amp;</span><span class="token punctuation">)</span></code></pre></div>
+<p>しかし、この文字列情報だけでは多少見やすいとはいえ具体的にどこがヘビーなポイントなのかを読み解くのは容易ではありません。</p>
+<p>そこで自分は flamegraph を利用してこれらの可視化を行っています。</p>
+<h3 id="flamegraph-編" style="position:relative;"><a href="#flamegraph-%E7%B7%A8" aria-label="flamegraph 編 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>flamegraph 編</h3>
+<p>flamegraph は先にあげたコードパスの実行時間などをヒューマンフレンドリーに可視化してくれるツールです。これを通すことでホットコードなどが可視化され、どこを直すと効果が高いのかを見極めやすくなります。</p>
+<p>flamegraph を表示するためのモジュールはいくつかありますが、自分は今は <a href="https://www.npmjs.com/package/0x">0x</a> というモジュールを利用しています。
+これは Node.js のコアコミッターが作成しているモジュールなので、今後のバージョンアップにも追従していくだろうという予想から採用しています。</p>
+<p>このモジュールをパフォーマンス検証環境にグローバルインストールします。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ <span class="token function">npm</span> i -g 0x</code></pre></div>
+<p>インストールがすんだら 0x コマンド経由で Node.js を起動します。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ 0x -- node index.js</code></pre></div>
+<p>そして起動した環境に vegeta で負荷をしばらくかけてから一度プロセスを終了します。</p>
+<p>そうすると <code class="language-text">4123.0x/</code> のようなディレクトリが生成されます。この中には先の <code class="language-text">--prof</code> オプションで吐き出しされた <code class="language-text">isolate-xxxxx-xxxx-v8.log</code> や <code class="language-text">flamegraph.html</code> というファイルが格納されています。</p>
+<p>今回注目するのは <code class="language-text">flamegraph.html</code> です。これをブラウザで開くと次の画像のようなページが見られます。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;"
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/2082ea67855ae95b5a01767cbefa4aa6/332b4/flamegraph.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 63.74589266155532%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB5klEQVQ4y42Te0/TUBjG++HFD2BU4j9IjMagMSggCYqXoEZFjTrksq4yNtq1ZWN07S5d23N+nq4dKwWNJzl5T3ue87zPe9Msy8JxHKSUpGtqr1plzGg0wvO8yY7jGCEEWhH8L7IiRiYJUj2mhE/vtDLRfykMh8goyohLYrRzz0UFskReCjXxuoi+r1QmF5VPFaZs56Q5gbyCaGrjtkPccZHj8NL9hZDTvBS9yRJ4eo4UWeRaiGH/MiEFRfKoijQPZyon6gsOkyzEVF1kH5OosMvONOF7ChhPPnofXuJ/fYd0zVJOM7AYDtRZELeajM06sXorJgUazxTG9Soi/2E8XuRkYxm+bWWPp2nIwXGjhnBMwtouYcMg7rZJFHFaIERWcc16dh+RNqWxy8+Fm+hLd+msPkRUPs76Ja/m6Zt1et8/E+58ITL2GCnrPF8isY6QefiavvKI/o9PNOevYcxfp3p7joNbc9j3bpDsbtNfXSRcWQBVAH19GXNrE+fFU85er9F5tYb+4A7+xhOSoJcRBm2XgUqwf1wnUJ7S3a3r+FYDr1rB3n6L8X6TgXdGu6XGtFHHc1r0XZuhah9fnT2rSZynTStPQ8s9YWdvH/33IZX9A2pNk1/VGp3TLr0gwLJtgsHgr5P0B0C/5MkiOeLYAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="flamegraph"
+        title="flamegraph"
+        src="/static/2082ea67855ae95b5a01767cbefa4aa6/fcda8/flamegraph.png"
+        srcset="/static/2082ea67855ae95b5a01767cbefa4aa6/12f09/flamegraph.png 148w,
+/static/2082ea67855ae95b5a01767cbefa4aa6/e4a3f/flamegraph.png 295w,
+/static/2082ea67855ae95b5a01767cbefa4aa6/fcda8/flamegraph.png 590w,
+/static/2082ea67855ae95b5a01767cbefa4aa6/efc66/flamegraph.png 885w,
+/static/2082ea67855ae95b5a01767cbefa4aa6/c83ae/flamegraph.png 1180w,
+/static/2082ea67855ae95b5a01767cbefa4aa6/332b4/flamegraph.png 1826w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p>これは先程 <code class="language-text">--prof-process</code> で吐き出した結果をよりグラフィカルに表したようなものです。濃い赤色になっているほどホットコード = 一番多く通るコードパスです。つまりこの濃い赤色の部分のパフォーマンスを向上させられると、全体に効果が出やすいわけです。</p>
+<p>横軸は関数の実行時間を表し、その関数が呼び出した関数が上に積み上げられていきます。最初は縦に大量に積み上がっているとびっくりすることもあるかと思いますが、気にするべきは横幅です。「縦に積み上がっていて横幅が短い」のは「たくさん関数を呼び出しているが実行時間は短い」という意味になります。</p>
+<p>なので最初は横幅が長くて、ホットコードな部分を重点的にみていくとよいと思います。</p>
+<p>上の flamegraph は下のサンプルコードの結果です。</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>promises
+<span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> html <span class="token operator">=</span> <span class="token keyword">await</span> fs<span class="token punctuation">.</span><span class="token function">readFile</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'index.html'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      encode<span class="token operator">:</span> <span class="token string">'utf8'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>html<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">next</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">8000</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'listen'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre></div>
+<p>flamegraph で一番赤くなっているとなっている部分をみると <code class="language-text">~readFileHandle internal/fs/promises.js</code> となっています。つまり fs モジュールの readFile という処理が多く動いているということがわかります。</p>
+<p>上記のサンプルコードでいうとリクエストのたびに <code class="language-text">fs.readFile</code> が走ってしまうためホットコードとして現れています。</p>
+<p>この場合はリクエストによって返すファイルは変わらないので、サーバ起動時に一度だけファイルを読み込むようにすれば先程のようなホットコードの表示にはならないでしょう。</p>
+<p>実際にはこんな単純に見つけられることはあまりないですが、俯瞰して眺めるのに利用します。まれに同期コードがホットコードして現れて一気に改善できることもあるので、右上にある検索ボックスにまず <code class="language-text">Sync</code> と入れて検索をしたりします。</p>
+<h1 id="3-具体的なパフォーマンスイシュー編" style="position:relative;"><a href="#3-%E5%85%B7%E4%BD%93%E7%9A%84%E3%81%AA%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%E3%82%A4%E3%82%B7%E3%83%A5%E3%83%BC%E7%B7%A8" aria-label="3 具体的なパフォーマンスイシュー編 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3. 具体的なパフォーマンスイシュー編</h1>
+<p>パフォーマンスイシューはアプリケーションごとに異なる特有のコードなことが多いので、あまりこれといったパターンを示せないことが多いです。</p>
+<p>とはいえ、自分が絶対に気をつけてみている観点はいくつかあります。<a href="https://speakerdeck.com/ajido/minimum-handson-nodejs?slide=18">こちらの資料</a>に非常に詳しくまとまっていますが、これだけはどのアプリケーションでもパフォーマンスを下げてしまいがちな気をつけるべきポイントです。</p>
+<ul>
+<li>巨大な JSON を扱う（JSON.parse/JSON.stringiy）</li>
+<li>同期関数を使う（fs.readFileSync）</li>
+<li>長いループが回っている</li>
+</ul>
+<p>上記の処理に共通するのは「同期処理」です。Node.js では IO（ネットワークやファイル）に関わらない処理は基本的に同期処理となり CPU を専有します。</p>
+<p>なので IO を伴わない処理をなるべく短くしていき「同期処理」を「細切れになるように」構築していくのがパフォーマンスを劣化させないコツになってきます。</p>
+<p>それぞれ具体的に解説していきます。</p>
+<h2 id="巨大な-json-を扱う" style="position:relative;"><a href="#%E5%B7%A8%E5%A4%A7%E3%81%AA-json-%E3%82%92%E6%89%B1%E3%81%86" aria-label="巨大な json を扱う permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>巨大な JSON を扱う</h2>
+<p>JSON.parse/JSON.stringify は同期処理です。Node.js の同期処理はサーバのリソースをそれのみに集中してしまうため、その処理中は他のリクエストを捌くことはできません。</p>
+<p>JSON の処理は JSON の大きさに比例して停止時間が長くなります。これは特に SSR/BFF などのサーバでボトルネックになりがちです。</p>
+<p>例えば React の SSR であれば最後に state オブジェクトを文字列化して html に渡しますが、ここの JSON が大きければもちろんサーバの停止時間は長くなります。</p>
+<p>これを解消するためには、そのページで同期的にレンダリングしなくてもよい箇所はブラウザに任せて非同期に描画し、不要な state を外してレンダリングに必要な JSON を小さくします。</p>
+<p>他にもバックエンドの API を叩いて SSR を行うというのはよくあるケースだと思いますが、この際にバックエンドから返却される JSON が大きく、リクエストのたびに JSON.parse が走りその都度サーバがストップしてしまっていることがよくあります。</p>
+<p>自分では JSON.parse を書いているつもりはなくても axios などのリクエストモジュールを利用しているとモジュール内部で JSON.parse が行われていたりします。</p>
+<p>この影響を少なくするためには基本的に JSON を小さくするか JSON.parse 自体の数を減らすしかありません。</p>
+<ul>
+<li>なるべくキャッシュして JSON.parse が起きないようにする</li>
+<li>エントリポイントを分割して 1 つずつを小さくする（ページングや ID だけの配列からリクエストを分割して叩くように設計するなど）</li>
+</ul>
+<p>どれくらいの大きさから大きいというのかは難しい問題ですが、目安としては「最大でも 1MB 以内」に収まるあたりがよいと思います。</p>
+<p>また、API を作成した時点では小さい JSON だったけど、データ量が増えるにつれて比例して肥大化していった（配列でデータを返しているパターンが多い）ということもあるので、API 設計時点で将来も肥大化しない設計であることは重要です。</p>
+<p>Node.js v12 で JSON.parse はかなり高速化していますが、それでも気をつけるべきなのは間違いありません。</p>
+<h2 id="同期関数を使う" style="position:relative;"><a href="#%E5%90%8C%E6%9C%9F%E9%96%A2%E6%95%B0%E3%82%92%E4%BD%BF%E3%81%86" aria-label="同期関数を使う permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>同期関数を使う</h2>
+<p>こちらも理屈は JSON と同じで、同期処理中は他のリクエストを捌けないため、リクエストのたびに通るコードパスからはなるべく避ける必要があります。</p>
+<p>~Sync とついていたら危ないかも？と思っておくとよいかもしれません。</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
+
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token comment">// ここでサーバがストップする</span>
+  <span class="token keyword">const</span> html <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span><span class="token string">'./index.html'</span><span class="token punctuation">)</span>
+  res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>html<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre></div>
+<p>もちろん絶対に使ってはいけないというわけではなく、リクエストのたびに通らないコードパスであれば問題ありません。</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
+
+<span class="token comment">// ここでサーバがストップするが、サーバ起動時に一度だけしか動かないので問題ない</span>
+<span class="token keyword">const</span> html <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span><span class="token string">'./index.html'</span><span class="token punctuation">)</span>
+
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>html<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre></div>
+<p>どうしてもリクエストのたびに通るパスで使いたい、というときは基本的には非同期処理の関数が用意されているはずなのでそちらを利用しましょう。</p>
+<p>Node.js のコアモジュールは callback 形式になっていることが多いですが、最近は Promise のインターフェースも生えています。</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>promises
+
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  fs<span class="token punctuation">.</span><span class="token function">readFile</span><span class="token punctuation">(</span><span class="token string">'./index.html'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">html</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>html<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre></div>
+<h2 id="長いループが回っている" style="position:relative;"><a href="#%E9%95%B7%E3%81%84%E3%83%AB%E3%83%BC%E3%83%97%E3%81%8C%E5%9B%9E%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B" aria-label="長いループが回っている permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>長いループが回っている</h2>
+<p>これも先の例と同様に同期処理です。長い配列をループで回している間はサーバが停止します。ループは先の例に比べて避けるのが難しい処理でが、緩和する方法はいくつかあります。</p>
+<p>例えば１万件のデータが入っている Redis の key を取得して、それぞれに処理を行い返すようなエンドポイントがあったとします。（API 設計の時点でページングしたほうがよいのは確かですが例として）</p>
+<p>下記のようなコードだと、レスポンスを返す直前にループ処理をしてしまうので、その間リクエストを受けることができません。</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> redis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Redis</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> keys <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token comment">// データを100件ずつ取得する stream を作る</span>
+  <span class="token keyword">const</span> stream <span class="token operator">=</span> redis<span class="token punctuation">.</span><span class="token function">scanStream</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token operator">:</span> <span class="token number">100</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// 100件取得したら keys に詰め込む</span>
+  stream<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">,</span> <span class="token parameter">results</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> results<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      keys<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>results<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  stream<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'end'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token comment">// keys.map が1万件のループになるので長時間の停止になってしまう</span>
+    res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>keys<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">e</span> <span class="token operator">=></span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">key-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>e<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre></div>
+<p>例えばこの場合は data イベントの中で整形処理をするべきです。</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> redis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Redis</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> keys <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token comment">// データを100件ずつ取得する stream を作る</span>
+  <span class="token keyword">const</span> stream <span class="token operator">=</span> redis<span class="token punctuation">.</span><span class="token function">scanStream</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token operator">:</span> <span class="token number">100</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// 100件取得したら keys に詰め込む</span>
+  stream<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">,</span> <span class="token parameter">results</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> results<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      keys<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">key-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>results<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  stream<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'end'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token comment">// 整形が終わっているのでループは回らない</span>
+    res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span>keys<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre></div>
+<p>このように、大量のループを回さなければならない場合でも、間に IO を挟むことで細切れにできる可能性があります。</p>
+<p>Stream 処理は難しいと思われがちですが、大量の処理を省メモリで行うのに適したデザインパターンなので覚えておいて損はありません。</p>
+<p>特に Node.js v12 では AsyncIterator も Stable になっているので記述がしやすくなっています。</p>
+<p>Stream については過去に記事を書いたので、そちらをご参照ください。<a href="https://qiita.com/koh110/items/0fba3acbce38916928f1">さよなら Stream</a></p>
+<h1 id="4-メモリリーク調査編" style="position:relative;"><a href="#4-%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%AF%E8%AA%BF%E6%9F%BB%E7%B7%A8" aria-label="4 メモリリーク調査編 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4. メモリリーク調査編</h1>
+<p>前項で述べてきたパフォーマンスチューニングは主に設計やアプリケーションの書き方によるパフォーマンス低下をみつける手法でした。</p>
+<p>Node.js が性能を劣化させる原因のもうひとつにガベージコレクションがあります。基本的に他の言語と同様にガベージコレクションはランタイムを停止させてしまうため、性能上よくありません。</p>
+<p>プロファイリングの項で少し触れましたが、プロファイリングからガベージコレクションがどれくらいの頻度で走っているかを取得することができます。</p>
+<p>ガベージコレクションが大量に起きていたり、もしくはサーバの監視で右肩上がりをしていたメモリ使用量が突然下がってまた上昇していく、といった特徴が出ていた場合、コード中にメモリリークしているコードが含まれている可能性があります。</p>
+<p>基本的に Node.js のコアコードにメモリリークは存在しません。メモリリークが起きてしまっているということはほぼ確実に「自分の書いたコード」か「利用しているモジュール」に原因があります。</p>
+<p>ここでは実際に自分が体験した <a href="https://material-ui.com/">material-ui</a> の使い方で起きていたメモリリークの例をもとに、調査の方法をまとめたいと思います。</p>
+<h2 id="リークが起きていることを確認" style="position:relative;"><a href="#%E3%83%AA%E3%83%BC%E3%82%AF%E3%81%8C%E8%B5%B7%E3%81%8D%E3%81%A6%E3%81%84%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E7%A2%BA%E8%AA%8D" aria-label="リークが起きていることを確認 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>リークが起きていることを確認</h2>
+<p>実際にメモリリークが起きているかを確認するためには、やはり計測してみるしかありません。次のようなコードを差し込んでみます。</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> heapUsed <span class="token operator">=</span> process<span class="token punctuation">.</span><span class="token function">memoryUsage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>heapUsed
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Heap:'</span><span class="token punctuation">,</span> heapUsed<span class="token punctuation">,</span> <span class="token string">'bytes'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">)</span></code></pre></div>
+<p>実際にメモリリークが起きているサーバで起動してみると、右肩上がりにヒープが使われていくのがわかります。</p>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">Heap: <span class="token number">137273608</span> bytes
+Heap: <span class="token number">144623352</span> bytes
+Heap: <span class="token number">146617720</span> bytes
+Heap: <span class="token number">146791344</span> bytes
+Heap: <span class="token number">146827544</span> bytes
+Heap: <span class="token number">146838568</span> bytes
+Heap: <span class="token number">146988200</span> bytes
+Heap: <span class="token number">131588016</span> bytes
+Heap: <span class="token number">213734336</span> bytes
+Heap: <span class="token number">338640232</span> bytes
+Heap: <span class="token number">471909552</span> bytes
+Heap: <span class="token number">394506192</span> bytes
+Heap: <span class="token number">515059296</span> bytes
+Heap: <span class="token number">617747056</span> bytes
+Heap: <span class="token number">720730040</span> bytes
+Heap: <span class="token number">821192400</span> bytes
+Heap: <span class="token number">924329760</span> bytes
+Heap: <span class="token number">957664088</span> bytes
+Heap: <span class="token number">957814288</span> bytes
+Heap: <span class="token number">957840840</span> bytes
+Heap: <span class="token number">957848128</span> bytes</code></pre></div>
+<p>もちろん普通のアプリケーションも時間経過とともにメモリ消費は増えるものなので、右肩上がりだからといって即座にメモリリークと判断するのは危険です。先に述べたような特徴と合わせて事前にメモリリークが起きているかどうかを判断しましょう。</p>
+<p>しかしこれだけでは具体的に何がメモリリークを起こしているのかはわかりません。</p>
+<p>なので、次はメモリのヒープダンプをとります。</p>
+<h2 id="ヒープダンプの取得" style="position:relative;"><a href="#%E3%83%92%E3%83%BC%E3%83%97%E3%83%80%E3%83%B3%E3%83%97%E3%81%AE%E5%8F%96%E5%BE%97" aria-label="ヒープダンプの取得 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ヒープダンプの取得</h2>
+<p>Node.js でメモリを直接調査する方法はくつか方法がありますが <a href="https://www.npmjs.com/package/heapdump">heapdump</a> モジュールを使う方法が手軽です。</p>
+<p>少し昔の記事ですが、こちらで紹介されている<a href="https://postd.cc/simple-guide-to-finding-a-javascript-memory-leak-in-node-js/">メモリリークの発見ガイド</a>は非常に参考になるので必読です。</p>
+<p>基本的に行うことは上記の記事にある「３点ヒープダンプ法」です。</p>
+<p>自分は下記のようなコードを差し込み外から kill コマンドを送って３回ヒープダンプを取得します。</p>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'heapdump'</span><span class="token punctuation">)</span>
+
+process<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'SIGUSR2'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'heap dump start!'</span><span class="token punctuation">)</span>
+  heapdump<span class="token punctuation">.</span><span class="token function">writeSnapshot</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'heap dump end!'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre></div>
+<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ <span class="token function">kill</span> -USR2 <span class="token punctuation">{</span><span class="token punctuation">{</span>pid<span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre></div>
+<p>このとき <code class="language-text">SIGUSR1</code> を割り当てないのには理由があります。</p>
+<p><code class="language-text">SIGUSR1</code> は Linux 的にはユーザーが自由に使っていいシグナルになっていますが、Node.js では debugger を起動するシグナルとして利用されています。<a href="https://nodejs.org/api/process.html#process_signal_events">詳細</a></p>
+<p>イベントにハンドラーをバインドすることはできますが debugger が起動してしまうので避けたほうがいいでしょう。</p>
+<p>話は戻って heapdump モジュールを利用して <code class="language-text">heapdump.writeSnapshot()</code> を実行すると <code class="language-text">heapdump-xxxx</code> というファイルが取得できます。</p>
+<p>次に Chrome の開発者ツールを開き Profiles タブを開いて Load ボタンからファイルをロードしていきます。</p>
+<p>下の図が実際に調査を行ったときのスクリーンショットです。</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;"
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/static/c51ed8dceb4deb64b45d6007d071c496/098c1/memory.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 40.30418250950571%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABqUlEQVQoz22R3W/TMBTF83+grt2StM33p2PH+WrSQpoOmIQQ1cpgPMAeWKUh/n/pcO3Bnng4Ota1/fM914aUEkII1HUNzjlkWaLk7EWCZRBFrt1ZWriczyB1PQdnuXa1n0QB8jSB0XUblARhORWTBGmWYZhu0O1vkFY9YtnDzSuEogPv91pie4Agb8d3YM0W1Xb6ux4I2A+oGzpcVigYQ5oX4B8ekH18hHP4htnwGRfbO+2vNicsdl8w331F8P4Hmrvf5N/Bj2eUt78QHO5hPD39xKfjEbvXI96Me/TqgUqCUfuht4Z9NYe5mMFaXGjZl3PyGSLfQ9vUCH0XWRKjFBy+s4JxPj/gdLrFNE14e32N/TiialrIuqH4OVzXg2XbMK1n2csluYUgjNBuBoRRDC4k3el0zUjTFP+kZhhFEUQp9Rhk1aDggqAuLIIokHIFjeMEdUuQIEROo2raDXzfh5HTZyhYRp+hpKAKWFY1GCvgeT7W6zVM8xmmgdSx53k6SRCGBA0gZKVr/wWyglOMUh9erVYvINM0NUytHcfVCUJKlNB9NSKXgH8AW4QFG2dXXV8AAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="メモリリーク調査"
+        title="メモリリーク調査"
+        src="/static/c51ed8dceb4deb64b45d6007d071c496/fcda8/memory.png"
+        srcset="/static/c51ed8dceb4deb64b45d6007d071c496/12f09/memory.png 148w,
+/static/c51ed8dceb4deb64b45d6007d071c496/e4a3f/memory.png 295w,
+/static/c51ed8dceb4deb64b45d6007d071c496/fcda8/memory.png 590w,
+/static/c51ed8dceb4deb64b45d6007d071c496/efc66/memory.png 885w,
+/static/c51ed8dceb4deb64b45d6007d071c496/c83ae/memory.png 1180w,
+/static/c51ed8dceb4deb64b45d6007d071c496/098c1/memory.png 1578w"
+        sizes="(max-width: 590px) 100vw, 590px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+      />
+  </a>
+    </span></p>
+<p>先の記事で解説されている３点ヒープダンプ法は <code class="language-text">All objects</code> となっているところから <code class="language-text">Objects allocated between heapdump-xxx and heapdump-</code> を選択して、 heapdump 間で新しくアロケートされメモリの上に GC されずに残ってしまっているオブジェクトを探すことで、どのオブジェクトがメモリリークを起こしているのかを知る方法です。</p>
+<p>しかし、今回の計測の結果では３点ヒープダンプ方を使ってメモリリークを見つけることはできませんでした。</p>
+<p>ではどこに注目したかというと <code class="language-text">(string)</code> という表記です。</p>
+<p>先の記事では「少なくとも最初は<code class="language-text">(string)</code>を無視する」と書いてありますが、今回調査していたサーバは SSR の機能を担うだったことと、明らかに他のオブジェクトに比べて大きなメモリを消費していたので気になりました。</p>
+<p><code class="language-text">(string)</code> の左にある三角を押すと実際に参照している関数やオブジェクトなどが展開されます。実際に追ってみると大量の <code class="language-text">StyleSheet</code> というオブジェクトが <code class="language-text">(string)</code> を参照していることがわかりました。実際にメモリの中身を覗いてみると、ほぼ style の文字列情報でした。</p>
+<p>ということでスタイル系の処理がリクエスト終了後も文字列を掴み続けてしまっているのではないかと当たりをつけて、先程のオブジェクトがどこで生成されているかを調べてみると material-ui が生成していることがわかりました。</p>
+<p>さらに <code class="language-text">StyleSheet memory leak</code> で issue を調べてみると次の <a href="https://github.com/mui-org/material-ui/issues/10927">issue</a> で同じ現象になっている人をみつけました。</p>
+<p>issue 内のコードと実コードを見比べてみると sheetsManager という props を渡していないことがわかり、これを加えることでメモリリークは解消しました。</p>
+<div class="gatsby-highlight" data-language="diff"><pre class="language-diff"><code class="language-diff"><span class="token unchanged">  &lt;StylesProvider
+    sheetsRegistry={registry}
+    generateClassName={generateClassName}
+</span><span class="token inserted-sign inserted">+   sheetsManager={new Map()}
+</span><span class="token unchanged">  ></span></code></pre></div>
+<p>（蛇足ですが、ドキュメントにそんな記載があったかなと探しては見ましたが、うまく記述が見つけられませんでした。確かに<a href="https://github.com/mui-org/material-ui/blob/bdebdfd4832c13a05463faeffef9687688be9715/packages/material-ui-styles/src/StylesProvider/StylesProvider.js#L43-L49">コード</a>を眺めてみると、<code class="language-text">NODE_ENV=production</code>以外の時に sheetsManager が与えられていないと警告のログが出るようになっていましたが、今回のケースでは本番環境相当で起動していたため気づけませんでした。）</p>
+<p>このようにヒープダンプを追っていくことで、原因の特定に役立つことがあります。</p>
+<h1 id="まとめ" style="position:relative;"><a href="#%E3%81%BE%E3%81%A8%E3%82%81" aria-label="まとめ permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>まとめ</h1>
+<p>自分が Node.js のパフォーマンスチューニングでいつも見ている点や方法をまとめました。</p>
+<p>パフォーマンスイシューはアプリケーションによって異なるため、地道な計測と調査が必要になりますが、やった数だけ確実に勘所がつくようになります。</p>
+<p>自分もいくつかの環境を見ることである程度勘が働くようになってはきましたが、まだまだたくさんの事例をみないといけないなと毎回思います。</p>
+<p>Twitter などで声をかけていただければ、実際のアプリケーションコードを見ながら調査のお手伝い等もできるので、ぜひ一緒に知見をためましょう！</p></div><hr style="margin-top:1.75rem;margin-bottom:1.75rem"/><div style="display:flex;align-items:center;margin-bottom:4.375rem"><div class=" gatsby-image-wrapper" style="position:relative;overflow:hidden;display:inline-block;width:50px;height:50px;margin-right:0.875rem;margin-bottom:0;min-width:50px;border-radius:100%"><img aria-hidden="true" src="data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAUABQDASIAAhEBAxEB/8QAFwABAAMAAAAAAAAAAAAAAAAAAAMEBf/EABYBAQEBAAAAAAAAAAAAAAAAAAMBAP/aAAwDAQACEAMQAAABzLM84LiLphC4LP/EABsQAAIDAQEBAAAAAAAAAAAAAAECAAMREhMh/9oACAEBAAEFAqk2eaYU+ommyoLCNPRE6LHZ/8QAGREAAQUAAAAAAAAAAAAAAAAAAAECEBES/9oACAEDAQE/AW5oWf/EABkRAAEFAAAAAAAAAAAAAAAAAAABAhAREv/aAAgBAgEBPwF2rEn/xAAfEAABAwMFAAAAAAAAAAAAAAABABExAhAyEiEiUYH/2gAIAQEABj8CeocQsTvFhDLKn0rpOFqM2//EABsQAQADAQADAAAAAAAAAAAAAAEAETEhQVFh/9oACAEBAAE/ITXdpGwF02KRz5PvrKkAV3A+TxBG4pMZlNti7n//2gAMAwEAAgADAAAAEMc4Af/EABgRAAMBAQAAAAAAAAAAAAAAAAABERBB/9oACAEDAQE/EIpSE4mcz//EABgRAQADAQAAAAAAAAAAAAAAAAEAEUEQ/9oACAECAQE/EMsslpN5/8QAHhABAAICAgMBAAAAAAAAAAAAAQARIWFBUTGhsfD/2gAIAQEAAT8Qfu4Rpv7MtovQ/dxcLKwm4s8bY0B1zAlTNobMANRrHGqh9wopyg8ksbmdBU6if//Z" alt="koh110" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition-delay:500ms"/><noscript><picture><source srcset="/static/6f5f8443fd2f36bd64ddc9ab4e110fe0/99438/profile-pic.jpg 1x,
+/static/6f5f8443fd2f36bd64ddc9ab4e110fe0/aba1d/profile-pic.jpg 1.5x,
+/static/6f5f8443fd2f36bd64ddc9ab4e110fe0/b315d/profile-pic.jpg 2x" /><img loading="lazy" width="50" height="50" srcset="/static/6f5f8443fd2f36bd64ddc9ab4e110fe0/99438/profile-pic.jpg 1x,
+/static/6f5f8443fd2f36bd64ddc9ab4e110fe0/aba1d/profile-pic.jpg 1.5x,
+/static/6f5f8443fd2f36bd64ddc9ab4e110fe0/b315d/profile-pic.jpg 2x" src="/static/6f5f8443fd2f36bd64ddc9ab4e110fe0/99438/profile-pic.jpg" alt="koh110" style="position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center"/></picture></noscript></div><div><strong>koh110</strong><p style="margin:0">JavaScript エンジニア。 詳しくは<a href="https://koh.dev">こちら</a></p></div></div><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li><a rel="prev" href="/2020-01-01-vpn/">← <!-- -->WireGuardでVPNごしに自宅サーバ開発できる環境を作った</a></li><li></li></ul><footer>© <!-- -->2020<!-- -->,<!-- --> <a href="https://koh.dev" target="_blank">kohsweb</a></footer></div></div></div><script>
+  
+  
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'UA-40547259-4', 'auto', {});
+      
+      
+      
+      
+      
+      }</script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/2020-03-04-nodejs-performance/";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-2b62e15b1f057ff3d791.js"],"component---node-modules-gatsby-plugin-offline-app-shell-js":["/component---node-modules-gatsby-plugin-offline-app-shell-js-498d614abd91358533fa.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-24a39d7f82e175c5f8d2.js"],"component---src-pages-404-js":["/component---src-pages-404-js-6d809cdf7fec6e9cc4a6.js"],"component---src-pages-index-js":["/component---src-pages-index-js-eacb9ad4e04354ce9112.js"]};/*]]>*/</script><script src="/component---src-templates-blog-post-js-24a39d7f82e175c5f8d2.js" async=""></script><script src="/commons-f3fb9eddd369eaac2070.js" async=""></script><script src="/app-2b62e15b1f057ff3d791.js" async=""></script><script src="/styles-d92fff196de3ab39b810.js" async=""></script><script src="/webpack-runtime-3241d3b175d211795bc4.js" async=""></script></body></html>
