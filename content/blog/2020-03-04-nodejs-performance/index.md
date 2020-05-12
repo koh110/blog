@@ -415,7 +415,7 @@ Node.js のコアモジュールは callback 形式になっていることが�
 const fs = require('fs').promises
 
 app.get('/', (req, res) => {
-  fs.readFile('./index.html').then(html => {
+  fs.readFile('./index.html').then((html) => {
     res.status(200).send(html)
   })
 })
@@ -438,7 +438,7 @@ app.get('/', (req, res) => {
   const stream = redis.scanStream({ count: 100 })
 
   // 100件取得したら keys に詰め込む
-  stream.on('data', results => {
+  stream.on('data', (results) => {
     for (let i = 0; i < results.length; i++) {
       keys.push(results[i])
     }
@@ -446,7 +446,7 @@ app.get('/', (req, res) => {
 
   stream.on('end', () => {
     // keys.map が1万件のループになるので長時間の停止になってしまう
-    res.status(200).json(keys.map(e => `key-${e}`))
+    res.status(200).json(keys.map((e) => `key-${e}`))
   })
 })
 ```
@@ -462,7 +462,7 @@ app.get('/', (req, res) => {
   const stream = redis.scanStream({ count: 100 })
 
   // 100件取得したら keys に詰め込む
-  stream.on('data', results => {
+  stream.on('data', (results) => {
     for (let i = 0; i < results.length; i++) {
       keys.push(`key-${results[i]}`)
     }
@@ -503,9 +503,23 @@ Node.js が性能を劣化させる原因のもうひとつにガベージコレ
 
 ```js
 setInterval(() => {
+  try {
+    global.gc()
+  } catch (e) {
+    console.log('use --expose-gc')
+    process.exit(1)
+  }
   const heapUsed = process.memoryUsage().heapUsed
   console.log('Heap:', heapUsed, 'bytes')
 }, 2000)
+```
+
+`global.gc` は強制的に GC を呼び出す関数です。heap メモリの使用量を出力する前に GC を走らせてもメモリ使用量が上がり続けていれば GC できない領域にメモリを掴み続けている（メモリリークがある）可能性があります。
+
+この関数を利用するためにはフラグ付きで起動する必要があります。
+
+```bash
+$ node --expose-gc index.js
 ```
 
 実際にメモリリークが起きているサーバで起動してみると、右肩上がりにヒープが使われていくのがわかります。
