@@ -21,6 +21,9 @@ $ sudo apt update
 
 - PasswordAuthentication yes
 + #PasswordAuthentication yes
+
+- PermitRootLogin prohibit-password
++ PermitRootLogin no
 ```
 
 # Node.js のインストール
