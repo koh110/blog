@@ -1,4 +1,646 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kohsweblog]]></title><description><![CDATA[気になった技術などをまとめていくブログです。]]></description><link>https://blog.koh.dev</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 12 May 2020 16:23:26 GMT</lastBuildDate><item><title><![CDATA[AsyncIteratorと落とし穴]]></title><description><![CDATA[Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。 しかし、AsyncIterator の登場によって Stream を Promise…]]></description><link>https://blog.koh.dev/2020-05-13-async-iterator/</link><guid isPermaLink="false">https://blog.koh.dev/2020-05-13-async-iterator/</guid><pubDate>Wed, 13 May 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kohsweblog]]></title><description><![CDATA[気になった技術などをまとめていくブログです。]]></description><link>https://blog.koh.dev</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 24 Oct 2020 14:54:13 GMT</lastBuildDate><item><title><![CDATA[lighthouse-ciでサイトのスコアを定期的にチェックしよう]]></title><description><![CDATA[Core Web Vitals とは 最近のフロントエンド周辺では Google が提唱した Web Vitals と呼ばれる指標が非常に注目されています。 これは Web…]]></description><link>https://blog.koh.dev/2020-10-24-lighthouse-ci/</link><guid isPermaLink="false">https://blog.koh.dev/2020-10-24-lighthouse-ci/</guid><pubDate>Sat, 24 Oct 2020 00:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;core-web-vitals-とは&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#core-web-vitals-%E3%81%A8%E3%81%AF&quot; aria-label=&quot;core web vitals とは permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Core Web Vitals とは&lt;/h1&gt;
+&lt;p&gt;最近のフロントエンド周辺では Google が提唱した Web Vitals と呼ばれる指標が非常に注目されています。&lt;/p&gt;
+&lt;p&gt;これは Web で多くのユーザーが快適なユーザー体験を得るために、こういったポイントに特に気を使いましょう、というものを数値化したものです。&lt;/p&gt;
+&lt;p&gt;この中でも特に重要と定められている “LCP (Largest Contentful Paint)”, “FID (First Input Delay)”, “CLS (Cumulative Layout Shift)” の 3 つは Core Web Vitals と呼ばれています。&lt;/p&gt;
+&lt;p&gt;それぞれの観点を簡単に説明すると次のようになります。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LCP: 重要な要素がどれだけ早く読み込まれたか&lt;/li&gt;
+&lt;li&gt;FID: 最初の入力ができるまでにどれくらいかかったか&lt;/li&gt;
+&lt;li&gt;CLS: がくっとレイアウトが変わることがないか&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ref: &lt;a href=&quot;https://developers-jp.googleblog.com/2020/05/web-vitals.html&quot;&gt;Web Vitals の概要: サイトの健全性を示す重要指標&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;例えば製品を説明するページのヒーローイメージのサイズがとても大きく、読み込みに時間がかかったらユーザーはがっかりして離脱してしまうかもしれません。それを表した指標が LCP だと思ってください。&lt;/p&gt;
+&lt;p&gt;例えば JavaScript を使ったとてもリッチな表現で見た目のよいシステムを作ったとします。しかし JavaScript を処理し終わるまで検索バーが使えなかったらとても使いにくいシステムと思われてしまうでしょう。FID はいかにシステムの機能を最速でユーザーに届けるという指標です。&lt;/p&gt;
+&lt;p&gt;実際にスマホなどでページを読み込んでいる最中に、突然広告が読み込まれて変なところをタップしてしまったという経験はないでしょうか。そのイライラをユーザーに与えてしまっていないかを数値化した指標が CLS です。&lt;/p&gt;
+&lt;p&gt;もちろんこれらのスコアが全てではないですが、これらのスコアを上げることができればユーザーにとって快適に近づくというのはイメージしやすいのではないでしょうか。&lt;/p&gt;
+&lt;p&gt;また Google は Chrome 上でバッヂをつけることで、高速なサイトと低速なサイトを見分けられるようにし、高速なサイトを優遇すると述べています。（Android 版の Chrome では chrome://flags から &lt;code class=&quot;language-text&quot;&gt;Context menu performance info and remote hint fetching&lt;/code&gt; フラグをオンにすることで、すでにこの機能が利用可能です。）&lt;/p&gt;
+&lt;p&gt;Ref: &lt;a href=&quot;https://developers-jp.googleblog.com/2019/12/blog-post_10.html&quot;&gt;さらに高速なウェブへの移行に向けて&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 320px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/d71dba3a07effa9d0fa398a9bab7a76e/cb69c/chrome-badge.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 177.7027027027027%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAkABQDASIAAhEBAxEB/8QAGgABAAIDAQAAAAAAAAAAAAAAAAQFAQIDBv/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIQAxAAAAGNvbTDyaYstJtP2lhuYqchqD//xAAeEAACAgEFAQAAAAAAAAAAAAACAwABEQQSExQzIf/aAAgBAQABBQIU2weuyFgS0mOGo720vjUb9cp1LDt1LvJbym8pyFP/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AV//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AV//xAAjEAACAQEHBQAAAAAAAAAAAAAAAgExAxAREiEygTNRcZGh/9oACAEBAAY/Asy2WMHR+kqyawc3PpFTm5/JlwNk+xm7yVKm6T//xAAfEAACAgEEAwAAAAAAAAAAAAAAAREhMVFhcYEQQaH/2gAIAQEAAT8hV5xuhKx8B4wUMoQvYRd8ilIJY1GR1ESendtyoKqm4FORdBvy9Xxr4T//2gAMAwEAAgADAAAAEFv3MHPP/8QAFxEAAwEAAAAAAAAAAAAAAAAAAAERIP/aAAgBAwEBPxAo3j//xAAXEQADAQAAAAAAAAAAAAAAAAAAAREg/9oACAECAQE/ECLP/8QAIRABAAICAQMFAAAAAAAAAAAAAQARITFhUXGxQaHB0fH/2gAIAQEAAT8QOoxByY7svLc7r7ZeTdFjUQqkw1RTcLoDoySPetnS1nBCIKOPrzNjnXHxEbJZ7CXpWYervEK2BVlkd53SkU1Ct88PMJP1J//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Chrome SpeedBadge&quot;
+        title=&quot;Chrome SpeedBadge&quot;
+        src=&quot;/static/d71dba3a07effa9d0fa398a9bab7a76e/cb69c/chrome-badge.jpg&quot;
+        srcset=&quot;/static/d71dba3a07effa9d0fa398a9bab7a76e/a80bd/chrome-badge.jpg 148w,
+/static/d71dba3a07effa9d0fa398a9bab7a76e/1c91a/chrome-badge.jpg 295w,
+/static/d71dba3a07effa9d0fa398a9bab7a76e/cb69c/chrome-badge.jpg 320w&quot;
+        sizes=&quot;(max-width: 320px) 100vw, 320px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h1 id=&quot;core-web-vitals-の計測&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#core-web-vitals-%E3%81%AE%E8%A8%88%E6%B8%AC&quot; aria-label=&quot;core web vitals の計測 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Core Web Vitals の計測&lt;/h1&gt;
+&lt;p&gt;言葉にしてしまえばどの指標も当たり前のように聞こえてしまう話ですが、これら全てをシステムを作っている段階で気にしながら開発するのは非常に難易度が高いことです。そこで、これらのスコアを特定のタイミングで可視化することが重要になります。&lt;/p&gt;
+&lt;p&gt;そのためにいくつかのツールが提供されています。&lt;/p&gt;
+&lt;h2 id=&quot;crux-searchconsole&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#crux-searchconsole&quot; aria-label=&quot;crux searchconsole permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;CrUX, SearchConsole&lt;/h2&gt;
+&lt;p&gt;先程の指標は実際に（Chrome を利用している）ユーザーがどのような影響を受けたかを集めたデータ（フィールドデータ）によって計測されます。&lt;/p&gt;
+&lt;p&gt;これらのデータを集計、サマライズしたものを Chrome User Experience Report (CrUX) のダッシュボードで参照することができます。&lt;/p&gt;
+&lt;p&gt;Ref:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.google.com/web/tools/chrome-user-experience-report&quot;&gt;chrome-user-experience-report&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.google.com/web/updates/2018/08/chrome-ux-report-dashboard&quot;&gt;CrUX Dashboard&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;また、SearchConsole を利用している場合は「ウェブに関する主な指標」から同様のデータを参照することが可能です。&lt;/p&gt;
+&lt;p&gt;しかしこれらのツールはフィールドデータを利用している事で弱点も生まれます。そう、例えばこのブログのように十分な匿名データが集まらない程度の PV しかないサイトでは、悲しいことにデータ量が少なすぎて表示できません。&lt;/p&gt;
+&lt;p&gt;とはいえ悲しんでばかりもいられないので他の方法でスコアを計測します。&lt;/p&gt;
+&lt;h2 id=&quot;pagespeed-insights-lighthouse&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#pagespeed-insights-lighthouse&quot; aria-label=&quot;pagespeed insights lighthouse permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;PageSpeed Insights, Lighthouse&lt;/h2&gt;
+&lt;p&gt;では十分フィールドデータが集められない環境ではどうやってスコアを計測するのか。ここで登場するのが PageSpeed Insights や Lighthouse です。&lt;/p&gt;
+&lt;p&gt;これらのツールはフィールドデータではなくラボデータ、つまり実行したタイミングでそのツールが計測した値を元にスコアリングを行います。&lt;/p&gt;
+&lt;p&gt;昔は Chrome の拡張として提供されていた Lighthouse ですが、最近は Chrome の開発者ツールにバンドルされています。&lt;/p&gt;
+&lt;p&gt;PageSpeed Insights は Lighthouse を Web 上で実行できるプラットフォームと思って貰えれば大丈夫です。PageSpeed Insights では十分なフィールドデータがある場合、フィールドデータとラボデータの両方が同時に確認可能です。&lt;/p&gt;
+&lt;p&gt;PageSpeed Insights はインターネット上でアクセスできる URL がなければ利用できませんが、Lighthouse はブラウザにバンドルされているため、インターネットから隔離された社内環境等でも計測が可能です。&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/d815d169c390ff6bc0611a06622a8b63/e5166/lighthouse.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 120.94594594594594%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAYABQDASIAAhEBAxEB/8QAGQABAQADAQAAAAAAAAAAAAAAAAMBAgQF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAfPjeCasl7ohEH//xAAbEAACAgMBAAAAAAAAAAAAAAACAwEQABMjM//aAAgBAQABBQJ/vT47UxhC3ezCKTn/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AR//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AR//xAAfEAACAAUFAAAAAAAAAAAAAAAAAQIDEBEiMTJBcXL/2gAIAQEABj8Cj7OaTPVZiTtkzcXi1P/EAB4QAAIBBAMBAAAAAAAAAAAAAAABESExQZFRcYHw/9oACAEBAAE/IeS7ymaOz1mCyIcWeh6I+YPmiY0j/9oADAMBAAIAAwAAABC3DwD/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/EB//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/EB//xAAeEAEAAwABBQEAAAAAAAAAAAABABEhMUFhcYHB0f/aAAgBAQABPxBZoGdNdZV9JQDX0iLCa1DvFxdhxARpPCNHtqodXY7afT8jWxAXxhP/2Q==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Lighthouse&quot;
+        title=&quot;Lighthouse&quot;
+        src=&quot;/static/d815d169c390ff6bc0611a06622a8b63/1c72d/lighthouse.jpg&quot;
+        srcset=&quot;/static/d815d169c390ff6bc0611a06622a8b63/a80bd/lighthouse.jpg 148w,
+/static/d815d169c390ff6bc0611a06622a8b63/1c91a/lighthouse.jpg 295w,
+/static/d815d169c390ff6bc0611a06622a8b63/1c72d/lighthouse.jpg 590w,
+/static/d815d169c390ff6bc0611a06622a8b63/a8a14/lighthouse.jpg 885w,
+/static/d815d169c390ff6bc0611a06622a8b63/fbd2c/lighthouse.jpg 1180w,
+/static/d815d169c390ff6bc0611a06622a8b63/e5166/lighthouse.jpg 1200w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Lighthouse は各指標で具体的にどれくらいの時間がかかったか、それから計算されるスコアはいくつかなどが確認可能です。さらにその結果から具体的にこの部分を直しましょうというアドバイスまでしてくれます。&lt;/p&gt;
+&lt;p&gt;例えばページの中で大きな画像が読み込まれていれば「この画像のフォーマットを変えたり、サイズを縮小しましょう」となったり、利用していない JavaScript が読み込まれていれば「利用していない JavaScript を削除しましょう」と具体的なファイル名を教えてくれる、といった具合に直すべき箇所をあげてくれます。&lt;/p&gt;
+&lt;p&gt;実際にスコアを上げる際には Lighthouse に何度もお世話になる事になるでしょう。&lt;/p&gt;
+&lt;p&gt;Ref:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.google.com/speed/pagespeed/insights/&quot;&gt;PageSpeed Insights&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.google.com/web/tools/lighthouse/&quot;&gt;Lighthouse&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ラボデータはデータ量が十分に集まっていない状態でもスコアを算出することができることがメリットです。逆にいうと計測環境のネットワークや CPU にスコアが左右されやすいということに考慮が必要です。&lt;/p&gt;
+&lt;p&gt;また、これらのスコアは一度測ればいいものではなく、常に計測を続けて追加した機能などでスコアが低下していないか、などスコアの推移を見ることで効果を発揮するものです。そのためにも一定のタイミング/性能で計測を続けたくなります。&lt;/p&gt;
+&lt;p&gt;つまり CI に組み込んだり、cron で回したくなるのが自然な発想でしょう。それを実現するために Lighthouse をラップした Lighthouse CI というツールが提供されています。&lt;/p&gt;
+&lt;h1 id=&quot;lighthouse-ci-の構築&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#lighthouse-ci-%E3%81%AE%E6%A7%8B%E7%AF%89&quot; aria-label=&quot;lighthouse ci の構築 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Lighthouse CI の構築&lt;/h1&gt;
+&lt;p&gt;Ligthouse CI とは Lighthouse を CI のステップに組み込むことができるツールです。データを貯め込み可視化する server と、計測を行って server に送信する cli の 2 つのパッケージから構成されています。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/GoogleChrome/lighthouse-ci&quot;&gt;https://github.com/GoogleChrome/lighthouse-ci&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;実際にどのようにして Lighthouse CI を構築・運用していくのかを、Ubuntu 上で実行しながら解説していきます。&lt;/p&gt;
+&lt;h2 id=&quot;lighthouse-ci-server-の構築&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#lighthouse-ci-server-%E3%81%AE%E6%A7%8B%E7%AF%89&quot; aria-label=&quot;lighthouse ci server の構築 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Lighthouse CI Server の構築&lt;/h2&gt;
+&lt;p&gt;Server の構築方法を簡単にまとめると次の 3 ステップになります。公式の手順は&lt;a href=&quot;https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/server.md&quot;&gt;こちら&lt;/a&gt;です。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Node.js のインストール&lt;/li&gt;
+&lt;li&gt;MySQL のインストール&lt;/li&gt;
+&lt;li&gt;Server アプリケーションの作成&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Lighthouse は Node.js で動くので Node.js を最初にインストールしてください。自分はさくっとインストールする時は次のようなスクリプトを使って構築することが多いです。&lt;/p&gt;
+&lt;p&gt;Ref: &lt;a href=&quot;https://github.com/koh110/node-install/blob/master/insall.sh&quot;&gt;Ndoe.js のインストール&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;次は MySQL のインストールです。Lighthouse CI Server は MySQL の他に SQLite や PostgreSQL でも動作します。今回は自分が使い慣れている MySQL を選択しました。
+内部的には &lt;a href=&quot;https://github.com/sequelize/sequelize&quot;&gt;Sequelize&lt;/a&gt; を利用しているようです。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;apt&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; mysql-server mysql-client
+$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;service&lt;/span&gt; mysql status
+$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; mysql -u root
+
+&lt;span class=&quot;token comment&quot;&gt;# password は適切な文字列を利用してください&lt;/span&gt;
+mysql&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; CREATE &lt;span class=&quot;token environment constant&quot;&gt;USER&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;lighthouseuser&apos;&lt;/span&gt;@&lt;span class=&quot;token string&quot;&gt;&apos;localhost&apos;&lt;/span&gt; IDENTIFIED BY &lt;span class=&quot;token string&quot;&gt;&apos;password&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+mysql&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; GRANT ALL ON lighthouse.* TO lighthouseuser IDENTIFIED BY &lt;span class=&quot;token string&quot;&gt;&apos;password&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+mysql&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; CREATE DATABASE lighthouse&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;MySQL を使って運用している場合、計測結果のアップロード時に Server 側にエラーが出ることがあります。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;SequelizeDatabaseError: Incorrect string value: &lt;span class=&quot;token string&quot;&gt;&apos;...&apos;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;lhr&apos;&lt;/span&gt; at row &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;MySQL のエンコーディングが &lt;code class=&quot;language-text&quot;&gt;utf8&lt;/code&gt; の場合サロゲートペア文字が扱えないため、MySQL 側の設定を &lt;code class=&quot;language-text&quot;&gt;utf8mb4&lt;/code&gt; に変える必要があるようです。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;mysql&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; show variables like &lt;span class=&quot;token string&quot;&gt;&quot;chara%&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
++--------------------------+----------------------------+
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; Variable_name            &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; Value                      &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
++--------------------------+----------------------------+
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_client     &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; utf8                       &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_connection &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; utf8                       &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_database   &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; latin1                     &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_filesystem &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; binary                     &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_results    &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; utf8                       &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_server     &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; latin1                     &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_system     &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; utf8                       &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_sets_dir       &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; /usr/share/mysql/charsets/ &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
++--------------------------+----------------------------+
+&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt; rows &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.00&lt;/span&gt; sec&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;/etc/mysql/my.cnf&lt;/code&gt; に次の設定を追加しています。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;[mysql]
+default-character-set=utf8mb4
+
+[mysqld]
+character-set-server=utf8mb4&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;上記の設定を追加して MySQL サーバーを再起動すると文字コードが変わっていることがわかります。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;mysql&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; show variables like &lt;span class=&quot;token string&quot;&gt;&quot;chara%&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
++--------------------------+----------------------------+
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; Variable_name            &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; Value                      &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
++--------------------------+----------------------------+
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_client     &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; utf8mb4                    &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_connection &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; utf8mb4                    &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_database   &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; utf8mb4                    &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_filesystem &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; binary                     &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_results    &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; utf8mb4                    &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_server     &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; utf8mb4                    &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_set_system     &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; utf8                       &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; character_sets_dir       &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; /usr/share/mysql/charsets/ &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
++--------------------------+----------------------------+
+&lt;span class=&quot;token number&quot;&gt;8&lt;/span&gt; rows &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.00&lt;/span&gt; sec&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;最後にアプリケーションの作成を行います。とは言っても config ファイルを用意して cli から起動するだけです。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; lighthouse-ci-server
+$ &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;{ &lt;span class=&quot;token entity&quot; title=&quot;\&amp;quot;&quot;&gt;\&quot;&lt;/span&gt;private&lt;span class=&quot;token entity&quot; title=&quot;\&amp;quot;&quot;&gt;\&quot;&lt;/span&gt;: true }&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; package.json
+$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -D &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -D @lhci/cli @lhci/server mysql2
+$ &lt;span class=&quot;token function&quot;&gt;touch&lt;/span&gt; lighthouserc.js
+
+$ tree -L &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;.&lt;/span&gt;
+├── lighthouserc.js
+├── node_modules
+├── package.json
+└── package-lock.json
+
+&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; directory, &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt; files&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;最初はちょっとわかりにくいのですが、Server も CLI も同じ &lt;code class=&quot;language-text&quot;&gt;lhci&lt;/code&gt; コマンドを使って起動できます。&lt;/p&gt;
+&lt;p&gt;サーバーの config 設定は&lt;a href=&quot;https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/configuration.md#server&quot;&gt;こちら&lt;/a&gt;を参考にします。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;lhci&lt;/code&gt; は内部的に &lt;code class=&quot;language-text&quot;&gt;yags&lt;/code&gt; に依存しているので、オプションでそれぞれの値を設定することもできます。また、モジュールを読み込んで普通のアプリケーションサーバーのように Node.js のスクリプトで起動することもできます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; createServer &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;@lhci/server&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Starting server...&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;createServer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  port&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  storage&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    storageMethod&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;sql&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    sqlDialect&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;sqlite&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    sqlDatabasePath&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/path/to/db.sql&apos;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; port &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;LHCI listening on port&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; port&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Ref:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/server.md#general&quot;&gt;Server Docs&lt;/a&gt;
+&lt;a href=&quot;https://github.com/GoogleChrome/lighthouse-ci/blob/master/packages/cli/src/cli.js&quot;&gt;cli.js&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;サーバーの設定に必要なパラメーターはドキュメントもありますが型定義が提供されているので、ここを参照したほうがわかりやすいと思います。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/GoogleChrome/lighthouse-ci/blob/master/types/server.d.ts#L178-L197&quot;&gt;server.d.ts&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;lighthouserc.js の中身は次のようになります。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; sqlConnectionUrl &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;mysql://&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;MYSQL_USER&lt;/span&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;MYSQL_PASSWORD&lt;/span&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;@localhost/lighthouse&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;
+
+module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  ci&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    server&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      port&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      storage&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        storageMethod&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;sql&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        sqlDialect&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mysql&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        sqlConnectionUrl
+      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;設定ファイルを配置したらサーバーを起動してブラウザの表示を確認してみましょう。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ PORT=3000 MYSQL_USER=lighthouseuser MYSQL_PASSWORD=password ./node_modules/.bin/lhci server --config=./lighthouserc.js&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ブラウザで開いてみると初期画面として次のような画面が表示されます。&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/64c645b6f1d7e5be128a069d8e4c946c/c08c5/lighthouse-ci-server.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 62.83783783783784%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEF/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhADEAAAAdqwUJ//xAAUEAEAAAAAAAAAAAAAAAAAAAAg/9oACAEBAAEFAl//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAUEAEAAAAAAAAAAAAAAAAAAAAg/9oACAEBAAY/Al//xAAbEAABBAMAAAAAAAAAAAAAAAAAASFRYRFB8P/aAAgBAQABPyF5H5R7NE0YP//aAAwDAQACAAMAAAAQuD//xAAWEQEBAQAAAAAAAAAAAAAAAAAAARH/2gAIAQMBAT8QbH//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAaEAEAAwEBAQAAAAAAAAAAAAABABEhYVFx/9oACAEBAAE/EC7QheyqLfNgtuvjAsJhV15FzgMwo7U//9k=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Lighthouse CI Server&quot;
+        title=&quot;Lighthouse CI Server&quot;
+        src=&quot;/static/64c645b6f1d7e5be128a069d8e4c946c/1c72d/lighthouse-ci-server.jpg&quot;
+        srcset=&quot;/static/64c645b6f1d7e5be128a069d8e4c946c/a80bd/lighthouse-ci-server.jpg 148w,
+/static/64c645b6f1d7e5be128a069d8e4c946c/1c91a/lighthouse-ci-server.jpg 295w,
+/static/64c645b6f1d7e5be128a069d8e4c946c/1c72d/lighthouse-ci-server.jpg 590w,
+/static/64c645b6f1d7e5be128a069d8e4c946c/c08c5/lighthouse-ci-server.jpg 640w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;MySQL 側を確認してみると必要なテーブルが自動で生成されています。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;mysql&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; use lighthouse&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+mysql&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; show tables&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
++----------------------+
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; Tables_in_lighthouse &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
++----------------------+
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; SequelizeMeta        &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; builds               &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; projects             &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; runs                 &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; statistics           &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
++----------------------+
+&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt; rows &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.00&lt;/span&gt; sec&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;サーバーの動作を確認したらデーモン化します。自分はプライベートでさくっとやる時には etcd をよく使います。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;[Unit]
+Description=lighthouse ci server
+
+[Service]
+Type=simple
+Environment=PORT=3000
+Environment=MYSQL_USER=lighthouseuser
+Environment=MYSQL_PASSWORD=password
+WorkingDirectory=/var/lighthouse/lighthouse-server
+ExecStart=/var/lighthouse/lighthouse-serve/rnode_modules/.bin/lhcilhci server --config=/var/lighthouse/lighthouse-server/lighthouserc.js
+User=root
+Group=root
+Restart=always
+LimitNOFILE=65535
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;次は CLI で実際にスコアを計測して Server に登録してみます。&lt;/p&gt;
+&lt;h2 id=&quot;lighthouse-ci&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#lighthouse-ci&quot; aria-label=&quot;lighthouse ci permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Lighthouse CI&lt;/h2&gt;
+&lt;p&gt;実際に CI がデータを Server に登録するまでには 3 ステップの処理を行います。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;collect: 実際にサイトの計測を行うステップ&lt;/li&gt;
+&lt;li&gt;assert: スコアが特定値より低い時にエラーを起こすステップ&lt;/li&gt;
+&lt;li&gt;upload: 結果を Server に登録するステップ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;この 3 ステップをまとめて autorun として実行することもできます。
+もともと Lighthouse CI は GitHub Actions や Circle CI など CI に組み込むことを想定して作られています。&lt;/p&gt;
+&lt;p&gt;今回はコミットごとの計測ではなく、定点観測を行う環境を構築するため assert ステップは飛ばして実行します。&lt;/p&gt;
+&lt;p&gt;ともあれ、まずは CLI を使えるようにしないことには始まらないのでグローバルにインストールしてパスを通します。&lt;/p&gt;
+&lt;p&gt;記事執筆時点での最新バージョンは 0.5.1 です。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# サーバーにインストールされている lhci のバージョンを調べる&lt;/span&gt;
+$ &lt;span class=&quot;token function&quot;&gt;curl&lt;/span&gt; https://your-lhci-server.example.com/version
+
+$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -g @lhci/cli@latest
+$ lhci --version
+&lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;.1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Lighthouse CI はプロジェクトという単位で複数の URL を管理することができます。&lt;/p&gt;
+&lt;p&gt;なので計測をする前に、まず最初はプロジェクトの作成から入ります。&lt;code class=&quot;language-text&quot;&gt;lhci wizard&lt;/code&gt; コマンドを叩くと対話形式でプロジェクトの作成ができます。
+&lt;code class=&quot;language-text&quot;&gt;lhci wizard&lt;/code&gt; の実行が完了すると Server にプロジェクトを登録し build token と admin token を発行します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ lhci wizard
+? Which wizard &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt; you want to run? new-project
+? What is the URL of your LHCI server? http://localhost:3000
+? What would you like to name the project? kohsweb
+? Where is the project&lt;span class=&quot;token string&quot;&gt;&apos;s code hosted? https://github.com/koh110/lighouse-kohsweb
+? What branch is considered the repo&apos;&lt;/span&gt;s trunk or main branch? master
+Created project kohsweb &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;9498cd1d-02e5-4418-a974-bda42c4513e0&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+Use build token xxxxx-xxxx-xxxx-xxxx-xxxxxxxxx to &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; data.
+Use admin token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx to manage data. KEEP THIS SECRET&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Server の UI を見に行くとプロジェクトが登録されています。&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/d0402fd632ae592189a1084c3c977202/c08c5/lighthouse-ci-server-2.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 62.83783783783784%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEAMQAAABttitAs//xAAWEAADAAAAAAAAAAAAAAAAAAAEEDT/2gAIAQEAAQUCEmQcy//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABUQAQEAAAAAAAAAAAAAAAAAAAIQ/9oACAEBAAY/AjTf/8QAGxAAAQQDAAAAAAAAAAAAAAAAACFRYbEBEEH/2gAIAQEAAT8hz6PYoslix41//9oADAMBAAIAAwAAABBr3//EABYRAQEBAAAAAAAAAAAAAAAAAAABEf/aAAgBAwEBPxBsf//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABwQAQADAQADAQAAAAAAAAAAAAEAESExQWFxsf/aAAgBAQABPxBimh781NeXM1hbdfFhXfj+0WuOBiU07P/Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Lighthouse CI Server&quot;
+        title=&quot;Lighthouse CI Server&quot;
+        src=&quot;/static/d0402fd632ae592189a1084c3c977202/1c72d/lighthouse-ci-server-2.jpg&quot;
+        srcset=&quot;/static/d0402fd632ae592189a1084c3c977202/a80bd/lighthouse-ci-server-2.jpg 148w,
+/static/d0402fd632ae592189a1084c3c977202/1c91a/lighthouse-ci-server-2.jpg 295w,
+/static/d0402fd632ae592189a1084c3c977202/1c72d/lighthouse-ci-server-2.jpg 590w,
+/static/d0402fd632ae592189a1084c3c977202/c08c5/lighthouse-ci-server-2.jpg 640w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;先程発行された admin token を使って画面上から、プロジェクトの設定の変更や削除が可能です。&lt;/p&gt;
+&lt;p&gt;build token は upload ステップで Server にデータを登録するために必要となります。&lt;/p&gt;
+&lt;h3 id=&quot;collect&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#collect&quot; aria-label=&quot;collect permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;collect&lt;/h3&gt;
+&lt;p&gt;まずは Server と同様に lighthouserc.js を用意します。設定項目は CLI のオプションからも渡すことはできます。複数のプロジェクトで共通する設定などをコンフィグで管理し、変動する値を CLI のオプションで渡すのがよいのではないかと思います。&lt;/p&gt;
+&lt;p&gt;ひとまずサンプルとして &lt;code class=&quot;language-text&quot;&gt;numberOfRuns&lt;/code&gt; を設定してみましょう。Lighthouse は通信状況やアプリケーションの状態によってもスコアが変わってくるので、デフォルトで 3 回繰り返して計測します。それを 5 回実行してコンフィグファイルの挙動を確認してみます。&lt;/p&gt;
+&lt;p&gt;Ref: &lt;a href=&quot;https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/configuration.md#collect&quot;&gt;collect の設定項目&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  ci&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    collect&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      numberOfRuns&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;うまく動作すると 5 回実行されることが確認できます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ lhci collect --url&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;https://blog.koh.dev --config&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;./lighthouserc.js
+Running Lighthouse &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt; time&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; on https://blog.koh.dev
+Run &lt;span class=&quot;token comment&quot;&gt;#1...done.&lt;/span&gt;
+Run &lt;span class=&quot;token comment&quot;&gt;#2...done.&lt;/span&gt;
+Run &lt;span class=&quot;token comment&quot;&gt;#3...done.&lt;/span&gt;
+Run &lt;span class=&quot;token comment&quot;&gt;#4...done.&lt;/span&gt;
+Run &lt;span class=&quot;token comment&quot;&gt;#5...done.&lt;/span&gt;
+Done running Lighthouse&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;GUI 環境であれば計測した結果をブラウザで確認することが可能です。計測結果は &lt;code class=&quot;language-text&quot;&gt;.lighthouseci/&lt;/code&gt; ディレクトリに保存されていて、ここの html を開いてくれます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ lhci &lt;span class=&quot;token function&quot;&gt;open&lt;/span&gt;
+Opening median report &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; https://blog.koh.dev/&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;.
+Done&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/9036b45222b3cf34386939f113cf89b3/e5166/lighthouse-ci.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 62.83783783783784%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAAB34oUf//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEAAQUCX//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABQQAQAAAAAAAAAAAAAAAAAAACD/2gAIAQEABj8CX//EABYQAQEBAAAAAAAAAAAAAAAAAAEQAP/aAAgBAQABPyHEb//aAAwDAQACAAMAAAAQIw//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAbEAEAAgIDAAAAAAAAAAAAAAABABEQIUFRYf/aAAgBAQABPxBDQwF+33KmoQOcf//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Lighthouse CI&quot;
+        title=&quot;Lighthouse CI&quot;
+        src=&quot;/static/9036b45222b3cf34386939f113cf89b3/1c72d/lighthouse-ci.jpg&quot;
+        srcset=&quot;/static/9036b45222b3cf34386939f113cf89b3/a80bd/lighthouse-ci.jpg 148w,
+/static/9036b45222b3cf34386939f113cf89b3/1c91a/lighthouse-ci.jpg 295w,
+/static/9036b45222b3cf34386939f113cf89b3/1c72d/lighthouse-ci.jpg 590w,
+/static/9036b45222b3cf34386939f113cf89b3/a8a14/lighthouse-ci.jpg 885w,
+/static/9036b45222b3cf34386939f113cf89b3/fbd2c/lighthouse-ci.jpg 1180w,
+/static/9036b45222b3cf34386939f113cf89b3/e5166/lighthouse-ci.jpg 1200w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;GUI 環境でない場合は Chrome が実行できなくて失敗することがあります。Chrome をインストールしてもよいですが、puppeteer モジュールの中にバンドルされている Chrome を使うのが楽だと思います。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;npm&lt;/span&gt; i puppeteer&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; puppeteer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;puppeteer&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  ci&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    collect&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      chromePath&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; puppeteer&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;executablePath&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      numberOfRuns&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;url オプションは複数回指定することで複数同時に計測できます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ lhci collect --url&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;https://blog.koh.dev --url&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;https://koh.dev --config&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;./lighthouserc.js&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これで計測は完了、としてしまってもいいですが実は Lighthouse CI はデフォルト値がスマホに合わせてあるため、このままではスマホ環境しか計測できません。&lt;/p&gt;
+&lt;p&gt;Lighthouse はスマホ環境を計測する場合は CPU やネットワークを擬似的に遅くしてスマホでの動作をエミュレートしています。&lt;/p&gt;
+&lt;p&gt;では具体的にどこのオプションを切り替えればいいかというと &lt;a href=&quot;https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/configuration.md#settings&quot;&gt;settings オプジェクト&lt;/a&gt;の &lt;code class=&quot;language-text&quot;&gt;emulatedFormFactor&lt;/code&gt; を修正することで変更が可能です。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ lhci collect --url&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;https://blog.koh.dev --settings.emulatedFormFactor&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;desktop --config&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;./lighthouserc.js&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;settings オブジェクトが具体的にどんなオプションを受け付けるのかは Lighthouse の型定義ファイルをみてくださいということになっています。この辺はちょっとドキュメントが簡素で迷うことがありますね。&lt;/p&gt;
+&lt;p&gt;Ref: &lt;a href=&quot;https://github.com/GoogleChrome/lighthouse/blob/575e29b8b6634bfb280bc820efea6795f3dd9017/types/externs.d.ts#L141-L186&quot;&gt;settings&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;さあこれでデスクトップ環境も計測できるようになった、と思うと実はまだこれだけでは Chrome に内蔵されている Lighthouse とはスコアに差が出ます。（ネットワークの状況や計測環境のスペックによってもスコアは変わるのでスコアが違ったからといって一概に間違ってるとは言えませんが）&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;emulatedFormFactor&lt;/code&gt; は Lighthouse の UserAgent しか変更しないので、ネットワークや CPU のエミュレートはスマホ向けの値のままなので、Chrome 内蔵の Lighthouse の Desktop を計測した時と同じような値を取得するためにはその値に変更する必要があります。&lt;/p&gt;
+&lt;p&gt;具体的にそれらの値がどこで管理されているかを探してみると &lt;a href=&quot;https://github.com/GoogleChrome/lighthouse/blob/72f1bd47cbb6fcc95349fc936b3fb0f098a93c47/lighthouse-core/config/constants.js#L22-L50&quot;&gt;Ligthouse のリポジトリ内で定義されています&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;これらのエミュレートする値は throttling オブジェクトで与える事ができるので、リポジトリ内の数字を参考に渡してあげることで、やっと Chrome 内蔵の Lighthouse と同じような挙動が可能になります。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ lhci collect --url&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;https://blog.koh.dev --settings.emulatedFormFactor&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;desktop --settings.throttling.cpuSlowdownMultiplier&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; --settings.throttling.throughputKbps&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10240&lt;/span&gt; --settings.throttling.rttMs&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;40&lt;/span&gt; --config&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;./lighthouserc.js&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;定期的に動かす環境ではスコアを変動させる要因は少なくしたほうがよいので、今後のアップデートで値が変更される可能性も考えると Mobile の場合も固定値で指定したほうがよいかもしれません。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ lhci collect --url&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;https://blog.koh.dev --settings.emulatedFormFactor&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;mobile --settings.throttling.cpuSlowdownMultiplier&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt; --settings.throttling.throughputKbps&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1638.4&lt;/span&gt; --settings.throttling.rttMs&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;150&lt;/span&gt; --config&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;./lighthouserc.js&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ここまでで計測するコマンドを作ることができるようになりました。次はこの結果を Server にアップロードしてみましょう。&lt;/p&gt;
+&lt;h3 id=&quot;upload&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#upload&quot; aria-label=&quot;upload permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;upload&lt;/h3&gt;
+&lt;p&gt;upload ステップでやっている事は &lt;code class=&quot;language-text&quot;&gt;.lighthouse/&lt;/code&gt; の内容を参照してターゲットとなる Server にアップロードするだけです。
+言葉にすると非常にシンプルですが、時間をトリガーにしてスコアの定点観測を行うためには少し工夫が必要になります。&lt;/p&gt;
+&lt;p&gt;Lighthouse CI が想定しているのは GitHub のコミットに紐づけて、そのコミットによってスコアが変化したかどうかを CI でテストするという使い方です。
+なので、Server に登録する際にはコミットハッシュなどの情報が必要になります。これらの情報は&lt;a href=&quot;https://github.com/GoogleChrome/lighthouse-ci/issues/5#issuecomment-591578507&quot;&gt;環境変数からコマンドに渡すことができる&lt;/a&gt;ので、uplaod コマンドを実行する際に渡してあげます。&lt;/p&gt;
+&lt;p&gt;もし環境変数を与えないまま単純に手元で実行しようとするとエラーがおきると思います。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ lhci upload --config&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;./lighthouserc.js --token&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;xxxxxxxxxxxxxxxxxx
+Error: Unable to determine current &lt;span class=&quot;token builtin class-name&quot;&gt;hash&lt;/span&gt; with &lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; rev-parse HEAD&lt;span class=&quot;token variable&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;.&lt;/span&gt; This can be overridden with setting LHCI_BUILD_CONTEXT__CURRENT_HASH env.
+    at getCurrentHash &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;/usr/local/lib/node_modules/@lhci/cli/node_modules/@lhci/utils/src/build-context.js:74:11&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;upload コマンドを実行するために、まずは先程の lighthouserc.js に upload 用の設定を加えます。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; puppeteer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;puppeteer&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  ci&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    collect&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      chromePath&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; puppeteer&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;executablePath&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      numberOfRuns&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    upload&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      target&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;lhci&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      serverBaseUrl&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;http://localhost:3000&apos;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;自分は次のようなシェルスクリプトを作って利用しています。&lt;a href=&quot;https://github.com/GoogleChrome/lighthouse-ci/issues/5#issuecomment-591578507&quot;&gt;こちらの issue&lt;/a&gt; に記載されている方法をほぼ踏襲しながら、CURRENT&lt;em&gt;HASH や COMMIT&lt;/em&gt;TIME の生成のコードを Node.js によせて少し書きかえています。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;TZ&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Asia/Tokeyo&quot;&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;LHCI_BUILD_CONTEXT__CURRENT_HASH&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;$(&lt;/span&gt;node -e &lt;span class=&quot;token string&quot;&gt;&quot;console.log(crypto.createHash(&apos;md5&apos;).update(Date.now().toString()).digest(&apos;hex&apos;))&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;LHCI_BUILD_CONTEXT__COMMIT_TIME&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;$(&lt;/span&gt;node -e &lt;span class=&quot;token string&quot;&gt;&quot;console.log(new Date().toISOString())&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;LHCI_BUILD_CONTEXT__CURRENT_BRANCH&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;master
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;LHCI_BUILD_CONTEXT__COMMIT_MESSAGE&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Periodic run $(node -e &quot;console.log(new Date().toISOString())&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;
+export LHCI_BUILD_CONTEXT__AUTHOR=&quot;&lt;/span&gt;kohta ito &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;koh110@example.com&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;
+export LHCI_BUILD_CONTEXT__AVATAR_URL=&quot;&lt;/span&gt;https://avatars2.githubusercontent.com/u/1889831&quot;
+lhci upload --config&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;./lighthouserc.js --token&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;xxxxxx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;シェルスクリプトを実行すると 5 個のデータがアップロードされていることがわかります。これは先程 &lt;code class=&quot;language-text&quot;&gt;numberOfRuns&lt;/code&gt; で指定した値分生成されたデータが全て登録されているということです。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;bash&lt;/span&gt; -x upload.sh
+
+&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;.
+
+Saving CI project kohsweb &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;e498177b-0226-4de2-afd7-f3bac71afce4&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+Saving CI build &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;db6f110e-e970-4559-b106-5c52fbdcc445&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+Saved LHR to http://localhost:3000 &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cbd52b66-1725-4383-8532-4d4416392616&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+Saved LHR to http://localhost:3000 &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;e2667737-53d7-4310-8b76-c9d95ca8192f&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+Saved LHR to http://localhost:3000 &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;eea8c09a-a675-44c7-9263-f53bc625e4f3&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+Saved LHR to http://localhost:3000 &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;d24c99d0-ee6e-4e6a-93b5-84c8a2efea91&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+Saved LHR to http://localhost:3000 &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;39d3361d-0aad-4427-820c-463de43ebbea&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+Done saving build results to Lighthouse CI
+View build &lt;span class=&quot;token function&quot;&gt;diff&lt;/span&gt; at http://localhost:3000/app/projects/kohsweb/compare/db6f110e-e970-4559-b106-5c52fbdcc445
+No GitHub token set, skipping GitHub status check.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;実際に登録されたデータは次のスクリーンショットのように時系列のグラフで表示されます。（これはデータ量が少ないので見栄えが悪いですが……）&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/f51989154c156d3e401b4f089bced343/e5166/lighthouse-ci-server-3.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 62.83783783783784%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAAB3lAH/8QAFBABAAAAAAAAAAAAAAAAAAAAIP/aAAgBAQABBQJf/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFBABAAAAAAAAAAAAAAAAAAAAIP/aAAgBAQAGPwJf/8QAFhAAAwAAAAAAAAAAAAAAAAAAAREg/9oACAEBAAE/IQ6//9oADAMBAAIAAwAAABDwD//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABoQAAICAwAAAAAAAAAAAAAAAAABEBEhMXH/2gAIAQEAAT8QRNuzPJsbP//Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Lighthouse CI&quot;
+        title=&quot;Lighthouse CI&quot;
+        src=&quot;/static/f51989154c156d3e401b4f089bced343/1c72d/lighthouse-ci-server-3.jpg&quot;
+        srcset=&quot;/static/f51989154c156d3e401b4f089bced343/a80bd/lighthouse-ci-server-3.jpg 148w,
+/static/f51989154c156d3e401b4f089bced343/1c91a/lighthouse-ci-server-3.jpg 295w,
+/static/f51989154c156d3e401b4f089bced343/1c72d/lighthouse-ci-server-3.jpg 590w,
+/static/f51989154c156d3e401b4f089bced343/a8a14/lighthouse-ci-server-3.jpg 885w,
+/static/f51989154c156d3e401b4f089bced343/fbd2c/lighthouse-ci-server-3.jpg 1180w,
+/static/f51989154c156d3e401b4f089bced343/e5166/lighthouse-ci-server-3.jpg 1200w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;{{project name}} Builds&lt;/code&gt; の列がそれぞれ個別の結果のリンクになっています。&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 590px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/65517306ff67e9e1e4c79617cc7f3a2b/e5166/lighthouse-ci-server-4.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 62.83783783783784%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEF/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAAB3pQB/8QAFBABAAAAAAAAAAAAAAAAAAAAIP/aAAgBAQABBQJf/8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAwEBPwE//8QAFBEBAAAAAAAAAAAAAAAAAAAAEP/aAAgBAgEBPwE//8QAFBABAAAAAAAAAAAAAAAAAAAAIP/aAAgBAQAGPwJf/8QAGBAAAwEBAAAAAAAAAAAAAAAAAAExEIH/2gAIAQEAAT8hcEjg5v8A/9oADAMBAAIAAwAAABBTz//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8QP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8QP//EABsQAAEFAQEAAAAAAAAAAAAAAAEAESFRcRAx/9oACAEBAAE/EKIxMEn3VFEDsTQDXP/Z&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Lighthouse CI&quot;
+        title=&quot;Lighthouse CI&quot;
+        src=&quot;/static/65517306ff67e9e1e4c79617cc7f3a2b/1c72d/lighthouse-ci-server-4.jpg&quot;
+        srcset=&quot;/static/65517306ff67e9e1e4c79617cc7f3a2b/a80bd/lighthouse-ci-server-4.jpg 148w,
+/static/65517306ff67e9e1e4c79617cc7f3a2b/1c91a/lighthouse-ci-server-4.jpg 295w,
+/static/65517306ff67e9e1e4c79617cc7f3a2b/1c72d/lighthouse-ci-server-4.jpg 590w,
+/static/65517306ff67e9e1e4c79617cc7f3a2b/a8a14/lighthouse-ci-server-4.jpg 885w,
+/static/65517306ff67e9e1e4c79617cc7f3a2b/fbd2c/lighthouse-ci-server-4.jpg 1180w,
+/static/65517306ff67e9e1e4c79617cc7f3a2b/e5166/lighthouse-ci-server-4.jpg 1200w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;個別ページでは他のコミットハッシュからどれだけスコアの変動があったかを詳しく見ることができます。&lt;/p&gt;
+&lt;p&gt;また、右上にある &lt;code class=&quot;language-text&quot;&gt;COMPARE&lt;/code&gt; を hover すると &lt;code class=&quot;language-text&quot;&gt;Open Report&lt;/code&gt; というリンクが出てきます。これをクリックすると、そのコミットのスコア（いつも見慣れている Lighthouse の画面）を見ることもできます。（自分はこの機能をよく使います）&lt;/p&gt;
+&lt;h1 id=&quot;lighthouse-ci-の運用-tips&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#lighthouse-ci-%E3%81%AE%E9%81%8B%E7%94%A8-tips&quot; aria-label=&quot;lighthouse ci の運用 tips permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Lighthouse CI の運用 Tips&lt;/h1&gt;
+&lt;p&gt;今までの内容で Lighthouse CI の環境を構築する具体的な方法と、データの登録方法について解説しました。
+最後に実運用するにあたってわかった自分が気をつけている Tips について記載します。&lt;/p&gt;
+&lt;h3 id=&quot;lighthousercjs&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#lighthousercjs&quot; aria-label=&quot;lighthousercjs permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;lighthouserc.js&lt;/h3&gt;
+&lt;p&gt;色々とやるうちに自分は次のような設定ファイルに落ち着きました。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; puppeteer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;puppeteer&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;exports &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  ci&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    collect&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      chromePath&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; puppeteer&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;executablePath&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      maxWaitForLoad&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;180000&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    upload&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      target&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;lhci&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      serverBaseUrl&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;http://localhost:3000&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      ignoreDuplicateBuildFailure&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;解説時と違い &lt;code class=&quot;language-text&quot;&gt;numberOfRuns&lt;/code&gt; はデフォルト値のままです。増やしてもそんなに問題はないのですが、これは運用コストの問題です。
+upload の箇所でも説明したのですが、5 回実行すると 5 個のデータが生成され登録されます。（実際は紐づく Table 数でもうちょっとレコード数は増えます）
+これが結構馬鹿にならないデータ量になるのでデフォルトの値に戻しました。&lt;/p&gt;
+&lt;p&gt;また、実際に画面に表示されているのは、同じ buildId の中の representative フラグが 1 となっているもののみです。
+他のデータは表示はされないのでゴミデータに近いものになるので、最小限にしたいと思っています。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;mysql&amp;gt; select id,buildId,representative from runs limit 10;
++--------------------------------------+--------------------------------------+----------------+
+| id                                   | buildId                              | representative |
++--------------------------------------+--------------------------------------+----------------+
+| 39d3361d-0aad-4427-820c-463de43ebbea | db6f110e-e970-4559-b106-5c52fbdcc445 |              0 |
+| 4d7f18ec-1b35-4655-a846-35fbdd6706a7 | 480f155c-64ba-4c14-a8ee-275a88772dfc |              1 |
+| 551f4b89-82aa-434f-bab4-db9d93772517 | 7e50d809-03e3-4588-b2a2-16924c55c0cd |              0 |
+| 68c429ff-b1de-491f-8d16-b4fb0394c982 | 3c4813ee-1d23-4b52-8c16-f240366dec4e |              0 |
+| 8f3f9293-cdec-4a03-9d88-521d8488c346 | 480f155c-64ba-4c14-a8ee-275a88772dfc |              0 |
+| 9fd30cef-77b0-4dfa-b4fd-58a3a729faed | aea732c5-11e8-4755-8a8a-48cd9d869d17 |              1 |
+| b72cad60-6b8c-4e6f-885c-b8292d6658ee | 3c4813ee-1d23-4b52-8c16-f240366dec4e |              0 |
+| bc6da55f-22ec-4fda-975e-d29c5194baa6 | 480f155c-64ba-4c14-a8ee-275a88772dfc |              0 |
+| cbd52b66-1725-4383-8532-4d4416392616 | db6f110e-e970-4559-b106-5c52fbdcc445 |              0 |
+| cecc001d-661f-4159-a0a4-f4c9f9f09104 | 3c4813ee-1d23-4b52-8c16-f240366dec4e |              1 |
++--------------------------------------+--------------------------------------+----------------+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;upload の設定項目にある &lt;code class=&quot;language-text&quot;&gt;ignoreDuplicateBuildFailure&lt;/code&gt; は入れなくても問題ないのですが、検証時に同じ HASH でアップロードしようとするとエラーになったりするので、検証時の挙動を楽にするために入れています。&lt;/p&gt;
+&lt;h3 id=&quot;定期的な実行&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%E5%AE%9A%E6%9C%9F%E7%9A%84%E3%81%AA%E5%AE%9F%E8%A1%8C&quot; aria-label=&quot;定期的な実行 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;定期的な実行&lt;/h3&gt;
+&lt;p&gt;これは cron による実行で問題ありません。次のようなコードを cron などで定期実行する事で Lighthouse のスコアを定期的に取得しています。&lt;/p&gt;
+&lt;p&gt;ここでの Tips は &lt;code class=&quot;language-text&quot;&gt;--addictive&lt;/code&gt; オプションと mobile を測定する時に &lt;code class=&quot;language-text&quot;&gt;?mobile&lt;/code&gt; というクエリパラメータを付与している点です。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;lhci collect --url&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;https://blog.koh.dev --settings.emulatedFormFactor&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;desktop --settings.throttling.cpuSlowdownMultiplier&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; --settings.throttling.throughputKbps&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10240&lt;/span&gt; --settings.throttling.rttMs&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;40&lt;/span&gt; --config&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;/path/to/lighthouserc.js
+
+lhci collect --url&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;https://blog.koh.dev?mobile --settings.emulatedFormFactor&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;mobile --settings.throttling.cpuSlowdownMultiplier&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt; --settings.throttling.throughputKbps&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1638.4&lt;/span&gt; --settings.throttling.rttMs&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;150&lt;/span&gt; --config&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;/path/to/lighthouserc.js --additive
+
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;TZ&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Asia/Tokeyo&quot;&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;LHCI_BUILD_CONTEXT__CURRENT_HASH&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;$(&lt;/span&gt;node -e &lt;span class=&quot;token string&quot;&gt;&quot;console.log(crypto.createHash(&apos;md5&apos;).update(Date.now().toString()).digest(&apos;hex&apos;))&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;LHCI_BUILD_CONTEXT__COMMIT_TIME&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;$(&lt;/span&gt;node -e &lt;span class=&quot;token string&quot;&gt;&quot;console.log(new Date().toISOString())&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;LHCI_BUILD_CONTEXT__CURRENT_BRANCH&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;master
+&lt;span class=&quot;token builtin class-name&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token assign-left variable&quot;&gt;LHCI_BUILD_CONTEXT__COMMIT_MESSAGE&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Periodic run $(node -e &quot;console.log(new Date().toISOString())&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;
+export LHCI_BUILD_CONTEXT__AUTHOR=&quot;&lt;/span&gt;kohta ito &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;koh110@example.com&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;
+export LHCI_BUILD_CONTEXT__AVATAR_URL=&quot;&lt;/span&gt;https://avatars2.githubusercontent.com/u/1889831&quot;
+lhci upload --config&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;./lighthouserc.js --token&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;xxxxxx&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;--addictive&lt;/code&gt; は collect コマンドを複数回実行する場合に必要になるオプションです。&lt;/p&gt;
+&lt;p&gt;collect コマンドは実行するたびに &lt;code class=&quot;language-text&quot;&gt;.lighthouse/&lt;/code&gt; ディレクトリをクリアします。これは定期実行するにあたってはありがたい機能なのですが、複数の URL をパラメータを変えて計測する場合にはちょっと困ります。
+なので上記の例では &lt;code class=&quot;language-text&quot;&gt;--addictive&lt;/code&gt; で mobile の計測を行う場合に、上書きして消してしまう事を防いでいます。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;?mobile&lt;/code&gt; は URL をユニークにするためのパラメータです。文字列はなんでもかまいません。
+Lighthouse CI は URL 単位でデータを扱うため、同じ画面の Desktop/Mobile の両方を計測しようとすると困ります。なので何かしらのクエリパラメータを与えることで別 URL として管理するようにしています。
+また、mobile という文字列が入っていることで、その結果がどちらの UserAgent で計測したのかの視認性をよくするためにも利用しています。&lt;/p&gt;
+&lt;h3 id=&quot;mysql-容量問題&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#mysql-%E5%AE%B9%E9%87%8F%E5%95%8F%E9%A1%8C&quot; aria-label=&quot;mysql 容量問題 permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;MySQL 容量問題&lt;/h3&gt;
+&lt;p&gt;Lighthouse CI はよくできたツールで、実運用にあたってあまり困る部分がありません。唯一困るのは割と富豪的なリソースの使い方をするところです。&lt;/p&gt;
+&lt;p&gt;テーブル数は少ないのですが、このうち実行結果を保持する runs が非常に大きな容量を食っていきます。自分が実際に運用している計測環境では 7GB/月の速度でデータ量が増えています。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;mysql&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; show tables&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
++----------------------+
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; Tables_in_lighthouse &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
++----------------------+
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; SequelizeMeta        &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; builds               &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; projects             &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; runs                 &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; statistics           &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
++----------------------+
+&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt; rows &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0.00&lt;/span&gt; sec&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;レコードの中身を覗いてみるとわかるのですが、計測結果の json が文字列で保存されています。さらに結果に時系列のスクリーンショットデータが base64 エンコードで保存されているため、結構な容量を持っていかれます。&lt;/p&gt;
+&lt;p&gt;今のところの自分は次の対処をしています。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;表示に使わないデータを定期的に削除する&lt;/li&gt;
+&lt;li&gt;古いデータを定期的に削除する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;uplaod の箇所でも少し触れましたが、表示するデータは representative が 1 となっているデータのみです。なので &lt;code class=&quot;language-text&quot;&gt;representative = 0&lt;/code&gt; となっているデータは今の所必要ありません。これを定期的に削除します。&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;mysql&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; SELECT COUNT&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;*&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; FROM runs WHERE representative &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+mysql&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; DELETE FROM runs WHERE representative &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;もうひとつは Lighthouse CI Server の設定に &lt;code class=&quot;language-text&quot;&gt;deleteOldBuildsCron&lt;/code&gt; を設定を追加して、一定期間以上のデータを削除することです。
+この設定を追加することで、指定した期間（30 日以上等）のデータを削除する設定です。&lt;/p&gt;
+&lt;p&gt;Ref: &lt;a href=&quot;https://github.com/GoogleChrome/lighthouse-ci/pull/471&quot;&gt;deleteOldBuildsCron&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;deleteOldBuildsCron?: {
+  schedule: string;
+  maxAgeInDays: number;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;自分が実運用上データ容量で困っていたので issue で相談したところ、こういう機能はどうかと返答をもらったので PR を送ったところ取り入れてもらえました。&lt;/p&gt;
+&lt;h1 id=&quot;まとめ&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-label=&quot;まとめ permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h1&gt;
+&lt;p&gt;Lighthouse CI についてコミットベースではなく定期実行でスコアを計測する方法と運用上の Tips をまとめました。&lt;/p&gt;
+&lt;p&gt;Web のパフォーマンスアップをするためにはともあれまず計測をして、現在地点を知らないといけません。Ligthouse CI で自分たちのサイトのパフォーマンスを知ってスコアの改善につなげていきましょう！&lt;/p&gt;</content:encoded></item><item><title><![CDATA[AsyncIteratorと落とし穴]]></title><description><![CDATA[Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。 しかし、AsyncIterator の登場によって Stream を Promise…]]></description><link>https://blog.koh.dev/2020-05-13-async-iterator/</link><guid isPermaLink="false">https://blog.koh.dev/2020-05-13-async-iterator/</guid><pubDate>Wed, 13 May 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。&lt;/p&gt;
 &lt;p&gt;しかし、AsyncIterator の登場によって Stream を Promise の文脈で処理することができるようになり、「async/await に取り込み」「包括的エラーハンドリング」などができるようになりました。&lt;/p&gt;
 &lt;p&gt;２年ほど前に AsyncIterator について記事を書きました。&lt;a href=&quot;https://qiita.com/koh110/items/0fba3acbce38916928f1&quot;&gt;参考: さよなら Stream&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;以前に書いたときにはまだ Experimental な API だったため気軽に利用することはできませんでしたが、今はもう Stable なので、より色々なシーンで活かせる機会が増えるでしょう。&lt;/p&gt;
@@ -25,14 +667,14 @@ stream&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span cla
 &lt;p&gt;この時、data イベントのハンドラー内では非同期処理を待ち受けることができません。（async function 自体は書けますが、await で処理を実行している間にも data イベントは発生し続けてしまいます。）&lt;/p&gt;
 &lt;p&gt;また、Stream を扱う時は error イベントを「必ず」ハンドリングしなければなりません。error イベントのハンドリングを忘れると try-catch で受けることができず、エラーが突き抜けてアプリがクラッシュする可能性があります。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;diff&quot;&gt;&lt;pre class=&quot;language-diff&quot;&gt;&lt;code class=&quot;language-diff&quot;&gt;stream.on(&apos;data&apos;, (chunk) =&gt; {
-&lt;span class=&quot;token unchanged&quot;&gt;  console.log(chunk)
-&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;+  stream.emit(&apos;error&apos;, new Error(&apos;error!!&apos;))
+&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; console.log(chunk)
+&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;  stream.emit(&apos;error&apos;, new Error(&apos;error!!&apos;))
 &lt;/span&gt;})
 
 
-&lt;span class=&quot;token inserted-sign inserted&quot;&gt;+ // stream.on(&apos;error&apos;, (e) =&gt; {
-+ //   console.log(&apos;error&apos;, e)
-+ // })&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;token inserted-sign inserted&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt; // stream.on(&apos;error&apos;, (e) =&gt; {
+&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt; //   console.log(&apos;error&apos;, e)
+&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt; // })&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;これを AsyncIterator を使い &lt;code class=&quot;language-text&quot;&gt;for await...of&lt;/code&gt; で書き直すと次のようになります。 ReadableStream は data イベントを AsyncIteraotr として回すことができます。&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;for await...of&lt;/code&gt; の中では await で処理を待ち受けて、data イベント自体を待つこともできます。また、&lt;code class=&quot;language-text&quot;&gt;main().catch&lt;/code&gt; で包括的にエラーハンドリングを行うこともできます。&lt;/p&gt;
 &lt;p&gt;AsyncItaratro は Stream のメリットを受けながらも async/await のメリットを受けることができる素晴らしい記法です。&lt;/p&gt;
@@ -165,28 +807,28 @@ e2
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;diff&quot;&gt;&lt;pre class=&quot;language-diff&quot;&gt;&lt;code class=&quot;language-diff&quot;&gt;const { once, EventEmitter } = require(&apos;events&apos;)
 
 const main = async () =&gt; {
-&lt;span class=&quot;token unchanged&quot;&gt;  const e1 = new EventEmitter()
-  const e2 = new EventEmitter()
+&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; const e1 = new EventEmitter()
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; const e2 = new EventEmitter()
 &lt;/span&gt;
-&lt;span class=&quot;token unchanged&quot;&gt;  setTimeout(() =&gt; {
-    e1.emit(&apos;myevent1&apos;, 1)
-&lt;/span&gt;&lt;span class=&quot;token deleted-sign deleted&quot;&gt;-  }, 1000)
-&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;+  }, 2000)
+&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; setTimeout(() =&gt; {
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;   e1.emit(&apos;myevent1&apos;, 1)
+&lt;/span&gt;&lt;span class=&quot;token deleted-sign deleted&quot;&gt;&lt;span class=&quot;token prefix deleted&quot;&gt;-&lt;/span&gt;  }, 1000)
+&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;  }, 2000)
 &lt;/span&gt;
-&lt;span class=&quot;token unchanged&quot;&gt;  setTimeout(() =&gt; {
-    e2.emit(&apos;myevent2&apos;, 2)
-&lt;/span&gt;&lt;span class=&quot;token deleted-sign deleted&quot;&gt;-  }, 2000)
-&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;+  }, 1000)
+&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; setTimeout(() =&gt; {
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;   e2.emit(&apos;myevent2&apos;, 2)
+&lt;/span&gt;&lt;span class=&quot;token deleted-sign deleted&quot;&gt;&lt;span class=&quot;token prefix deleted&quot;&gt;-&lt;/span&gt;  }, 2000)
+&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;  }, 1000)
 &lt;/span&gt;
-&lt;span class=&quot;token unchanged&quot;&gt;  await once(e1, &apos;myevent1&apos;)
-  console.log(&apos;e1&apos;)
-  await once(e2, &apos;myevent2&apos;)
-  console.log(&apos;e2&apos;)
+&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; await once(e1, &apos;myevent1&apos;)
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; console.log(&apos;e1&apos;)
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; await once(e2, &apos;myevent2&apos;)
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; console.log(&apos;e2&apos;)
 &lt;/span&gt;}
 
 main()
-&lt;span class=&quot;token unchanged&quot;&gt;  .then(() =&gt; console.log(&quot;done&quot;))
-  .catch((e) =&gt; console.log(&quot;catch&quot;, e))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; .then(() =&gt; console.log(&quot;done&quot;))
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; .catch((e) =&gt; console.log(&quot;catch&quot;, e))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;e1 しか出力されませんでした。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ node async-iterator.js
 e1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -260,28 +902,28 @@ Error: error e1
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;diff&quot;&gt;&lt;pre class=&quot;language-diff&quot;&gt;&lt;code class=&quot;language-diff&quot;&gt;const { once, EventEmitter } = require(&apos;events&apos;)
 
 const main = async () =&gt; {
-&lt;span class=&quot;token unchanged&quot;&gt;  const e1 = new EventEmitter()
-  const e2 = new EventEmitter()
+&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; const e1 = new EventEmitter()
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; const e2 = new EventEmitter()
 &lt;/span&gt;
-&lt;span class=&quot;token unchanged&quot;&gt;  setTimeout(() =&gt; {
-&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;+    e1.emit(&apos;error&apos;, new Error(&apos;error e1&apos;))
-&lt;/span&gt;&lt;span class=&quot;token unchanged&quot;&gt;    e1.emit(&apos;myevent1&apos;, 1)
-&lt;/span&gt;&lt;span class=&quot;token deleted-sign deleted&quot;&gt;-    e1.emit(&apos;error&apos;, new Error(&apos;error e1&apos;))
-&lt;/span&gt;&lt;span class=&quot;token unchanged&quot;&gt;    console.log(&apos;e1&apos;)
-  }, 2000)
+&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; setTimeout(() =&gt; {
+&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;    e1.emit(&apos;error&apos;, new Error(&apos;error e1&apos;))
+&lt;/span&gt;&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;   e1.emit(&apos;myevent1&apos;, 1)
+&lt;/span&gt;&lt;span class=&quot;token deleted-sign deleted&quot;&gt;&lt;span class=&quot;token prefix deleted&quot;&gt;-&lt;/span&gt;    e1.emit(&apos;error&apos;, new Error(&apos;error e1&apos;))
+&lt;/span&gt;&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;   console.log(&apos;e1&apos;)
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; }, 2000)
 &lt;/span&gt;
-&lt;span class=&quot;token unchanged&quot;&gt;  setTimeout(() =&gt; {
-    e2.emit(&apos;myevent2&apos;, 2)
-    console.log(&apos;e2&apos;)
-  }, 1000)
+&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; setTimeout(() =&gt; {
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;   e2.emit(&apos;myevent2&apos;, 2)
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;   console.log(&apos;e2&apos;)
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; }, 1000)
 &lt;/span&gt;
-&lt;span class=&quot;token unchanged&quot;&gt;  await Promise.all([once(e1, &apos;myevent1&apos;), once(e2, &apos;myevent2&apos;)])
-  console.log(&apos;e1 and e2&apos;)
+&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; await Promise.all([once(e1, &apos;myevent1&apos;), once(e2, &apos;myevent2&apos;)])
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; console.log(&apos;e1 and e2&apos;)
 &lt;/span&gt;}
 
 main()
-&lt;span class=&quot;token unchanged&quot;&gt;  .then(() =&gt; console.log(&apos;done&apos;))
-  .catch((e) =&gt; console.log(&apos;catch&apos;, e))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; .then(() =&gt; console.log(&apos;done&apos;))
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; .catch((e) =&gt; console.log(&apos;catch&apos;, e))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;こんどは無事にキャッチできていることが確認できます。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ node async-iterator.js
 e2
@@ -761,11 +1403,11 @@ process&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span cl
 &lt;p&gt;ということでスタイル系の処理がリクエスト終了後も文字列を掴み続けてしまっているのではないかと当たりをつけて、先程のオブジェクトがどこで生成されているかを調べてみると material-ui が生成していることがわかりました。&lt;/p&gt;
 &lt;p&gt;さらに &lt;code class=&quot;language-text&quot;&gt;StyleSheet memory leak&lt;/code&gt; で issue を調べてみると次の &lt;a href=&quot;https://github.com/mui-org/material-ui/issues/10927&quot;&gt;issue&lt;/a&gt; で同じ現象になっている人をみつけました。&lt;/p&gt;
 &lt;p&gt;issue 内のコードと実コードを見比べてみると sheetsManager という props を渡していないことがわかり、これを加えることでメモリリークは解消しました。&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;diff&quot;&gt;&lt;pre class=&quot;language-diff&quot;&gt;&lt;code class=&quot;language-diff&quot;&gt;&lt;span class=&quot;token unchanged&quot;&gt;  &amp;lt;StylesProvider
-    sheetsRegistry={registry}
-    generateClassName={generateClassName}
-&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;+   sheetsManager={new Map()}
-&lt;/span&gt;&lt;span class=&quot;token unchanged&quot;&gt;  &gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;diff&quot;&gt;&lt;pre class=&quot;language-diff&quot;&gt;&lt;code class=&quot;language-diff&quot;&gt;&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; &amp;lt;StylesProvider
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;   sheetsRegistry={registry}
+&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt;   generateClassName={generateClassName}
+&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt;   sheetsManager={new Map()}
+&lt;/span&gt;&lt;span class=&quot;token unchanged&quot;&gt;&lt;span class=&quot;token prefix unchanged&quot;&gt; &lt;/span&gt; &gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;（蛇足ですが、ドキュメントにそんな記載があったかなと探しては見ましたが、うまく記述が見つけられませんでした。確かに&lt;a href=&quot;https://github.com/mui-org/material-ui/blob/bdebdfd4832c13a05463faeffef9687688be9715/packages/material-ui-styles/src/StylesProvider/StylesProvider.js#L43-L49&quot;&gt;コード&lt;/a&gt;を眺めてみると、&lt;code class=&quot;language-text&quot;&gt;NODE_ENV=production&lt;/code&gt;以外の時に sheetsManager が与えられていないと警告のログが出るようになっていましたが、今回のケースでは本番環境相当で起動していたため気づけませんでした。）&lt;/p&gt;
 &lt;p&gt;このようにヒープダンプを追っていくことで、原因の特定に役立つことがあります。&lt;/p&gt;
 &lt;h1 id=&quot;まとめ&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#%E3%81%BE%E3%81%A8%E3%82%81&quot; aria-label=&quot;まとめ permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;まとめ&lt;/h1&gt;
@@ -1438,14 +2080,14 @@ redis&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span clas
 &lt;p&gt;これを追加しないといくら ufw や iptables を設定してもインターネット越しの通信が通らない。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;apt&lt;/span&gt; update&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;/etc/ssh/sshd_config&lt;/code&gt; で鍵認証の追加とパスワード認証の disable を行う&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;diff&quot;&gt;&lt;pre class=&quot;language-diff&quot;&gt;&lt;code class=&quot;language-diff&quot;&gt;&lt;span class=&quot;token deleted-sign deleted&quot;&gt;- #PubkeyAuthentication yes
-&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;+ PubkeyAuthentication yes
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;diff&quot;&gt;&lt;pre class=&quot;language-diff&quot;&gt;&lt;code class=&quot;language-diff&quot;&gt;&lt;span class=&quot;token deleted-sign deleted&quot;&gt;&lt;span class=&quot;token prefix deleted&quot;&gt;-&lt;/span&gt; #PubkeyAuthentication yes
+&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt; PubkeyAuthentication yes
 &lt;/span&gt;
-&lt;span class=&quot;token deleted-sign deleted&quot;&gt;- PasswordAuthentication yes
-&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;+ #PasswordAuthentication yes
+&lt;span class=&quot;token deleted-sign deleted&quot;&gt;&lt;span class=&quot;token prefix deleted&quot;&gt;-&lt;/span&gt; PasswordAuthentication yes
+&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt; #PasswordAuthentication yes
 &lt;/span&gt;
-&lt;span class=&quot;token deleted-sign deleted&quot;&gt;- PermitRootLogin prohibit-password
-&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;+ PermitRootLogin no&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;token deleted-sign deleted&quot;&gt;&lt;span class=&quot;token prefix deleted&quot;&gt;-&lt;/span&gt; PermitRootLogin prohibit-password
+&lt;/span&gt;&lt;span class=&quot;token inserted-sign inserted&quot;&gt;&lt;span class=&quot;token prefix inserted&quot;&gt;+&lt;/span&gt; PermitRootLogin no&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h1 id=&quot;nodejs-のインストール&quot; style=&quot;position:relative;&quot;&gt;&lt;a href=&quot;#nodejs-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB&quot; aria-label=&quot;nodejs のインストール permalink&quot; class=&quot;anchor before&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Node.js のインストール&lt;/h1&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;$ &lt;span class=&quot;token function&quot;&gt;wget&lt;/span&gt; http://nodejs.org/dist/v12.5.0/node-v12.5.0-linux-x64.tar.gz
 $ &lt;span class=&quot;token function&quot;&gt;tar&lt;/span&gt; -C /usr/local --strip-components &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; -xaf node-v12.5.0-linux-x64.tar.gz
@@ -1610,12 +2252,12 @@ $ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; systemctl start
 
 &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;MONGODB_URI&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mongodb://[user:password]@localhost:27017/example&apos;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;type&lt;/span&gt; School &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;School&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   _id&lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; ObjectId
   name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;string&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;type&lt;/span&gt; Student &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Student&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   _id&lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; ObjectId
   schoolId&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; ObjectId
   name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;string&lt;/span&gt;
@@ -1635,8 +2277,8 @@ $ &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; systemctl start
   &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 
   &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; db &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; client&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;example&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-  collections&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;schools &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;collection&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;School&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;schools&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-  collections&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;students &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;collection&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Student&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;students&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  collections&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;schools &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token generic-function&quot;&gt;&lt;span class=&quot;token function&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;token generic class-name&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;School&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;schools&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  collections&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;students &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token generic-function&quot;&gt;&lt;span class=&quot;token function&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;token generic class-name&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Student&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;students&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;ちなみにサーバー側はこんな感じで DB に接続が完了したら listen を開始するようにします。&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;typescript&quot;&gt;&lt;pre class=&quot;language-typescript&quot;&gt;&lt;code class=&quot;language-typescript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; http &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;http&apos;&lt;/span&gt;
@@ -1656,7 +2298,7 @@ db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;typescript&quot;&gt;&lt;pre class=&quot;language-typescript&quot;&gt;&lt;code class=&quot;language-typescript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; ObjectId &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mongodb&apos;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; db &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./db&apos;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;addStudent&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;schoolId&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; ObjectId&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;string&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;addStudent&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;schoolId&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; ObjectId&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; student &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     schoolId&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; schoolId&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
     name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; name
@@ -1674,9 +2316,9 @@ db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;typescript&quot;&gt;&lt;pre class=&quot;language-typescript&quot;&gt;&lt;code class=&quot;language-typescript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; ObjectId &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mongodb&apos;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; db &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./db&apos;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;getStudent&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;studentId&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; ObjectId&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;getStudent&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;studentId&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; ObjectId&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; students &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;await&lt;/span&gt; db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;collections&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;students
-    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;aggregate&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Student &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; school&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;School &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token generic-function&quot;&gt;&lt;span class=&quot;token function&quot;&gt;aggregate&lt;/span&gt;&lt;span class=&quot;token generic class-name&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Student &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; school&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;School &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
       &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
         $match&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; _id&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; studentId &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
       &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
@@ -1691,7 +2333,7 @@ db&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&
     &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;toArray&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 
   &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; students
-    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;student&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;student&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
       &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
         _id&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; student&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
         name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; student&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
