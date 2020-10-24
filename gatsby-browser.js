@@ -1,9 +1,4 @@
-// custom typefaces
-import 'typeface-montserrat'
-import 'typeface-merriweather'
-
-import 'prism-themes/themes/prism-base16-ateliersulphurpool.light.css'
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
+import 'prismjs/themes/prism-tomorrow.css'
 
 import './src/styles/global.css'
 

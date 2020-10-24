@@ -33,10 +33,6 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
-        tableOfContents: {
-          heading: null,
-          maxDepth: 6
-        },
         plugins: [
           `gatsby-remark-autolink-headers`,
           {
@@ -51,7 +47,6 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`
             }
           },
-          `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
           {
@@ -65,20 +60,7 @@ module.exports = {
               },
               showLineNumbers: false,
               noInlineHighlight: false,
-              languageExtensions: [
-                {
-                  language: 'superscript',
-                  extend: 'javascript',
-                  definition: {
-                    superscript_types: /(SuperType)/
-                  },
-                  insertBefore: {
-                    function: {
-                      superscript_keywords: /(superif|superelse)/
-                    }
-                  }
-                }
-              ]
+              languageExtensions: []
             }
           }
         ]
