@@ -528,7 +528,7 @@ No GitHub token set, skipping GitHub status check.
 今までの内容で Lighthouse CI の環境を構築する具体的な方法と、データの登録方法について解説しました。
 最後に実運用するにあたってわかった自分が気をつけている Tips について記載します。
 
-### lighthouserc.js
+## lighthouserc.js
 
 色々とやるうちに自分は次のような設定ファイルに落ち着きました。
 
@@ -577,7 +577,7 @@ mysql> select id,buildId,representative from runs limit 10;
 
 upload の設定項目にある `ignoreDuplicateBuildFailure` は入れなくても問題ないのですが、検証時に同じ HASH でアップロードしようとするとエラーになったりするので、検証時の挙動を楽にするために入れています。
 
-### 定期的な実行
+## 定期的な実行
 
 これは cron による実行で問題ありません。次のようなコードを cron などで定期実行する事で Lighthouse のスコアを定期的に取得しています。
 
@@ -607,7 +607,7 @@ collect コマンドは実行するたびに `.lighthouse/` ディレクトリ�
 Lighthouse CI は URL 単位でデータを扱うため、同じ画面の Desktop/Mobile の両方を計測しようとすると困ります。なので何かしらのクエリパラメータを与えることで別 URL として管理するようにしています。
 また、mobile という文字列が入っていることで、その結果がどちらの UserAgent で計測したのかの視認性をよくするためにも利用しています。
 
-### MySQL 容量問題
+## MySQL 容量問題
 
 Lighthouse CI はよくできたツールで、実運用にあたってあまり困る部分がありません。唯一困るのは割と富豪的なリソースの使い方をするところです。
 
