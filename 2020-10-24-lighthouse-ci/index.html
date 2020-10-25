@@ -343,7 +343,7 @@ mysql<span class="token operator">></span> show tables<span class="token punctua
 <span class="token operator">|</span> statistics           <span class="token operator">|</span>
 +----------------------+
 <span class="token number">5</span> rows <span class="token keyword">in</span> <span class="token builtin class-name">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span></code></pre></div>
-<p>サーバーの動作を確認したらデーモン化します。自分はプライベートでさくっとやる時には etcd をよく使います。</p>
+<p>サーバーの動作を確認したらデーモン化します。自分はプライベートでさくっとやる時には systemd をよく使います。</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">[Unit]
 Description=lighthouse ci server
 
