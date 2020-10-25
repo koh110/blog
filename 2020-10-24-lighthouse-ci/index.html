@@ -73,13 +73,9 @@
 <li>
 <p><a href="/2020-10-24-lighthouse-ci/#lighthouse-ci-%E3%81%AE%E9%81%8B%E7%94%A8-tips">Lighthouse CI の運用 Tips</a></p>
 <ul>
-<li>
-<ul>
 <li><a href="/2020-10-24-lighthouse-ci/#lighthousercjs">lighthouserc.js</a></li>
 <li><a href="/2020-10-24-lighthouse-ci/#%E5%AE%9A%E6%9C%9F%E7%9A%84%E3%81%AA%E5%AE%9F%E8%A1%8C">定期的な実行</a></li>
 <li><a href="/2020-10-24-lighthouse-ci/#mysql-%E5%AE%B9%E9%87%8F%E5%95%8F%E9%A1%8C">MySQL 容量問題</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li><a href="/2020-10-24-lighthouse-ci/#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
@@ -633,7 +629,7 @@ No GitHub token set, skipping GitHub status check.</code></pre></div>
 <h1 id="lighthouse-ci-の運用-tips" style="position:relative;"><a href="#lighthouse-ci-%E3%81%AE%E9%81%8B%E7%94%A8-tips" aria-label="lighthouse ci の運用 tips permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Lighthouse CI の運用 Tips</h1>
 <p>今までの内容で Lighthouse CI の環境を構築する具体的な方法と、データの登録方法について解説しました。
 最後に実運用するにあたってわかった自分が気をつけている Tips について記載します。</p>
-<h3 id="lighthousercjs" style="position:relative;"><a href="#lighthousercjs" aria-label="lighthousercjs permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>lighthouserc.js</h3>
+<h2 id="lighthousercjs" style="position:relative;"><a href="#lighthousercjs" aria-label="lighthousercjs permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>lighthouserc.js</h2>
 <p>色々とやるうちに自分は次のような設定ファイルに落ち着きました。</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> puppeteer <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'puppeteer'</span><span class="token punctuation">)</span>
 
@@ -671,7 +667,7 @@ upload の箇所でも説明したのですが、5 回実行すると 5 個の�
 | cecc001d-661f-4159-a0a4-f4c9f9f09104 | 3c4813ee-1d23-4b52-8c16-f240366dec4e |              1 |
 +--------------------------------------+--------------------------------------+----------------+</code></pre></div>
 <p>upload の設定項目にある <code class="language-text">ignoreDuplicateBuildFailure</code> は入れなくても問題ないのですが、検証時に同じ HASH でアップロードしようとするとエラーになったりするので、検証時の挙動を楽にするために入れています。</p>
-<h3 id="定期的な実行" style="position:relative;"><a href="#%E5%AE%9A%E6%9C%9F%E7%9A%84%E3%81%AA%E5%AE%9F%E8%A1%8C" aria-label="定期的な実行 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>定期的な実行</h3>
+<h2 id="定期的な実行" style="position:relative;"><a href="#%E5%AE%9A%E6%9C%9F%E7%9A%84%E3%81%AA%E5%AE%9F%E8%A1%8C" aria-label="定期的な実行 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>定期的な実行</h2>
 <p>これは cron による実行で問題ありません。次のようなコードを cron などで定期実行する事で Lighthouse のスコアを定期的に取得しています。</p>
 <p>ここでの Tips は <code class="language-text">--addictive</code> オプションと mobile を測定する時に <code class="language-text">?mobile</code> というクエリパラメータを付与している点です。</p>
 <div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">lhci collect --url<span class="token operator">=</span>https://blog.koh.dev --settings.emulatedFormFactor<span class="token operator">=</span>desktop --settings.throttling.cpuSlowdownMultiplier<span class="token operator">=</span><span class="token number">1</span> --settings.throttling.throughputKbps<span class="token operator">=</span><span class="token number">10240</span> --settings.throttling.rttMs<span class="token operator">=</span><span class="token number">40</span> --config<span class="token operator">=</span>/path/to/lighthouserc.js
@@ -692,7 +688,7 @@ lhci upload --config<span class="token operator">=</span>./lighthouserc.js --tok
 <p><code class="language-text">?mobile</code> は URL をユニークにするためのパラメータです。文字列はなんでもかまいません。
 Lighthouse CI は URL 単位でデータを扱うため、同じ画面の Desktop/Mobile の両方を計測しようとすると困ります。なので何かしらのクエリパラメータを与えることで別 URL として管理するようにしています。
 また、mobile という文字列が入っていることで、その結果がどちらの UserAgent で計測したのかの視認性をよくするためにも利用しています。</p>
-<h3 id="mysql-容量問題" style="position:relative;"><a href="#mysql-%E5%AE%B9%E9%87%8F%E5%95%8F%E9%A1%8C" aria-label="mysql 容量問題 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>MySQL 容量問題</h3>
+<h2 id="mysql-容量問題" style="position:relative;"><a href="#mysql-%E5%AE%B9%E9%87%8F%E5%95%8F%E9%A1%8C" aria-label="mysql 容量問題 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>MySQL 容量問題</h2>
 <p>Lighthouse CI はよくできたツールで、実運用にあたってあまり困る部分がありません。唯一困るのは割と富豪的なリソースの使い方をするところです。</p>
 <p>テーブル数は少ないのですが、このうち実行結果を保持する runs が非常に大きな容量を食っていきます。自分が実際に運用している計測環境では 7GB/月の速度でデータ量が増えています。</p>
 <div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">mysql<span class="token operator">></span> show tables<span class="token punctuation">;</span>
