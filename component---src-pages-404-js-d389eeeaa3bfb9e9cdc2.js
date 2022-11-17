@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkkohsweblog=self.webpackChunkkohsweblog||[]).push([[883],{429:function(e,t,n){n.r(t);var l=n(7294),o=n(2899),u=n(262);t.default=function(e){return l.createElement(o.Z,{location:e.location},l.createElement(u.Z,{title:"404: Not Found"}),l.createElement("h1",null,"Not Found"),l.createElement("p",null,"そんなページないでーす"))}}}]);
-//# sourceMappingURL=component---src-pages-404-js-d389eeeaa3bfb9e9cdc2.js.map
