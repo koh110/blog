@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { getCollection, getEntryBySlug } from 'astro:content'
+import Layout from '../layouts/MarkdownPostLayout.astro'
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog')
+
+  const data: { params: { post: string } }[] = allPosts.map((post) => {
+    return {
+      params: { post: post.slug },
+      props: { post }
+    }
+  })
+
+  return data
+}
+
+const allPosts = (await getCollection('blog'))
+const index = allPosts.findIndex((e) => e.slug === Astro.props.post.slug)
+const prev = index - 1 >= 0 ? allPosts[index - 1] : null
+const next = index + 1 <= allPosts.length - 1 ? allPosts[index + 1] : null
+
+const entry = await getEntryBySlug('blog', Astro.params.post!)
+
+const { Content } = await entry!.render()
+
+---
+
+<Layout post={entry!} prev={prev} next={next}>
+  <Content />
+</Layout>
