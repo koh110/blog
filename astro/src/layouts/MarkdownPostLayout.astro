@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import '../styles/global.css'
+import Ga from '../components/ga.astro'
 import TweetButton from '../components/TweetButton.astro'
 
 export type Props = {
@@ -21,6 +22,7 @@ const { post, prev, next } = Astro.props
     <link rel="icon" type="image/svg+xml" href="/favicon.jpg" />
     <meta name="description" content={post.body.slice(0, 120)} />
     <title>{post.data.title}</title>
+    <Ga />
   </head>
   <script
     src="https://b.st-hatena.com/js/bookmark_button.js"
