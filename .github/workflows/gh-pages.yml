@@ -5,13 +5,13 @@ on:
       - master
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: npm install -w astro
+      - run: npm install
       - run: npm run build -w astro
       - run: touch ./astro/dist/.nojekyll
       - name: Deploy
