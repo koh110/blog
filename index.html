@@ -1,74 +1,142 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.625 -apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.8);font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:normal;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}h1{margin-left:0;margin-right:0;margin-top:2.4375rem;padding-bottom:calc(0.40625rem - 1px);padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.21875rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:2rem;line-height:1.1;border-bottom:1px solid hsla(0,0%,0%,0.07);}h2{margin-left:0;margin-right:0;margin-top:1.625rem;padding-bottom:calc(0.40625rem - 1px);padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.40625rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1.51572rem;line-height:1.1;border-bottom:1px solid hsla(0,0%,0%,0.07);}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1.31951rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:0.87055rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:hsla(0,0%,0%,0.53);font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:0.81225rem;line-height:1.1;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}ul{margin-left:1.625rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;list-style-position:outside;list-style-image:none;}ol{margin-left:1.625rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;font-size:0.85rem;line-height:1.625rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;font-size:1rem;line-height:1.625rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}blockquote{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:calc(0.8125rem - 1px);padding-right:0;padding-top:0;margin-bottom:0.8125rem;border-left:4px solid hsla(0,0%,0%,0.13);color:hsla(0,0%,0%,0.53);}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(0.8125rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}b{font-weight:600;}strong{font-weight:600;}dt{font-weight:600;}th{font-weight:600;}li{margin-bottom:calc(0.8125rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.625rem;margin-bottom:calc(0.8125rem / 2);margin-top:calc(0.8125rem / 2);}li > ul{margin-left:1.625rem;margin-bottom:calc(0.8125rem / 2);margin-top:calc(0.8125rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(0.8125rem / 2);}code{font-size:0.85rem;line-height:1.625rem;}kbd{font-size:0.85rem;line-height:1.625rem;}samp{font-size:0.85rem;line-height:1.625rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.08333rem;padding-right:1.08333rem;padding-top:0.8125rem;padding-bottom:calc(0.8125rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}h3,h4,h5,h6{margin-bottom:0.8125rem;margin-top:1.625rem;}ol,ul{margin-left:2.03125rem;}li>ol,li>ul{margin-left:2.03125rem;}a{color:#4078c0;text-decoration:none;}a:hover,a:active{text-decoration:underline;}</style><meta name="generator" content="Gatsby 5.0.1"/><meta name="theme-color" content="#663399"/><meta data-react-helmet="true" name="description" content="気になった技術などをまとめていくブログです。"/><meta data-react-helmet="true" property="og:title" content="All posts"/><meta data-react-helmet="true" property="og:description" content="気になった技術などをまとめていくブログです。"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" name="twitter:creator" content="koh110"/><meta data-react-helmet="true" name="twitter:title" content="All posts"/><meta data-react-helmet="true" name="twitter:description" content="気になった技術などをまとめていくブログです。"/><meta data-react-helmet="true" name="keywords" content="blog, javascript, node.js"/><style data-href="/styles.c2174e6c19b57527c890.css" data-identity="gatsby-global-css">code[class*=language-],pre[class*=language-]{word-wrap:normal;background:none;color:#ccc;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;font-size:1em;-webkit-hyphens:none;hyphens:none;line-height:1.5;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal}pre[class*=language-]{margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.1em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}ul{padding-left:2em}li{margin-bottom:0;margin-top:.25em}.gatsby-highlight-code-line{background-color:#feb;border-left:.25em solid #f99;display:block;margin-left:-1em;margin-right:-1em;padding-left:.75em;padding-right:1em}.gatsby-highlight{background-color:#f6f8fa;border-radius:.3em;margin:.5em 0;overflow:auto;padding:1em}.gatsby-highlight pre[class*=language-].line-numbers{overflow:initial;padding:0 0 0 2.8em}:not(pre)>code[class*=language-]{margin:0 2px;padding:2px 5px}:not(pre)>code.language-text{border-radius:2px}:root{--color-black:#545454;--color-border:#d3d4e4;--color-link:#1da1f2;--color-background-body:#fff;--color-body:#545454;--color-on-background:#f7f9f9;--color-blockquote-border-left:rgba(0,0,0,.9);--color-blockquote:rgba(0,0,0,.59);--color-background-head:rgba(0,0,0,.02)}[data-theme=dark]{--color-background-body:#15202b;--color-body:#fff;--color-on-background:#1c2938;--color-blockquote-border-left:hsla(0,0%,100%,.9);--color-blockquote:hsla(0,0%,100%,.59);--color-background-head:#2b2b2b}</style><link rel="preconnect" href="https://www.google-analytics.com"/><link rel="dns-prefetch" href="https://www.google-analytics.com"/><style type="text/css">
-    .anchor.before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translateX(-100%);
-      padding-right: 4px;
-    }
-    .anchor.after {
-      display: inline-block;
-      padding-left: 4px;
-    }
-    h1 .anchor svg,
-    h2 .anchor svg,
-    h3 .anchor svg,
-    h4 .anchor svg,
-    h5 .anchor svg,
-    h6 .anchor svg {
-      visibility: hidden;
-    }
-    h1:hover .anchor svg,
-    h2:hover .anchor svg,
-    h3:hover .anchor svg,
-    h4:hover .anchor svg,
-    h5:hover .anchor svg,
-    h6:hover .anchor svg,
-    h1 .anchor:focus svg,
-    h2 .anchor:focus svg,
-    h3 .anchor:focus svg,
-    h4 .anchor:focus svg,
-    h5 .anchor:focus svg,
-    h6 .anchor:focus svg {
-      visibility: visible;
-    }
-  </style><script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-      var hash = window.decodeURI(location.hash.replace('#', ''))
-      if (hash !== '') {
-        var element = document.getElementById(hash)
-        if (element) {
-          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-          var clientTop = document.documentElement.clientTop || document.body.clientTop || 0
-          var offset = element.getBoundingClientRect().top + scrollTop - clientTop
-          // Wait for the browser to finish rendering before scrolling.
-          setTimeout((function() {
-            window.scrollTo(0, offset - 0)
-          }), 0)
-        }
-      }
-    })
-  </script><link rel="alternate" type="application/rss+xml" title="kohsweblog" href="/rss.xml"/><link rel="icon" href="/favicon-32x32.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><title data-react-helmet="true">All posts | kohsweblog</title></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div style="margin-left:auto;margin-right:auto;max-width:39rem;padding:2.4375rem 1.21875rem"><h1 style="font-size:2.82843rem;line-height:3.25rem;margin-bottom:2.4375rem;margin-top:0"><a aria-current="page" style="box-shadow:none;text-decoration:none;color:inherit" class="" href="/">kohsweblog</a></h1><h4 style="font-weight:500;margin-bottom:2.4375rem">気になった技術などをまとめていくブログです。</h4><div style="display:flex;align-items:center;margin-bottom:4.0625rem"><div><strong>koh110</strong><p style="margin:0">JavaScript エンジニア。 詳しくは<a href="https://koh.dev">こちら</a></p></div></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2023-01-26-nodejs-book/">実践Node.js入門という本が出ます</a></h3><small>2023-01-26</small><p>はじめに 実践Node.js入門という本が技術評論社さまより発売されます。人生初の単著です。 発売日は2023/01/26です。 電子書籍版はKindleとGihyo Digital Publishingから購入できます。 技術評論社様のほうではPDFとEPUB…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2022-11-17-typeorm/">TypeORM v0.3へのバージョンアップ方法</a></h3><small>2022-11-17</small><p>TypeORMのアップデート NestJSで利用しているTypeORMのバージョンをv0.2からv0.3に引き上げた。
-v0.3ではかなりの破壊的変更が入っていたため、結構大変な作業だったのでやり方と方針を備忘録にまとめる。 TypeORM…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2022-07-02-jest-speedup/">jestでDBありのテストを高速化する</a></h3><small>2022-07-02</small><p>課題 お手伝いしているシステムでNestJSを採用しているバックエンドのテストが遅いという課題があったので対処した。 前提 フレームワーク DB テストランナー   その他 NestJS postgres jest TypeScript, ts-jest テストの総数は70…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2020-10-24-lighthouse-ci/">Lighthouse CIでサイトのスコアを定期的にチェックしよう</a></h3><small>2020-10-24</small><p>Core Web Vitals とは 最近のフロントエンド周辺では Google が提唱した Web Vitals と呼ばれる指標が非常に注目されています。 これは Web…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2020-05-13-async-iterator/">AsyncIteratorと落とし穴</a></h3><small>2020-05-13</small><p>Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。 しかし、AsyncIterator の登場によって Stream を Promise…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2020-03-04-nodejs-performance/">0から始めるNode.jsパフォーマンスチューニング</a></h3><small>2020-03-04</small><p>近年の Node.js は API のサーバとしてはもちろん、Nuxt.js や Next.js といった SSR や BFF…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2020-01-01-vpn/">WireGuardでVPNごしに自宅サーバ開発できる環境を作った</a></h3><small>2020-01-01</small><p>まえおき 自分は普段 MacBook Pro の 13 インチを開発機として利用しています。メモリは 16GB にしているので Web…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2019-11-22-vscode-zenvim/">VSCodeにZenVimというVim拡張を作った</a></h3><small>2019-11-22</small><p>前回の記事 で VSCode/Vim が重くなってしまう件について対処法を調べたが、それでもどうしても重くて厳しかったので自分用に作ってしまった。 作った拡張は ZenVim…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2019-10-28-darkmode-css/">ダークモードを導入してCSS+JSでテーマを管理する</a></h3><small>2019-10-28</small><p>きっかけ デフォルトは OS のダークモードをみて対応したいけど、JavaScript で切り替えにも対応したい。 そして色とかスタイルに関わる責務は CSS に寄せて、JavaScript はただ切り替えのロジックにだけ集中したい。  を使った CSS…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2019-10-13-vscode-vim/">VSCode + Vim Plugin が異常に重くなる件の対処法</a></h3><small>2019-10-13</small><p>結論 設定を変えることである程度軽くはなったが、耐えきれなくなって自分で作った。 (追記: 2019/11/18) 自分の環境では、 という設定を切ったら実用に耐えるレベルになった。 https://github.com/VSCodeVim/Vim#vim-airline…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2019-08-05-redis-streams/">Redis Streamsでキューを実装するときの注意点</a></h3><small>2019-08-05</small><p>はじめに Redis Streams とはざっくりいうと Redis v5 から加わった Pub/Sub とはまた違うキューイングの仕組みです。 https://redis.io/topics/streams-intro Pub/Sub は Subscribe…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2019-07-02-ubuntu-setup/">さくらで借りたUbuntu16のセットアップ</a></h3><small>2019-07-02</small><p>さくら パケットフィルタに最初は ssh しか設定されていないので http (80,443) を追加する。 これを追加しないといくら ufw や iptables を設定してもインターネット越しの通信が通らない。  で鍵認証の追加とパスワード認証の disable…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2019-06-11-mongodb-jest/">MongoDB + Jestのテスト方法</a></h3><small>2019-06-11</small><p>はじめに MongoDB のテストを書いて、自分なりの方法が落ち着いたのでまとめる。 結論: mongodb-memory-server を利用する。 本物の MongoDB を使う方法（不採用） 自分は middleware…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2019-06-07-mongodb-typescript/">MongoDB + Node.js + TypeScriptが強力だった</a></h3><small>2019-06-07</small><p>はじめに MongoDB (node-mongodb-native) + Node.js + TypeScript で RDB 並のスキーマ定義と、NoSQL の開発しやすさを両立できたのでまとめます。 Node.js と MongoDB MongoDB…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2019-01-03-chat/">チャットシステムを作るときに知っておくべきこと</a></h3><small>2019-01-03</small><p>…</p></div><div><h3 style="margin-bottom:0.40625rem"><a style="box-shadow:none" href="/2019-01-01-hello-world/">GatsbyJSでブログを作ってみる</a></h3><small>2019-01-01</small><p>このブログは静的サイトジェネレータの GatsbyJS…</p></div><footer>© <!-- -->2023<!-- -->,<!-- --> <a href="https://koh.dev" target="_blank">kohsweb</a></footer></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
-  
-  
-  if(true) {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  }
-  if (typeof ga === "function") {
-    ga('create', 'UA-40547259-4', 'auto', {});
-      
-      
-      
-      
-      
-      }</script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
-          <script
-            id="gatsby-chunk-mapping"
-          >
-            window.___chunkMapping="{\"app\":[\"/app-7e91ca904d776d21f2d1.js\"],\"component---cache-caches-gatsby-plugin-offline-app-shell-js\":[\"/component---cache-caches-gatsby-plugin-offline-app-shell-js-955b3cf39207eaac5870.js\"],\"component---src-pages-404-js\":[\"/component---src-pages-404-js-951d612edf2a1cb411ac.js\"],\"component---src-pages-index-js\":[\"/component---src-pages-index-js-90770a9b8cd19cb611c5.js\"],\"component---src-templates-blog-post-js\":[\"/component---src-templates-blog-post-js-1886d687849559569d14.js\"]}";
-          </script>
-        <script>window.___webpackCompilationHash="6b94b236a9fdca825cdb";</script><script src="/webpack-runtime-b14ed147da13fc923b7f.js" async></script><script src="/framework-ebbea84a5adc3d62e644.js" async></script><script src="/app-7e91ca904d776d21f2d1.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+  <title>kohsweblog</title>
+<link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
+<link rel="stylesheet" href="/_astro/index.762ca003.css" /></head>
+<body>
+  <main class="astro-J7PV25F6">
+    <header class="astro-J7PV25F6">
+      <h1 class="astro-J7PV25F6"><a href="/" class="astro-J7PV25F6">kohsweblog</a></h1>
+      <h4 class="astro-J7PV25F6">気になった技術などをまとめていくブログです。</h4>
+    </header>
+    <div class="astro-J7PV25F6">
+      <div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2023-01-26-nodejs-book" class="astro-J7PV25F6">実践Node.js入門という本が出ます</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2023-01-26</date></small>
+          <p class="astro-J7PV25F6"># はじめに
+
+実践Node.js入門という本が技術評論社さまより発売されます。人生初の単著です。
+
+発売日は2023/01/26です。
+
+電子書籍版はKindleとGihyo Digital Publishingから購入できます。
+
+&lt;i...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2022-11-17-typeorm" class="astro-J7PV25F6">TypeORM v0.3へのバージョンアップ方法</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2022-11-17</date></small>
+          <p class="astro-J7PV25F6"># TypeORMのアップデート
+
+NestJSで利用しているTypeORMのバージョンをv0.2からv0.3に引き上げた。
+v0.3ではかなりの破壊的変更が入っていたため、結構大変な作業だったのでやり方と方針を備忘録にまとめる。
+
+[Ty...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2022-07-02-jest-speedup" class="astro-J7PV25F6">jestでDBありのテストを高速化する</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2022-07-02</date></small>
+          <p class="astro-J7PV25F6"># 課題
+
+お手伝いしているシステムでNestJSを採用しているバックエンドのテストが遅いという課題があったので対処した。
+
+# 前提
+
+| フレームワーク | DB | テストランナー | その他 |
+|---|---|---|---|
+...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2020-10-24-lighthouse-ci" class="astro-J7PV25F6">Lighthouse CIでサイトのスコアを定期的にチェックしよう</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2020-10-24</date></small>
+          <p class="astro-J7PV25F6"># Core Web Vitals とは
+
+最近のフロントエンド周辺では Google が提唱した Web Vitals と呼ばれる指標が非常に注目されています。
+
+これは Web で多くのユーザーが快適なユーザー体験を得るために、こういっ...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2020-05-13-async-iterator" class="astro-J7PV25F6">AsyncIteratorと落とし穴</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2020-05-13</date></small>
+          <p class="astro-J7PV25F6">Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。
+
+しかし、AsyncIterator の登場によって Stream を Promise の文脈...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2020-03-04-nodejs-performance" class="astro-J7PV25F6">0から始めるNode.jsパフォーマンスチューニング</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2020-03-04</date></small>
+          <p class="astro-J7PV25F6">近年の Node.js は API のサーバとしてはもちろん、Nuxt.js や Next.js といった SSR や BFF などフロントエンドのためのバックエンド言語としての人気が高まっています。
+
+フロントエンドエンジニアがコンテキス...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2020-01-01-vpn" class="astro-J7PV25F6">WireGuardでVPNごしに自宅サーバ開発できる環境を作った</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2020-01-01</date></small>
+          <p class="astro-J7PV25F6"># まえおき
+
+自分は普段 MacBook Pro の 13 インチを開発機として利用しています。メモリは 16GB にしているので Web 開発をする時にはあまり不便に感じることはありません。
+ただ、サービスの開発のステージ環境や、自宅内...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2019-11-22-vscode-zenvim" class="astro-J7PV25F6">VSCodeにZenVimというVim拡張を作った</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2019-11-22</date></small>
+          <p class="astro-J7PV25F6">[前回の記事](../2019-10-13-vscode-vim/) で [VSCode/Vim](http://aka.ms/vscodevim) が重くなってしまう件について対処法を調べたが、それでもどうしても重くて厳しかったので自分用...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2019-10-28-darkmode-css" class="astro-J7PV25F6">ダークモードを導入してCSS+JSでテーマを管理する</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2019-10-28</date></small>
+          <p class="astro-J7PV25F6"># きっかけ
+
+デフォルトは OS のダークモードをみて対応したいけど、JavaScript で切り替えにも対応したい。
+
+そして色とかスタイルに関わる責務は CSS に寄せて、JavaScript はただ切り替えのロジックにだけ集中したい...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2019-10-13-vscode-vim" class="astro-J7PV25F6">VSCode + Vim Plugin が異常に重くなる件の対処法</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2019-10-13</date></small>
+          <p class="astro-J7PV25F6"># 結論
+
+設定を変えることである程度軽くはなったが、耐えきれなくなって[自分で作った](../2019-11-22-vscode-zenvim/)。 (追記: 2019/11/18)
+
+自分の環境では、`vim.statusBarColo...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2019-08-05-redis-streams" class="astro-J7PV25F6">Redis Streamsでキューを実装するときの注意点</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2019-08-05</date></small>
+          <p class="astro-J7PV25F6"># はじめに
+
+Redis Streams とはざっくりいうと Redis v5 から加わった Pub/Sub とはまた違うキューイングの仕組みです。
+
+https://redis.io/topics/streams-intro
+
+Pub/...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2019-07-02-ubuntu-setup" class="astro-J7PV25F6">さくらで借りたUbuntu16のセットアップ</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2019-07-02</date></small>
+          <p class="astro-J7PV25F6"># さくら
+
+パケットフィルタに最初は ssh しか設定されていないので http (80,443) を追加する。
+
+これを追加しないといくら ufw や iptables を設定してもインターネット越しの通信が通らない。
+
+```bash...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2019-06-11-mongodb-jest" class="astro-J7PV25F6">MongoDB + Jestのテスト方法</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2019-06-11</date></small>
+          <p class="astro-J7PV25F6">## はじめに
+
+MongoDB のテストを書いて、自分なりの方法が落ち着いたのでまとめる。
+
+結論: &lt;a href=&quot;https://www.npmjs.com/package/mongodb-memory-server&quot; target...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2019-06-07-mongodb-typescript" class="astro-J7PV25F6">MongoDB + Node.js + TypeScriptが強力だった</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2019-06-07</date></small>
+          <p class="astro-J7PV25F6">## はじめに
+
+MongoDB (node-mongodb-native) + Node.js + TypeScript で RDB 並のスキーマ定義と、NoSQL の開発しやすさを両立できたのでまとめます。
+
+## Node.js と ...</p>
+        </div><div class="astro-J7PV25F6">
+          <h3 class="astro-J7PV25F6"><a href="/2019-01-03-chat" class="astro-J7PV25F6">チャットシステムを作るときに知っておくべきこと</a></h3>
+          <small class="astro-J7PV25F6"><date class="astro-J7PV25F6">2019-01-03</date></small>
+          <p class="astro-J7PV25F6">チャットシステムを作ってみているのでいろいろと気になる部分を記録。
+
+会社で社内用のチャットシステムをずと開発・運用していたのである程度システム的なノウハウはあったものの、外向けに作るときに気にしなければならない部分が結構あるなというのを知...</p>
+        </div>
+    </div>
+  </main>
+</body></html>

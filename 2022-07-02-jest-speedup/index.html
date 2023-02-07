@@ -1,140 +1,87 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.625 -apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.8);font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:normal;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}h1{margin-left:0;margin-right:0;margin-top:2.4375rem;padding-bottom:calc(0.40625rem - 1px);padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.21875rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:2rem;line-height:1.1;border-bottom:1px solid hsla(0,0%,0%,0.07);}h2{margin-left:0;margin-right:0;margin-top:1.625rem;padding-bottom:calc(0.40625rem - 1px);padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.40625rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1.51572rem;line-height:1.1;border-bottom:1px solid hsla(0,0%,0%,0.07);}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1.31951rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:0.87055rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:hsla(0,0%,0%,0.53);font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:0.81225rem;line-height:1.1;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}ul{margin-left:1.625rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;list-style-position:outside;list-style-image:none;}ol{margin-left:1.625rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;font-size:0.85rem;line-height:1.625rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;font-size:1rem;line-height:1.625rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}blockquote{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:calc(0.8125rem - 1px);padding-right:0;padding-top:0;margin-bottom:0.8125rem;border-left:4px solid hsla(0,0%,0%,0.13);color:hsla(0,0%,0%,0.53);}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(0.8125rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}b{font-weight:600;}strong{font-weight:600;}dt{font-weight:600;}th{font-weight:600;}li{margin-bottom:calc(0.8125rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.625rem;margin-bottom:calc(0.8125rem / 2);margin-top:calc(0.8125rem / 2);}li > ul{margin-left:1.625rem;margin-bottom:calc(0.8125rem / 2);margin-top:calc(0.8125rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(0.8125rem / 2);}code{font-size:0.85rem;line-height:1.625rem;}kbd{font-size:0.85rem;line-height:1.625rem;}samp{font-size:0.85rem;line-height:1.625rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.08333rem;padding-right:1.08333rem;padding-top:0.8125rem;padding-bottom:calc(0.8125rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}h3,h4,h5,h6{margin-bottom:0.8125rem;margin-top:1.625rem;}ol,ul{margin-left:2.03125rem;}li>ol,li>ul{margin-left:2.03125rem;}a{color:#4078c0;text-decoration:none;}a:hover,a:active{text-decoration:underline;}</style><meta name="generator" content="Gatsby 5.0.1"/><meta name="theme-color" content="#663399"/><meta data-react-helmet="true" name="description" content="課題 お手伝いしているシステムでNestJSを採用しているバックエンドのテストが遅いという課題があったので対処した。 前提 フレームワーク DB テストランナー その他 NestJS postgres jest TypeScript, ts-jest テストの総数は700弱。 最終結果 最終的には…"/><meta data-react-helmet="true" property="og:title" content="jestでDBありのテストを高速化する"/><meta data-react-helmet="true" property="og:description" content="課題 お手伝いしているシステムでNestJSを採用しているバックエンドのテストが遅いという課題があったので対処した。 前提 フレームワーク DB テストランナー その他 NestJS postgres jest TypeScript, ts-jest テストの総数は700弱。 最終結果 最終的には…"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" name="twitter:creator" content="koh110"/><meta data-react-helmet="true" name="twitter:title" content="jestでDBありのテストを高速化する"/><meta data-react-helmet="true" name="twitter:description" content="課題 お手伝いしているシステムでNestJSを採用しているバックエンドのテストが遅いという課題があったので対処した。 前提 フレームワーク DB テストランナー その他 NestJS postgres jest TypeScript, ts-jest テストの総数は700弱。 最終結果 最終的には…"/><style data-href="/styles.c2174e6c19b57527c890.css" data-identity="gatsby-global-css">code[class*=language-],pre[class*=language-]{word-wrap:normal;background:none;color:#ccc;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;font-size:1em;-webkit-hyphens:none;hyphens:none;line-height:1.5;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal}pre[class*=language-]{margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.1em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}ul{padding-left:2em}li{margin-bottom:0;margin-top:.25em}.gatsby-highlight-code-line{background-color:#feb;border-left:.25em solid #f99;display:block;margin-left:-1em;margin-right:-1em;padding-left:.75em;padding-right:1em}.gatsby-highlight{background-color:#f6f8fa;border-radius:.3em;margin:.5em 0;overflow:auto;padding:1em}.gatsby-highlight pre[class*=language-].line-numbers{overflow:initial;padding:0 0 0 2.8em}:not(pre)>code[class*=language-]{margin:0 2px;padding:2px 5px}:not(pre)>code.language-text{border-radius:2px}:root{--color-black:#545454;--color-border:#d3d4e4;--color-link:#1da1f2;--color-background-body:#fff;--color-body:#545454;--color-on-background:#f7f9f9;--color-blockquote-border-left:rgba(0,0,0,.9);--color-blockquote:rgba(0,0,0,.59);--color-background-head:rgba(0,0,0,.02)}[data-theme=dark]{--color-background-body:#15202b;--color-body:#fff;--color-on-background:#1c2938;--color-blockquote-border-left:hsla(0,0%,100%,.9);--color-blockquote:hsla(0,0%,100%,.59);--color-background-head:#2b2b2b}</style><link rel="preconnect" href="https://www.google-analytics.com"/><link rel="dns-prefetch" href="https://www.google-analytics.com"/><style type="text/css">
-    .anchor.before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translateX(-100%);
-      padding-right: 4px;
-    }
-    .anchor.after {
-      display: inline-block;
-      padding-left: 4px;
-    }
-    h1 .anchor svg,
-    h2 .anchor svg,
-    h3 .anchor svg,
-    h4 .anchor svg,
-    h5 .anchor svg,
-    h6 .anchor svg {
-      visibility: hidden;
-    }
-    h1:hover .anchor svg,
-    h2:hover .anchor svg,
-    h3:hover .anchor svg,
-    h4:hover .anchor svg,
-    h5:hover .anchor svg,
-    h6:hover .anchor svg,
-    h1 .anchor:focus svg,
-    h2 .anchor:focus svg,
-    h3 .anchor:focus svg,
-    h4 .anchor:focus svg,
-    h5 .anchor:focus svg,
-    h6 .anchor:focus svg {
-      visibility: visible;
-    }
-  </style><script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-      var hash = window.decodeURI(location.hash.replace('#', ''))
-      if (hash !== '') {
-        var element = document.getElementById(hash)
-        if (element) {
-          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-          var clientTop = document.documentElement.clientTop || document.body.clientTop || 0
-          var offset = element.getBoundingClientRect().top + scrollTop - clientTop
-          // Wait for the browser to finish rendering before scrolling.
-          setTimeout((function() {
-            window.scrollTo(0, offset - 0)
-          }), 0)
-        }
-      }
-    })
-  </script><link rel="alternate" type="application/rss+xml" title="kohsweblog" href="/rss.xml"/><link rel="icon" href="/favicon-32x32.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><title data-react-helmet="true">jestでDBありのテストを高速化する | kohsweblog</title></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div style="margin-left:auto;margin-right:auto;max-width:48.75rem;padding:2.4375rem 1.21875rem"><h3 style="margin-top:0"><a style="box-shadow:none;text-decoration:none;color:inherit" href="/">kohsweblog</a></h3><h1>jestでDBありのテストを高速化する</h1><time style="font-size:0.87055rem;line-height:1.625rem" class="sc-dkrFOg fxwzev">2022-07-02</time><div class="sc-hLBbgP kUexFf"><a class="twitter-share-button" href="https://twitter.com/intent/tweet?via=koh110" data-size="large"></a><div><a href = "https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-label-counter" data-hatena-bookmark-lang="ja" data-hatena-bookmark-height="28" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a></div></div><nav class="sc-bcXHqe kEQbxu"><h4>目次</h4><div class="sc-gswNZR kcpDTq"><ul>
-<li>
-<p><a href="#%E8%AA%B2%E9%A1%8C">課題</a></p>
-</li>
-<li>
-<p><a href="#%E5%89%8D%E6%8F%90">前提</a></p>
-</li>
-<li>
-<p><a href="#%E6%9C%80%E7%B5%82%E7%B5%90%E6%9E%9C">最終結果</a></p>
-</li>
-<li>
-<p><a href="#%E6%88%A6%E7%95%A5">戦略</a></p>
-<ul>
-<li>
-<p><a href="#%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B9%E3%83%91%E3%82%A4%E3%83%A9%E3%83%BC%E3%81%AE%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88">トランスパイラーの置き換え</a></p>
-<ul>
-<li><a href="#swcjest%E3%81%B8%E3%81%AE%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88">@swc/jestへの置き換え</a></li>
-<li><a href="#vitest%E3%81%B8%E3%81%AE%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88%E6%A4%9C%E8%A8%BC">vitestへの置き換え検証</a></li>
-</ul>
-</li>
-<li>
-<p><a href="#%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E4%B8%A6%E5%88%97%E5%8C%96">テストの並列化</a></p>
-<ul>
-<li><a href="#runinband%E3%81%AE%E5%89%8A%E9%99%A4%E3%81%A8worker%E6%95%B0%E3%81%AE%E5%88%B6%E9%99%90">runInBandの削除とworker数の制限</a></li>
-</ul>
-</li>
-<li>
-<p><a href="#ci%E3%81%AE%E4%B8%A6%E5%88%97%E5%8C%96">CIの並列化</a></p>
-</li>
-</ul>
-</li>
-<li>
-<p><a href="#%E3%81%8A%E3%81%BE%E3%81%91">おまけ</a></p>
-</li>
-<li>
-<p><a href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB">おわりに</a></p>
-</li>
-</ul></div></nav><div class="sc-eDvSVe icWMyJ"><h1 id="課題" style="position:relative;"><a href="#%E8%AA%B2%E9%A1%8C" aria-label="課題 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>課題</h1>
+<!DOCTYPE html>
+<html lang="ja" class="astro-5GRSW2HI">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+    <meta name="description" content="
+# 課題
+
+お手伝いしているシステムでNestJSを採用しているバックエンドのテストが遅いという課題があったので対処した。
+
+# 前提
+
+| フレームワーク | DB | テストランナー | その他 |
+|---|---|---|---|">
+    <title>jestでDBありのテストを高速化する</title>
+  <link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
+<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.afefc3e9.css" /></head>
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
+<body class="astro-5GRSW2HI">
+  <main class="astro-5GRSW2HI">
+    <header class="astro-5GRSW2HI">
+      <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
+    </header>
+    <h1 class="astro-5GRSW2HI">jestでDBありのテストを高速化する</h1>
+    <time class="astro-5GRSW2HI">2022-07-02</time>
+    <div class="social astro-5GRSW2HI">
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-via="koh110" data-show-count="false">Tweet</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <a href="https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button astro-5GRSW2HI" data-hatena-bookmark-layout="basic-label-counter" data-hatena-bookmark-lang="ja" data-hatena-bookmark-height="28" title="このエントリーをはてなブックマークに追加">
+        <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
+      </a>
+    </div>
+    <article class="astro-XSCT23V3">
+  <h1 id="課題">課題</h1>
 <p>お手伝いしているシステムでNestJSを採用しているバックエンドのテストが遅いという課題があったので対処した。</p>
-<h1 id="前提" style="position:relative;"><a href="#%E5%89%8D%E6%8F%90" aria-label="前提 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>前提</h1>
-<table>
-<thead>
-<tr>
-<th>フレームワーク</th>
-<th>DB</th>
-<th>テストランナー</th>
-<th>その他</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>NestJS</td>
-<td>postgres</td>
-<td>jest</td>
-<td>TypeScript, ts-jest</td>
-</tr>
-</tbody>
-</table>
+<h1 id="前提">前提</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>フレームワーク</th><th>DB</th><th>テストランナー</th><th>その他</th></tr></thead><tbody><tr><td>NestJS</td><td>postgres</td><td>jest</td><td>TypeScript, ts-jest</td></tr></tbody></table>
 <p>テストの総数は700弱。</p>
-<h1 id="最終結果" style="position:relative;"><a href="#%E6%9C%80%E7%B5%82%E7%B5%90%E6%9E%9C" aria-label="最終結果 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>最終結果</h1>
+<h1 id="最終結果">最終結果</h1>
 <p>最終的には2段階の改修を経てローカルのテストが3倍速程度高速化した。</p>
-<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="token comment"># before</span>
-Test Suites: <span class="token number">145</span> passed, <span class="token number">145</span> total
-Tests:       <span class="token number">2</span> skipped, <span class="token number">681</span> passed, <span class="token number">683</span> total
-Snapshots:   <span class="token number">0</span> total
-Time:        <span class="token number">925.063</span> s
-Ran all <span class="token builtin class-name">test</span> suites.
-Done <span class="token keyword">in</span> <span class="token number">926</span>.48s.
-
-<span class="token comment"># ts-jestを@swc/jestに置き換えた</span>
-Test Suites: <span class="token number">145</span> passed, <span class="token number">145</span> total
-Tests:       <span class="token number">2</span> skipped, <span class="token number">681</span> passed, <span class="token number">683</span> total
-Snapshots:   <span class="token number">0</span> total
-Time:        <span class="token number">613.74</span> s
-Ran all <span class="token builtin class-name">test</span> suites.
-Done <span class="token keyword">in</span> <span class="token number">615</span>.33s.
-
-<span class="token comment"># 4並列にした</span>
-Test Suites: <span class="token number">145</span> passed, <span class="token number">145</span> total
-Tests:       <span class="token number">2</span> skipped, <span class="token number">681</span> passed, <span class="token number">683</span> total
-Snapshots:   <span class="token number">0</span> total
-Time:        <span class="token number">293.974</span> s
-Ran all <span class="token builtin class-name">test</span> suites.
-Done <span class="token keyword">in</span> <span class="token number">310</span>.08s.</code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E"># before</span></span>
+<span class="line"><span style="color: #C9D1D9">Test Suites: 145 passed, 145 total</span></span>
+<span class="line"><span style="color: #C9D1D9">Tests:       2 skipped, 681 passed, 683 total</span></span>
+<span class="line"><span style="color: #C9D1D9">Snapshots:   0 total</span></span>
+<span class="line"><span style="color: #C9D1D9">Time:        925.063 s</span></span>
+<span class="line"><span style="color: #C9D1D9">Ran all </span><span style="color: #79C0FF">test</span><span style="color: #C9D1D9"> suites.</span></span>
+<span class="line"><span style="color: #C9D1D9">Done </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> 926.48s.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #8B949E"># ts-jestを@swc/jestに置き換えた</span></span>
+<span class="line"><span style="color: #C9D1D9">Test Suites: 145 passed, 145 total</span></span>
+<span class="line"><span style="color: #C9D1D9">Tests:       2 skipped, 681 passed, 683 total</span></span>
+<span class="line"><span style="color: #C9D1D9">Snapshots:   0 total</span></span>
+<span class="line"><span style="color: #C9D1D9">Time:        613.74 s</span></span>
+<span class="line"><span style="color: #C9D1D9">Ran all </span><span style="color: #79C0FF">test</span><span style="color: #C9D1D9"> suites.</span></span>
+<span class="line"><span style="color: #C9D1D9">Done </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> 615.33s.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #8B949E"># 4並列にした</span></span>
+<span class="line"><span style="color: #C9D1D9">Test Suites: 145 passed, 145 total</span></span>
+<span class="line"><span style="color: #C9D1D9">Tests:       2 skipped, 681 passed, 683 total</span></span>
+<span class="line"><span style="color: #C9D1D9">Snapshots:   0 total</span></span>
+<span class="line"><span style="color: #C9D1D9">Time:        293.974 s</span></span>
+<span class="line"><span style="color: #C9D1D9">Ran all </span><span style="color: #79C0FF">test</span><span style="color: #C9D1D9"> suites.</span></span>
+<span class="line"><span style="color: #C9D1D9">Done </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> 310.08s.</span></span></code></pre>
 <p>ただ、トランスパイラの置き換え（ts-jest -> @swc/jest）とworker数の増加だけではCI上の実行時間は変わらなかった。
 そのため、ローカルとCIでは別の並列化を行い、最終的にはCIの実行速度も3倍速程度まで高速化した。</p>
-<h1 id="戦略" style="position:relative;"><a href="#%E6%88%A6%E7%95%A5" aria-label="戦略 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>戦略</h1>
+<h1 id="戦略">戦略</h1>
 <p>TypeScriptで記述されたテストであったため、コストの低い対策として高速なトランスパイラーへの置き換えを検証した。
 また、コストは高いが確実な方法としてDBのテストを直列から並列に変更する方法を検証した。</p>
 <ul>
@@ -146,61 +93,61 @@ Done <span class="token keyword">in</span> <span class="token number">310</span>
 </li>
 <li>テストの並列化
 <ul>
-<li><code class="language-text">--runInBand</code> の削除</li>
-<li><code class="language-text">--maxWorkers=4</code> の追加</li>
+<li><code>--runInBand</code> の削除</li>
+<li><code>--maxWorkers=4</code> の追加</li>
 <li>並列数分のDBを用意</li>
 <li>テスト時にworkerのインデックスを取得してDBをつなぎ分ける</li>
 </ul>
 </li>
 <li>CIの並列化
 <ul>
-<li><code class="language-text">--shard</code> オプションの利用（採用）</li>
+<li><code>--shard</code> オプションの利用（採用）</li>
 <li>CIのテストステップを4分割</li>
-<li><code class="language-text">--maxWorkers=4</code> で動かす（失敗）</li>
+<li><code>--maxWorkers=4</code> で動かす（失敗）</li>
 </ul>
 </li>
 </ul>
-<h2 id="トランスパイラーの置き換え" style="position:relative;"><a href="#%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B9%E3%83%91%E3%82%A4%E3%83%A9%E3%83%BC%E3%81%AE%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88" aria-label="トランスパイラーの置き換え permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>トランスパイラーの置き換え</h2>
+<h2 id="トランスパイラーの置き換え">トランスパイラーの置き換え</h2>
 <p>プロダクトコードとテストがTypeScriptで記述されていたため、トランスパイラーを置き換えることでコスト低く高速化することを狙った。
 ローカルで実行時間が2/3程度になる高速化。CIの実行時間は変化がなかった。</p>
-<h3 id="swcjestへの置き換え" style="position:relative;"><a href="#swcjest%E3%81%B8%E3%81%AE%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88" aria-label="swcjestへの置き換え permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>@swc/jestへの置き換え</h3>
+<h3 id="swcjestへの置き換え">@swc/jestへの置き換え</h3>
 <p>トランスパイラーをts-jestから@swc/jestへ置き換えた。</p>
 <p>やること自体はそんな難しくなくドキュメントに記載されている通りにコンフィグを書き換える。</p>
 <p><a href="https://swc.rs/docs/usage/jest">https://swc.rs/docs/usage/jest</a></p>
-<div class="gatsby-highlight" data-language="diff"><pre class="language-diff"><code class="language-diff">// jest.config.js
-transform: {
-<span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>  "^.+\\.(t|j)sx?$": "ts-jest",
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>  "^.+\\.(t|j)sx?$": ["@swc/jest"],
-</span>},</code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">// jest.config.js</span></span>
+<span class="line"><span style="color: #C9D1D9">transform: {</span></span>
+<span class="line"><span style="color: #FFA198"><span style="user-select: none;">-</span>  "^.+\\.(t|j)sx?$": "ts-jest",</span></span>
+<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span>  "^.+\\.(t|j)sx?$": ["@swc/jest"],</span></span>
+<span class="line"><span style="color: #C9D1D9">},</span></span></code></pre>
 <p>次にswcの設定ファイルを配置する。</p>
 <p>NestJS特有で気をつけなければいけない点として、デコレータ周りの設定（legacyDecorator, decoratorMetadata）をきちんとかかないと動かない。
 pathsはtsconfigに設定されているものをそのままコピペして配置。</p>
-<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">// .swcrc
-{
-  "jsc": {
-    "parser": {
-      "syntax": "typescript",
-      "decorators": true
-    },
-    "target": "es2020",
-    "keepClassNames": true,
-    "transform": {
-      "legacyDecorator": true,
-      "decoratorMetadata": true
-    },
-    "baseUrl": ".",
-    "paths": {
-      "@common/*": ["./src/common/*"],
-      "@test/*": ["./src/test/*"],
-    }
-  },
-  "sourceMaps": true
-}</code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">// .swcrc</span></span>
+<span class="line"><span style="color: #c9d1d9">{</span></span>
+<span class="line"><span style="color: #c9d1d9">  "jsc": {</span></span>
+<span class="line"><span style="color: #c9d1d9">    "parser": {</span></span>
+<span class="line"><span style="color: #c9d1d9">      "syntax": "typescript",</span></span>
+<span class="line"><span style="color: #c9d1d9">      "decorators": true</span></span>
+<span class="line"><span style="color: #c9d1d9">    },</span></span>
+<span class="line"><span style="color: #c9d1d9">    "target": "es2020",</span></span>
+<span class="line"><span style="color: #c9d1d9">    "keepClassNames": true,</span></span>
+<span class="line"><span style="color: #c9d1d9">    "transform": {</span></span>
+<span class="line"><span style="color: #c9d1d9">      "legacyDecorator": true,</span></span>
+<span class="line"><span style="color: #c9d1d9">      "decoratorMetadata": true</span></span>
+<span class="line"><span style="color: #c9d1d9">    },</span></span>
+<span class="line"><span style="color: #c9d1d9">    "baseUrl": ".",</span></span>
+<span class="line"><span style="color: #c9d1d9">    "paths": {</span></span>
+<span class="line"><span style="color: #c9d1d9">      "@common/*": ["./src/common/*"],</span></span>
+<span class="line"><span style="color: #c9d1d9">      "@test/*": ["./src/test/*"],</span></span>
+<span class="line"><span style="color: #c9d1d9">    }</span></span>
+<span class="line"><span style="color: #c9d1d9">  },</span></span>
+<span class="line"><span style="color: #c9d1d9">  "sourceMaps": true</span></span>
+<span class="line"><span style="color: #c9d1d9">}</span></span></code></pre>
 <p>また、追加で今回はTypeORM特有のつまづきポイントがあった。</p>
 <p><a href="https://github.com/swc-project/swc/issues/1160">https://github.com/swc-project/swc/issues/1160</a></p>
-<p>tscでトランスパイルすると <code class="language-text">@Column()</code> と書いていても自動的に型を推論してくれるが、swcがトランスパイルの仕方が違うため、TypeORMが解釈できない形に変換されてしまっていた。</p>
-<p>これは <code class="language-text">@Column({ type: "varchar" })</code> のように詳細に型を指定してあげると回避できた。</p>
-<h3 id="vitestへの置き換え検証" style="position:relative;"><a href="#vitest%E3%81%B8%E3%81%AE%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88%E6%A4%9C%E8%A8%BC" aria-label="vitestへの置き換え検証 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>vitestへの置き換え検証</h3>
+<p>tscでトランスパイルすると <code>@Column()</code> と書いていても自動的に型を推論してくれるが、swcがトランスパイルの仕方が違うため、TypeORMが解釈できない形に変換されてしまっていた。</p>
+<p>これは <code>@Column({ type: "varchar" })</code> のように詳細に型を指定してあげると回避できた。</p>
+<h3 id="vitestへの置き換え検証">vitestへの置き換え検証</h3>
 <p>swcより先にvitestを試した。jestと互換性があるということで気軽に試してみたが、案外書き換えも必要+NestJSではうまく動作しない部分があり断念した。</p>
 <p>断念理由1: esbuildがサポートしてないデコレータがある</p>
 <p>vitestが内部で採用しているesbuildがいくつかデコレータの書き方に対応していなかった。</p>
@@ -212,181 +159,173 @@ pathsはtsconfigに設定されているものをそのままコピペして配�
 <p><a href="https://github.com/vitest-dev/vitest/issues/846">https://github.com/vitest-dev/vitest/issues/846</a></p>
 <p>これも.mtsやpackage.jsonの指定でECMA Modules扱いにしてしまうというのも試したが、本番の動作に影響が出てしまう可能性を考えると、テストのためだけにやるのは少しコスト高いと判断した。</p>
 <p>また、ECMA Modulesとして読み込もうとするとnode_modules以下のCommonJSモジュールと不整合が出る部分の対処も必要で、クリアできそうではあるが今回は少々コスト過多になりそうという印象を受けたので撤退した。</p>
-<h2 id="テストの並列化" style="position:relative;"><a href="#%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E4%B8%A6%E5%88%97%E5%8C%96" aria-label="テストの並列化 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>テストの並列化</h2>
-<p>DBつきのテストなので、もともと <code class="language-text">--runInBand</code> オプションで直列に実行されていた。なのでまずはこのオプションを外す戦略をたてた。</p>
+<h2 id="テストの並列化">テストの並列化</h2>
+<p>DBつきのテストなので、もともと <code>--runInBand</code> オプションで直列に実行されていた。なのでまずはこのオプションを外す戦略をたてた。</p>
 <p>DBのテストを並列に実行する手法は、愚直に並列数分のDBを用意して、テストのDB接続時にそれぞれ競合しないDBに接続させる方法を採用した。
 リソースの消費は大きく富豪的な発想だがシンプルでわかりやすいため、メンテナンスもそこまで難しくないだろうという理由。</p>
-<h3 id="runinbandの削除とworker数の制限" style="position:relative;"><a href="#runinband%E3%81%AE%E5%89%8A%E9%99%A4%E3%81%A8worker%E6%95%B0%E3%81%AE%E5%88%B6%E9%99%90" aria-label="runinbandの削除とworker数の制限 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>runInBandの削除とworker数の制限</h3>
+<h3 id="runinbandの削除とworker数の制限">runInBandの削除とworker数の制限</h3>
 <p>jestはデフォルトだと (コア数 - 1) 個のworkerを生成する。ただ、自分の環境は16コアだったので out of memory が発生してしまった。
-最近の開発者の環境だとコア8個以上は当たり前になりつつあるし、 <code class="language-text">--maxWorkers=4</code> を追加してworkerを4つまでに制限した。</p>
+最近の開発者の環境だとコア8個以上は当たり前になりつつあるし、 <code>--maxWorkers=4</code> を追加してworkerを4つまでに制限した。</p>
 <p>今回はDBをdocker-comopseで立ち上げていたので、一つのDBインスタンスにDB名を分けるという形でworkerの接続席を分けることにした。</p>
 <p>テストDBの事前準備をどうしようかなという部分がまだちゃんと煮詰まっていないが、pretest時にmigrationを流すスクリプトを作成した。</p>
-<div class="gatsby-highlight" data-language="json"><pre class="language-json"><code class="language-json"><span class="token property">"pretest"</span><span class="token operator">:</span> <span class="token string">"WORKER_NUM=4 NODE_ENV=test yarn ts-node ./src/test/bin/setup-db.ts"</span><span class="token punctuation">,</span>
-<span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"NODE_ENV=test jest --maxWorkers=4"</span><span class="token punctuation">,</span></code></pre></div>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> promisify <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"util"</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> execFile<span class="token punctuation">,</span> exec <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"child_process"</span><span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> <span class="token punctuation">{</span> createConnection<span class="token punctuation">,</span> getConnectionOptions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"typeorm"</span><span class="token punctuation">;</span>
-
-<span class="token keyword">const</span> execFileAsync <span class="token operator">=</span> <span class="token function">promisify</span><span class="token punctuation">(</span>execFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> execAsync <span class="token operator">=</span> <span class="token function">promisify</span><span class="token punctuation">(</span>exec<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">const</span> <span class="token constant">WORKER_NUM</span> <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">WORKER_NUM</span> <span class="token operator">?</span> <span class="token function">Number</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">WORKER_NUM</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> <span class="token constant">TYPEORM_HOST</span> <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">TYPEORM_HOST</span> <span class="token operator">??</span> <span class="token string">"dbname"</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> <span class="token constant">TYPEORM_USERNAME</span> <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">TYPEORM_USERNAME</span> <span class="token operator">??</span> <span class="token string">"postgres"</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> <span class="token constant">TYPEORM_DATABASE</span> <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">TYPEORM_DATABASE</span> <span class="token operator">??</span> <span class="token string">"postgres"</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> <span class="token constant">PGPASSWORD</span> <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">TYPEORM_PASSWORD</span> <span class="token operator">??</span> <span class="token string">"password"</span><span class="token punctuation">;</span>
-
-<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">runMigrate</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">databaseName</span><span class="token operator">:</span> string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[migrate:start] </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>databaseName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> env <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span>process<span class="token punctuation">.</span>env<span class="token punctuation">,</span> <span class="token constant">PGPASSWORD</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> timeout <span class="token operator">=</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">;</span>
-  <span class="token comment">// dbの存在チェック</span>
-  <span class="token keyword">const</span> <span class="token punctuation">{</span> stdout <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">execAsync</span><span class="token punctuation">(</span>
-    <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">psql -U </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token constant">TYPEORM_USERNAME</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> -h </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token constant">TYPEORM_HOST</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token constant">TYPEORM_DATABASE</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> -c "SELECT datname FROM pg_database WHERE datname = '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>databaseName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'"</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span> timeout<span class="token punctuation">,</span> env <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token punctuation">)</span><span class="token punctuation">;</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[exists] </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>databaseName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> stdout<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token comment">// dbが存在していたらdrop</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>stdout<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span>databaseName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">await</span> <span class="token function">execFileAsync</span><span class="token punctuation">(</span>
-      <span class="token string">"dropdb"</span><span class="token punctuation">,</span>
-      <span class="token punctuation">[</span><span class="token string">"-h"</span><span class="token punctuation">,</span> <span class="token constant">TYPEORM_HOST</span><span class="token punctuation">,</span> <span class="token string">"-U"</span><span class="token punctuation">,</span> <span class="token constant">TYPEORM_USERNAME</span><span class="token punctuation">,</span> databaseName<span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span> timeout<span class="token punctuation">,</span> env <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[dropdb] </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>databaseName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-  <span class="token comment">// createdb</span>
-  <span class="token keyword">await</span> <span class="token function">execFileAsync</span><span class="token punctuation">(</span>
-    <span class="token string">"createdb"</span><span class="token punctuation">,</span>
-    <span class="token punctuation">[</span><span class="token string">"-h"</span><span class="token punctuation">,</span> <span class="token constant">TYPEORM_HOST</span><span class="token punctuation">,</span> <span class="token string">"-U"</span><span class="token punctuation">,</span> <span class="token constant">TYPEORM_USERNAME</span><span class="token punctuation">,</span> databaseName<span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span> timeout<span class="token punctuation">,</span> env <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token punctuation">)</span><span class="token punctuation">;</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[createdb] </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>databaseName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// TypeORMのmigrate</span>
-  <span class="token keyword">const</span> options <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">getConnectionOptions</span><span class="token punctuation">(</span><span class="token punctuation">{</span> databaseName <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> connection <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">createConnection</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">try</span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[runMigrations:start] </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>databaseName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">await</span> connection<span class="token punctuation">.</span><span class="token function">runMigrations</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">transaction</span><span class="token operator">:</span> <span class="token string">"all"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[runMigrations:end] </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>databaseName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">throw</span> err<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>connection<span class="token punctuation">)</span> <span class="token keyword">await</span> connection<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[migrate:end] </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>databaseName<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">// jestのworkerは1始まりなので1始まりのsuffixをつけたDB名をつける</span>
-<span class="token keyword">function</span> <span class="token function">getDatabaseNames</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">workerNumber</span><span class="token operator">:</span> number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> names <span class="token operator">=</span> <span class="token function">Array</span><span class="token punctuation">(</span>workerNumber<span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token string">"test_db"</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">prefix<span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>prefix<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">_</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">return</span> names<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">runAllMigrate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> names <span class="token operator">=</span> <span class="token function">getDatabaseNames</span><span class="token punctuation">(</span><span class="token constant">WORKER_NUM</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> promises <span class="token operator">=</span> names<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">name</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token function">runMigrate</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">await</span> Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span>promises<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">try</span> <span class="token punctuation">{</span>
-    <span class="token keyword">await</span> <span class="token function">runAllMigrate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #A5D6FF">"pretest"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"WORKER_NUM=4 NODE_ENV=test yarn ts-node ./src/test/bin/setup-db.ts"</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #A5D6FF">"test"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"NODE_ENV=test jest --maxWorkers=4"</span><span style="color: #C9D1D9">,</span></span></code></pre>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { promisify } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"util"</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { execFile, exec } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"child_process"</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { createConnection, getConnectionOptions } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"typeorm"</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">execFileAsync</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">promisify</span><span style="color: #C9D1D9">(execFile);</span></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">execAsync</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">promisify</span><span style="color: #C9D1D9">(exec);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">WORKER_NUM</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">WORKER_NUM</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">Number</span><span style="color: #C9D1D9">(process.env.</span><span style="color: #79C0FF">WORKER_NUM</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">2</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">TYPEORM_HOST</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">TYPEORM_HOST</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">??</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"dbname"</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">TYPEORM_USERNAME</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">TYPEORM_USERNAME</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">??</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"postgres"</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">TYPEORM_DATABASE</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">TYPEORM_DATABASE</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">??</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"postgres"</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">PGPASSWORD</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">TYPEORM_PASSWORD</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">??</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"password"</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">runMigrate</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">databaseName</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">string</span><span style="color: #C9D1D9">) {</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[migrate:start] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">env</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> { </span><span style="color: #FF7B72">...</span><span style="color: #C9D1D9">process.env, PGPASSWORD };</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">timeout</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">60</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">1000</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #8B949E">// dbの存在チェック</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> { </span><span style="color: #79C0FF">stdout</span><span style="color: #C9D1D9"> } </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">execAsync</span><span style="color: #C9D1D9">(</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #A5D6FF">`psql -U ${</span><span style="color: #79C0FF">TYPEORM_USERNAME</span><span style="color: #A5D6FF">} -h ${</span><span style="color: #79C0FF">TYPEORM_HOST</span><span style="color: #A5D6FF">} ${</span><span style="color: #79C0FF">TYPEORM_DATABASE</span><span style="color: #A5D6FF">} -c "SELECT datname FROM pg_database WHERE datname = '${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}'"`</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">    { timeout, env },</span></span>
+<span class="line"><span style="color: #C9D1D9">  );</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[exists] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}:`</span><span style="color: #C9D1D9">, stdout);</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #8B949E">// dbが存在していたらdrop</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">if</span><span style="color: #C9D1D9"> (stdout.</span><span style="color: #D2A8FF">includes</span><span style="color: #C9D1D9">(databaseName)) {</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">execFileAsync</span><span style="color: #C9D1D9">(</span></span>
+<span class="line"><span style="color: #C9D1D9">      </span><span style="color: #A5D6FF">"dropdb"</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">      [</span><span style="color: #A5D6FF">"-h"</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">TYPEORM_HOST</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">"-U"</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">TYPEORM_USERNAME</span><span style="color: #C9D1D9">, databaseName],</span></span>
+<span class="line"><span style="color: #C9D1D9">      { timeout, env },</span></span>
+<span class="line"><span style="color: #C9D1D9">    );</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[dropdb] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">  }</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #8B949E">// createdb</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">execFileAsync</span><span style="color: #C9D1D9">(</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #A5D6FF">"createdb"</span><span style="color: #C9D1D9">,</span></span>
+<span class="line"><span style="color: #C9D1D9">    [</span><span style="color: #A5D6FF">"-h"</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">TYPEORM_HOST</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">"-U"</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">TYPEORM_USERNAME</span><span style="color: #C9D1D9">, databaseName],</span></span>
+<span class="line"><span style="color: #C9D1D9">    { timeout, env },</span></span>
+<span class="line"><span style="color: #C9D1D9">  );</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[createdb] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #8B949E">// TypeORMのmigrate</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">options</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">getConnectionOptions</span><span style="color: #C9D1D9">({ databaseName });</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">connection</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">createConnection</span><span style="color: #C9D1D9">(options);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">try</span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[runMigrations:start] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> connection.</span><span style="color: #D2A8FF">runMigrations</span><span style="color: #C9D1D9">({ transaction: </span><span style="color: #A5D6FF">"all"</span><span style="color: #C9D1D9"> });</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[runMigrations:end] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">  } </span><span style="color: #FF7B72">catch</span><span style="color: #C9D1D9"> (err) {</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">error</span><span style="color: #C9D1D9">(err);</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">throw</span><span style="color: #C9D1D9"> err;</span></span>
+<span class="line"><span style="color: #C9D1D9">  } </span><span style="color: #FF7B72">finally</span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">if</span><span style="color: #C9D1D9"> (connection) </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> connection.</span><span style="color: #D2A8FF">close</span><span style="color: #C9D1D9">();</span></span>
+<span class="line"><span style="color: #C9D1D9">  }</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[migrate:end] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #8B949E">// jestのworkerは1始まりなので1始まりのsuffixをつけたDB名をつける</span></span>
+<span class="line"><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">getDatabaseNames</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">workerNumber</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">number</span><span style="color: #C9D1D9">) {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">names</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">Array</span><span style="color: #C9D1D9">(workerNumber)</span></span>
+<span class="line"><span style="color: #C9D1D9">    .</span><span style="color: #D2A8FF">fill</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">"test_db"</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">    .</span><span style="color: #D2A8FF">map</span><span style="color: #C9D1D9">((</span><span style="color: #FFA657">prefix</span><span style="color: #C9D1D9">, </span><span style="color: #FFA657">i</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">      </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">`${</span><span style="color: #C9D1D9">prefix</span><span style="color: #A5D6FF">}_${</span><span style="color: #C9D1D9">i</span><span style="color: #A5D6FF"> </span><span style="color: #FF7B72">+</span><span style="color: #A5D6FF"> </span><span style="color: #79C0FF">1</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #C9D1D9">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> names;</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">runAllMigrate</span><span style="color: #C9D1D9">() {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">names</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">getDatabaseNames</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">WORKER_NUM</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">promises</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> names.</span><span style="color: #D2A8FF">map</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">name</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">runMigrate</span><span style="color: #C9D1D9">(name);</span></span>
+<span class="line"><span style="color: #C9D1D9">  });</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">Promise</span><span style="color: #C9D1D9">.</span><span style="color: #D2A8FF">all</span><span style="color: #C9D1D9">(promises);</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">(</span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> () {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">try</span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">runAllMigrate</span><span style="color: #C9D1D9">();</span></span>
+<span class="line"><span style="color: #C9D1D9">    process.</span><span style="color: #D2A8FF">exit</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">0</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">  } </span><span style="color: #FF7B72">catch</span><span style="color: #C9D1D9"> (e) {</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">error</span><span style="color: #C9D1D9">(e);</span></span>
+<span class="line"><span style="color: #C9D1D9">    process.</span><span style="color: #D2A8FF">exit</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #C9D1D9">  }</span></span>
+<span class="line"><span style="color: #C9D1D9">})();</span></span></code></pre>
 <p>テストの方ではこのセットアップスクリプトで作ったDBに接続するようにbeforeEachを書き換える。
 jestはJEST_WORKER_IDという環境変数にworkerの番号が入っているため、これを使って振り分けることにした。</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">getDatabaseName</span><span class="token punctuation">(</span><span class="token parameter">index</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> databaseName <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">test_db_</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>index<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> databaseName<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token operator">--</span><span class="token operator">-</span>
-
-<span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> index <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">JEST_WORKER_ID</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> databaseName <span class="token operator">=</span> <span class="token function">getDatabaseName</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">await</span> <span class="token function">setupDatabase</span><span class="token punctuation">(</span><span class="token punctuation">{</span> databaseName <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
-<p><code class="language-text">--maxWorkers=4</code> にするとJEST_WORKER_IDには1~4までの数字が入るので <code class="language-text">test_db_1</code> ~ <code class="language-text">test_db_4</code> までのDBをかぶらずに使用できる。</p>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">getDatabaseName</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">index</span><span style="color: #C9D1D9">) {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">databaseName</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">`test_db_${</span><span style="color: #C9D1D9">index</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> databaseName;</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #D2A8FF">beforeEach</span><span style="color: #C9D1D9">(</span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">index</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">JEST_WORKER_ID</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">databaseName</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">getDatabaseName</span><span style="color: #C9D1D9">(index);</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">setupDatabase</span><span style="color: #C9D1D9">({ databaseName });</span></span>
+<span class="line"><span style="color: #C9D1D9">});</span></span></code></pre>
+<p><code>--maxWorkers=4</code> にするとJEST_WORKER_IDには1~4までの数字が入るので <code>test_db_1</code> ~ <code>test_db_4</code> までのDBをかぶらずに使用できる。</p>
 <p>この修正でローカルでのテスト実行速度が3倍速くらいになった。理論上workerの数を増やせばいくらでも高速化できるが、現実的にはDBのリソースもじゃぶじゃぶ使うし、メモリの使用量がボトルネックになりそう。</p>
 <p>また、ローカルのテストは高速化したがCIではむしろ実行時間が悪化した。</p>
 <p>これは公式ドキュメントにものっているが、CIやコンテナなど特定の環境で遅くなるケースがあるらしい。</p>
 <p><a href="https://jestjs.io/docs/28.0/troubleshooting#tests-are-extremely-slow-on-docker-andor-continuous-integration-ci-server">参照</a></p>
-<p>これの解決策に <code class="language-text">--runInBand</code> を利用してくれとあったが、それではこの施策の意味がないため、CIでは別の方法を使って分割することにした。</p>
-<h2 id="ciの並列化" style="position:relative;"><a href="#ci%E3%81%AE%E4%B8%A6%E5%88%97%E5%8C%96" aria-label="ciの並列化 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>CIの並列化</h2>
-<p>workerを増やした並列化はCIでは出来ないという事がわかったので、jest v28から加わった <code class="language-text">--shard</code> オプションを利用した。</p>
+<p>これの解決策に <code>--runInBand</code> を利用してくれとあったが、それではこの施策の意味がないため、CIでは別の方法を使って分割することにした。</p>
+<h2 id="ciの並列化">CIの並列化</h2>
+<p>workerを増やした並列化はCIでは出来ないという事がわかったので、jest v28から加わった <code>--shard</code> オプションを利用した。</p>
 <p><a href="https://jestjs.io/docs/28.0/cli#--shard">https://jestjs.io/docs/28.0/cli#—shard</a></p>
-<p>shardはテストの実行を単純に分割できるオプションです。<code class="language-text">--shard=1/4</code>とすると最初の1/4だけ実行します。
-つまり <code class="language-text">--shard=1/4</code>, <code class="language-text">--shard=2/4</code>, <code class="language-text">--shard=3/4</code>, <code class="language-text">--shard=4/4</code> とした CI を4つ実行すれば並列に実行できるということになる。</p>
+<p>shardはテストの実行を単純に分割できるオプションです。<code>--shard=1/4</code>とすると最初の1/4だけ実行します。
+つまり <code>--shard=1/4</code>, <code>--shard=2/4</code>, <code>--shard=3/4</code>, <code>--shard=4/4</code> とした CI を4つ実行すれば並列に実行できるということになる。</p>
 <p>Github Actionsではmatrixを使うと同じstepを別の引数で実行できる。</p>
 <p>これを使って次のようにshardオプションを呼び分けるようにすると、全てのテストが実行可能かつ並列に実行可能となる。</p>
-<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text"># ci.yml
-test-backend:
-  runs-on: ubuntu-latest
-  strategy:
-    matrix:
-      shard: [1, 2, 3, 4]
-  services:
-    postgres:
-      image: postgres
-      ports:
-        - 5432:5432
-  steps:
-~~~
-    - name: Test Backend
-      run: NODE_ENV=test jest --maxWorkers=1 --shard=${{ matrix.shard }}/${{ strategy.job-total }}</code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9"># ci.yml</span></span>
+<span class="line"><span style="color: #c9d1d9">test-backend:</span></span>
+<span class="line"><span style="color: #c9d1d9">  runs-on: ubuntu-latest</span></span>
+<span class="line"><span style="color: #c9d1d9">  strategy:</span></span>
+<span class="line"><span style="color: #c9d1d9">    matrix:</span></span>
+<span class="line"><span style="color: #c9d1d9">      shard: [1, 2, 3, 4]</span></span>
+<span class="line"><span style="color: #c9d1d9">  services:</span></span>
+<span class="line"><span style="color: #c9d1d9">    postgres:</span></span>
+<span class="line"><span style="color: #c9d1d9">      image: postgres</span></span>
+<span class="line"><span style="color: #c9d1d9">      ports:</span></span>
+<span class="line"><span style="color: #c9d1d9">        - 5432:5432</span></span>
+<span class="line"><span style="color: #c9d1d9">  steps:</span></span>
+<span class="line"><span style="color: #c9d1d9">~~~</span></span>
+<span class="line"><span style="color: #c9d1d9">    - name: Test Backend</span></span>
+<span class="line"><span style="color: #c9d1d9">      run: NODE_ENV=test jest --maxWorkers=1 --shard=${{ matrix.shard }}/${{ strategy.job-total }}</span></span></code></pre>
 <p>この設定を入れることでtest-backendが4つ実行されるようになる。時間が遅くなったらさらにshard配列を増やしていけばよいだけとシンプル。</p>
-<p>servicesでmartixごとに1つのDBを用意する形式になるので、全てのテストは <code class="language-text">test_db_1</code> につなぐのがローカルの実行との違いになる。
+<p>servicesでmartixごとに1つのDBを用意する形式になるので、全てのテストは <code>test_db_1</code> につなぐのがローカルの実行との違いになる。
 この分け方はローカルと違ってリソースの上限がかかりにくくスケールが容易そうなので4つ以上の分割もできそうなのがいいところ。</p>
 <p>他のプロダクトでjestを使ってるときにも、maxWorkersで引っかかったことがあるのでCIではmaxWorkersは1にするのがベストプラクティスといえそう。</p>
 <p>ひとまず4分割にして実行したらCIでも3倍くらい速くなった。</p>
 <p>ローカルでもshardオプションで実行しても良かったが、shardで分割すると結果も分割されて表示されてしまうので、最終的な結果が見にくくなった。
 なので、ローカルではmaxWorkers、CIはshardというのがよいのではないかと考えている。</p>
-<h1 id="おまけ" style="position:relative;"><a href="#%E3%81%8A%E3%81%BE%E3%81%91" aria-label="おまけ permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>おまけ</h1>
+<h1 id="おまけ">おまけ</h1>
 <p>ts-nodeを使ってる箇所もswcを利用するモードにしたらスクリプトの実行時間も3倍くらい速くなった。</p>
 <p><a href="https://typestrong.org/ts-node/docs/swc/">https://typestrong.org/ts-node/docs/swc/</a></p>
 <p>ここはesbuild/registerでもよいとは思うが、swcとesbuildの2つのトランスパイラーを入れるのが嫌だったので、今回はts-node + swcを採用した。</p>
-<h1 id="おわりに" style="position:relative;"><a href="#%E3%81%8A%E3%82%8F%E3%82%8A%E3%81%AB" aria-label="おわりに permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>おわりに</h1>
+<h1 id="おわりに">おわりに</h1>
 <p>NestJS + jestのDBつきテスト高速化を@swc/jestと並列化で達成した。</p>
 <p>当たり前だけど、なんだかんだ並列化の設計をすることが一番効果高い。</p>
 <p>トランスパイラーまわりの高速化も無視できない程度には効果があるが、やはり互換性がない部分がまだあるため、最後のチェックはtscを信じろにしたほうがリスクが少なそう。
 自分はプロダクションビルドではtsc、テストや開発のみトランスパイラーを交換して高速化というスタイルをしばらく続けると思う。</p>
-<p>esbuildはデコレータ処理が出てくると現時点では厳しいかもしれないので、viteよりswcが優勢か？という感想だったが、コミュニティの勢い的にはviteの方が盛り上がっているように感じるため、この辺は注視していく必要がありそう。</p></div><hr style="margin-top:1.625rem;margin-bottom:1.625rem"/><div style="display:flex;align-items:center;margin-bottom:4.0625rem"><div><strong>koh110</strong><p style="margin:0">JavaScript エンジニア。 詳しくは<a href="https://koh.dev">こちら</a></p></div></div><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li><a rel="prev" href="/2020-10-24-lighthouse-ci/">← <!-- -->Lighthouse CIでサイトのスコアを定期的にチェックしよう</a></li><li><a rel="next" href="/2022-11-17-typeorm/">TypeORM v0.3へのバージョンアップ方法<!-- --> →</a></li></ul><footer>© <!-- -->2022<!-- -->,<!-- --> <a href="https://koh.dev" target="_blank">kohsweb</a></footer></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
-  
-  
-  if(true) {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  }
-  if (typeof ga === "function") {
-    ga('create', 'UA-40547259-4', 'auto', {});
-      
-      
-      
-      
-      
-      }</script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/2022-07-02-jest-speedup/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
-          <script
-            id="gatsby-chunk-mapping"
-          >
-            window.___chunkMapping="{\"app\":[\"/app-7e91ca904d776d21f2d1.js\"],\"component---cache-caches-gatsby-plugin-offline-app-shell-js\":[\"/component---cache-caches-gatsby-plugin-offline-app-shell-js-955b3cf39207eaac5870.js\"],\"component---src-pages-404-js\":[\"/component---src-pages-404-js-951d612edf2a1cb411ac.js\"],\"component---src-pages-index-js\":[\"/component---src-pages-index-js-90770a9b8cd19cb611c5.js\"],\"component---src-templates-blog-post-js\":[\"/component---src-templates-blog-post-js-1886d687849559569d14.js\"]}";
-          </script>
-        <script>window.___webpackCompilationHash="6b94b236a9fdca825cdb";</script><script src="/webpack-runtime-b14ed147da13fc923b7f.js" async></script><script src="/framework-ebbea84a5adc3d62e644.js" async></script><script src="/app-7e91ca904d776d21f2d1.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
+<p>esbuildはデコレータ処理が出てくると現時点では厳しいかもしれないので、viteよりswcが優勢か？という感想だったが、コミュニティの勢い的にはviteの方が盛り上がっているように感じるため、この辺は注視していく必要がありそう。</p>
+</article>
+    <hr class="astro-5GRSW2HI">
+    <ul class="post-selector astro-5GRSW2HI">
+     <li class="astro-5GRSW2HI"><a rel="prev" href="/2020-10-24-lighthouse-ci" class="astro-5GRSW2HI"> ← Lighthouse CIでサイトのスコアを定期的にチェックしよう</a></li>
+     <li class="astro-5GRSW2HI"><a rel="next" href="/2022-11-17-typeorm" class="astro-5GRSW2HI">TypeORM v0.3へのバージョンアップ方法 → </a></li>
+    </ul>
+    <footer class="astro-5GRSW2HI">
+      © 2023, 
+      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
+        kohsweb
+      </a>
+    </footer>
+  </main>
+</body></html>

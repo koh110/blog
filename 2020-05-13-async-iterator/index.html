@@ -1,416 +1,371 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.625 -apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.8);font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:normal;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}h1{margin-left:0;margin-right:0;margin-top:2.4375rem;padding-bottom:calc(0.40625rem - 1px);padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.21875rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:2rem;line-height:1.1;border-bottom:1px solid hsla(0,0%,0%,0.07);}h2{margin-left:0;margin-right:0;margin-top:1.625rem;padding-bottom:calc(0.40625rem - 1px);padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.40625rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1.51572rem;line-height:1.1;border-bottom:1px solid hsla(0,0%,0%,0.07);}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1.31951rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:0.87055rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:hsla(0,0%,0%,0.53);font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:0.81225rem;line-height:1.1;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}ul{margin-left:1.625rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;list-style-position:outside;list-style-image:none;}ol{margin-left:1.625rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;font-size:0.85rem;line-height:1.625rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;font-size:1rem;line-height:1.625rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}blockquote{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:calc(0.8125rem - 1px);padding-right:0;padding-top:0;margin-bottom:0.8125rem;border-left:4px solid hsla(0,0%,0%,0.13);color:hsla(0,0%,0%,0.53);}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(0.8125rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}b{font-weight:600;}strong{font-weight:600;}dt{font-weight:600;}th{font-weight:600;}li{margin-bottom:calc(0.8125rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.625rem;margin-bottom:calc(0.8125rem / 2);margin-top:calc(0.8125rem / 2);}li > ul{margin-left:1.625rem;margin-bottom:calc(0.8125rem / 2);margin-top:calc(0.8125rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(0.8125rem / 2);}code{font-size:0.85rem;line-height:1.625rem;}kbd{font-size:0.85rem;line-height:1.625rem;}samp{font-size:0.85rem;line-height:1.625rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.08333rem;padding-right:1.08333rem;padding-top:0.8125rem;padding-bottom:calc(0.8125rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}h3,h4,h5,h6{margin-bottom:0.8125rem;margin-top:1.625rem;}ol,ul{margin-left:2.03125rem;}li>ol,li>ul{margin-left:2.03125rem;}a{color:#4078c0;text-decoration:none;}a:hover,a:active{text-decoration:underline;}</style><meta name="generator" content="Gatsby 5.0.1"/><meta name="theme-color" content="#663399"/><meta data-react-helmet="true" name="description" content="Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。 しかし、AsyncIterator の登場によって Stream を Promise の文脈で処理することができるようになり、「async/await…"/><meta data-react-helmet="true" property="og:title" content="AsyncIteratorと落とし穴"/><meta data-react-helmet="true" property="og:description" content="Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。 しかし、AsyncIterator の登場によって Stream を Promise の文脈で処理することができるようになり、「async/await…"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" name="twitter:creator" content="koh110"/><meta data-react-helmet="true" name="twitter:title" content="AsyncIteratorと落とし穴"/><meta data-react-helmet="true" name="twitter:description" content="Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。 しかし、AsyncIterator の登場によって Stream を Promise の文脈で処理することができるようになり、「async/await…"/><style data-href="/styles.c2174e6c19b57527c890.css" data-identity="gatsby-global-css">code[class*=language-],pre[class*=language-]{word-wrap:normal;background:none;color:#ccc;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;font-size:1em;-webkit-hyphens:none;hyphens:none;line-height:1.5;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal}pre[class*=language-]{margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.1em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}ul{padding-left:2em}li{margin-bottom:0;margin-top:.25em}.gatsby-highlight-code-line{background-color:#feb;border-left:.25em solid #f99;display:block;margin-left:-1em;margin-right:-1em;padding-left:.75em;padding-right:1em}.gatsby-highlight{background-color:#f6f8fa;border-radius:.3em;margin:.5em 0;overflow:auto;padding:1em}.gatsby-highlight pre[class*=language-].line-numbers{overflow:initial;padding:0 0 0 2.8em}:not(pre)>code[class*=language-]{margin:0 2px;padding:2px 5px}:not(pre)>code.language-text{border-radius:2px}:root{--color-black:#545454;--color-border:#d3d4e4;--color-link:#1da1f2;--color-background-body:#fff;--color-body:#545454;--color-on-background:#f7f9f9;--color-blockquote-border-left:rgba(0,0,0,.9);--color-blockquote:rgba(0,0,0,.59);--color-background-head:rgba(0,0,0,.02)}[data-theme=dark]{--color-background-body:#15202b;--color-body:#fff;--color-on-background:#1c2938;--color-blockquote-border-left:hsla(0,0%,100%,.9);--color-blockquote:hsla(0,0%,100%,.59);--color-background-head:#2b2b2b}</style><link rel="preconnect" href="https://www.google-analytics.com"/><link rel="dns-prefetch" href="https://www.google-analytics.com"/><style type="text/css">
-    .anchor.before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translateX(-100%);
-      padding-right: 4px;
-    }
-    .anchor.after {
-      display: inline-block;
-      padding-left: 4px;
-    }
-    h1 .anchor svg,
-    h2 .anchor svg,
-    h3 .anchor svg,
-    h4 .anchor svg,
-    h5 .anchor svg,
-    h6 .anchor svg {
-      visibility: hidden;
-    }
-    h1:hover .anchor svg,
-    h2:hover .anchor svg,
-    h3:hover .anchor svg,
-    h4:hover .anchor svg,
-    h5:hover .anchor svg,
-    h6:hover .anchor svg,
-    h1 .anchor:focus svg,
-    h2 .anchor:focus svg,
-    h3 .anchor:focus svg,
-    h4 .anchor:focus svg,
-    h5 .anchor:focus svg,
-    h6 .anchor:focus svg {
-      visibility: visible;
-    }
-  </style><script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-      var hash = window.decodeURI(location.hash.replace('#', ''))
-      if (hash !== '') {
-        var element = document.getElementById(hash)
-        if (element) {
-          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-          var clientTop = document.documentElement.clientTop || document.body.clientTop || 0
-          var offset = element.getBoundingClientRect().top + scrollTop - clientTop
-          // Wait for the browser to finish rendering before scrolling.
-          setTimeout((function() {
-            window.scrollTo(0, offset - 0)
-          }), 0)
-        }
-      }
-    })
-  </script><link rel="alternate" type="application/rss+xml" title="kohsweblog" href="/rss.xml"/><link rel="icon" href="/favicon-32x32.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=6f5f8443fd2f36bd64ddc9ab4e110fe0"/><title data-react-helmet="true">AsyncIteratorと落とし穴 | kohsweblog</title></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div style="margin-left:auto;margin-right:auto;max-width:48.75rem;padding:2.4375rem 1.21875rem"><h3 style="margin-top:0"><a style="box-shadow:none;text-decoration:none;color:inherit" href="/">kohsweblog</a></h3><h1>AsyncIteratorと落とし穴</h1><time style="font-size:0.87055rem;line-height:1.625rem" class="sc-dkrFOg fxwzev">2020-05-13</time><div class="sc-hLBbgP kUexFf"><a class="twitter-share-button" href="https://twitter.com/intent/tweet?via=koh110" data-size="large"></a><div><a href = "https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-label-counter" data-hatena-bookmark-lang="ja" data-hatena-bookmark-height="28" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a></div></div><nav class="sc-bcXHqe kEQbxu"><h4>目次</h4><div class="sc-gswNZR kcpDTq"><ul>
-<li>
-<p><a href="#for-awaitof">for await…of</a></p>
-</li>
-<li>
-<p><a href="#eventson-eventsonce">Events.on, Events.once</a></p>
-<ul>
-<li><a href="#eventson">events.on</a></li>
-<li><a href="#eventsonce">events.once</a></li>
-<li><a href="#once-%E3%81%AB%E6%BD%9C%E3%82%80%E8%90%BD%E3%81%A8%E3%81%97%E7%A9%B4--%E3%82%BF%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0-">once に潜む落とし穴 -タイミング-</a></li>
-<li><a href="#once-%E3%81%AB%E6%BD%9C%E3%82%80%E8%90%BD%E3%81%A8%E3%81%97%E7%A9%B4--%E3%82%A8%E3%83%A9%E3%83%BC%E3%83%8F%E3%83%B3%E3%83%89%E3%83%AA%E3%83%B3%E3%82%B0-">once に潜む落とし穴 -エラーハンドリング-</a></li>
-</ul>
-</li>
-<li>
-<p><a href="#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></p>
-</li>
-</ul></div></nav><div class="sc-eDvSVe icWMyJ"><p>Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。</p>
+<!DOCTYPE html>
+<html lang="ja" class="astro-5GRSW2HI">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+    <meta name="description" content="
+Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。
+
+しかし、AsyncIterator の登場によって Stream を Promise の文">
+    <title>AsyncIteratorと落とし穴</title>
+  <link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
+<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.afefc3e9.css" /></head>
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
+<body class="astro-5GRSW2HI">
+  <main class="astro-5GRSW2HI">
+    <header class="astro-5GRSW2HI">
+      <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
+    </header>
+    <h1 class="astro-5GRSW2HI">AsyncIteratorと落とし穴</h1>
+    <time class="astro-5GRSW2HI">2020-05-13</time>
+    <div class="social astro-5GRSW2HI">
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-via="koh110" data-show-count="false">Tweet</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <a href="https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button astro-5GRSW2HI" data-hatena-bookmark-layout="basic-label-counter" data-hatena-bookmark-lang="ja" data-hatena-bookmark-height="28" title="このエントリーをはてなブックマークに追加">
+        <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
+      </a>
+    </div>
+    <article class="astro-XSCT23V3">
+  <p>Node.js において Stream の処理というのはなくてはならないものです。しかし Stream の文法は慣れるまでは扱いにくいものです。</p>
 <p>しかし、AsyncIterator の登場によって Stream を Promise の文脈で処理することができるようになり、「async/await に取り込み」「包括的エラーハンドリング」などができるようになりました。</p>
 <p>２年ほど前に AsyncIterator について記事を書きました。<a href="https://qiita.com/koh110/items/0fba3acbce38916928f1">参考: さよなら Stream</a></p>
 <p>以前に書いたときにはまだ Experimental な API だったため気軽に利用することはできませんでしたが、今はもう Stable なので、より色々なシーンで活かせる機会が増えるでしょう。</p>
 <p>そこでこの記事では今まで書きにくかった Stream や Events のスマートな扱い方、その落とし穴と回避方法をまとめます。</p>
-<h1 id="for-awaitof" style="position:relative;"><a href="#for-awaitof" aria-label="for awaitof permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>for await…of</h1>
-<p><code class="language-text">for await...of</code> は非同期な iterator オブジェクトを反復処理できる構文です。<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/for-await...of">MDN</a></p>
-<p>具体的な例をあげると Stream の <code class="language-text">data</code> イベントなどを処理するのに向いています。</p>
+<h1 id="for-awaitof">for await…of</h1>
+<p><code>for await...of</code> は非同期な iterator オブジェクトを反復処理できる構文です。<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/for-await...of">MDN</a></p>
+<p>具体的な例をあげると Stream の <code>data</code> イベントなどを処理するのに向いています。</p>
 <p>下記は Stream でファイルを読み取り chunk ごとに処理をするコード例です。Stream は大きなデータを断続的に処理することでメモリを効率よく利用したり、同期コードを細切れに処理することで、途中に別のリクエストなどを受けることができます。</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> stream <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createReadStream</span><span class="token punctuation">(</span>__filename<span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">encoding</span><span class="token operator">:</span> <span class="token string">'utf8'</span><span class="token punctuation">,</span> <span class="token literal-property property">highWaterMark</span><span class="token operator">:</span> <span class="token number">64</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-stream<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">chunk</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>chunk<span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-stream<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'end!!'</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-stream<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">fs</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'fs'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">stream</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> fs.</span><span style="color: #D2A8FF">createReadStream</span><span style="color: #C9D1D9">(__filename, { encoding: </span><span style="color: #A5D6FF">'utf8'</span><span style="color: #C9D1D9">, highWaterMark: </span><span style="color: #79C0FF">64</span><span style="color: #C9D1D9"> })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">stream.</span><span style="color: #D2A8FF">on</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'data'</span><span style="color: #C9D1D9">, (</span><span style="color: #FFA657">chunk</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(chunk)</span></span>
+<span class="line"><span style="color: #C9D1D9">})</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">stream.</span><span style="color: #D2A8FF">on</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'close'</span><span style="color: #C9D1D9">, () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'end!!'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">})</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">stream.</span><span style="color: #D2A8FF">on</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'error'</span><span style="color: #C9D1D9">, (</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'error'</span><span style="color: #C9D1D9">, e)</span></span>
+<span class="line"><span style="color: #C9D1D9">})</span></span></code></pre>
 <p>この時、data イベントのハンドラー内では非同期処理を待ち受けることができません。（async function 自体は書けますが、await で処理を実行している間にも data イベントは発生し続けてしまいます。）</p>
 <p>また、Stream を扱う時は error イベントを「必ず」ハンドリングしなければなりません。error イベントのハンドリングを忘れると try-catch で受けることができず、エラーが突き抜けてアプリがクラッシュする可能性があります。</p>
-<div class="gatsby-highlight" data-language="diff"><pre class="language-diff"><code class="language-diff">stream.on('data', (chunk) => {
-<span class="token unchanged"><span class="token prefix unchanged"> </span> console.log(chunk)
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>  stream.emit('error', new Error('error!!'))
-</span>})
-
-
-<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span> // stream.on('error', (e) => {
-<span class="token prefix inserted">+</span> //   console.log('error', e)
-<span class="token prefix inserted">+</span> // })</span></code></pre></div>
-<p>これを AsyncIterator を使い <code class="language-text">for await...of</code> で書き直すと次のようになります。 ReadableStream は data イベントを AsyncIteraotr として回すことができます。</p>
-<p><code class="language-text">for await...of</code> の中では await で処理を待ち受けて、data イベント自体を待つこともできます。また、<code class="language-text">main().catch</code> で包括的にエラーハンドリングを行うこともできます。</p>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">stream.on('data', (chunk) => {</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.log(chunk)</span></span>
+<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span>  stream.emit('error', new Error('error!!'))</span></span>
+<span class="line"><span style="color: #C9D1D9">})</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span> // stream.on('error', (e) => {</span></span>
+<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span> //   console.log('error', e)</span></span>
+<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span> // })</span></span></code></pre>
+<p>これを AsyncIterator を使い <code>for await...of</code> で書き直すと次のようになります。 ReadableStream は data イベントを AsyncIteraotr として回すことができます。</p>
+<p><code>for await...of</code> の中では await で処理を待ち受けて、data イベント自体を待つこともできます。また、<code>main().catch</code> で包括的にエラーハンドリングを行うこともできます。</p>
 <p>AsyncItaratro は Stream のメリットを受けながらも async/await のメリットを受けることができる素晴らしい記法です。</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> stream <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createReadStream</span><span class="token punctuation">(</span>__filename<span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">encoding</span><span class="token operator">:</span> <span class="token string">'utf8'</span><span class="token punctuation">,</span> <span class="token literal-property property">highWaterMark</span><span class="token operator">:</span> <span class="token number">64</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">for</span> <span class="token keyword">await</span> <span class="token punctuation">(</span><span class="token keyword">const</span> chunk <span class="token keyword">of</span> stream<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>chunk<span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'end!!'</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-
-<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">fs</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'fs'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">stream</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> fs.</span><span style="color: #D2A8FF">createReadStream</span><span style="color: #C9D1D9">(__filename, { encoding: </span><span style="color: #A5D6FF">'utf8'</span><span style="color: #C9D1D9">, highWaterMark: </span><span style="color: #79C0FF">64</span><span style="color: #C9D1D9"> })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">for</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> (</span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">chunk</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">of</span><span style="color: #C9D1D9"> stream) {</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(chunk)</span></span>
+<span class="line"><span style="color: #C9D1D9">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'end!!'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9">().</span><span style="color: #D2A8FF">catch</span><span style="color: #C9D1D9">((</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> console.</span><span style="color: #D2A8FF">error</span><span style="color: #C9D1D9">(e))</span></span></code></pre>
 <p>このあたりは <a href="https://qiita.com/koh110/items/0fba3acbce38916928f1">さよなら Stream</a> で詳細に説明しているので、そちらを参照してください。</p>
-<h1 id="eventson-eventsonce" style="position:relative;"><a href="#eventson-eventsonce" aria-label="eventson eventsonce permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Events.on, Events.once</h1>
+<h1 id="eventson-eventsonce">Events.on, Events.once</h1>
 <p>サードパーティ製のモジュールでも Stream を利用しているモジュールはたくさんあります。例えば Redis に接続するモジュールの <a href="https://www.npmjs.com/package/ioredis">ioredis</a> などはよく目にするのではないでしょうか。</p>
 <p>ioredis は get/set などが Promise を返し、async/await 環境下でも利用しやすく人気のモジュールです。</p>
 <p>Web アプリを作成する際 DB や KVS などを利用する時はサーバの listen をする前にそれぞれの接続を確立していなければなりません。</p>
 <p>例えば Redis の場合には次のようなコードになるでしょう。</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'http'</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> Redis <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'ioredis'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> redis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Redis</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> server <span class="token operator">=</span> http<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-redis<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'ready'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  <span class="token keyword">try</span> <span class="token punctuation">{</span>
-    <span class="token comment">// なにか初期化処理</span>
-    <span class="token keyword">await</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Listening on'</span><span class="token punctuation">,</span> server<span class="token punctuation">.</span><span class="token function">address</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    redis<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-redis<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
-  process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre></div>
-<p>ioredis は接続が完了した時に <code class="language-text">connect</code>イベントを emit し、利用可能状態になった時に <code class="language-text">ready</code> イベントを emit します。つまりアプリケーションが Redis を利用可能になるには、ioredis が <code class="language-text">ready</code> イベントを発行した時です。</p>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">http</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'http'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">Redis</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'ioredis'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">redis</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">Redis</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">server</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> http.</span><span style="color: #D2A8FF">createServer</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">redis.</span><span style="color: #D2A8FF">once</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'ready'</span><span style="color: #C9D1D9">, </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">try</span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #8B949E">// なにか初期化処理</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">init</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">    server.</span><span style="color: #D2A8FF">listen</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">3000</span><span style="color: #C9D1D9">, () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">      console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'Listening on'</span><span style="color: #C9D1D9">, server.</span><span style="color: #D2A8FF">address</span><span style="color: #C9D1D9">())</span></span>
+<span class="line"><span style="color: #C9D1D9">    })</span></span>
+<span class="line"><span style="color: #C9D1D9">  } </span><span style="color: #FF7B72">catch</span><span style="color: #C9D1D9"> (e) {</span></span>
+<span class="line"><span style="color: #C9D1D9">    redis.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'error'</span><span style="color: #C9D1D9">, e)</span></span>
+<span class="line"><span style="color: #C9D1D9">  }</span></span>
+<span class="line"><span style="color: #C9D1D9">})</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">redis.</span><span style="color: #D2A8FF">on</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'error'</span><span style="color: #C9D1D9">, (</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">error</span><span style="color: #C9D1D9">(e)</span></span>
+<span class="line"><span style="color: #C9D1D9">  process.</span><span style="color: #D2A8FF">exit</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">})</span></span></code></pre>
+<p>ioredis は接続が完了した時に <code>connect</code>イベントを emit し、利用可能状態になった時に <code>ready</code> イベントを emit します。つまりアプリケーションが Redis を利用可能になるには、ioredis が <code>ready</code> イベントを発行した時です。</p>
 <p>ioredis は Stream を継承したオブジェクトになりますが、ready などは独自に設定されたイベントです。できればこれも AsyncIterator を使って async/await の構文で処理をしたくなります。</p>
 <p>独自のイベントを AsyncIterator (Promise) で処理したい時に役に立つのが <a href="https://nodejs.org/api/events.html#events_events_on_emitter_eventname">events.on</a>, <a href="https://nodejs.org/api/events.html#events_events_once_emitter_name">events.once</a>です。</p>
-<h2 id="eventson" style="position:relative;"><a href="#eventson" aria-label="eventson permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>events.on</h2>
-<p>下記は Node.js ドキュメントのサンプルコードに sleep 処理を加えたものです。独自に定義した <code class="language-text">foo</code> というイベントに対して AsyncIterator で処理することができるようになっているのがわかるかと思います。</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span> on<span class="token punctuation">,</span> EventEmitter <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'events'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">sleep</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">ms</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">setTimeout</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> ms<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> ee <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-  process<span class="token punctuation">.</span><span class="token function">nextTick</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    ee<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'foo'</span><span class="token punctuation">,</span> <span class="token string">'bar'</span><span class="token punctuation">)</span>
-    ee<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'foo'</span><span class="token punctuation">,</span> <span class="token number">42</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">for</span> <span class="token keyword">await</span> <span class="token punctuation">(</span><span class="token keyword">const</span> event <span class="token keyword">of</span> <span class="token function">on</span><span class="token punctuation">(</span>ee<span class="token punctuation">,</span> <span class="token string">'foo'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span>
-    <span class="token keyword">await</span> <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>error<span class="token punctuation">)</span></code></pre></div>
+<h2 id="eventson">events.on</h2>
+<p>下記は Node.js ドキュメントのサンプルコードに sleep 処理を加えたものです。独自に定義した <code>foo</code> というイベントに対して AsyncIterator で処理することができるようになっているのがわかるかと思います。</p>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> { </span><span style="color: #79C0FF">on</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">EventEmitter</span><span style="color: #C9D1D9"> } </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'events'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">sleep</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> (</span><span style="color: #FFA657">ms</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">Promise</span><span style="color: #C9D1D9">((</span><span style="color: #FFA657">resolve</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">setTimeout</span><span style="color: #C9D1D9">(resolve, ms))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">ee</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">EventEmitter</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  process.</span><span style="color: #D2A8FF">nextTick</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    ee.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'foo'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">'bar'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">    ee.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'foo'</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">42</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">for</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> (</span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">event</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">of</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">on</span><span style="color: #C9D1D9">(ee, </span><span style="color: #A5D6FF">'foo'</span><span style="color: #C9D1D9">)) {</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(event)</span></span>
+<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">sleep</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">1000</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  }</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9">().</span><span style="color: #D2A8FF">catch</span><span style="color: #C9D1D9">(console.error)</span></span></code></pre>
 <p>Stream は EventEmitter を継承したオブジェクトなので、この関数を利用することで、独自のイベントを AsyncIterator や Promise で処理することができるようになります。</p>
-<h2 id="eventsonce" style="position:relative;"><a href="#eventsonce" aria-label="eventsonce permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>events.once</h2>
-<p>先程の Redis の例を <code class="language-text">events.once</code> を利用して書き直してみましょう。 <code class="language-text">events.once</code> は Promise を返却するので await で待ち受けることができるようになります。</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span> once <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'events'</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'http'</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> Redis <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'ioredis'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> redis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Redis</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> server <span class="token operator">=</span> http<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-redis<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
-  process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  <span class="token keyword">await</span> <span class="token function">once</span><span class="token punctuation">(</span>redis<span class="token punctuation">,</span> <span class="token string">'ready'</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">await</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-  server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Listening on'</span><span class="token punctuation">,</span> server<span class="token punctuation">.</span><span class="token function">address</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-
-<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>error<span class="token punctuation">)</span></code></pre></div>
+<h2 id="eventsonce">events.once</h2>
+<p>先程の Redis の例を <code>events.once</code> を利用して書き直してみましょう。 <code>events.once</code> は Promise を返却するので await で待ち受けることができるようになります。</p>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> { </span><span style="color: #79C0FF">once</span><span style="color: #C9D1D9"> } </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'events'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">http</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'http'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">Redis</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'ioredis'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">redis</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">Redis</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">server</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> http.</span><span style="color: #D2A8FF">createServer</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">redis.</span><span style="color: #D2A8FF">on</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'error'</span><span style="color: #C9D1D9">, (</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">error</span><span style="color: #C9D1D9">(e)</span></span>
+<span class="line"><span style="color: #C9D1D9">  process.</span><span style="color: #D2A8FF">exit</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">})</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">once</span><span style="color: #C9D1D9">(redis, </span><span style="color: #A5D6FF">'ready'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">init</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  server.</span><span style="color: #D2A8FF">listen</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">3000</span><span style="color: #C9D1D9">, () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'Listening on'</span><span style="color: #C9D1D9">, server.</span><span style="color: #D2A8FF">address</span><span style="color: #C9D1D9">())</span></span>
+<span class="line"><span style="color: #C9D1D9">  })</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9">().</span><span style="color: #D2A8FF">catch</span><span style="color: #C9D1D9">(console.error)</span></span></code></pre>
 <p>async/await で処理ができるようになったので、初期化処理などと同等に書くことができるようになったので、見通しがよくなりました。</p>
-<p>上のコードみて、なぜ <code class="language-text">redis.on('error', ...)</code> で catch しているのか疑問に思う人がいるかもしれません。少しずつ解説していきます。</p>
-<h2 id="once-に潜む落とし穴--タイミング-" style="position:relative;"><a href="#once-%E3%81%AB%E6%BD%9C%E3%82%80%E8%90%BD%E3%81%A8%E3%81%97%E7%A9%B4--%E3%82%BF%E3%82%A4%E3%83%9F%E3%83%B3%E3%82%B0-" aria-label="once に潜む落とし穴  タイミング  permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>once に潜む落とし穴 -タイミング-</h2>
+<p>上のコードみて、なぜ <code>redis.on('error', ...)</code> で catch しているのか疑問に思う人がいるかもしれません。少しずつ解説していきます。</p>
+<h2 id="once-に潜む落とし穴--タイミング">once に潜む落とし穴 -タイミング-</h2>
 <p>上記の例では once で待ち受ける例がひとつの Stream しかありません。これが 2 つのストリームになるとどうでしょうか。</p>
-<p>下記は e1 と e2 を 2 つの Stream に見立てたコードです。e1 が 1 秒後に返す<code class="language-text">myevent1</code> と e2 が 2 秒後に返す <code class="language-text">myevent2</code> を待ち受けて done を出力します。</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span> once<span class="token punctuation">,</span> EventEmitter <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'events'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> e1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> e2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    e1<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'myevent1'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
-
-  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    e2<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'myevent2'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">await</span> <span class="token function">once</span><span class="token punctuation">(</span>e1<span class="token punctuation">,</span> <span class="token string">'myevent1'</span><span class="token punctuation">)</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'e1'</span><span class="token punctuation">)</span>
-  <span class="token keyword">await</span> <span class="token function">once</span><span class="token punctuation">(</span>e2<span class="token punctuation">,</span> <span class="token string">'myevent2'</span><span class="token punctuation">)</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'e2'</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-
-<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'done'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'catch'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></div>
+<p>下記は e1 と e2 を 2 つの Stream に見立てたコードです。e1 が 1 秒後に返す<code>myevent1</code> と e2 が 2 秒後に返す <code>myevent2</code> を待ち受けて done を出力します。</p>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> { </span><span style="color: #79C0FF">once</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">EventEmitter</span><span style="color: #C9D1D9"> } </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'events'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">e1</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">EventEmitter</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">e2</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">EventEmitter</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #D2A8FF">setTimeout</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    e1.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'myevent1'</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  }, </span><span style="color: #79C0FF">1000</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #D2A8FF">setTimeout</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    e2.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'myevent2'</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">2</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  }, </span><span style="color: #79C0FF">2000</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">once</span><span style="color: #C9D1D9">(e1, </span><span style="color: #A5D6FF">'myevent1'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'e1'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">once</span><span style="color: #C9D1D9">(e2, </span><span style="color: #A5D6FF">'myevent2'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'e2'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"><span style="color: #C9D1D9">  .</span><span style="color: #D2A8FF">then</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'done'</span><span style="color: #C9D1D9">))</span></span>
+<span class="line"><span style="color: #C9D1D9">  .</span><span style="color: #D2A8FF">catch</span><span style="color: #C9D1D9">((</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'catch'</span><span style="color: #C9D1D9">, e))</span></span></code></pre>
 <p>実行してみると問題なく動作していることがわかります。</p>
-<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ <span class="token function">node</span> async-iterator.js
-e1
-e2
-<span class="token keyword">done</span></code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ node async-iterator.js</span></span>
+<span class="line"><span style="color: #C9D1D9">e1</span></span>
+<span class="line"><span style="color: #C9D1D9">e2</span></span>
+<span class="line"><span style="color: #FF7B72">done</span></span></code></pre>
 <p>では e1 と e2 の時間を入れ替えてみたらどうなるでしょうか。</p>
-<div class="gatsby-highlight" data-language="diff"><pre class="language-diff"><code class="language-diff">const { once, EventEmitter } = require('events')
-
-const main = async () => {
-<span class="token unchanged"><span class="token prefix unchanged"> </span> const e1 = new EventEmitter()
-<span class="token prefix unchanged"> </span> const e2 = new EventEmitter()
-</span>
-<span class="token unchanged"><span class="token prefix unchanged"> </span> setTimeout(() => {
-<span class="token prefix unchanged"> </span>   e1.emit('myevent1', 1)
-</span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>  }, 1000)
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>  }, 2000)
-</span>
-<span class="token unchanged"><span class="token prefix unchanged"> </span> setTimeout(() => {
-<span class="token prefix unchanged"> </span>   e2.emit('myevent2', 2)
-</span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>  }, 2000)
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>  }, 1000)
-</span>
-<span class="token unchanged"><span class="token prefix unchanged"> </span> await once(e1, 'myevent1')
-<span class="token prefix unchanged"> </span> console.log('e1')
-<span class="token prefix unchanged"> </span> await once(e2, 'myevent2')
-<span class="token prefix unchanged"> </span> console.log('e2')
-</span>}
-
-main()
-<span class="token unchanged"><span class="token prefix unchanged"> </span> .then(() => console.log("done"))
-<span class="token prefix unchanged"> </span> .catch((e) => console.log("catch", e))</span></code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">const { once, EventEmitter } = require('events')</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">const main = async () => {</span></span>
+<span class="line"><span style="color: #C9D1D9">  const e1 = new EventEmitter()</span></span>
+<span class="line"><span style="color: #C9D1D9">  const e2 = new EventEmitter()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  setTimeout(() => {</span></span>
+<span class="line"><span style="color: #C9D1D9">    e1.emit('myevent1', 1)</span></span>
+<span class="line"><span style="color: #FFA198"><span style="user-select: none;">-</span>  }, 1000)</span></span>
+<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span>  }, 2000)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  setTimeout(() => {</span></span>
+<span class="line"><span style="color: #C9D1D9">    e2.emit('myevent2', 2)</span></span>
+<span class="line"><span style="color: #FFA198"><span style="user-select: none;">-</span>  }, 2000)</span></span>
+<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span>  }, 1000)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  await once(e1, 'myevent1')</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.log('e1')</span></span>
+<span class="line"><span style="color: #C9D1D9">  await once(e2, 'myevent2')</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.log('e2')</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">main()</span></span>
+<span class="line"><span style="color: #C9D1D9">  .then(() => console.log("done"))</span></span>
+<span class="line"><span style="color: #C9D1D9">  .catch((e) => console.log("catch", e))</span></span></code></pre>
 <p>e1 しか出力されませんでした。</p>
-<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ <span class="token function">node</span> async-iterator.js
-e1</code></pre></div>
-<p>これは <code class="language-text">once(e2, 'myevent2')</code> でハンドラーをセットする前に e2 は ‘myevent2’ を発行し終えてしまっているので、後続の処理が動かないためです。</p>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ node async-iterator.js</span></span>
+<span class="line"><span style="color: #C9D1D9">e1</span></span></code></pre>
+<p>これは <code>once(e2, 'myevent2')</code> でハンドラーをセットする前に e2 は ‘myevent2’ を発行し終えてしまっているので、後続の処理が動かないためです。</p>
 <p>つまり、両方の Stream を待ち受けるためには、ハンドラーへのセットを最速で行わなければなりません。events.once は Promise を返すので、同時にハンドラを登録するために Promise.all を利用します。</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span> once<span class="token punctuation">,</span> EventEmitter <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'events'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> e1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> e2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    e1<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'myevent1'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'e1'</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">)</span>
-
-  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    e2<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'myevent2'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'e2'</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">await</span> Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token function">once</span><span class="token punctuation">(</span>e1<span class="token punctuation">,</span> <span class="token string">'myevent1'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">once</span><span class="token punctuation">(</span>e2<span class="token punctuation">,</span> <span class="token string">'myevent2'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'e1 and e2'</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-
-<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'done'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'catch'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> { </span><span style="color: #79C0FF">once</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">EventEmitter</span><span style="color: #C9D1D9"> } </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'events'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">e1</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">EventEmitter</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">e2</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">EventEmitter</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #D2A8FF">setTimeout</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    e1.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'myevent1'</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'e1'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  }, </span><span style="color: #79C0FF">2000</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #D2A8FF">setTimeout</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    e2.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'myevent2'</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">2</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'e2'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  }, </span><span style="color: #79C0FF">1000</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">Promise</span><span style="color: #C9D1D9">.</span><span style="color: #D2A8FF">all</span><span style="color: #C9D1D9">([</span><span style="color: #D2A8FF">once</span><span style="color: #C9D1D9">(e1, </span><span style="color: #A5D6FF">'myevent1'</span><span style="color: #C9D1D9">), </span><span style="color: #D2A8FF">once</span><span style="color: #C9D1D9">(e2, </span><span style="color: #A5D6FF">'myevent2'</span><span style="color: #C9D1D9">)])</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'e1 and e2'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"><span style="color: #C9D1D9">  .</span><span style="color: #D2A8FF">then</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'done'</span><span style="color: #C9D1D9">))</span></span>
+<span class="line"><span style="color: #C9D1D9">  .</span><span style="color: #D2A8FF">catch</span><span style="color: #C9D1D9">((</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'catch'</span><span style="color: #C9D1D9">, e))</span></span></code></pre>
 <p>きちんと実行されることが確認できます。</p>
-<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$  <span class="token function">node</span> async-iterator.js
-e2
-e1
-e1 and e2
-<span class="token keyword">done</span></code></pre></div>
-<h2 id="once-に潜む落とし穴--エラーハンドリング-" style="position:relative;"><a href="#once-%E3%81%AB%E6%BD%9C%E3%82%80%E8%90%BD%E3%81%A8%E3%81%97%E7%A9%B4--%E3%82%A8%E3%83%A9%E3%83%BC%E3%83%8F%E3%83%B3%E3%83%89%E3%83%AA%E3%83%B3%E3%82%B0-" aria-label="once に潜む落とし穴  エラーハンドリング  permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>once に潜む落とし穴 -エラーハンドリング-</h2>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$  node async-iterator.js</span></span>
+<span class="line"><span style="color: #C9D1D9">e2</span></span>
+<span class="line"><span style="color: #C9D1D9">e1</span></span>
+<span class="line"><span style="color: #C9D1D9">e1 and e2</span></span>
+<span class="line"><span style="color: #FF7B72">done</span></span></code></pre>
+<h2 id="once-に潜む落とし穴--エラーハンドリング">once に潜む落とし穴 -エラーハンドリング-</h2>
 <p>正常に動作する場合は先程までのコードで問題ありません。では Stream が error を emit した場合はどうでしょうか。</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span> once<span class="token punctuation">,</span> EventEmitter <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'events'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> e1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> e2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    e1<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'myevent1'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    e1<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'error e1'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'e1'</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">)</span>
-
-  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    e2<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'myevent2'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'e2'</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">await</span> Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token function">once</span><span class="token punctuation">(</span>e1<span class="token punctuation">,</span> <span class="token string">'myevent1'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">once</span><span class="token punctuation">(</span>e2<span class="token punctuation">,</span> <span class="token string">'myevent2'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'e1 and e2'</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-
-<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'done'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'catch'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> { </span><span style="color: #79C0FF">once</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">EventEmitter</span><span style="color: #C9D1D9"> } </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'events'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">e1</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">EventEmitter</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">e2</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">EventEmitter</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #D2A8FF">setTimeout</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    e1.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'myevent1'</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">    e1.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'error'</span><span style="color: #C9D1D9">, </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">Error</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'error e1'</span><span style="color: #C9D1D9">))</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'e1'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  }, </span><span style="color: #79C0FF">2000</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #D2A8FF">setTimeout</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    e2.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'myevent2'</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">2</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'e2'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  }, </span><span style="color: #79C0FF">1000</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">Promise</span><span style="color: #C9D1D9">.</span><span style="color: #D2A8FF">all</span><span style="color: #C9D1D9">([</span><span style="color: #D2A8FF">once</span><span style="color: #C9D1D9">(e1, </span><span style="color: #A5D6FF">'myevent1'</span><span style="color: #C9D1D9">), </span><span style="color: #D2A8FF">once</span><span style="color: #C9D1D9">(e2, </span><span style="color: #A5D6FF">'myevent2'</span><span style="color: #C9D1D9">)])</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'e1 and e2'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"><span style="color: #C9D1D9">  .</span><span style="color: #D2A8FF">then</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'done'</span><span style="color: #C9D1D9">))</span></span>
+<span class="line"><span style="color: #C9D1D9">  .</span><span style="color: #D2A8FF">catch</span><span style="color: #C9D1D9">((</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'catch'</span><span style="color: #C9D1D9">, e))</span></span></code></pre>
 <p>一見動きそうですね。しかし実はこのコードはエラーをキャッチすることができません。</p>
-<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">$ node async-iterator.js
-e2
-events.js:287
-      throw er; // Unhandled 'error' event
-      ^
-
-Error: error e1
-    at Timeout._onTimeout (/home/async-iterator.js:99:22)</code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">$ node async-iterator.js</span></span>
+<span class="line"><span style="color: #c9d1d9">e2</span></span>
+<span class="line"><span style="color: #c9d1d9">events.js:287</span></span>
+<span class="line"><span style="color: #c9d1d9">      throw er; // Unhandled 'error' event</span></span>
+<span class="line"><span style="color: #c9d1d9">      ^</span></span>
+<span class="line"><span style="color: #c9d1d9"></span></span>
+<span class="line"><span style="color: #c9d1d9">Error: error e1</span></span>
+<span class="line"><span style="color: #c9d1d9">    at Timeout._onTimeout (/home/async-iterator.js:99:22)</span></span></code></pre>
 <p>実行してみるとエラーがキャッチできず突き抜けてしまっています。これはエラーが emit される箇所に起因しています。エラーの emit を独自イベントの前にしてみましょう。</p>
-<div class="gatsby-highlight" data-language="diff"><pre class="language-diff"><code class="language-diff">const { once, EventEmitter } = require('events')
-
-const main = async () => {
-<span class="token unchanged"><span class="token prefix unchanged"> </span> const e1 = new EventEmitter()
-<span class="token prefix unchanged"> </span> const e2 = new EventEmitter()
-</span>
-<span class="token unchanged"><span class="token prefix unchanged"> </span> setTimeout(() => {
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>    e1.emit('error', new Error('error e1'))
-</span><span class="token unchanged"><span class="token prefix unchanged"> </span>   e1.emit('myevent1', 1)
-</span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>    e1.emit('error', new Error('error e1'))
-</span><span class="token unchanged"><span class="token prefix unchanged"> </span>   console.log('e1')
-<span class="token prefix unchanged"> </span> }, 2000)
-</span>
-<span class="token unchanged"><span class="token prefix unchanged"> </span> setTimeout(() => {
-<span class="token prefix unchanged"> </span>   e2.emit('myevent2', 2)
-<span class="token prefix unchanged"> </span>   console.log('e2')
-<span class="token prefix unchanged"> </span> }, 1000)
-</span>
-<span class="token unchanged"><span class="token prefix unchanged"> </span> await Promise.all([once(e1, 'myevent1'), once(e2, 'myevent2')])
-<span class="token prefix unchanged"> </span> console.log('e1 and e2')
-</span>}
-
-main()
-<span class="token unchanged"><span class="token prefix unchanged"> </span> .then(() => console.log('done'))
-<span class="token prefix unchanged"> </span> .catch((e) => console.log('catch', e))</span></code></pre></div>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">const { once, EventEmitter } = require('events')</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">const main = async () => {</span></span>
+<span class="line"><span style="color: #C9D1D9">  const e1 = new EventEmitter()</span></span>
+<span class="line"><span style="color: #C9D1D9">  const e2 = new EventEmitter()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  setTimeout(() => {</span></span>
+<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span>    e1.emit('error', new Error('error e1'))</span></span>
+<span class="line"><span style="color: #C9D1D9">    e1.emit('myevent1', 1)</span></span>
+<span class="line"><span style="color: #FFA198"><span style="user-select: none;">-</span>    e1.emit('error', new Error('error e1'))</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.log('e1')</span></span>
+<span class="line"><span style="color: #C9D1D9">  }, 2000)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  setTimeout(() => {</span></span>
+<span class="line"><span style="color: #C9D1D9">    e2.emit('myevent2', 2)</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.log('e2')</span></span>
+<span class="line"><span style="color: #C9D1D9">  }, 1000)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  await Promise.all([once(e1, 'myevent1'), once(e2, 'myevent2')])</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.log('e1 and e2')</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">main()</span></span>
+<span class="line"><span style="color: #C9D1D9">  .then(() => console.log('done'))</span></span>
+<span class="line"><span style="color: #C9D1D9">  .catch((e) => console.log('catch', e))</span></span></code></pre>
 <p>こんどは無事にキャッチできていることが確認できます。</p>
-<div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash">$ <span class="token function">node</span> async-iterator.js
-e2
-e1
-catch Error: error e1</code></pre></div>
-<p>原理としては単純な話で events.once はワンショットのイベントを受けることを想定している関数です。つまり、最初の <code class="language-text">myevent1</code> が emit された時点で once でラップした Promise は消化されてしまっています。</p>
-<p>最初のサンプルは <code class="language-text">myevent1</code> が emit された後に error イベントを emit していたため、後続の catch が動かなかったわけです。</p>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ node async-iterator.js</span></span>
+<span class="line"><span style="color: #C9D1D9">e2</span></span>
+<span class="line"><span style="color: #C9D1D9">e1</span></span>
+<span class="line"><span style="color: #C9D1D9">catch Error: error e1</span></span></code></pre>
+<p>原理としては単純な話で events.once はワンショットのイベントを受けることを想定している関数です。つまり、最初の <code>myevent1</code> が emit された時点で once でラップした Promise は消化されてしまっています。</p>
+<p>最初のサンプルは <code>myevent1</code> が emit された後に error イベントを emit していたため、後続の catch が動かなかったわけです。</p>
 <p>しかし Stream はどのイベントがどのタイミングでくるかわかりません。なので error イベントのキャッチは Strem の構文でキャッチしておくのが無難でしょう。</p>
-<div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span> once<span class="token punctuation">,</span> EventEmitter <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'events'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> <span class="token function-variable function">main</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> e1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> e2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-  e1<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'catch e1:'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
-    process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-  e2<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'catch e2:'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
-    process<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    e1<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'myevent1'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    e1<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'error e1'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'e1'</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">)</span>
-
-  <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    e2<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'myevent2'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'e2'</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">await</span> Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token function">once</span><span class="token punctuation">(</span>e1<span class="token punctuation">,</span> <span class="token string">'myevent1'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">once</span><span class="token punctuation">(</span>e2<span class="token punctuation">,</span> <span class="token string">'myevent2'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'e1 and e2'</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-
-<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'done'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'catch'</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></div>
-<h1 id="まとめ" style="position:relative;"><a href="#%E3%81%BE%E3%81%A8%E3%82%81" aria-label="まとめ permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>まとめ</h1>
-<p>AsyncIterator の使い方と <code class="language-text">events.on</code>, <code class="language-text">events.once</code> を使ってスマートに Stream を扱う方法と、その落とし穴 &#x26; 回避策をまとめました。</p></div><hr style="margin-top:1.625rem;margin-bottom:1.625rem"/><div style="display:flex;align-items:center;margin-bottom:4.0625rem"><div><strong>koh110</strong><p style="margin:0">JavaScript エンジニア。 詳しくは<a href="https://koh.dev">こちら</a></p></div></div><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"><li><a rel="prev" href="/2020-03-04-nodejs-performance/">← <!-- -->0から始めるNode.jsパフォーマンスチューニング</a></li><li><a rel="next" href="/2020-10-24-lighthouse-ci/">Lighthouse CIでサイトのスコアを定期的にチェックしよう<!-- --> →</a></li></ul><footer>© <!-- -->2022<!-- -->,<!-- --> <a href="https://koh.dev" target="_blank">kohsweb</a></footer></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script>
-  
-  
-  if(true) {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  }
-  if (typeof ga === "function") {
-    ga('create', 'UA-40547259-4', 'auto', {});
-      
-      
-      
-      
-      
-      }</script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/2020-05-13-async-iterator/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
-          <script
-            id="gatsby-chunk-mapping"
-          >
-            window.___chunkMapping="{\"app\":[\"/app-7e91ca904d776d21f2d1.js\"],\"component---cache-caches-gatsby-plugin-offline-app-shell-js\":[\"/component---cache-caches-gatsby-plugin-offline-app-shell-js-955b3cf39207eaac5870.js\"],\"component---src-pages-404-js\":[\"/component---src-pages-404-js-951d612edf2a1cb411ac.js\"],\"component---src-pages-index-js\":[\"/component---src-pages-index-js-90770a9b8cd19cb611c5.js\"],\"component---src-templates-blog-post-js\":[\"/component---src-templates-blog-post-js-1886d687849559569d14.js\"]}";
-          </script>
-        <script>window.___webpackCompilationHash="6b94b236a9fdca825cdb";</script><script src="/webpack-runtime-b14ed147da13fc923b7f.js" async></script><script src="/framework-ebbea84a5adc3d62e644.js" async></script><script src="/app-7e91ca904d776d21f2d1.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
+<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> { </span><span style="color: #79C0FF">once</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">EventEmitter</span><span style="color: #C9D1D9"> } </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'events'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">e1</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">EventEmitter</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">e2</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">EventEmitter</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  e1.</span><span style="color: #D2A8FF">on</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'error'</span><span style="color: #C9D1D9">, (</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'catch e1:'</span><span style="color: #C9D1D9">, e)</span></span>
+<span class="line"><span style="color: #C9D1D9">    process.</span><span style="color: #D2A8FF">exit</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  e2.</span><span style="color: #D2A8FF">on</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'error'</span><span style="color: #C9D1D9">, (</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'catch e2:'</span><span style="color: #C9D1D9">, e)</span></span>
+<span class="line"><span style="color: #C9D1D9">    process.</span><span style="color: #D2A8FF">exit</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #D2A8FF">setTimeout</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    e1.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'myevent1'</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">    e1.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'error'</span><span style="color: #C9D1D9">, </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">Error</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'error e1'</span><span style="color: #C9D1D9">))</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'e1'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  }, </span><span style="color: #79C0FF">2000</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #D2A8FF">setTimeout</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
+<span class="line"><span style="color: #C9D1D9">    e2.</span><span style="color: #D2A8FF">emit</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'myevent2'</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">2</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'e2'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">  }, </span><span style="color: #79C0FF">1000</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">Promise</span><span style="color: #C9D1D9">.</span><span style="color: #D2A8FF">all</span><span style="color: #C9D1D9">([</span><span style="color: #D2A8FF">once</span><span style="color: #C9D1D9">(e1, </span><span style="color: #A5D6FF">'myevent1'</span><span style="color: #C9D1D9">), </span><span style="color: #D2A8FF">once</span><span style="color: #C9D1D9">(e2, </span><span style="color: #A5D6FF">'myevent2'</span><span style="color: #C9D1D9">)])</span></span>
+<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'e1 and e2'</span><span style="color: #C9D1D9">)</span></span>
+<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"><span style="color: #C9D1D9">  .</span><span style="color: #D2A8FF">then</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'done'</span><span style="color: #C9D1D9">))</span></span>
+<span class="line"><span style="color: #C9D1D9">  .</span><span style="color: #D2A8FF">catch</span><span style="color: #C9D1D9">((</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'catch'</span><span style="color: #C9D1D9">, e))</span></span></code></pre>
+<h1 id="まとめ">まとめ</h1>
+<p>AsyncIterator の使い方と <code>events.on</code>, <code>events.once</code> を使ってスマートに Stream を扱う方法と、その落とし穴 &#x26; 回避策をまとめました。</p>
+</article>
+    <hr class="astro-5GRSW2HI">
+    <ul class="post-selector astro-5GRSW2HI">
+     <li class="astro-5GRSW2HI"><a rel="prev" href="/2020-03-04-nodejs-performance" class="astro-5GRSW2HI"> ← 0から始めるNode.jsパフォーマンスチューニング</a></li>
+     <li class="astro-5GRSW2HI"><a rel="next" href="/2020-10-24-lighthouse-ci" class="astro-5GRSW2HI">Lighthouse CIでサイトのスコアを定期的にチェックしよう → </a></li>
+    </ul>
+    <footer class="astro-5GRSW2HI">
+      © 2023, 
+      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
+        kohsweb
+      </a>
+    </footer>
+  </main>
+</body></html>
