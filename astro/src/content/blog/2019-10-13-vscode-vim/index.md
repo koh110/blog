@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: VSCode + Vim Plugin が異常に重くなる件の対処法
 date: '2019-10-13'
 tags: ['vscode']

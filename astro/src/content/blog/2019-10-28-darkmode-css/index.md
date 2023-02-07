@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: ダークモードを導入してCSS+JSでテーマを管理する
 date: '2019-10-28'
 tags: ['javascript', 'css']

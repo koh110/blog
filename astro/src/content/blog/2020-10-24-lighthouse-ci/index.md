@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: Lighthouse CIでサイトのスコアを定期的にチェックしよう
 date: '2020-10-24'
 tags: ['nodejs', 'lighthouse']

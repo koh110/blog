@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: Redis Streamsでキューを実装するときの注意点
 date: '2019-08-05'
 tags: ['redis']

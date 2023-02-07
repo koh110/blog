@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: MongoDB + Node.js + TypeScriptが強力だった
 date: '2019-06-07'
 tags: ['nodejs', 'mongodb', 'typescript']

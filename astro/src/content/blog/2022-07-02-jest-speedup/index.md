@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: jestでDBありのテストを高速化する
 date: '2022-07-02'
 tags: ['nodejs', 'jest']

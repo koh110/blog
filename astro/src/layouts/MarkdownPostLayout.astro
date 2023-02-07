@@ -1,10 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import { getCollection } from 'astro:content'
 import '../styles/global.css'
 import TweetButton from '../components/TweetButton.astro'
 
-export interface Props {
+export type Props = {
   post: CollectionEntry<'blog'>
   prev: CollectionEntry<'blog'> | null
   next: CollectionEntry<'blog'> | null
@@ -19,7 +18,8 @@ const { post, prev, next } = Astro.props
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.jpg" />
+    <meta name="description" content={post.body.slice(0, 120)} />
     <title>{post.data.title}</title>
   </head>
   <script
@@ -53,6 +53,7 @@ const { post, prev, next } = Astro.props
       </a>
     </div>
     <slot />
+    <hr>
     <ul class="post-selector">
      {prev && <li><a rel="prev" href={`/${prev.slug}`}> ← {prev.data.title}</a></li>}
      {next && <li><a rel="next" href={`/${next.slug}`}>{next.data.title} → </a></li>}
@@ -71,12 +72,15 @@ const { post, prev, next } = Astro.props
   main {
     margin: auto;
     padding: 1.5rem;
-    max-width: 60ch;
+    max-width: 50em;
   }
   header a {
     box-shadow: none;
     text-decoration: none;
     color: inherit;
+  }
+  h1 {
+    border-bottom: 1px solid hsla(0,0%,0%,0.07);
   }
   .social {
     margin: 1em 0 0 0;
@@ -87,6 +91,9 @@ const { post, prev, next } = Astro.props
     justify-content: space-between;
     list-style: none;
     padding: 0px;
+  }
+  hr {
+    margin: 4em 0 4em 0;
   }
   footer {
     margin: 2em 0 0 0;

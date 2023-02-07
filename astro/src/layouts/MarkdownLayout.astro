@@ -1,0 +1,58 @@
+---
+
+---
+
+<article>
+  <slot />
+</article>
+
+<style>
+  article {
+    display: block;
+    margin: 1.5em 0 0 0;
+  }
+  article :global(h1), :global(h2) {
+    border-bottom: 1px solid hsla(0,0%,0%,0.07);
+    margin-top: 1.5em;
+  }
+  code {
+    color: 'black'
+  }
+  article :global(table) {
+    margin: 0 0 1em 0;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 2em;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  article :global(thead) {
+    text-align: left;
+  }
+  article :global(td), article :global(th) {
+    text-align: left;
+    border-bottom: 1px solid hsla(0,0%,0%,0.12);
+    font-feature-settings: "tnum";
+    padding: 0.5em;
+  }
+  article :global(p):has(img) {
+    display: flex;
+    justify-content: center;
+  }
+  article :global(img) {
+    max-width: 80%;
+  }
+  article :global(pre) {
+    padding: 1em;
+  }
+  article :global(code) {
+    margin: 0 2px;
+    padding: 2px 5px;
+    color: #ccc;
+    background: #0d1117;
+  }
+  article :global(p) {
+    margin: 0 0 1.5em 0;
+    line-height: 1.8em;
+  }
+</style>

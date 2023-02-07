@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: さくらで借りたUbuntu16のセットアップ
 date: '2019-07-02'
 tags: ['linux', 'ubuntu']

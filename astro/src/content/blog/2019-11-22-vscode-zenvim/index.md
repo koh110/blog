@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: VSCodeにZenVimというVim拡張を作った
 date: '2019-11-22'
 tags: ['vscode']
@@ -290,6 +291,7 @@ https://code.visualstudio.com/api/working-with-extensions/publishing-extension#i
 [ドキュメント](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token)のスクリーンショットは少し古く Security が存在しなかった。
 
 今は Personal Access Token を選択するらしい。
+
 ![アクセストークン](/img/2019-11-22-vscode-zenvim/token.jpeg)
 
 New Token から適当に名前をつけて権限をつける。今回必要な権限は Marketplace の Acquire と Manage の2つ。

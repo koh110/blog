@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: MongoDB + Jestのテスト方法
 date: '2019-06-11'
 tags: ['nodejs', 'mongodb', 'jest']

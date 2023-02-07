@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: TypeORM v0.3へのバージョンアップ方法
 date: '2022-11-17'
 tags: ['nodejs', 'typeorm']

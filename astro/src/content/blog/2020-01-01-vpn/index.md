@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: WireGuardでVPNごしに自宅サーバ開発できる環境を作った
 date: '2020-01-01'
 tags: ['wireguard']
@@ -82,9 +83,11 @@ Mac 用のアプリは公式のストアにあるので、ここからダウン�
 https://apps.apple.com/jp/app/wireguard/id1451685025
 
 アプリを起動したら左下の+ボタンから `Add Empty Tunnel` を選択すると秘密鍵と公開鍵が生成されるので、名前をつけて一旦 save します。
+
 ![Mac設定](/img/2020-01-01-vpn/mac.jpeg)
 
 ここで生成された公開鍵をサーバの方の設定ファイルに書くことになります。
+
 ![Mac鍵](/img/2020-01-01-vpn/mac_key.jpeg)
 
 サーバの設定ファイルは /etc/wireguard/wg0.conf に配置します。

@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: AsyncIteratorと落とし穴
 date: '2020-05-13'
 tags: ['nodejs']

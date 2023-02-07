@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: 実践Node.js入門という本が出ます
 date: '2023-01-26'
 tags: ['nodejs']

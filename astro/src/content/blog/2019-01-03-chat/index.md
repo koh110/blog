@@ -1,4 +1,5 @@
 ---
+layout: '../../../layouts/MarkdownLayout.astro'
 title: チャットシステムを作るときに知っておくべきこと
 date: '2019-01-03'
 tags: []
