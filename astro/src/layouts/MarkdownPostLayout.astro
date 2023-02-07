@@ -1,0 +1,94 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
+import '../styles/global.css'
+import TweetButton from '../components/TweetButton.astro'
+
+export interface Props {
+  post: CollectionEntry<'blog'>
+  prev: CollectionEntry<'blog'> | null
+  next: CollectionEntry<'blog'> | null
+}
+
+const { post, prev, next } = Astro.props
+
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <title>{post.data.title}</title>
+  </head>
+  <script
+    src="https://b.st-hatena.com/js/bookmark_button.js"
+    type="text/javascript"
+    async
+  />
+<body>
+  <main>
+    <header>
+      <h3><a href="/">kohsweblog</a></h3>
+    </header>
+    <h1>{post.data.title}</h1>
+    <time>{post.data.date}</time>
+    <div class="social">
+      <TweetButton />
+      <a
+        href = "https://b.hatena.ne.jp/entry/"
+        class="hatena-bookmark-button"
+        data-hatena-bookmark-layout="basic-label-counter"
+        data-hatena-bookmark-lang="ja"
+        data-hatena-bookmark-height="28"
+        title="このエントリーをはてなブックマークに追加"
+      >
+        <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png"
+          alt="このエントリーをはてなブックマークに追加"
+          width="20"
+          height="20"
+          style="border: none;"
+        />
+      </a>
+    </div>
+    <slot />
+    <ul class="post-selector">
+     {prev && <li><a rel="prev" href={`/${prev.slug}`}> ← {prev.data.title}</a></li>}
+     {next && <li><a rel="next" href={`/${next.slug}`}>{next.data.title} → </a></li>}
+    </ul>
+    <footer>
+      © {new Date().getFullYear()},{' '}
+      <a href="https://koh.dev" target="_blank">
+        kohsweb
+      </a>
+    </footer>
+  </main>
+</body>
+</html>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1.5rem;
+    max-width: 60ch;
+  }
+  header a {
+    box-shadow: none;
+    text-decoration: none;
+    color: inherit;
+  }
+  .social {
+    margin: 1em 0 0 0;
+  }
+  .post-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0px;
+  }
+  footer {
+    margin: 2em 0 0 0;
+  }
+</style>

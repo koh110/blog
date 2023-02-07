@@ -1,0 +1,51 @@
+---
+import type { GetStaticPathsOptions } from 'astro'
+import { getCollection } from 'astro:content'
+import Layout from '../layouts/Layout.astro'
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const allPosts = await getCollection('blog')
+
+  const data: { params: { id: string }; props: any }[] = allPosts.map((post) => {
+    return {
+      params: { id: post.id },
+      props: { post }
+    }
+  })
+
+  return paginate(data, { pageSize: 1 })
+}
+
+const allPosts = (await getCollection('blog')).reverse()
+---
+
+<Layout title="kohsweblog">
+  <main>
+    <header>
+      <h1><a href="/">kohsweblog</a></h1>
+      <h4>気になった技術などをまとめていくブログです。</h4>
+    </header>
+    <div>
+      {allPosts.map((post) => (
+        <div>
+          <h3><a href={`/${post.slug}`}>{post.data.title}</a></h3>
+          <small><date>{post.data.date}</date></small>
+          <p>{`${post.body}`.replace('\n', '').slice(0, 120)}{post.body.length > 120 ? '...' : ''}</p>
+        </div>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+header a {
+  box-shadow: none;
+  text-decoration: none;
+  color: inherit;
+}
+main {
+  margin: auto;
+  padding: 1.5rem;
+  max-width: 60ch;
+}
+</style>
