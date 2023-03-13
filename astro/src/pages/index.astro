@@ -27,7 +27,7 @@ const allPosts = (await getCollection('blog')).reverse()
     </header>
     <div>
       {allPosts.map((post) => (
-        <div>
+        <div class="post">
           <h3><a href={`/${post.slug}`}>{post.data.title}</a></h3>
           <small><date>{post.data.date}</date></small>
           <p>{`${post.body}`.replace('\n', '').slice(0, 120)}{post.body.length > 120 ? '...' : ''}</p>
@@ -47,5 +47,12 @@ main {
   margin: auto;
   padding: 1.5rem;
   max-width: 60ch;
+}
+.post {
+  margin: 2em 0 0 0;
+}
+h3 {
+  margin: 1em 0 0.5em 0;
+  padding: 0;
 }
 </style>
