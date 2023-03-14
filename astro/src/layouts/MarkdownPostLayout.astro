@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content'
 import '../styles/global.css'
 import Ga from '../components/ga.astro'
 import TweetButton from '../components/TweetButton.astro'
+import { createDescription } from '../lib/post'
 
 export type Props = {
   post: CollectionEntry<'blog'>
@@ -11,6 +12,7 @@ export type Props = {
 }
 
 const { post, prev, next } = Astro.props
+const description = createDescription(post)
 
 ---
 
@@ -20,7 +22,7 @@ const { post, prev, next } = Astro.props
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.jpg" />
-    <meta name="description" content={post.body.slice(0, 120)} />
+    <meta name="description" content={description} />
     <title>{post.data.title}</title>
     <Ga />
   </head>

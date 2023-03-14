@@ -2,6 +2,7 @@
 import type { GetStaticPathsOptions } from 'astro'
 import { getCollection } from 'astro:content'
 import Layout from '../layouts/Layout.astro'
+import { createDescription } from '../lib/post'
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const allPosts = await getCollection('blog')
@@ -16,7 +17,17 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   return paginate(data, { pageSize: 1 })
 }
 
-const allPosts = (await getCollection('blog')).reverse()
+const allPosts = await getCollection('blog')
+
+const showPosts: (typeof allPosts[number] & { description: string })[] = []
+for (let i = allPosts.length - 1; i >= 0; i--) {
+  const post = allPosts[i]
+  showPosts.push({
+    ...post,
+    description: createDescription(post)
+  })
+}
+
 ---
 
 <Layout title="kohsweblog">
@@ -26,11 +37,11 @@ const allPosts = (await getCollection('blog')).reverse()
       <h4>気になった技術などをまとめていくブログです。</h4>
     </header>
     <div>
-      {allPosts.map((post) => (
+      {showPosts.map((post) => (
         <div class="post">
           <h3><a href={`/${post.slug}`}>{post.data.title}</a></h3>
           <small><date>{post.data.date}</date></small>
-          <p>{`${post.body}`.replace('\n', '').slice(0, 120)}{post.body.length > 120 ? '...' : ''}</p>
+          <p>{post.description}</p>
         </div>
       ))}
     </div>
