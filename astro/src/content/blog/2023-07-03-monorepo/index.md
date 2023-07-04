@@ -7,9 +7,12 @@ tags: ['JavaScript', 'TypeScript', 'Node.js', 'monorepo']
 
 # はじめに
 
+あまりモノレポの構成について語られている記事が多くないなと感じたので、現時点で自分が考えている設計をまとめてみる。
+
+以前にTwitterでディレクトリ構成と内容については言及したが、実際に利用する技術についてはあまり触れなかったので改めて検証してみた。
+
 https://twitter.com/koh110/status/1617510034266808322
 
-あまりモノレポの構成について語られている記事が多くないなと感じたので、現時点で自分が考えている設計をまとめてみる。
 
 クライアントサイドとサーバーサイドのコード共有については下記の記事がよくまとまっていた。
 https://capelski.medium.com/effective-code-sharing-in-typescript-monorepos-475f9600f6b4

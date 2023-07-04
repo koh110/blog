@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import '../styles/global.css'
+import Layout from './Layout.astro'
 import Ga from '../components/ga.astro'
 import TweetButton from '../components/TweetButton.astro'
 import { createDescription } from '../lib/post'
@@ -16,22 +17,12 @@ const description = createDescription(post)
 
 ---
 
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg" />
-    <meta name="description" content={description} />
-    <title>{post.data.title}</title>
-    <Ga />
-  </head>
+<Layout title={post.data.title} description={description}>
   <script
     src="https://b.st-hatena.com/js/bookmark_button.js"
     type="text/javascript"
     async
   />
-<body>
   <main>
     <header>
       <h3><a href="/">kohsweblog</a></h3>
@@ -62,29 +53,14 @@ const description = createDescription(post)
      {prev && <li><a rel="prev" href={`/${prev.slug}`}> ← {prev.data.title}</a></li>}
      {next && <li><a rel="next" href={`/${next.slug}`}>{next.data.title} → </a></li>}
     </ul>
-    <footer>
-      © {new Date().getFullYear()},{' '}
-      <a href="https://koh.dev" target="_blank">
-        kohsweb
-      </a>
-    </footer>
   </main>
-</body>
-</html>
+</Layout>
 
 <style>
   main {
     margin: auto;
     padding: 1.5rem;
     max-width: 50em;
-  }
-  header a {
-    box-shadow: none;
-    text-decoration: none;
-    color: inherit;
-  }
-  h1 {
-    border-bottom: 1px solid hsla(0,0%,0%,0.07);
   }
   .social {
     margin: 1em 0 0 0;
@@ -98,8 +74,5 @@ const description = createDescription(post)
   }
   hr {
     margin: 4em 0 4em 0;
-  }
-  footer {
-    margin: 2em 0 0 0;
   }
 </style>
