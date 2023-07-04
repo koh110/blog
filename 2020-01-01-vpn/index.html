@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="ja" class="astro-5GRSW2HI">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
-    <meta name="description" content="まえおき
+<html lang="ja" class="astro-SCKKX6R4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+  <title>WireGuardでVPNごしに自宅サーバ開発できる環境を作った</title>
+  <meta name="description" content="まえおき
 自分は普段 MacBook Pro の 13 インチを開発機として利用しています。メモリは 16GB にしているので Web 開発をする時にはあまり不便に感じることはありません。
 ただ、サービスの開発のステージ環境や、自宅内の自動...">
-    <title>WireGuardでVPNごしに自宅サーバ開発できる環境を作った</title>
-    <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
+  <meta property="og:title" content="WireGuardでVPNごしに自宅サーバ開発できる環境を作った">
+  <meta name="og:description" content="まえおき
+自分は普段 MacBook Pro の 13 インチを開発機として利用しています。メモリは 16GB にしているので Web 開発をする時にはあまり不便に感じることはありません。
+ただ、サービスの開発のステージ環境や、自宅内の自動...">
+  <meta property="og:type">
+  <meta property="og:site_name" content="kohsweblog">
+  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
 
-  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script><link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
-<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
-</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.a66c24da.css" /></head>
+<link rel="stylesheet" href="/_astro/_post_.88d6343a.css" />
+<link rel="stylesheet" href="/_astro/_post_.c79e4623.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
+</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.598eec69.css" /></head>
+<body class="astro-SCKKX6R4">
   
-<body class="astro-5GRSW2HI">
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
   <main class="astro-5GRSW2HI">
     <header class="astro-5GRSW2HI">
       <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
@@ -28,7 +35,8 @@
         <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
       </a>
     </div>
-    <article class="astro-XSCT23V3">
+    
+  <article class="astro-XSCT23V3">
   <h1 id="まえおき">まえおき</h1>
 <p>自分は普段 MacBook Pro の 13 インチを開発機として利用しています。メモリは 16GB にしているので Web 開発をする時にはあまり不便に感じることはありません。
 ただ、サービスの開発のステージ環境や、自宅内の自動化や副業で受けている調査案件などはそれぞれ環境ごとに仮想サーバを立ち上げています。</p>
@@ -47,31 +55,31 @@
 <p>他に参考にできるドキュメントを探していたら下記のリポジトリに永続化も含めて詳細に載っていたので、こちらを参考に環境を構築しました。</p>
 <p><a href="https://github.com/adrianmihalko/raspberrypiwireguard">https://github.com/adrianmihalko/raspberrypiwireguard</a></p>
 <p>やっていることは ubuntu のレポを追加してインストールできるようにしているっぽいです。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ sudo apt-get update</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt-get upgrade</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt-get install raspberrypi-kernel-headers</span></span>
-<span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">echo</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"deb http://deb.debian.org/debian/ unstable main"</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> sudo tee --append /etc/apt/sources.list.d/unstable.list</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt-get install dirmngr</span></span>
-<span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">printf</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'Package: *\nPin: release a=unstable\nPin-Priority: 150\n'</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> sudo tee --append /etc/apt/preferences.d/limit-unstable</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt-key adv --keyserver   keyserver.ubuntu.com --recv-keys 8B48AD6246925553</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt-key adv --keyserver   keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt-key adv --keyserver   keyserver.ubuntu.com --recv-keys 7638D0442B90D010</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt-get update</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt-get install wireguard</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-get</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">update</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-get</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">upgrade</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-get</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">install</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">raspberrypi-kernel-headers</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">echo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"deb http://deb.debian.org/debian/ unstable main"</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tee</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--append</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/etc/apt/sources.list.d/unstable.list</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-get</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">install</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dirmngr</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">printf</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'Package: *\nPin: release a=unstable\nPin-Priority: 150\n'</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tee</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--append</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/etc/apt/preferences.d/limit-unstable</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-key</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">adv</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--keyserver</span><span style="color: #E1E4E8">   </span><span style="color: #9ECBFF">keyserver.ubuntu.com</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--recv-keys</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">8</span><span style="color: #9ECBFF">B48AD6246925553</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-key</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">adv</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--keyserver</span><span style="color: #E1E4E8">   </span><span style="color: #9ECBFF">keyserver.ubuntu.com</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--recv-keys</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">04</span><span style="color: #9ECBFF">EE7237B7D453EC</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-key</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">adv</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--keyserver</span><span style="color: #E1E4E8">   </span><span style="color: #9ECBFF">keyserver.ubuntu.com</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--recv-keys</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">7638</span><span style="color: #9ECBFF">D0442B90D010</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-get</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">update</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-get</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">install</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">wireguard</span></span></code></pre>
 <p>/etc/sysctl.conf を vi でいじる。net.ipv4.ip_forward の項目を 1 にする。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E"># Uncomment the next line to enable packet forwarding for IPv4</span></span>
-<span class="line"><span style="color: #C9D1D9">net.ipv4.ip_forward=1</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #6A737D"># Uncomment the next line to enable packet forwarding for IPv4</span></span>
+<span class="line"><span style="color: #B392F0">net.ipv4.ip_forward</span><span style="color: #E1E4E8">=1</span></span></code></pre>
 <h1 id="wireguard-の設定">WireGuard の設定</h1>
 <p>まずは VPN を使って外部ネットワークから Raspberry Pi に ssh できるようにします。それができたら Raspberry Pi を踏み台に他のサーバにも ssh できるようにします。</p>
 <p>WireGuard の設定にサーバとクライアントという概念は出ず Peer to Peer のような仕組みになっています。VPN を接続する Peer 同士で秘密鍵と公開鍵の生成が必要になります。</p>
 <p>便宜上ここから先では Raspberry Pi 上の WireGuard をサーバ、Mac に入れる WireGuard アプリをクライアントと考えて説明します。</p>
 <p>WireGuard がインストールできたら、wg というコマンドが利用できるようになるので、サーバ用の秘密鍵と公開鍵を生成します。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ mkdir wgkeys</span></span>
-<span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">cd</span><span style="color: #C9D1D9"> wgkeys</span></span>
-<span class="line"><span style="color: #8B949E"># 秘密鍵の生成</span></span>
-<span class="line"><span style="color: #C9D1D9">$ wg genkey </span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> server_private.key</span></span>
-<span class="line"><span style="color: #8B949E"># 秘密鍵から公開鍵を生成</span></span>
-<span class="line"><span style="color: #C9D1D9">$ wg pubkey </span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> server_public.key </span><span style="color: #FF7B72">&#x3C;</span><span style="color: #C9D1D9"> server_private.key</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">mkdir</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">wgkeys</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">cd</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">wgkeys</span></span>
+<span class="line"><span style="color: #6A737D"># 秘密鍵の生成</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">wg</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">genkey</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">server_private.key</span></span>
+<span class="line"><span style="color: #6A737D"># 秘密鍵から公開鍵を生成</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">wg</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">pubkey</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">server_public.key</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">&#x3C;</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">server_private.key</span></span></code></pre>
 <p>Mac 用のアプリは公式のストアにあるので、ここからダウンロードします。</p>
 <p><a href="https://apps.apple.com/jp/app/wireguard/id1451685025">https://apps.apple.com/jp/app/wireguard/id1451685025</a></p>
 <p>アプリを起動したら左下の+ボタンから <code>Add Empty Tunnel</code> を選択すると秘密鍵と公開鍵が生成されるので、名前をつけて一旦 save します。</p>
@@ -80,73 +88,76 @@
 <p><img src="/img/2020-01-01-vpn/mac_key.jpeg" alt="Mac鍵"></p>
 <p>サーバの設定ファイルは /etc/wireguard/wg0.conf に配置します。</p>
 <p>Interface に自分自身の設定（ここでは Raspberry Pi）、Peer に接続させる端末の設定（ここでは Mac）を書きます。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">[Interface]</span></span>
-<span class="line"><span style="color: #8B949E"># VPN の仮想的なネットワークで使うIPアドレスを設定する。今回はわかりやすいように10.0.0.1/24で設定した。</span></span>
-<span class="line"><span style="color: #C9D1D9">Address = 10.0.0.1/24</span></span>
-<span class="line"><span style="color: #8B949E"># WireGuard を listen させるポート。ルータのポート開放に使うので適当に変える。</span></span>
-<span class="line"><span style="color: #C9D1D9">ListenPort = 123456</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">[Interface]</span></span>
+<span class="line"><span style="color: #6A737D"># VPN の仮想的なネットワークで使うIPアドレスを設定する。今回はわかりやすいように10.0.0.1/24で設定した。</span></span>
+<span class="line"><span style="color: #B392F0">Address</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10.0</span><span style="color: #9ECBFF">.0.1/24</span></span>
+<span class="line"><span style="color: #6A737D"># WireGuard を listen させるポート。ルータのポート開放に使うので適当に変える。</span></span>
+<span class="line"><span style="color: #B392F0">ListenPort</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">123456</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># wgコマンドで生成した秘密鍵を文字列で記入する</span></span>
-<span class="line"><span style="color: #C9D1D9">PrivateKey = </span><span style="color: #FF7B72">&#x3C;</span><span style="color: #C9D1D9">server_private.key</span><span style="color: #FF7B72">></span></span>
-<span class="line"><span style="color: #8B949E"># replace eth0 with the interface open to the internet (e.g might be wlan0 if wifi)</span></span>
-<span class="line"><span style="color: #8B949E"># 起動時と終了時に動くコマンドがかける。ひとまずnatするための呪文だと思っておく。</span></span>
-<span class="line"><span style="color: #C9D1D9">PostUp = iptables -A FORWARD -i %i -j ACCEPT</span><span style="color: #FF7B72">;</span><span style="color: #C9D1D9"> iptables -A FORWARD -o %i -j ACCEPT</span><span style="color: #FF7B72">;</span><span style="color: #C9D1D9"> iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span></span>
-<span class="line"><span style="color: #C9D1D9">PostDown = iptables -D FORWARD -i %i -j ACCEPT</span><span style="color: #FF7B72">;</span><span style="color: #C9D1D9"> iptables -D FORWARD -o %i -j ACCEPT</span><span style="color: #FF7B72">;</span><span style="color: #C9D1D9"> iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE</span></span>
+<span class="line"><span style="color: #6A737D"># wgコマンドで生成した秘密鍵を文字列で記入する</span></span>
+<span class="line"><span style="color: #B392F0">PrivateKey</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">&#x3C;</span><span style="color: #9ECBFF">server_private.ke</span><span style="color: #E1E4E8">y</span><span style="color: #F97583">></span></span>
+<span class="line"><span style="color: #6A737D"># replace eth0 with the interface open to the internet (e.g might be wlan0 if wifi)</span></span>
+<span class="line"><span style="color: #6A737D"># 起動時と終了時に動くコマンドがかける。ひとまずnatするための呪文だと思っておく。</span></span>
+<span class="line"><span style="color: #B392F0">PostUp</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-A</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">FORWARD</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-i</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">%i</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ACCEPT</span><span style="color: #E1E4E8">; </span><span style="color: #B392F0">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-A</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">FORWARD</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-o</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">%i</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ACCEPT</span><span style="color: #E1E4E8">; </span><span style="color: #B392F0">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-t</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">nat</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-A</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">POSTROUTING</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-o</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">eth0</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">MASQUERADE</span></span>
+<span class="line"><span style="color: #B392F0">PostDown</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-D</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">FORWARD</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-i</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">%i</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ACCEPT</span><span style="color: #E1E4E8">; </span><span style="color: #B392F0">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-D</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">FORWARD</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-o</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">%i</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ACCEPT</span><span style="color: #E1E4E8">; </span><span style="color: #B392F0">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-t</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">nat</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-D</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">POSTROUTING</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-o</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">eth0</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">MASQUERADE</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">[Peer]</span></span>
-<span class="line"><span style="color: #8B949E"># Macで生成した公開鍵を文字列で記入する</span></span>
-<span class="line"><span style="color: #C9D1D9">PublicKey = </span><span style="color: #FF7B72">&#x3C;</span><span style="color: #C9D1D9">client_public.key</span><span style="color: #FF7B72">></span></span>
-<span class="line"><span style="color: #8B949E"># わかりやすくするためにクライアントの仮想IPを 10.0.0.2/32 に設定する。サーバへの接続許可IPに追加する。</span></span>
-<span class="line"><span style="color: #C9D1D9">AllowedIPs = 10.0.0.2/32</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">[Peer]</span></span>
+<span class="line"><span style="color: #6A737D"># Macで生成した公開鍵を文字列で記入する</span></span>
+<span class="line"><span style="color: #B392F0">PublicKey</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">&#x3C;</span><span style="color: #9ECBFF">client_public.ke</span><span style="color: #E1E4E8">y</span><span style="color: #F97583">></span></span>
+<span class="line"><span style="color: #6A737D"># わかりやすくするためにクライアントの仮想IPを 10.0.0.2/32 に設定する。サーバへの接続許可IPに追加する。</span></span>
+<span class="line"><span style="color: #B392F0">AllowedIPs</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10.0</span><span style="color: #9ECBFF">.0.2/32</span></span></code></pre>
 <p>Mac 側は Peer の反対側なので逆に設定していく。違いは ListenPort がないことと、Endpoint を設定することです。</p>
 <p>Endpoint を設定することで接続先を探しにいけるようになります。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">[Interface]</span></span>
-<span class="line"><span style="color: #C9D1D9">PrivateKey = </span><span style="color: #FF7B72">&#x3C;</span><span style="color: #C9D1D9">client_private.key</span><span style="color: #FF7B72">></span></span>
-<span class="line"><span style="color: #8B949E"># クライアントの仮想IP</span></span>
-<span class="line"><span style="color: #C9D1D9">Address = 10.0.0.2/24</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">[Interface]</span></span>
+<span class="line"><span style="color: #B392F0">PrivateKey</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">&#x3C;</span><span style="color: #9ECBFF">client_private.ke</span><span style="color: #E1E4E8">y</span><span style="color: #F97583">></span></span>
+<span class="line"><span style="color: #6A737D"># クライアントの仮想IP</span></span>
+<span class="line"><span style="color: #B392F0">Address</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10.0</span><span style="color: #9ECBFF">.0.2/24</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">[Peer]</span></span>
-<span class="line"><span style="color: #8B949E"># serverの公開鍵を文字列で記入する</span></span>
-<span class="line"><span style="color: #C9D1D9">PublicKey = </span><span style="color: #FF7B72">&#x3C;</span><span style="color: #C9D1D9">server_public.key</span><span style="color: #FF7B72">></span></span>
-<span class="line"><span style="color: #C9D1D9">AllowedIPs = 10.0.0.1/32</span></span>
-<span class="line"><span style="color: #8B949E"># サーバのグローバルIPとListenPortを設定する。こんなグローバルIPはありえないけど各環境に合わせてよみかえる。</span></span>
-<span class="line"><span style="color: #C9D1D9">Endpoint = 192.168.11.1:123456</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">[Peer]</span></span>
+<span class="line"><span style="color: #6A737D"># serverの公開鍵を文字列で記入する</span></span>
+<span class="line"><span style="color: #B392F0">PublicKey</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">&#x3C;</span><span style="color: #9ECBFF">server_public.ke</span><span style="color: #E1E4E8">y</span><span style="color: #F97583">></span></span>
+<span class="line"><span style="color: #B392F0">AllowedIPs</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10.0</span><span style="color: #9ECBFF">.0.1/32</span></span>
+<span class="line"><span style="color: #6A737D"># サーバのグローバルIPとListenPortを設定する。こんなグローバルIPはありえないけど各環境に合わせてよみかえる。</span></span>
+<span class="line"><span style="color: #B392F0">Endpoint</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">192.168</span><span style="color: #9ECBFF">.11.1:123456</span></span></code></pre>
 <p>ここまで設定が終わったらルーターの設定をいじって、Raspberry Pi の IP と ListenPort に指定したポートをインターネットに公開します。
 WireGuard が利用するのは TCP ではなく UDP なので公開するときはその点も注意が必要です。</p>
 <p>設定し終わったらサーバで WireGuard を起動します。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ sudo wg-quick up wg0</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">wg-quick</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">up</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">wg0</span></span></code></pre>
 <p>サーバが起動できていることを確認したら Mac を携帯でテザリングしてから WireGuard アプリで先程設定した Activate ボタンを押します。</p>
 <p>うちのルーターはヘアピン NAT に対応していないので、同じネットワーク内から自分自身のグローバル IP を解決できないので、必ず Mac を別のネットワークにつなぐ必要がありました。（ここに気づくのに結構時間がかかった）</p>
 <p>うまく接続が成功すると自分で設定した仮想 IP に対して ssh で Raspberry Pi に接続できるようになります。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ ssh 10.0.0.1</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ssh</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10.0</span><span style="color: #9ECBFF">.0.1</span></span></code></pre>
 <h1 id="lan-内の他の機器にも-vpn-ごしに接続できるようにする">LAN 内の他の機器にも VPN ごしに接続できるようにする</h1>
 <p>この状態では Raspberry Pi 以外にアクセスできないので、Raspberry Pi を踏み台にして家の LAN 内の機器にアクセスできるようにします。</p>
 <p>これは Raspberry Pi 側の設定で PostUp で iptables の MASQUERADE ルールを追加するとできるようになります。</p>
 <p>PostUp の最後に <code>iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -j MASQUERADE</code> を追加します。PostDown で -D することでお掃除も忘れないようにします。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">PostUp = iptables -A FORWARD -i %i -j ACCEPT</span><span style="color: #FF7B72">;</span><span style="color: #C9D1D9"> iptables -A FORWARD -o %i -j ACCEPT</span><span style="color: #FF7B72">;</span><span style="color: #C9D1D9"> iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span><span style="color: #FF7B72">;</span><span style="color: #C9D1D9"> iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -j MASQUERADE</span></span>
-<span class="line"><span style="color: #C9D1D9">PostDown = iptables -D FORWARD -i %i -j ACCEPT</span><span style="color: #FF7B72">;</span><span style="color: #C9D1D9"> iptables -D FORWARD -o %i -j ACCEPT</span><span style="color: #FF7B72">;</span><span style="color: #C9D1D9"> iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE</span><span style="color: #FF7B72">;</span><span style="color: #C9D1D9"> iptables -t nat -D POSTROUTING -s 10.0.0.0/24 -j MASQUERADE</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">PostUp</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-A</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">FORWARD</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-i</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">%i</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ACCEPT</span><span style="color: #E1E4E8">; </span><span style="color: #B392F0">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-A</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">FORWARD</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-o</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">%i</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ACCEPT</span><span style="color: #E1E4E8">; </span><span style="color: #B392F0">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-t</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">nat</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-A</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">POSTROUTING</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-o</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">eth0</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">MASQUERADE</span><span style="color: #E1E4E8">; </span><span style="color: #B392F0">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-t</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">nat</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-A</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">POSTROUTING</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-s</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10.0</span><span style="color: #9ECBFF">.0.0/24</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">MASQUERADE</span></span>
+<span class="line"><span style="color: #B392F0">PostDown</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-D</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">FORWARD</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-i</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">%i</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ACCEPT</span><span style="color: #E1E4E8">; </span><span style="color: #B392F0">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-D</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">FORWARD</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-o</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">%i</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ACCEPT</span><span style="color: #E1E4E8">; </span><span style="color: #B392F0">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-t</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">nat</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-D</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">POSTROUTING</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-o</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">eth0</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">MASQUERADE</span><span style="color: #E1E4E8">; </span><span style="color: #B392F0">iptables</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-t</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">nat</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-D</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">POSTROUTING</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-s</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10.0</span><span style="color: #9ECBFF">.0.0/24</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-j</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">MASQUERADE</span></span></code></pre>
 <p>Mac 側では Peer の AllowedIPs に他の機器の IP を追加します。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">AllowedIPs = 10.0.0.1/32, 192.168.11.0/24</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">AllowedIPs</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10.0</span><span style="color: #9ECBFF">.0.1/32,</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">192.168</span><span style="color: #9ECBFF">.11.0/24</span></span></code></pre>
 <p>この設定で Mac から 192.168.11.0/24 のレンジにある機器に到達できるようになります。（もちろん ssh だけでなく Remote Desktop 等もできます）</p>
 <h1 id="wireguard-を自動起動させる">WireGuard を自動起動させる</h1>
 <p>このままだと Raspberry Pi が再起動すると WireGuard が自動起動しないので、systemctl で自動起動するようにします。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">$ sudo systemctl start wg-quick@wg0</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8">$ sudo systemctl start wg-quick@wg0</span></span></code></pre>
 <h1 id="おわりに">おわりに</h1>
 <p>これで WireGuard を利用して外部ネットワークから自宅の開発サーバにアクセスできるようになりました。</p>
 <p>家に強力なサーバを用意しておけば、カフェなどでも開発ができるのはなかなかよい体験だなと思っています。</p>
 <p>自宅 VPN は思った以上に Quality of Development に貢献するので、簡単に環境を用意できるようになる WireGuard はおすすめです。</p>
 <p>自宅 VPN を用意して快適な開発ライフを送りましょう！</p>
 </article>
+
     <hr class="astro-5GRSW2HI">
     <ul class="post-selector astro-5GRSW2HI">
      <li class="astro-5GRSW2HI"><a rel="prev" href="/2019-11-22-vscode-zenvim" class="astro-5GRSW2HI"> ← VSCodeにZenVimというVim拡張を作った</a></li>
      <li class="astro-5GRSW2HI"><a rel="next" href="/2020-03-04-nodejs-performance" class="astro-5GRSW2HI">0から始めるNode.jsパフォーマンスチューニング → </a></li>
     </ul>
-    <footer class="astro-5GRSW2HI">
-      © 2023, 
-      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
-        kohsweb
-      </a>
-    </footer>
   </main>
+
+  <footer class="astro-SCKKX6R4">
+    © 2023,
+    <a href="https://koh.dev" target="_blank" class="astro-SCKKX6R4">
+      kohsweb
+    </a>
+  </footer>
+
 </body></html>

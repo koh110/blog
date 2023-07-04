@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="ja" class="astro-5GRSW2HI">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
-    <meta name="description" content="きっかけ
+<html lang="ja" class="astro-SCKKX6R4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+  <title>ダークモードを導入してCSS+JSでテーマを管理する</title>
+  <meta name="description" content="きっかけ
 デフォルトは OS のダークモードをみて対応したいけど、JavaScript で切り替えにも対応したい。
 そして色とかスタイルに関わる責務は CSS に寄せて、JavaScript はただ切り替えのロジックにだけ集中したい。
 pr...">
-    <title>ダークモードを導入してCSS+JSでテーマを管理する</title>
-    <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
+  <meta property="og:title" content="ダークモードを導入してCSS+JSでテーマを管理する">
+  <meta name="og:description" content="きっかけ
+デフォルトは OS のダークモードをみて対応したいけど、JavaScript で切り替えにも対応したい。
+そして色とかスタイルに関わる責務は CSS に寄せて、JavaScript はただ切り替えのロジックにだけ集中したい。
+pr...">
+  <meta property="og:type">
+  <meta property="og:site_name" content="kohsweblog">
+  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
 
-  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script><link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
-<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
-</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.a66c24da.css" /></head>
+<link rel="stylesheet" href="/_astro/_post_.88d6343a.css" />
+<link rel="stylesheet" href="/_astro/_post_.c79e4623.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
+</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.598eec69.css" /></head>
+<body class="astro-SCKKX6R4">
   
-<body class="astro-5GRSW2HI">
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
   <main class="astro-5GRSW2HI">
     <header class="astro-5GRSW2HI">
       <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
@@ -29,7 +37,8 @@ pr...">
         <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
       </a>
     </div>
-    <article class="astro-XSCT23V3">
+    
+  <article class="astro-XSCT23V3">
   <h1 id="きっかけ">きっかけ</h1>
 <p>デフォルトは OS のダークモードをみて対応したいけど、JavaScript で切り替えにも対応したい。</p>
 <p>そして色とかスタイルに関わる責務は CSS に寄せて、JavaScript はただ切り替えのロジックにだけ集中したい。</p>
@@ -39,46 +48,49 @@ pr...">
 <p>CSS の Variables を管理するなら :root で書きたい。</p>
 <p>じゃあダークモードの時に変数上書きするにはどうしたらいいのか？と思って調べてみたら、次のように attribute で上書きできるということがわかった。</p>
 <p>これでカラーテーマを複数管理すれば色弱の方のアクセサビリティみたいなのにも応用できそう。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #79C0FF">:root</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA657">--color-background-body</span><span style="color: #C9D1D9">: </span><span style="color: #79C0FF">#ffffff</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA657">--color-body</span><span style="color: #C9D1D9">: </span><span style="color: #79C0FF">#545454</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">:root</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FFAB70">--color-background-body</span><span style="color: #E1E4E8">: </span><span style="color: #79B8FF">#ffffff</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FFAB70">--color-body</span><span style="color: #E1E4E8">: </span><span style="color: #79B8FF">#545454</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">[</span><span style="color: #79C0FF">data-mode</span><span style="color: #FF7B72">=</span><span style="color: #A5D6FF">'dark'</span><span style="color: #C9D1D9">] {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA657">--color-background-body</span><span style="color: #C9D1D9">: </span><span style="color: #79C0FF">#15202b</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA657">--color-body</span><span style="color: #C9D1D9">: </span><span style="color: #79C0FF">#ffffff</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">[</span><span style="color: #B392F0">data-mode</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">'dark'</span><span style="color: #E1E4E8">] {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FFAB70">--color-background-body</span><span style="color: #E1E4E8">: </span><span style="color: #79B8FF">#15202b</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FFAB70">--color-body</span><span style="color: #E1E4E8">: </span><span style="color: #79B8FF">#ffffff</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <h1 id="js-でテーマを切り替えたい">JS でテーマを切り替えたい</h1>
 <p><code>prefers-color-scheme</code> で OS のダークモードを判定することができます。この辺の詳細は検索するとたくさん情報が出てくるので割愛。</p>
 <p>CSS で attribute だけ定義しておくと、<code>document.documentElement.setAttribute</code> でアクセスできるというのがちょっとおもしろかった。</p>
 <p><code>window.matchMedia</code> でメディアクエリにアクセスできるので、こいつに <code>addListner</code> しておくと OS のモードが切り替わったときに連動してテーマを切り替えられる。これが発火するシーンは多くないけど自己満足で入れてる。</p>
 <p>あと本当にダークモードの切り替えができてるかのテストにはリアルタイムで反映されるのでいい。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">if</span><span style="color: #C9D1D9"> (window.</span><span style="color: #D2A8FF">matchMedia</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'(prefers-color-scheme: dark)'</span><span style="color: #C9D1D9">).matches) {</span></span>
-<span class="line"><span style="color: #C9D1D9">  document.documentElement.</span><span style="color: #D2A8FF">setAttribute</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'data-mode'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">'dark'</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">if</span><span style="color: #E1E4E8"> (window.</span><span style="color: #B392F0">matchMedia</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'(prefers-color-scheme: dark)'</span><span style="color: #E1E4E8">).matches) {</span></span>
+<span class="line"><span style="color: #E1E4E8">  document.documentElement.</span><span style="color: #B392F0">setAttribute</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'data-mode'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'dark'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">window.</span><span style="color: #D2A8FF">matchMedia</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'(prefers-color-scheme: dark)'</span><span style="color: #C9D1D9">).</span><span style="color: #D2A8FF">addListener</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">if</span><span style="color: #C9D1D9"> (e.matches) {</span></span>
-<span class="line"><span style="color: #C9D1D9">    document.documentElement.</span><span style="color: #D2A8FF">setAttribute</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'data-mode'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">'dark'</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #C9D1D9">  } </span><span style="color: #FF7B72">else</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #8B949E">// 今回のコードでは light は定義されてないのでデフォルトの変数に戻る</span></span>
-<span class="line"><span style="color: #C9D1D9">    document.documentElement.</span><span style="color: #D2A8FF">setAttribute</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'data-mode'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">'light'</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">})</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">window.</span><span style="color: #B392F0">matchMedia</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'(prefers-color-scheme: dark)'</span><span style="color: #E1E4E8">).</span><span style="color: #B392F0">addListener</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">e</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">if</span><span style="color: #E1E4E8"> (e.matches) {</span></span>
+<span class="line"><span style="color: #E1E4E8">    document.documentElement.</span><span style="color: #B392F0">setAttribute</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'data-mode'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'dark'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">  } </span><span style="color: #F97583">else</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #6A737D">// 今回のコードでは light は定義されてないのでデフォルトの変数に戻る</span></span>
+<span class="line"><span style="color: #E1E4E8">    document.documentElement.</span><span style="color: #B392F0">setAttribute</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'data-mode'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'light'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">})</span></span></code></pre>
 <p>上記のコードには記載していないが、適当なチェックボックスやトグルボタンのイベントに <code>setAttribute</code> をいじるコードをいれれば、ユーザが任意のタイミングでテーマを切り替えるボタンになる。</p>
 <h1 id="まとめ">まとめ</h1>
 <p>この方式で管理すれば、色などデザインに関わる領域は CSS、テーマの切り替え機能などロジックは JavaScript と責任を分離できてよさそう。</p>
 </article>
+
     <hr class="astro-5GRSW2HI">
     <ul class="post-selector astro-5GRSW2HI">
      <li class="astro-5GRSW2HI"><a rel="prev" href="/2019-10-13-vscode-vim" class="astro-5GRSW2HI"> ← VSCode + Vim Plugin が異常に重くなる件の対処法</a></li>
      <li class="astro-5GRSW2HI"><a rel="next" href="/2019-11-22-vscode-zenvim" class="astro-5GRSW2HI">VSCodeにZenVimというVim拡張を作った → </a></li>
     </ul>
-    <footer class="astro-5GRSW2HI">
-      © 2023, 
-      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
-        kohsweb
-      </a>
-    </footer>
   </main>
+
+  <footer class="astro-SCKKX6R4">
+    © 2023,
+    <a href="https://koh.dev" target="_blank" class="astro-SCKKX6R4">
+      kohsweb
+    </a>
+  </footer>
+
 </body></html>

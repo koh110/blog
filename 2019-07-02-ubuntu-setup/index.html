@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="ja" class="astro-5GRSW2HI">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
-    <meta name="description" content="さくら
+<html lang="ja" class="astro-SCKKX6R4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+  <title>さくらで借りたUbuntu16のセットアップ</title>
+  <meta name="description" content="さくら
 パケットフィルタに最初は ssh しか設定されていないので http (80,443) を追加する。
 これを追加しないといくら ufw や iptables を設定してもインターネット越しの通信が通らない。
 $ sudo apt u...">
-    <title>さくらで借りたUbuntu16のセットアップ</title>
-    <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
+  <meta property="og:title" content="さくらで借りたUbuntu16のセットアップ">
+  <meta name="og:description" content="さくら
+パケットフィルタに最初は ssh しか設定されていないので http (80,443) を追加する。
+これを追加しないといくら ufw や iptables を設定してもインターネット越しの通信が通らない。
+$ sudo apt u...">
+  <meta property="og:type">
+  <meta property="og:site_name" content="kohsweblog">
+  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
 
-  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script><link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
-<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
-</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.a66c24da.css" /></head>
+<link rel="stylesheet" href="/_astro/_post_.88d6343a.css" />
+<link rel="stylesheet" href="/_astro/_post_.c79e4623.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
+</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.598eec69.css" /></head>
+<body class="astro-SCKKX6R4">
   
-<body class="astro-5GRSW2HI">
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
   <main class="astro-5GRSW2HI">
     <header class="astro-5GRSW2HI">
       <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
@@ -29,124 +37,128 @@ $ sudo apt u...">
         <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
       </a>
     </div>
-    <article class="astro-XSCT23V3">
+    
+  <article class="astro-XSCT23V3">
   <h1 id="さくら">さくら</h1>
 <p>パケットフィルタに最初は ssh しか設定されていないので http (80,443) を追加する。</p>
 <p>これを追加しないといくら ufw や iptables を設定してもインターネット越しの通信が通らない。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ sudo apt update</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">update</span></span></code></pre>
 <p><code>/etc/ssh/sshd_config</code> で鍵認証の追加とパスワード認証の disable を行う</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FFA198"><span style="user-select: none;">-</span> #PubkeyAuthentication yes</span></span>
-<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span> PubkeyAuthentication yes</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #FDAEB7"><span style="user-select: none;">-</span> #PubkeyAuthentication yes</span></span>
+<span class="line"><span style="color: #85E89D"><span style="user-select: none;">+</span> PubkeyAuthentication yes</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FFA198"><span style="user-select: none;">-</span> PasswordAuthentication yes</span></span>
-<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span> #PasswordAuthentication yes</span></span>
+<span class="line"><span style="color: #FDAEB7"><span style="user-select: none;">-</span> PasswordAuthentication yes</span></span>
+<span class="line"><span style="color: #85E89D"><span style="user-select: none;">+</span> #PasswordAuthentication yes</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FFA198"><span style="user-select: none;">-</span> PermitRootLogin prohibit-password</span></span>
-<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span> PermitRootLogin no</span></span></code></pre>
+<span class="line"><span style="color: #FDAEB7"><span style="user-select: none;">-</span> PermitRootLogin prohibit-password</span></span>
+<span class="line"><span style="color: #85E89D"><span style="user-select: none;">+</span> PermitRootLogin no</span></span></code></pre>
 <h1 id="nodejs-のインストール">Node.js のインストール</h1>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ wget http://nodejs.org/dist/v12.5.0/node-v12.5.0-linux-x64.tar.gz</span></span>
-<span class="line"><span style="color: #C9D1D9">$ tar -C /usr/local --strip-components 1 -xaf node-v12.5.0-linux-x64.tar.gz</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo tar -C /usr/local --strip-components 1 -xaf node-v12.5.0-linux-x64.tar.gz</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo chown -R root:root /usr/local/bin/</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">wget</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">http://nodejs.org/dist/v12.5.0/node-v12.5.0-linux-x64.tar.gz</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tar</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-C</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/usr/local</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--strip-components</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">1</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-xaf</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">node-v12.5.0-linux-x64.tar.gz</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tar</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-C</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/usr/local</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--strip-components</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">1</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-xaf</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">node-v12.5.0-linux-x64.tar.gz</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">chown</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-R</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">root:root</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/usr/local/bin/</span></span></code></pre>
 <h1 id="nginx-のインストール">nginx のインストール</h1>
 <p>apt 用の GPG key を取得する</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ wget https://nginx.org/keys/nginx_signing.key</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt-key add nginx_signing.key</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">wget</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">https://nginx.org/keys/nginx_signing.key</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-key</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">add</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">nginx_signing.key</span></span></code></pre>
 <p><code>/etc/apt/sources.list</code> を編集して以下の 2 行を追加</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">deb http://nginx.org/packages/ubuntu/ bionic nginx</span></span>
-<span class="line"><span style="color: #c9d1d9">deb-src http://nginx.org/packages/ubuntu/ bionic nginx</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8">deb http://nginx.org/packages/ubuntu/ bionic nginx</span></span>
+<span class="line"><span style="color: #e1e4e8">deb-src http://nginx.org/packages/ubuntu/ bionic nginx</span></span></code></pre>
 <p>更新を反映して nginx をインストール</p>
 <p>そのままインストールしようとすると 1.16 をインストールしようとするが、依存パッケージが Ubuntu16 だと追いついていないのでバージョンを指定してインストール</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ sudo apt update</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt install nginx=1.10.</span><span style="color: #FF7B72">*</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo systemctl status nginx</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">update</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">install</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">nginx=</span><span style="color: #79B8FF">1.10</span><span style="color: #9ECBFF">.</span><span style="color: #79B8FF">*</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">systemctl</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">status</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">nginx</span></span></code></pre>
 <h1 id="mongodb-のインストール">MongoDB のインストール</h1>
 <p>公式にチュートリアルがある</p>
 <p><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/</a></p>
 <p>上記ドキュメントが常に正しいと思うが記録のためにコマンドを下記に記す。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4</span></span>
-<span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">echo</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse"</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt-get update</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo apt-get install -y mongodb-org</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-key</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">adv</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--keyserver</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">hkp://keyserver.ubuntu.com:80</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--recv</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">9</span><span style="color: #9ECBFF">DA31620334BD75D9DCB49F368818C72E52529D4</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">echo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse"</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tee</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/etc/apt/sources.list.d/mongodb-org-4.0.list</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-get</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">update</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-get</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">install</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-y</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">mongodb-org</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># DB は apt-get の upgrade で勝手にバージョンアップされると怖いのでバージョンを固定しておく</span></span>
-<span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">echo</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"mongodb-org hold"</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> sudo dpkg --set-selections</span></span>
-<span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">echo</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"mongodb-org-server hold"</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> sudo dpkg --set-selections</span></span>
-<span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">echo</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"mongodb-org-shell hold"</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> sudo dpkg --set-selections</span></span>
-<span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">echo</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"mongodb-org-mongos hold"</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> sudo dpkg --set-selections</span></span>
-<span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">echo</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"mongodb-org-tools hold"</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> sudo dpkg --set-selections</span></span>
+<span class="line"><span style="color: #6A737D"># DB は apt-get の upgrade で勝手にバージョンアップされると怖いのでバージョンを固定しておく</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">echo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"mongodb-org hold"</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dpkg</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--set-selections</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">echo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"mongodb-org-server hold"</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dpkg</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--set-selections</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">echo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"mongodb-org-shell hold"</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dpkg</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--set-selections</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">echo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"mongodb-org-mongos hold"</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dpkg</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--set-selections</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">echo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"mongodb-org-tools hold"</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dpkg</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--set-selections</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo service mongod start</span></span></code></pre>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">service</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">mongod</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">start</span></span></code></pre>
 <h1 id="redis-のインストール">Redis のインストール</h1>
 <p><a href="https://redis.io/download#installation">https://redis.io/download#installation</a></p>
 <p>make がなかったのでインストール</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ sudo apt-get install make</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-get</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">install</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">make</span></span></code></pre>
 <p>何故か make が失敗する</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">cd</span><span style="color: #C9D1D9"> redis-5.0.5</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo make</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">cd</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">redis-5.0.5</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">make</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #79C0FF">cd</span><span style="color: #C9D1D9"> src </span><span style="color: #FF7B72">&#x26;&#x26;</span><span style="color: #C9D1D9"> make all</span></span>
-<span class="line"><span style="color: #C9D1D9">make[1]: Entering directory </span><span style="color: #A5D6FF">'/tmp/redis-5.0.5/src'</span></span>
-<span class="line"><span style="color: #C9D1D9">    CC adlist.o</span></span>
-<span class="line"><span style="color: #C9D1D9">/bin/sh: 1: cc: not found</span></span>
-<span class="line"><span style="color: #C9D1D9">Makefile:248: recipe </span><span style="color: #FF7B72">for</span><span style="color: #C9D1D9"> target </span><span style="color: #A5D6FF">'adlist.o'</span><span style="color: #C9D1D9"> failed</span></span>
-<span class="line"><span style="color: #C9D1D9">make[1]: </span><span style="color: #FF7B72">***</span><span style="color: #C9D1D9"> [adlist.o] Error 127</span></span>
-<span class="line"><span style="color: #C9D1D9">make[1]: Leaving directory </span><span style="color: #A5D6FF">'/tmp/redis-5.0.5/src'</span></span>
-<span class="line"><span style="color: #C9D1D9">Makefile:6: recipe </span><span style="color: #FF7B72">for</span><span style="color: #C9D1D9"> target </span><span style="color: #A5D6FF">'all'</span><span style="color: #C9D1D9"> failed</span></span>
-<span class="line"><span style="color: #C9D1D9">make: </span><span style="color: #FF7B72">***</span><span style="color: #C9D1D9"> [all] Error 2</span></span></code></pre>
+<span class="line"><span style="color: #79B8FF">cd</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">src</span><span style="color: #E1E4E8"> &#x26;&#x26; </span><span style="color: #B392F0">make</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">all</span></span>
+<span class="line"><span style="color: #B392F0">make[1]:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Entering</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">directory</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'/tmp/redis-5.0.5/src'</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #B392F0">CC</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">adlist.o</span></span>
+<span class="line"><span style="color: #B392F0">/bin/sh:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">1</span><span style="color: #9ECBFF">:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">cc:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">not</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">found</span></span>
+<span class="line"><span style="color: #B392F0">Makefile:248:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">recipe</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">for</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">target</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'adlist.o'</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">failed</span></span>
+<span class="line"><span style="color: #B392F0">make[1]:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">***</span><span style="color: #E1E4E8"> [adlist.o] Error 127</span></span>
+<span class="line"><span style="color: #B392F0">make[1]:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Leaving</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">directory</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'/tmp/redis-5.0.5/src'</span></span>
+<span class="line"><span style="color: #B392F0">Makefile:6:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">recipe</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">for</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">target</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'all'</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">failed</span></span>
+<span class="line"><span style="color: #B392F0">make:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">***</span><span style="color: #E1E4E8"> [all] Error 2</span></span></code></pre>
 <p>そりゃビルドに足りないパッケージあるよな、ということで build-essential をインストール</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ sudo apt-get build-essential</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt-get</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">build-essential</span></span></code></pre>
 <p>まだ make に失敗するので、次の issue に従って distclean をしたら動くようになった
 <a href="https://github.com/antirez/redis/issues/722">https://github.com/antirez/redis/issues/722</a></p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ make distclean</span></span>
-<span class="line"><span style="color: #8B949E"># 動いた</span></span>
-<span class="line"><span style="color: #C9D1D9">$ src/redis-server</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">make</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">distclean</span></span>
+<span class="line"><span style="color: #6A737D"># 動いた</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">src/redis-server</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># 動いたのでインストール</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo make install</span></span>
+<span class="line"><span style="color: #6A737D"># 動いたのでインストール</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">make</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">install</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo mkdir -p /var/lib/redis</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo mkdir -p /var/log/redis</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo mkdir -p /etc/redis</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo cp redis.conf /etc/redis</span></span></code></pre>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">mkdir</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-p</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/var/lib/redis</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">mkdir</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-p</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/var/log/redis</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">mkdir</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-p</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/etc/redis</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">cp</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">redis.conf</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/etc/redis</span></span></code></pre>
 <p>redis の config を公式サイトを参考に設定する</p>
 <p><a href="https://redis.io/topics/config">https://redis.io/topics/config</a></p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">- dir ./</span></span>
-<span class="line"><span style="color: #c9d1d9">+ dir /var/lib/redis</span></span>
-<span class="line"><span style="color: #c9d1d9"></span></span>
-<span class="line"><span style="color: #c9d1d9">- logfile ""</span></span>
-<span class="line"><span style="color: #c9d1d9">+ logfile /var/log/redis/redis.log</span></span>
-<span class="line"><span style="color: #c9d1d9"></span></span>
-<span class="line"><span style="color: #c9d1d9">- supervised no</span></span>
-<span class="line"><span style="color: #c9d1d9">+ supervised systemd</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8">- dir ./</span></span>
+<span class="line"><span style="color: #e1e4e8">+ dir /var/lib/redis</span></span>
+<span class="line"><span style="color: #e1e4e8"></span></span>
+<span class="line"><span style="color: #e1e4e8">- logfile ""</span></span>
+<span class="line"><span style="color: #e1e4e8">+ logfile /var/log/redis/redis.log</span></span>
+<span class="line"><span style="color: #e1e4e8"></span></span>
+<span class="line"><span style="color: #e1e4e8">- supervised no</span></span>
+<span class="line"><span style="color: #e1e4e8">+ supervised systemd</span></span></code></pre>
 <p>systemd の設定</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ sudo vim /etc/systemd/system/redis.service</span></span></code></pre>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">[Unit]</span></span>
-<span class="line"><span style="color: #c9d1d9">Description=Redis</span></span>
-<span class="line"><span style="color: #c9d1d9"></span></span>
-<span class="line"><span style="color: #c9d1d9">[Service]</span></span>
-<span class="line"><span style="color: #c9d1d9">Type=notify</span></span>
-<span class="line"><span style="color: #c9d1d9">ExecStart=/usr/local/bin/redis-server /etc/redis/redis.conf</span></span>
-<span class="line"><span style="color: #c9d1d9">ExecStop=/usr/local/bin/redis-cli -p 6379 shutdown</span></span>
-<span class="line"><span style="color: #c9d1d9">User=root</span></span>
-<span class="line"><span style="color: #c9d1d9">Group=root</span></span>
-<span class="line"><span style="color: #c9d1d9"></span></span>
-<span class="line"><span style="color: #c9d1d9">[Install]</span></span>
-<span class="line"><span style="color: #c9d1d9">WantedBy=multi-user.target</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">vim</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/etc/systemd/system/redis.service</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8">[Unit]</span></span>
+<span class="line"><span style="color: #e1e4e8">Description=Redis</span></span>
+<span class="line"><span style="color: #e1e4e8"></span></span>
+<span class="line"><span style="color: #e1e4e8">[Service]</span></span>
+<span class="line"><span style="color: #e1e4e8">Type=notify</span></span>
+<span class="line"><span style="color: #e1e4e8">ExecStart=/usr/local/bin/redis-server /etc/redis/redis.conf</span></span>
+<span class="line"><span style="color: #e1e4e8">ExecStop=/usr/local/bin/redis-cli -p 6379 shutdown</span></span>
+<span class="line"><span style="color: #e1e4e8">User=root</span></span>
+<span class="line"><span style="color: #e1e4e8">Group=root</span></span>
+<span class="line"><span style="color: #e1e4e8"></span></span>
+<span class="line"><span style="color: #e1e4e8">[Install]</span></span>
+<span class="line"><span style="color: #e1e4e8">WantedBy=multi-user.target</span></span></code></pre>
 <p>systemd 設定の反映と start</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ sudo systemctl daemon-reload</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo systemctl start redis</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">systemctl</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">daemon-reload</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">systemctl</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">start</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">redis</span></span></code></pre>
 </article>
+
     <hr class="astro-5GRSW2HI">
     <ul class="post-selector astro-5GRSW2HI">
      <li class="astro-5GRSW2HI"><a rel="prev" href="/2019-06-11-mongodb-jest" class="astro-5GRSW2HI"> ← MongoDB + Jestのテスト方法</a></li>
      <li class="astro-5GRSW2HI"><a rel="next" href="/2019-08-05-redis-streams" class="astro-5GRSW2HI">Redis Streamsでキューを実装するときの注意点 → </a></li>
     </ul>
-    <footer class="astro-5GRSW2HI">
-      © 2023, 
-      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
-        kohsweb
-      </a>
-    </footer>
   </main>
+
+  <footer class="astro-SCKKX6R4">
+    © 2023,
+    <a href="https://koh.dev" target="_blank" class="astro-SCKKX6R4">
+      kohsweb
+    </a>
+  </footer>
+
 </body></html>

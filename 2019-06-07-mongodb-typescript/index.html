@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="ja" class="astro-5GRSW2HI">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
-    <meta name="description" content="はじめに
+<html lang="ja" class="astro-SCKKX6R4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+  <title>MongoDB + Node.js + TypeScriptが強力だった</title>
+  <meta name="description" content="はじめに
 MongoDB (node-mongodb-native) + Node.js + TypeScript で RDB 並のスキーマ定義と、NoSQL の開発しやすさを両立できたのでまとめます。
 Node.js と MongoDB
 ...">
-    <title>MongoDB + Node.js + TypeScriptが強力だった</title>
-    <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
+  <meta property="og:title" content="MongoDB + Node.js + TypeScriptが強力だった">
+  <meta name="og:description" content="はじめに
+MongoDB (node-mongodb-native) + Node.js + TypeScript で RDB 並のスキーマ定義と、NoSQL の開発しやすさを両立できたのでまとめます。
+Node.js と MongoDB
+...">
+  <meta property="og:type">
+  <meta property="og:site_name" content="kohsweblog">
+  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
 
-  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script><link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
-<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
-</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.a66c24da.css" /></head>
+<link rel="stylesheet" href="/_astro/_post_.88d6343a.css" />
+<link rel="stylesheet" href="/_astro/_post_.c79e4623.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
+</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.598eec69.css" /></head>
+<body class="astro-SCKKX6R4">
   
-<body class="astro-5GRSW2HI">
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
   <main class="astro-5GRSW2HI">
     <header class="astro-5GRSW2HI">
       <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
@@ -29,7 +37,8 @@ Node.js と MongoDB
         <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
       </a>
     </div>
-    <article class="astro-XSCT23V3">
+    
+  <article class="astro-XSCT23V3">
   <h2 id="はじめに">はじめに</h2>
 <p>MongoDB (node-mongodb-native) + Node.js + TypeScript で RDB 並のスキーマ定義と、NoSQL の開発しやすさを両立できたのでまとめます。</p>
 <h2 id="nodejs-と-mongodb">Node.js と MongoDB</h2>
@@ -44,116 +53,119 @@ Node.js と MongoDB
 <p>ある時、Node.js も TypeScript で全部書いてみようと試してみたところ、node-mongo-native を利用していてもスキーマ定義を TypeScript に任せることができ、データ構造がわかりにくいという問題が解決できてしまいました。</p>
 <h2 id="typescript-を組み合わせた-mongodb">TypeScript を組み合わせた MongoDB</h2>
 <p>下記が MongoDB アクセス用モジュール <code>db.ts</code> です。１つの School に対して Student が複数所属する設計とします。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { MongoClient, Collection, ObjectId } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'mongodb'</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> { MongoClient, Collection, ObjectId } </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'mongodb'</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">MONGODB_URI</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'mongodb://[user:password]@localhost:27017/example'</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">MONGODB_URI</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'mongodb://[user:password]@localhost:27017/example'</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">type</span><span style="color: #C9D1D9"> </span><span style="color: #FFA657">School</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA657">_id</span><span style="color: #FF7B72">?:</span><span style="color: #C9D1D9"> </span><span style="color: #FFA657">ObjectId</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA657">name</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">string</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">type</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">School</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FFAB70">_id</span><span style="color: #F97583">?:</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">ObjectId</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FFAB70">name</span><span style="color: #F97583">:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">string</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">type</span><span style="color: #C9D1D9"> </span><span style="color: #FFA657">Student</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA657">_id</span><span style="color: #FF7B72">?:</span><span style="color: #C9D1D9"> </span><span style="color: #FFA657">ObjectId</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA657">schoolId</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #FFA657">ObjectId</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA657">name</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">string</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">type</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">Student</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FFAB70">_id</span><span style="color: #F97583">?:</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">ObjectId</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FFAB70">schoolId</span><span style="color: #F97583">:</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">ObjectId</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FFAB70">name</span><span style="color: #F97583">:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">string</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> </span><span style="color: #FFA657">collections</span><span style="color: #C9D1D9">: {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA657">school</span><span style="color: #C9D1D9">: Collection</span><span style="color: #FF7B72">&#x3C;</span><span style="color: #C9D1D9">School</span><span style="color: #FF7B72">></span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA657">student</span><span style="color: #C9D1D9">: Collection</span><span style="color: #FF7B72">&#x3C;</span><span style="color: #C9D1D9">Student</span><span style="color: #FF7B72">></span></span>
-<span class="line"><span style="color: #C9D1D9">} </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  school: </span><span style="color: #79C0FF">null</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">  student: </span><span style="color: #79C0FF">null</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">collections</span><span style="color: #E1E4E8">: {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">school</span><span style="color: #E1E4E8">: Collection</span><span style="color: #F97583">&#x3C;</span><span style="color: #E1E4E8">School</span><span style="color: #F97583">></span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">student</span><span style="color: #E1E4E8">: Collection</span><span style="color: #F97583">&#x3C;</span><span style="color: #E1E4E8">Student</span><span style="color: #F97583">></span></span>
+<span class="line"><span style="color: #E1E4E8">} </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  school: </span><span style="color: #79B8FF">null</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">  student: </span><span style="color: #79B8FF">null</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">connect</span><span style="color: #C9D1D9">() {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">client</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> MongoClient.</span><span style="color: #D2A8FF">connect</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">MONGODB_URI</span><span style="color: #C9D1D9">, {</span></span>
-<span class="line"><span style="color: #C9D1D9">    useNewUrlParser: </span><span style="color: #79C0FF">true</span></span>
-<span class="line"><span style="color: #C9D1D9">  })</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">async</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">connect</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">client</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> MongoClient.</span><span style="color: #B392F0">connect</span><span style="color: #E1E4E8">(</span><span style="color: #79B8FF">MONGODB_URI</span><span style="color: #E1E4E8">, {</span></span>
+<span class="line"><span style="color: #E1E4E8">    useNewUrlParser: </span><span style="color: #79B8FF">true</span></span>
+<span class="line"><span style="color: #E1E4E8">  })</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">db</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> client.</span><span style="color: #D2A8FF">db</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'example'</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #C9D1D9">  collections.schools </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> db.</span><span style="color: #D2A8FF">collection</span><span style="color: #C9D1D9">&#x3C;</span><span style="color: #FFA657">School</span><span style="color: #C9D1D9">>(</span><span style="color: #A5D6FF">'schools'</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #C9D1D9">  collections.students </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> db.</span><span style="color: #D2A8FF">collection</span><span style="color: #C9D1D9">&#x3C;</span><span style="color: #FFA657">Student</span><span style="color: #C9D1D9">>(</span><span style="color: #A5D6FF">'students'</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">db</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> client.</span><span style="color: #B392F0">db</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'example'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">  collections.schools </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> db.</span><span style="color: #B392F0">collection</span><span style="color: #E1E4E8">&#x3C;</span><span style="color: #B392F0">School</span><span style="color: #E1E4E8">>(</span><span style="color: #9ECBFF">'schools'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">  collections.students </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> db.</span><span style="color: #B392F0">collection</span><span style="color: #E1E4E8">&#x3C;</span><span style="color: #B392F0">Student</span><span style="color: #E1E4E8">>(</span><span style="color: #9ECBFF">'students'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>ちなみにサーバー側はこんな感じで DB に接続が完了したら listen を開始するようにします。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> http </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'http'</span></span>
-<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> express </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'express'</span></span>
-<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">*</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">as</span><span style="color: #C9D1D9"> db </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'./db'</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> http </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'http'</span></span>
+<span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> express </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'express'</span></span>
+<span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">*</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">as</span><span style="color: #E1E4E8"> db </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'./db'</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">app</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">express</span><span style="color: #C9D1D9">()</span></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">server</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> http.</span><span style="color: #D2A8FF">createServer</span><span style="color: #C9D1D9">(app)</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">app</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">express</span><span style="color: #E1E4E8">()</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">server</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> http.</span><span style="color: #B392F0">createServer</span><span style="color: #E1E4E8">(app)</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">db.</span><span style="color: #D2A8FF">connect</span><span style="color: #C9D1D9">().</span><span style="color: #D2A8FF">then</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  server.</span><span style="color: #D2A8FF">listen</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">8000</span><span style="color: #C9D1D9">, () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'Listening on'</span><span style="color: #C9D1D9">, server.</span><span style="color: #D2A8FF">address</span><span style="color: #C9D1D9">())</span></span>
-<span class="line"><span style="color: #C9D1D9">  })</span></span>
-<span class="line"><span style="color: #C9D1D9">})</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">db.</span><span style="color: #B392F0">connect</span><span style="color: #E1E4E8">().</span><span style="color: #B392F0">then</span><span style="color: #E1E4E8">(() </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  server.</span><span style="color: #B392F0">listen</span><span style="color: #E1E4E8">(</span><span style="color: #79B8FF">8000</span><span style="color: #E1E4E8">, () </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">    console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'Listening on'</span><span style="color: #E1E4E8">, server.</span><span style="color: #B392F0">address</span><span style="color: #E1E4E8">())</span></span>
+<span class="line"><span style="color: #E1E4E8">  })</span></span>
+<span class="line"><span style="color: #E1E4E8">})</span></span></code></pre>
 <p>ここで Student にひとつレコードを追加するコードを見てみましょう。</p>
 <p><code>db.collections.student</code> は db モジュールの中で型定義がされているので <code>Student</code> 型以外のオブジェクトを insertOne に与えようとすると TypeScript がエラーを返します。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { ObjectId } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'mongodb'</span></span>
-<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">*</span><span style="color: #C9D1D9"> db </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'./db'</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> { ObjectId } </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'mongodb'</span></span>
+<span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">*</span><span style="color: #E1E4E8"> db </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'./db'</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">addStudent</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">schoolId</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #FFA657">ObjectId</span><span style="color: #C9D1D9">, </span><span style="color: #FFA657">name</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">string</span><span style="color: #C9D1D9">) {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">student</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">    schoolId: schoolId,</span></span>
-<span class="line"><span style="color: #C9D1D9">    name: name</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">async</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">addStudent</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">schoolId</span><span style="color: #F97583">:</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">ObjectId</span><span style="color: #E1E4E8">, </span><span style="color: #FFAB70">name</span><span style="color: #F97583">:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">string</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">student</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">    schoolId: schoolId,</span></span>
+<span class="line"><span style="color: #E1E4E8">    name: name</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">res</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> db.collections.students.</span><span style="color: #D2A8FF">insertOne</span><span style="color: #C9D1D9">(student)</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">res</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> db.collections.students.</span><span style="color: #B392F0">insertOne</span><span style="color: #E1E4E8">(student)</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> res</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> res</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>addStudent は引数以外で型定義も行っておらず JavaScript と変わらない書き味であるにもかかわらず、insert するべきオブジェクトが型安全になるというメリットが得られます。もちろんこれらの型は find や update などにも適用されます。</p>
 <p>さらにこの組み合わせが強力なのは、交差型を利用することで MongoDB の aggregate（RDB でいう join）も型を使って効率よく開発できることです。</p>
 <p>下記のコードは students コレクションから school というパラメータに school コレクションのデータを id をもとに join するサンプルです。</p>
 <p><code>.aggregate&#x3C;db.Student &#x26; { school: db.School }></code> がキモのコードで、交差型を使うことで Student 型に School 型の schrool パラメータを追加しています。こうすることで、aggregate の return が any にならず型の補助を受けられます。（lookup に合わせて自分で交差型を適切に書かないといけない部分は若干イケてないと思うがうまい方法を思いついていない。）</p>
 <p>本来は toArray せずに cursor にして map を使わない方がきっとパフォーマンスはいいです。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { ObjectId } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'mongodb'</span></span>
-<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">*</span><span style="color: #C9D1D9"> db </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'./db'</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> { ObjectId } </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'mongodb'</span></span>
+<span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">*</span><span style="color: #E1E4E8"> db </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'./db'</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">getStudent</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">studentId</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #FFA657">ObjectId</span><span style="color: #C9D1D9">) {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">students</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> db.collections.students</span></span>
-<span class="line"><span style="color: #C9D1D9">    .</span><span style="color: #D2A8FF">aggregate</span><span style="color: #C9D1D9">&#x3C;</span><span style="color: #FFA657">db</span><span style="color: #C9D1D9">.</span><span style="color: #FFA657">Student</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">&#x26;</span><span style="color: #C9D1D9"> { </span><span style="color: #FFA657">school</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #FFA657">db</span><span style="color: #C9D1D9">.</span><span style="color: #FFA657">School</span><span style="color: #C9D1D9"> }>([</span></span>
-<span class="line"><span style="color: #C9D1D9">      {</span></span>
-<span class="line"><span style="color: #C9D1D9">        $match: { _id: studentId }</span></span>
-<span class="line"><span style="color: #C9D1D9">      },</span></span>
-<span class="line"><span style="color: #C9D1D9">      {</span></span>
-<span class="line"><span style="color: #C9D1D9">        $lookup: {</span></span>
-<span class="line"><span style="color: #C9D1D9">          from: </span><span style="color: #A5D6FF">'schools'</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">          localField: </span><span style="color: #A5D6FF">'schoolId'</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">          foreignField: </span><span style="color: #A5D6FF">'_id'</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">          as: </span><span style="color: #A5D6FF">'school'</span></span>
-<span class="line"><span style="color: #C9D1D9">        }</span></span>
-<span class="line"><span style="color: #C9D1D9">      }</span></span>
-<span class="line"><span style="color: #C9D1D9">    ]).</span><span style="color: #D2A8FF">toArray</span><span style="color: #C9D1D9">()</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">async</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">getStudent</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">studentId</span><span style="color: #F97583">:</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">ObjectId</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">students</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> db.collections.students</span></span>
+<span class="line"><span style="color: #E1E4E8">    .</span><span style="color: #B392F0">aggregate</span><span style="color: #E1E4E8">&#x3C;</span><span style="color: #B392F0">db</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">Student</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">&#x26;</span><span style="color: #E1E4E8"> { </span><span style="color: #FFAB70">school</span><span style="color: #F97583">:</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">db</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">School</span><span style="color: #E1E4E8"> }>([</span></span>
+<span class="line"><span style="color: #E1E4E8">      {</span></span>
+<span class="line"><span style="color: #E1E4E8">        $match: { _id: studentId }</span></span>
+<span class="line"><span style="color: #E1E4E8">      },</span></span>
+<span class="line"><span style="color: #E1E4E8">      {</span></span>
+<span class="line"><span style="color: #E1E4E8">        $lookup: {</span></span>
+<span class="line"><span style="color: #E1E4E8">          from: </span><span style="color: #9ECBFF">'schools'</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">          localField: </span><span style="color: #9ECBFF">'schoolId'</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">          foreignField: </span><span style="color: #9ECBFF">'_id'</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">          as: </span><span style="color: #9ECBFF">'school'</span></span>
+<span class="line"><span style="color: #E1E4E8">        }</span></span>
+<span class="line"><span style="color: #E1E4E8">      }</span></span>
+<span class="line"><span style="color: #E1E4E8">    ]).</span><span style="color: #B392F0">toArray</span><span style="color: #E1E4E8">()</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> students</span></span>
-<span class="line"><span style="color: #C9D1D9">    .</span><span style="color: #D2A8FF">map</span><span style="color: #C9D1D9">((</span><span style="color: #FFA657">student</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">      </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">        _id: student._id,</span></span>
-<span class="line"><span style="color: #C9D1D9">        name: student.name,</span></span>
-<span class="line"><span style="color: #C9D1D9">        </span><span style="color: #8B949E">// schoolId: student.schoolId,</span></span>
-<span class="line"><span style="color: #C9D1D9">        school: {</span></span>
-<span class="line"><span style="color: #C9D1D9">          _id: student.school._id,</span></span>
-<span class="line"><span style="color: #C9D1D9">          name: student.school.name</span></span>
-<span class="line"><span style="color: #C9D1D9">        }</span></span>
-<span class="line"><span style="color: #C9D1D9">      }</span></span>
-<span class="line"><span style="color: #C9D1D9">    })</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> students</span></span>
+<span class="line"><span style="color: #E1E4E8">    .</span><span style="color: #B392F0">map</span><span style="color: #E1E4E8">((</span><span style="color: #FFAB70">student</span><span style="color: #E1E4E8">) </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">        _id: student._id,</span></span>
+<span class="line"><span style="color: #E1E4E8">        name: student.name,</span></span>
+<span class="line"><span style="color: #E1E4E8">        </span><span style="color: #6A737D">// schoolId: student.schoolId,</span></span>
+<span class="line"><span style="color: #E1E4E8">        school: {</span></span>
+<span class="line"><span style="color: #E1E4E8">          _id: student.school._id,</span></span>
+<span class="line"><span style="color: #E1E4E8">          name: student.school.name</span></span>
+<span class="line"><span style="color: #E1E4E8">        }</span></span>
+<span class="line"><span style="color: #E1E4E8">      }</span></span>
+<span class="line"><span style="color: #E1E4E8">    })</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <h2 id="まとめ">まとめ</h2>
 <p>MongoDB (node-mongodb-native) + Node.js + TypeScript の組み合わせを用いることで RDB 並のスキーマ定義と、NoSQL の開発しやすさを両立できました。</p>
 </article>
+
     <hr class="astro-5GRSW2HI">
     <ul class="post-selector astro-5GRSW2HI">
      <li class="astro-5GRSW2HI"><a rel="prev" href="/2019-01-03-chat" class="astro-5GRSW2HI"> ← チャットシステムを作るときに知っておくべきこと</a></li>
      <li class="astro-5GRSW2HI"><a rel="next" href="/2019-06-11-mongodb-jest" class="astro-5GRSW2HI">MongoDB + Jestのテスト方法 → </a></li>
     </ul>
-    <footer class="astro-5GRSW2HI">
-      © 2023, 
-      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
-        kohsweb
-      </a>
-    </footer>
   </main>
+
+  <footer class="astro-SCKKX6R4">
+    © 2023,
+    <a href="https://koh.dev" target="_blank" class="astro-SCKKX6R4">
+      kohsweb
+    </a>
+  </footer>
+
 </body></html>

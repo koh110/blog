@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="ja" class="astro-5GRSW2HI">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
-    <meta name="description" content="課題
+<html lang="ja" class="astro-SCKKX6R4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+  <title>jestでDBありのテストを高速化する</title>
+  <meta name="description" content="課題
 お手伝いしているシステムでNestJSを採用しているバックエンドのテストが遅いという課題があったので対処した。
 前提
 
@@ -21,14 +22,34 @@ NestJS
 postgres
 jest
 TypeScri...">
-    <title>jestでDBありのテストを高速化する</title>
-    <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
+  <meta property="og:title" content="jestでDBありのテストを高速化する">
+  <meta name="og:description" content="課題
+お手伝いしているシステムでNestJSを採用しているバックエンドのテストが遅いという課題があったので対処した。
+前提
 
-  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script><link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
-<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
-</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.a66c24da.css" /></head>
+
+
+フレームワーク
+DB
+テストランナー
+その他
+
+
+
+NestJS
+postgres
+jest
+TypeScri...">
+  <meta property="og:type">
+  <meta property="og:site_name" content="kohsweblog">
+  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
+
+<link rel="stylesheet" href="/_astro/_post_.88d6343a.css" />
+<link rel="stylesheet" href="/_astro/_post_.c79e4623.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
+</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.598eec69.css" /></head>
+<body class="astro-SCKKX6R4">
   
-<body class="astro-5GRSW2HI">
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
   <main class="astro-5GRSW2HI">
     <header class="astro-5GRSW2HI">
       <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
@@ -42,7 +63,8 @@ TypeScri...">
         <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
       </a>
     </div>
-    <article class="astro-XSCT23V3">
+    
+  <article class="astro-XSCT23V3">
   <h1 id="課題">課題</h1>
 <p>お手伝いしているシステムでNestJSを採用しているバックエンドのテストが遅いという課題があったので対処した。</p>
 <h1 id="前提">前提</h1>
@@ -67,29 +89,29 @@ TypeScri...">
 <p>テストの総数は700弱。</p>
 <h1 id="最終結果">最終結果</h1>
 <p>最終的には2段階の改修を経てローカルのテストが3倍速程度高速化した。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E"># before</span></span>
-<span class="line"><span style="color: #C9D1D9">Test Suites: 145 passed, 145 total</span></span>
-<span class="line"><span style="color: #C9D1D9">Tests:       2 skipped, 681 passed, 683 total</span></span>
-<span class="line"><span style="color: #C9D1D9">Snapshots:   0 total</span></span>
-<span class="line"><span style="color: #C9D1D9">Time:        925.063 s</span></span>
-<span class="line"><span style="color: #C9D1D9">Ran all </span><span style="color: #79C0FF">test</span><span style="color: #C9D1D9"> suites.</span></span>
-<span class="line"><span style="color: #C9D1D9">Done </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> 926.48s.</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #6A737D"># before</span></span>
+<span class="line"><span style="color: #B392F0">Test</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Suites:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">145</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">passed,</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">145</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">total</span></span>
+<span class="line"><span style="color: #B392F0">Tests:</span><span style="color: #E1E4E8">       </span><span style="color: #79B8FF">2</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">skipped,</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">681</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">passed,</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">683</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">total</span></span>
+<span class="line"><span style="color: #B392F0">Snapshots:</span><span style="color: #E1E4E8">   </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">total</span></span>
+<span class="line"><span style="color: #B392F0">Time:</span><span style="color: #E1E4E8">        </span><span style="color: #79B8FF">925.063</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">s</span></span>
+<span class="line"><span style="color: #B392F0">Ran</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">all</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">test</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">suites.</span></span>
+<span class="line"><span style="color: #B392F0">Done</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">in</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">926.48</span><span style="color: #9ECBFF">s.</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># ts-jestを@swc/jestに置き換えた</span></span>
-<span class="line"><span style="color: #C9D1D9">Test Suites: 145 passed, 145 total</span></span>
-<span class="line"><span style="color: #C9D1D9">Tests:       2 skipped, 681 passed, 683 total</span></span>
-<span class="line"><span style="color: #C9D1D9">Snapshots:   0 total</span></span>
-<span class="line"><span style="color: #C9D1D9">Time:        613.74 s</span></span>
-<span class="line"><span style="color: #C9D1D9">Ran all </span><span style="color: #79C0FF">test</span><span style="color: #C9D1D9"> suites.</span></span>
-<span class="line"><span style="color: #C9D1D9">Done </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> 615.33s.</span></span>
+<span class="line"><span style="color: #6A737D"># ts-jestを@swc/jestに置き換えた</span></span>
+<span class="line"><span style="color: #B392F0">Test</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Suites:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">145</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">passed,</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">145</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">total</span></span>
+<span class="line"><span style="color: #B392F0">Tests:</span><span style="color: #E1E4E8">       </span><span style="color: #79B8FF">2</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">skipped,</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">681</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">passed,</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">683</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">total</span></span>
+<span class="line"><span style="color: #B392F0">Snapshots:</span><span style="color: #E1E4E8">   </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">total</span></span>
+<span class="line"><span style="color: #B392F0">Time:</span><span style="color: #E1E4E8">        </span><span style="color: #79B8FF">613.74</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">s</span></span>
+<span class="line"><span style="color: #B392F0">Ran</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">all</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">test</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">suites.</span></span>
+<span class="line"><span style="color: #B392F0">Done</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">in</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">615.33</span><span style="color: #9ECBFF">s.</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># 4並列にした</span></span>
-<span class="line"><span style="color: #C9D1D9">Test Suites: 145 passed, 145 total</span></span>
-<span class="line"><span style="color: #C9D1D9">Tests:       2 skipped, 681 passed, 683 total</span></span>
-<span class="line"><span style="color: #C9D1D9">Snapshots:   0 total</span></span>
-<span class="line"><span style="color: #C9D1D9">Time:        293.974 s</span></span>
-<span class="line"><span style="color: #C9D1D9">Ran all </span><span style="color: #79C0FF">test</span><span style="color: #C9D1D9"> suites.</span></span>
-<span class="line"><span style="color: #C9D1D9">Done </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> 310.08s.</span></span></code></pre>
+<span class="line"><span style="color: #6A737D"># 4並列にした</span></span>
+<span class="line"><span style="color: #B392F0">Test</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Suites:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">145</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">passed,</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">145</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">total</span></span>
+<span class="line"><span style="color: #B392F0">Tests:</span><span style="color: #E1E4E8">       </span><span style="color: #79B8FF">2</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">skipped,</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">681</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">passed,</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">683</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">total</span></span>
+<span class="line"><span style="color: #B392F0">Snapshots:</span><span style="color: #E1E4E8">   </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">total</span></span>
+<span class="line"><span style="color: #B392F0">Time:</span><span style="color: #E1E4E8">        </span><span style="color: #79B8FF">293.974</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">s</span></span>
+<span class="line"><span style="color: #B392F0">Ran</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">all</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">test</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">suites.</span></span>
+<span class="line"><span style="color: #B392F0">Done</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">in</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">310.08</span><span style="color: #9ECBFF">s.</span></span></code></pre>
 <p>ただ、トランスパイラの置き換え（ts-jest -> @swc/jest）とworker数の増加だけではCI上の実行時間は変わらなかった。
 そのため、ローカルとCIでは別の並列化を行い、最終的にはCIの実行速度も3倍速程度まで高速化した。</p>
 <h1 id="戦略">戦略</h1>
@@ -125,35 +147,35 @@ TypeScri...">
 <p>トランスパイラーをts-jestから@swc/jestへ置き換えた。</p>
 <p>やること自体はそんな難しくなくドキュメントに記載されている通りにコンフィグを書き換える。</p>
 <p><a href="https://swc.rs/docs/usage/jest">https://swc.rs/docs/usage/jest</a></p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">// jest.config.js</span></span>
-<span class="line"><span style="color: #C9D1D9">transform: {</span></span>
-<span class="line"><span style="color: #FFA198"><span style="user-select: none;">-</span>  "^.+\\.(t|j)sx?$": "ts-jest",</span></span>
-<span class="line"><span style="color: #7EE787"><span style="user-select: none;">+</span>  "^.+\\.(t|j)sx?$": ["@swc/jest"],</span></span>
-<span class="line"><span style="color: #C9D1D9">},</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">// jest.config.js</span></span>
+<span class="line"><span style="color: #E1E4E8">transform: {</span></span>
+<span class="line"><span style="color: #FDAEB7"><span style="user-select: none;">-</span>  "^.+\\.(t|j)sx?$": "ts-jest",</span></span>
+<span class="line"><span style="color: #85E89D"><span style="user-select: none;">+</span>  "^.+\\.(t|j)sx?$": ["@swc/jest"],</span></span>
+<span class="line"><span style="color: #E1E4E8">},</span></span></code></pre>
 <p>次にswcの設定ファイルを配置する。</p>
 <p>NestJS特有で気をつけなければいけない点として、デコレータ周りの設定（legacyDecorator, decoratorMetadata）をきちんとかかないと動かない。
 pathsはtsconfigに設定されているものをそのままコピペして配置。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">// .swcrc</span></span>
-<span class="line"><span style="color: #c9d1d9">{</span></span>
-<span class="line"><span style="color: #c9d1d9">  "jsc": {</span></span>
-<span class="line"><span style="color: #c9d1d9">    "parser": {</span></span>
-<span class="line"><span style="color: #c9d1d9">      "syntax": "typescript",</span></span>
-<span class="line"><span style="color: #c9d1d9">      "decorators": true</span></span>
-<span class="line"><span style="color: #c9d1d9">    },</span></span>
-<span class="line"><span style="color: #c9d1d9">    "target": "es2020",</span></span>
-<span class="line"><span style="color: #c9d1d9">    "keepClassNames": true,</span></span>
-<span class="line"><span style="color: #c9d1d9">    "transform": {</span></span>
-<span class="line"><span style="color: #c9d1d9">      "legacyDecorator": true,</span></span>
-<span class="line"><span style="color: #c9d1d9">      "decoratorMetadata": true</span></span>
-<span class="line"><span style="color: #c9d1d9">    },</span></span>
-<span class="line"><span style="color: #c9d1d9">    "baseUrl": ".",</span></span>
-<span class="line"><span style="color: #c9d1d9">    "paths": {</span></span>
-<span class="line"><span style="color: #c9d1d9">      "@common/*": ["./src/common/*"],</span></span>
-<span class="line"><span style="color: #c9d1d9">      "@test/*": ["./src/test/*"],</span></span>
-<span class="line"><span style="color: #c9d1d9">    }</span></span>
-<span class="line"><span style="color: #c9d1d9">  },</span></span>
-<span class="line"><span style="color: #c9d1d9">  "sourceMaps": true</span></span>
-<span class="line"><span style="color: #c9d1d9">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8">// .swcrc</span></span>
+<span class="line"><span style="color: #e1e4e8">{</span></span>
+<span class="line"><span style="color: #e1e4e8">  "jsc": {</span></span>
+<span class="line"><span style="color: #e1e4e8">    "parser": {</span></span>
+<span class="line"><span style="color: #e1e4e8">      "syntax": "typescript",</span></span>
+<span class="line"><span style="color: #e1e4e8">      "decorators": true</span></span>
+<span class="line"><span style="color: #e1e4e8">    },</span></span>
+<span class="line"><span style="color: #e1e4e8">    "target": "es2020",</span></span>
+<span class="line"><span style="color: #e1e4e8">    "keepClassNames": true,</span></span>
+<span class="line"><span style="color: #e1e4e8">    "transform": {</span></span>
+<span class="line"><span style="color: #e1e4e8">      "legacyDecorator": true,</span></span>
+<span class="line"><span style="color: #e1e4e8">      "decoratorMetadata": true</span></span>
+<span class="line"><span style="color: #e1e4e8">    },</span></span>
+<span class="line"><span style="color: #e1e4e8">    "baseUrl": ".",</span></span>
+<span class="line"><span style="color: #e1e4e8">    "paths": {</span></span>
+<span class="line"><span style="color: #e1e4e8">      "@common/*": ["./src/common/*"],</span></span>
+<span class="line"><span style="color: #e1e4e8">      "@test/*": ["./src/test/*"],</span></span>
+<span class="line"><span style="color: #e1e4e8">    }</span></span>
+<span class="line"><span style="color: #e1e4e8">  },</span></span>
+<span class="line"><span style="color: #e1e4e8">  "sourceMaps": true</span></span>
+<span class="line"><span style="color: #e1e4e8">}</span></span></code></pre>
 <p>また、追加で今回はTypeORM特有のつまづきポイントがあった。</p>
 <p><a href="https://github.com/swc-project/swc/issues/1160">https://github.com/swc-project/swc/issues/1160</a></p>
 <p>tscでトランスパイルすると <code>@Column()</code> と書いていても自動的に型を推論してくれるが、swcがトランスパイルの仕方が違うため、TypeORMが解釈できない形に変換されてしまっていた。</p>
@@ -179,108 +201,108 @@ pathsはtsconfigに設定されているものをそのままコピペして配�
 最近の開発者の環境だとコア8個以上は当たり前になりつつあるし、 <code>--maxWorkers=4</code> を追加してworkerを4つまでに制限した。</p>
 <p>今回はDBをdocker-comopseで立ち上げていたので、一つのDBインスタンスにDB名を分けるという形でworkerの接続席を分けることにした。</p>
 <p>テストDBの事前準備をどうしようかなという部分がまだちゃんと煮詰まっていないが、pretest時にmigrationを流すスクリプトを作成した。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #A5D6FF">"pretest"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"WORKER_NUM=4 NODE_ENV=test yarn ts-node ./src/test/bin/setup-db.ts"</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #A5D6FF">"test"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"NODE_ENV=test jest --maxWorkers=4"</span><span style="color: #C9D1D9">,</span></span></code></pre>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { promisify } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"util"</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { execFile, exec } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"child_process"</span><span style="color: #C9D1D9">;</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #9ECBFF">"pretest"</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"WORKER_NUM=4 NODE_ENV=test yarn ts-node ./src/test/bin/setup-db.ts"</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #9ECBFF">"test"</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"NODE_ENV=test jest --maxWorkers=4"</span><span style="color: #E1E4E8">,</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> { promisify } </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"util"</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> { execFile, exec } </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"child_process"</span><span style="color: #E1E4E8">;</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { createConnection, getConnectionOptions } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"typeorm"</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> { createConnection, getConnectionOptions } </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"typeorm"</span><span style="color: #E1E4E8">;</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">execFileAsync</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">promisify</span><span style="color: #C9D1D9">(execFile);</span></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">execAsync</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">promisify</span><span style="color: #C9D1D9">(exec);</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">execFileAsync</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">promisify</span><span style="color: #E1E4E8">(execFile);</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">execAsync</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">promisify</span><span style="color: #E1E4E8">(exec);</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">WORKER_NUM</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">WORKER_NUM</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">Number</span><span style="color: #C9D1D9">(process.env.</span><span style="color: #79C0FF">WORKER_NUM</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">2</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">TYPEORM_HOST</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">TYPEORM_HOST</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">??</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"dbname"</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">TYPEORM_USERNAME</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">TYPEORM_USERNAME</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">??</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"postgres"</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">TYPEORM_DATABASE</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">TYPEORM_DATABASE</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">??</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"postgres"</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">PGPASSWORD</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">TYPEORM_PASSWORD</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">??</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"password"</span><span style="color: #C9D1D9">;</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">WORKER_NUM</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> process.env.</span><span style="color: #79B8FF">WORKER_NUM</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">?</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">Number</span><span style="color: #E1E4E8">(process.env.</span><span style="color: #79B8FF">WORKER_NUM</span><span style="color: #E1E4E8">) </span><span style="color: #F97583">:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">2</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">TYPEORM_HOST</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> process.env.</span><span style="color: #79B8FF">TYPEORM_HOST</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">??</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"dbname"</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">TYPEORM_USERNAME</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> process.env.</span><span style="color: #79B8FF">TYPEORM_USERNAME</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">??</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"postgres"</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">TYPEORM_DATABASE</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> process.env.</span><span style="color: #79B8FF">TYPEORM_DATABASE</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">??</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"postgres"</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">PGPASSWORD</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> process.env.</span><span style="color: #79B8FF">TYPEORM_PASSWORD</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">??</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"password"</span><span style="color: #E1E4E8">;</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">runMigrate</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">databaseName</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">string</span><span style="color: #C9D1D9">) {</span></span>
-<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[migrate:start] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">env</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> { </span><span style="color: #FF7B72">...</span><span style="color: #C9D1D9">process.env, PGPASSWORD };</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">timeout</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">60</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">1000</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #8B949E">// dbの存在チェック</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> { </span><span style="color: #79C0FF">stdout</span><span style="color: #C9D1D9"> } </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">execAsync</span><span style="color: #C9D1D9">(</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #A5D6FF">`psql -U ${</span><span style="color: #79C0FF">TYPEORM_USERNAME</span><span style="color: #A5D6FF">} -h ${</span><span style="color: #79C0FF">TYPEORM_HOST</span><span style="color: #A5D6FF">} ${</span><span style="color: #79C0FF">TYPEORM_DATABASE</span><span style="color: #A5D6FF">} -c "SELECT datname FROM pg_database WHERE datname = '${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}'"`</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">    { timeout, env },</span></span>
-<span class="line"><span style="color: #C9D1D9">  );</span></span>
-<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[exists] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}:`</span><span style="color: #C9D1D9">, stdout);</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #8B949E">// dbが存在していたらdrop</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">if</span><span style="color: #C9D1D9"> (stdout.</span><span style="color: #D2A8FF">includes</span><span style="color: #C9D1D9">(databaseName)) {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">execFileAsync</span><span style="color: #C9D1D9">(</span></span>
-<span class="line"><span style="color: #C9D1D9">      </span><span style="color: #A5D6FF">"dropdb"</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">      [</span><span style="color: #A5D6FF">"-h"</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">TYPEORM_HOST</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">"-U"</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">TYPEORM_USERNAME</span><span style="color: #C9D1D9">, databaseName],</span></span>
-<span class="line"><span style="color: #C9D1D9">      { timeout, env },</span></span>
-<span class="line"><span style="color: #C9D1D9">    );</span></span>
-<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[dropdb] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #8B949E">// createdb</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">execFileAsync</span><span style="color: #C9D1D9">(</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #A5D6FF">"createdb"</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">    [</span><span style="color: #A5D6FF">"-h"</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">TYPEORM_HOST</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">"-U"</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">TYPEORM_USERNAME</span><span style="color: #C9D1D9">, databaseName],</span></span>
-<span class="line"><span style="color: #C9D1D9">    { timeout, env },</span></span>
-<span class="line"><span style="color: #C9D1D9">  );</span></span>
-<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[createdb] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
+<span class="line"><span style="color: #F97583">async</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">runMigrate</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">databaseName</span><span style="color: #F97583">:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">string</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">  console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">`[migrate:start] ${</span><span style="color: #E1E4E8">databaseName</span><span style="color: #9ECBFF">}`</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">env</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> { </span><span style="color: #F97583">...</span><span style="color: #E1E4E8">process.env, PGPASSWORD };</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">timeout</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">60</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">*</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">1000</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #6A737D">// dbの存在チェック</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> { </span><span style="color: #79B8FF">stdout</span><span style="color: #E1E4E8"> } </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">execAsync</span><span style="color: #E1E4E8">(</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #9ECBFF">`psql -U ${</span><span style="color: #79B8FF">TYPEORM_USERNAME</span><span style="color: #9ECBFF">} -h ${</span><span style="color: #79B8FF">TYPEORM_HOST</span><span style="color: #9ECBFF">} ${</span><span style="color: #79B8FF">TYPEORM_DATABASE</span><span style="color: #9ECBFF">} -c "SELECT datname FROM pg_database WHERE datname = '${</span><span style="color: #E1E4E8">databaseName</span><span style="color: #9ECBFF">}'"`</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">    { timeout, env },</span></span>
+<span class="line"><span style="color: #E1E4E8">  );</span></span>
+<span class="line"><span style="color: #E1E4E8">  console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">`[exists] ${</span><span style="color: #E1E4E8">databaseName</span><span style="color: #9ECBFF">}:`</span><span style="color: #E1E4E8">, stdout);</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #6A737D">// dbが存在していたらdrop</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">if</span><span style="color: #E1E4E8"> (stdout.</span><span style="color: #B392F0">includes</span><span style="color: #E1E4E8">(databaseName)) {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">execFileAsync</span><span style="color: #E1E4E8">(</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #9ECBFF">"dropdb"</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">      [</span><span style="color: #9ECBFF">"-h"</span><span style="color: #E1E4E8">, </span><span style="color: #79B8FF">TYPEORM_HOST</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">"-U"</span><span style="color: #E1E4E8">, </span><span style="color: #79B8FF">TYPEORM_USERNAME</span><span style="color: #E1E4E8">, databaseName],</span></span>
+<span class="line"><span style="color: #E1E4E8">      { timeout, env },</span></span>
+<span class="line"><span style="color: #E1E4E8">    );</span></span>
+<span class="line"><span style="color: #E1E4E8">    console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">`[dropdb] ${</span><span style="color: #E1E4E8">databaseName</span><span style="color: #9ECBFF">}`</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #6A737D">// createdb</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">execFileAsync</span><span style="color: #E1E4E8">(</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #9ECBFF">"createdb"</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">    [</span><span style="color: #9ECBFF">"-h"</span><span style="color: #E1E4E8">, </span><span style="color: #79B8FF">TYPEORM_HOST</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">"-U"</span><span style="color: #E1E4E8">, </span><span style="color: #79B8FF">TYPEORM_USERNAME</span><span style="color: #E1E4E8">, databaseName],</span></span>
+<span class="line"><span style="color: #E1E4E8">    { timeout, env },</span></span>
+<span class="line"><span style="color: #E1E4E8">  );</span></span>
+<span class="line"><span style="color: #E1E4E8">  console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">`[createdb] ${</span><span style="color: #E1E4E8">databaseName</span><span style="color: #9ECBFF">}`</span><span style="color: #E1E4E8">);</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #8B949E">// TypeORMのmigrate</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">options</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">getConnectionOptions</span><span style="color: #C9D1D9">({ databaseName });</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">connection</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">createConnection</span><span style="color: #C9D1D9">(options);</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #6A737D">// TypeORMのmigrate</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">options</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">getConnectionOptions</span><span style="color: #E1E4E8">({ databaseName });</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">connection</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">createConnection</span><span style="color: #E1E4E8">(options);</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">try</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[runMigrations:start] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> connection.</span><span style="color: #D2A8FF">runMigrations</span><span style="color: #C9D1D9">({ transaction: </span><span style="color: #A5D6FF">"all"</span><span style="color: #C9D1D9"> });</span></span>
-<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[runMigrations:end] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
-<span class="line"><span style="color: #C9D1D9">  } </span><span style="color: #FF7B72">catch</span><span style="color: #C9D1D9"> (err) {</span></span>
-<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">error</span><span style="color: #C9D1D9">(err);</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">throw</span><span style="color: #C9D1D9"> err;</span></span>
-<span class="line"><span style="color: #C9D1D9">  } </span><span style="color: #FF7B72">finally</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">if</span><span style="color: #C9D1D9"> (connection) </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> connection.</span><span style="color: #D2A8FF">close</span><span style="color: #C9D1D9">();</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">  console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">`[migrate:end] ${</span><span style="color: #C9D1D9">databaseName</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">);</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">try</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">    console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">`[runMigrations:start] ${</span><span style="color: #E1E4E8">databaseName</span><span style="color: #9ECBFF">}`</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> connection.</span><span style="color: #B392F0">runMigrations</span><span style="color: #E1E4E8">({ transaction: </span><span style="color: #9ECBFF">"all"</span><span style="color: #E1E4E8"> });</span></span>
+<span class="line"><span style="color: #E1E4E8">    console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">`[runMigrations:end] ${</span><span style="color: #E1E4E8">databaseName</span><span style="color: #9ECBFF">}`</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">  } </span><span style="color: #F97583">catch</span><span style="color: #E1E4E8"> (err) {</span></span>
+<span class="line"><span style="color: #E1E4E8">    console.</span><span style="color: #B392F0">error</span><span style="color: #E1E4E8">(err);</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">throw</span><span style="color: #E1E4E8"> err;</span></span>
+<span class="line"><span style="color: #E1E4E8">  } </span><span style="color: #F97583">finally</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">if</span><span style="color: #E1E4E8"> (connection) </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> connection.</span><span style="color: #B392F0">close</span><span style="color: #E1E4E8">();</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">  console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">`[migrate:end] ${</span><span style="color: #E1E4E8">databaseName</span><span style="color: #9ECBFF">}`</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E">// jestのworkerは1始まりなので1始まりのsuffixをつけたDB名をつける</span></span>
-<span class="line"><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">getDatabaseNames</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">workerNumber</span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">number</span><span style="color: #C9D1D9">) {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">names</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">Array</span><span style="color: #C9D1D9">(workerNumber)</span></span>
-<span class="line"><span style="color: #C9D1D9">    .</span><span style="color: #D2A8FF">fill</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">"test_db"</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #C9D1D9">    .</span><span style="color: #D2A8FF">map</span><span style="color: #C9D1D9">((</span><span style="color: #FFA657">prefix</span><span style="color: #C9D1D9">, </span><span style="color: #FFA657">i</span><span style="color: #C9D1D9">) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">      </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">`${</span><span style="color: #C9D1D9">prefix</span><span style="color: #A5D6FF">}_${</span><span style="color: #C9D1D9">i</span><span style="color: #A5D6FF"> </span><span style="color: #FF7B72">+</span><span style="color: #A5D6FF"> </span><span style="color: #79C0FF">1</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #C9D1D9">    });</span></span>
+<span class="line"><span style="color: #6A737D">// jestのworkerは1始まりなので1始まりのsuffixをつけたDB名をつける</span></span>
+<span class="line"><span style="color: #F97583">function</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">getDatabaseNames</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">workerNumber</span><span style="color: #F97583">:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">number</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">names</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">Array</span><span style="color: #E1E4E8">(workerNumber)</span></span>
+<span class="line"><span style="color: #E1E4E8">    .</span><span style="color: #B392F0">fill</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">"test_db"</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">    .</span><span style="color: #B392F0">map</span><span style="color: #E1E4E8">((</span><span style="color: #FFAB70">prefix</span><span style="color: #E1E4E8">, </span><span style="color: #FFAB70">i</span><span style="color: #E1E4E8">) </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">`${</span><span style="color: #E1E4E8">prefix</span><span style="color: #9ECBFF">}_${</span><span style="color: #E1E4E8">i</span><span style="color: #9ECBFF"> </span><span style="color: #F97583">+</span><span style="color: #9ECBFF"> </span><span style="color: #79B8FF">1</span><span style="color: #9ECBFF">}`</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">    });</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> names;</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> names;</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">runAllMigrate</span><span style="color: #C9D1D9">() {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">names</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">getDatabaseNames</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">WORKER_NUM</span><span style="color: #C9D1D9">);</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">promises</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> names.</span><span style="color: #D2A8FF">map</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">name</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">runMigrate</span><span style="color: #C9D1D9">(name);</span></span>
-<span class="line"><span style="color: #C9D1D9">  });</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">Promise</span><span style="color: #C9D1D9">.</span><span style="color: #D2A8FF">all</span><span style="color: #C9D1D9">(promises);</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"><span style="color: #F97583">async</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">runAllMigrate</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">names</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">getDatabaseNames</span><span style="color: #E1E4E8">(</span><span style="color: #79B8FF">WORKER_NUM</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">promises</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> names.</span><span style="color: #B392F0">map</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">name</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">runMigrate</span><span style="color: #E1E4E8">(name);</span></span>
+<span class="line"><span style="color: #E1E4E8">  });</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">Promise</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">all</span><span style="color: #E1E4E8">(promises);</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">(</span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> () {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">try</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">runAllMigrate</span><span style="color: #C9D1D9">();</span></span>
-<span class="line"><span style="color: #C9D1D9">    process.</span><span style="color: #D2A8FF">exit</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">0</span><span style="color: #C9D1D9">);</span></span>
-<span class="line"><span style="color: #C9D1D9">  } </span><span style="color: #FF7B72">catch</span><span style="color: #C9D1D9"> (e) {</span></span>
-<span class="line"><span style="color: #C9D1D9">    console.</span><span style="color: #D2A8FF">error</span><span style="color: #C9D1D9">(e);</span></span>
-<span class="line"><span style="color: #C9D1D9">    process.</span><span style="color: #D2A8FF">exit</span><span style="color: #C9D1D9">(</span><span style="color: #79C0FF">1</span><span style="color: #C9D1D9">);</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">})();</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">(</span><span style="color: #F97583">async</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8"> () {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">try</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">runAllMigrate</span><span style="color: #E1E4E8">();</span></span>
+<span class="line"><span style="color: #E1E4E8">    process.</span><span style="color: #B392F0">exit</span><span style="color: #E1E4E8">(</span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">  } </span><span style="color: #F97583">catch</span><span style="color: #E1E4E8"> (e) {</span></span>
+<span class="line"><span style="color: #E1E4E8">    console.</span><span style="color: #B392F0">error</span><span style="color: #E1E4E8">(e);</span></span>
+<span class="line"><span style="color: #E1E4E8">    process.</span><span style="color: #B392F0">exit</span><span style="color: #E1E4E8">(</span><span style="color: #79B8FF">1</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">})();</span></span></code></pre>
 <p>テストの方ではこのセットアップスクリプトで作ったDBに接続するようにbeforeEachを書き換える。
 jestはJEST_WORKER_IDという環境変数にworkerの番号が入っているため、これを使って振り分けることにした。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">getDatabaseName</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">index</span><span style="color: #C9D1D9">) {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">databaseName</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">`test_db_${</span><span style="color: #C9D1D9">index</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> databaseName;</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">getDatabaseName</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">index</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">databaseName</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">`test_db_${</span><span style="color: #E1E4E8">index</span><span style="color: #9ECBFF">}`</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> databaseName;</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">---</span></span>
+<span class="line"><span style="color: #F97583">---</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #D2A8FF">beforeEach</span><span style="color: #C9D1D9">(</span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">index</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">JEST_WORKER_ID</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">databaseName</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">getDatabaseName</span><span style="color: #C9D1D9">(index);</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">setupDatabase</span><span style="color: #C9D1D9">({ databaseName });</span></span>
-<span class="line"><span style="color: #C9D1D9">});</span></span></code></pre>
+<span class="line"><span style="color: #B392F0">beforeEach</span><span style="color: #E1E4E8">(</span><span style="color: #F97583">async</span><span style="color: #E1E4E8"> () </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">index</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> process.env.</span><span style="color: #79B8FF">JEST_WORKER_ID</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">databaseName</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">getDatabaseName</span><span style="color: #E1E4E8">(index);</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">setupDatabase</span><span style="color: #E1E4E8">({ databaseName });</span></span>
+<span class="line"><span style="color: #E1E4E8">});</span></span></code></pre>
 <p><code>--maxWorkers=4</code> にするとJEST_WORKER_IDには1~4までの数字が入るので <code>test_db_1</code> ~ <code>test_db_4</code> までのDBをかぶらずに使用できる。</p>
 <p>この修正でローカルでのテスト実行速度が3倍速くらいになった。理論上workerの数を増やせばいくらでも高速化できるが、現実的にはDBのリソースもじゃぶじゃぶ使うし、メモリの使用量がボトルネックになりそう。</p>
 <p>また、ローカルのテストは高速化したがCIではむしろ実行時間が悪化した。</p>
@@ -294,21 +316,21 @@ jestはJEST_WORKER_IDという環境変数にworkerの番号が入っている�
 つまり <code>--shard=1/4</code>, <code>--shard=2/4</code>, <code>--shard=3/4</code>, <code>--shard=4/4</code> とした CI を4つ実行すれば並列に実行できるということになる。</p>
 <p>Github Actionsではmatrixを使うと同じstepを別の引数で実行できる。</p>
 <p>これを使って次のようにshardオプションを呼び分けるようにすると、全てのテストが実行可能かつ並列に実行可能となる。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9"># ci.yml</span></span>
-<span class="line"><span style="color: #c9d1d9">test-backend:</span></span>
-<span class="line"><span style="color: #c9d1d9">  runs-on: ubuntu-latest</span></span>
-<span class="line"><span style="color: #c9d1d9">  strategy:</span></span>
-<span class="line"><span style="color: #c9d1d9">    matrix:</span></span>
-<span class="line"><span style="color: #c9d1d9">      shard: [1, 2, 3, 4]</span></span>
-<span class="line"><span style="color: #c9d1d9">  services:</span></span>
-<span class="line"><span style="color: #c9d1d9">    postgres:</span></span>
-<span class="line"><span style="color: #c9d1d9">      image: postgres</span></span>
-<span class="line"><span style="color: #c9d1d9">      ports:</span></span>
-<span class="line"><span style="color: #c9d1d9">        - 5432:5432</span></span>
-<span class="line"><span style="color: #c9d1d9">  steps:</span></span>
-<span class="line"><span style="color: #c9d1d9">~~~</span></span>
-<span class="line"><span style="color: #c9d1d9">    - name: Test Backend</span></span>
-<span class="line"><span style="color: #c9d1d9">      run: NODE_ENV=test jest --maxWorkers=1 --shard=${{ matrix.shard }}/${{ strategy.job-total }}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8"># ci.yml</span></span>
+<span class="line"><span style="color: #e1e4e8">test-backend:</span></span>
+<span class="line"><span style="color: #e1e4e8">  runs-on: ubuntu-latest</span></span>
+<span class="line"><span style="color: #e1e4e8">  strategy:</span></span>
+<span class="line"><span style="color: #e1e4e8">    matrix:</span></span>
+<span class="line"><span style="color: #e1e4e8">      shard: [1, 2, 3, 4]</span></span>
+<span class="line"><span style="color: #e1e4e8">  services:</span></span>
+<span class="line"><span style="color: #e1e4e8">    postgres:</span></span>
+<span class="line"><span style="color: #e1e4e8">      image: postgres</span></span>
+<span class="line"><span style="color: #e1e4e8">      ports:</span></span>
+<span class="line"><span style="color: #e1e4e8">        - 5432:5432</span></span>
+<span class="line"><span style="color: #e1e4e8">  steps:</span></span>
+<span class="line"><span style="color: #e1e4e8">~~~</span></span>
+<span class="line"><span style="color: #e1e4e8">    - name: Test Backend</span></span>
+<span class="line"><span style="color: #e1e4e8">      run: NODE_ENV=test jest --maxWorkers=1 --shard=${{ matrix.shard }}/${{ strategy.job-total }}</span></span></code></pre>
 <p>この設定を入れることでtest-backendが4つ実行されるようになる。時間が遅くなったらさらにshard配列を増やしていけばよいだけとシンプル。</p>
 <p>servicesでmartixごとに1つのDBを用意する形式になるので、全てのテストは <code>test_db_1</code> につなぐのがローカルの実行との違いになる。
 この分け方はローカルと違ってリソースの上限がかかりにくくスケールが容易そうなので4つ以上の分割もできそうなのがいいところ。</p>
@@ -327,16 +349,19 @@ jestはJEST_WORKER_IDという環境変数にworkerの番号が入っている�
 自分はプロダクションビルドではtsc、テストや開発のみトランスパイラーを交換して高速化というスタイルをしばらく続けると思う。</p>
 <p>esbuildはデコレータ処理が出てくると現時点では厳しいかもしれないので、viteよりswcが優勢か？という感想だったが、コミュニティの勢い的にはviteの方が盛り上がっているように感じるため、この辺は注視していく必要がありそう。</p>
 </article>
+
     <hr class="astro-5GRSW2HI">
     <ul class="post-selector astro-5GRSW2HI">
      <li class="astro-5GRSW2HI"><a rel="prev" href="/2020-10-24-lighthouse-ci" class="astro-5GRSW2HI"> ← Lighthouse CIでサイトのスコアを定期的にチェックしよう</a></li>
      <li class="astro-5GRSW2HI"><a rel="next" href="/2022-11-17-typeorm" class="astro-5GRSW2HI">TypeORM v0.3へのバージョンアップ方法 → </a></li>
     </ul>
-    <footer class="astro-5GRSW2HI">
-      © 2023, 
-      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
-        kohsweb
-      </a>
-    </footer>
   </main>
+
+  <footer class="astro-SCKKX6R4">
+    © 2023,
+    <a href="https://koh.dev" target="_blank" class="astro-SCKKX6R4">
+      kohsweb
+    </a>
+  </footer>
+
 </body></html>

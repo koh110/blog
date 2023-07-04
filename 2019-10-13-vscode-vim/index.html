@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="ja" class="astro-5GRSW2HI">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
-    <meta name="description" content="結論
+<html lang="ja" class="astro-SCKKX6R4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+  <title>VSCode + Vim Plugin が異常に重くなる件の対処法</title>
+  <meta name="description" content="結論
 設定を変えることである程度軽くはなったが、耐えきれなくなって自分で作った。 (追記: 2019/11/18)
 自分の環境では、vim.statusBarColorControl という設定を切ったら実用に耐えるレベルになった。
 htt...">
-    <title>VSCode + Vim Plugin が異常に重くなる件の対処法</title>
-    <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
+  <meta property="og:title" content="VSCode + Vim Plugin が異常に重くなる件の対処法">
+  <meta name="og:description" content="結論
+設定を変えることである程度軽くはなったが、耐えきれなくなって自分で作った。 (追記: 2019/11/18)
+自分の環境では、vim.statusBarColorControl という設定を切ったら実用に耐えるレベルになった。
+htt...">
+  <meta property="og:type">
+  <meta property="og:site_name" content="kohsweblog">
+  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
 
-  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script><link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
-<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
-</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.a66c24da.css" /></head>
+<link rel="stylesheet" href="/_astro/_post_.88d6343a.css" />
+<link rel="stylesheet" href="/_astro/_post_.c79e4623.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
+</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.598eec69.css" /></head>
+<body class="astro-SCKKX6R4">
   
-<body class="astro-5GRSW2HI">
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
   <main class="astro-5GRSW2HI">
     <header class="astro-5GRSW2HI">
       <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
@@ -29,18 +37,19 @@ htt...">
         <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
       </a>
     </div>
-    <article class="astro-XSCT23V3">
+    
+  <article class="astro-XSCT23V3">
   <h1 id="結論">結論</h1>
 <p>設定を変えることである程度軽くはなったが、耐えきれなくなって<a href="../2019-11-22-vscode-zenvim/">自分で作った</a>。 (追記: 2019/11/18)</p>
 <p>自分の環境では、<code>vim.statusBarColorControl</code> という設定を切ったら実用に耐えるレベルになった。</p>
 <p><a href="https://github.com/VSCodeVim/Vim#vim-airline">https://github.com/VSCodeVim/Vim#vim-airline</a></p>
 <p>setting.json に下の 2 行を加えた。 <code>editor.quickSuggestions</code> の方は効果を出しているかイマイチ実感はできていない。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"vim.statusBarColorControl"</span><span style="color: #C9D1D9">: </span><span style="color: #79C0FF">false</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"editor.quickSuggestions"</span><span style="color: #C9D1D9">: </span><span style="color: #79C0FF">false</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">{</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"vim.statusBarColorControl"</span><span style="color: #E1E4E8">: </span><span style="color: #79B8FF">false</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"editor.quickSuggestions"</span><span style="color: #E1E4E8">: </span><span style="color: #79B8FF">false</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <h1 id="経過">経過</h1>
 <p>ここ最近 VSCode + Vim Plugin がコーディングに支障をきたすほど遅くなってしまう状況に悩んでいた。</p>
 <p>具体的に言うと <code>j</code>, <code>k</code> の移動を押しっぱなしにするとキーリピートの入力と画面移動が明らかに追いつかず、押し多分の移動量が一気に適応されるため、カーソル移動の目測がずれてしまっていた。
@@ -60,16 +69,19 @@ htt...">
 <p>現在の Vim Mode に基づいてステータスバーの色を変更するために、setting.json を逐一オーバーライドするっぽい。それによって作業ディレクトリが常に変化し続けるためパフォーマンスイシューとなるらしい。</p>
 <p>自分にとってステータスバーの色は生産性に寄与しないので、単純に設定を切ってしまっても問題なさそうだったので、そのまま設定まるごと切ってしまうことにした。</p>
 </article>
+
     <hr class="astro-5GRSW2HI">
     <ul class="post-selector astro-5GRSW2HI">
      <li class="astro-5GRSW2HI"><a rel="prev" href="/2019-08-05-redis-streams" class="astro-5GRSW2HI"> ← Redis Streamsでキューを実装するときの注意点</a></li>
      <li class="astro-5GRSW2HI"><a rel="next" href="/2019-10-28-darkmode-css" class="astro-5GRSW2HI">ダークモードを導入してCSS+JSでテーマを管理する → </a></li>
     </ul>
-    <footer class="astro-5GRSW2HI">
-      © 2023, 
-      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
-        kohsweb
-      </a>
-    </footer>
   </main>
+
+  <footer class="astro-SCKKX6R4">
+    © 2023,
+    <a href="https://koh.dev" target="_blank" class="astro-SCKKX6R4">
+      kohsweb
+    </a>
+  </footer>
+
 </body></html>

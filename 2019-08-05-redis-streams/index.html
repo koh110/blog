@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="ja" class="astro-5GRSW2HI">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
-    <meta name="description" content="はじめに
+<html lang="ja" class="astro-SCKKX6R4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+  <title>Redis Streamsでキューを実装するときの注意点</title>
+  <meta name="description" content="はじめに
 Redis Streams とはざっくりいうと Redis v5 から加わった Pub/Sub とはまた違うキューイングの仕組みです。
 https://redis.io/topics/streams-intro
 Pub/Sub は...">
-    <title>Redis Streamsでキューを実装するときの注意点</title>
-    <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
+  <meta property="og:title" content="Redis Streamsでキューを実装するときの注意点">
+  <meta name="og:description" content="はじめに
+Redis Streams とはざっくりいうと Redis v5 から加わった Pub/Sub とはまた違うキューイングの仕組みです。
+https://redis.io/topics/streams-intro
+Pub/Sub は...">
+  <meta property="og:type">
+  <meta property="og:site_name" content="kohsweblog">
+  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
 
-  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script><link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
-<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
-</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.a66c24da.css" /></head>
+<link rel="stylesheet" href="/_astro/_post_.88d6343a.css" />
+<link rel="stylesheet" href="/_astro/_post_.c79e4623.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
+</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.598eec69.css" /></head>
+<body class="astro-SCKKX6R4">
   
-<body class="astro-5GRSW2HI">
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
   <main class="astro-5GRSW2HI">
     <header class="astro-5GRSW2HI">
       <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
@@ -29,7 +37,8 @@ Pub/Sub は...">
         <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
       </a>
     </div>
-    <article class="astro-XSCT23V3">
+    
+  <article class="astro-XSCT23V3">
   <h1 id="はじめに">はじめに</h1>
 <p>Redis Streams とはざっくりいうと Redis v5 から加わった Pub/Sub とはまた違うキューイングの仕組みです。</p>
 <p><a href="https://redis.io/topics/streams-intro">https://redis.io/topics/streams-intro</a></p>
@@ -44,197 +53,200 @@ Pub/Sub は...">
 <li>MAXLEN 10: 10 個までキューを保持する（すでに 10 個キューがあったら先頭から削除されていく）</li>
 <li>message test: <code>message</code> という key に対して <code>test</code> という value を入れる</li>
 </ul>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XADD stream-sample MAXLEN 10 </span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9"> message </span><span style="color: #79C0FF">test</span></span>
-<span class="line"><span style="color: #A5D6FF">"1565014160054-0"</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XADD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">MAXLEN</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">*</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">message</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">test</span></span>
+<span class="line"><span style="color: #B392F0">"1565014160054-0"</span></span></code></pre>
 <p>この追加したキューを読み取るには XREAD というコマンドを使います</p>
 <p><code>STREAMS stream-sample</code> で読み込む Stream を指定し、次に読み込む ID を指定します。ここで指定した ID 以降の値が読み込まれますが、0 を指定すると先頭から読み込みます。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XREAD STREAMS stream-sample 0</span></span>
-<span class="line"><span style="color: #C9D1D9">1) 1) </span><span style="color: #A5D6FF">"stream-sample"</span></span>
-<span class="line"><span style="color: #C9D1D9">   2) 1) 1) </span><span style="color: #A5D6FF">"1565014160054-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test"</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XREAD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">STREAMS</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span></span>
+<span class="line"><span style="color: #B392F0">1</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"stream-sample"</span></span>
+<span class="line"><span style="color: #E1E4E8">   </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) 1) </span><span style="color: #9ECBFF">"1565014160054-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test"</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># 2つ追加してみる</span></span>
-<span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XADD stream-sample MAXLEN 10 </span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9"> message test2</span></span>
-<span class="line"><span style="color: #A5D6FF">"1565014529460-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XADD stream-sample MAXLEN 10 </span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9"> message test3</span></span>
-<span class="line"><span style="color: #A5D6FF">"1565014577669-0"</span></span>
+<span class="line"><span style="color: #6A737D"># 2つ追加してみる</span></span>
+<span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XADD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">MAXLEN</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">*</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">message</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">test2</span></span>
+<span class="line"><span style="color: #B392F0">"1565014529460-0"</span></span>
+<span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XADD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">MAXLEN</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">*</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">message</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">test3</span></span>
+<span class="line"><span style="color: #B392F0">"1565014577669-0"</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># 最初のIDを指定して読み込むと、それ以降に追加されたキューが読み込まれる。</span></span>
-<span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XREAD STREAMS stream-sample 1565014160054-0</span></span>
-<span class="line"><span style="color: #C9D1D9">1) 1) </span><span style="color: #A5D6FF">"stream-sample"</span></span>
-<span class="line"><span style="color: #C9D1D9">   2) 1) 1) </span><span style="color: #A5D6FF">"1565014529460-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test2"</span></span>
-<span class="line"><span style="color: #C9D1D9">      2) 1) </span><span style="color: #A5D6FF">"1565014577669-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test3"</span></span>
+<span class="line"><span style="color: #6A737D"># 最初のIDを指定して読み込むと、それ以降に追加されたキューが読み込まれる。</span></span>
+<span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XREAD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">STREAMS</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">1565014160054</span><span style="color: #9ECBFF">-0</span></span>
+<span class="line"><span style="color: #B392F0">1</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"stream-sample"</span></span>
+<span class="line"><span style="color: #E1E4E8">   </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) 1) </span><span style="color: #9ECBFF">"1565014529460-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test2"</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565014577669-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test3"</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># 0を指定すると最初から読み込む</span></span>
-<span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XREAD STREAMS stream-sample 0</span></span>
-<span class="line"><span style="color: #C9D1D9">1) 1) </span><span style="color: #A5D6FF">"stream-sample"</span></span>
-<span class="line"><span style="color: #C9D1D9">   2) 1) 1) </span><span style="color: #A5D6FF">"1565014160054-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test"</span></span>
-<span class="line"><span style="color: #C9D1D9">      2) 1) </span><span style="color: #A5D6FF">"1565014529460-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test2"</span></span>
-<span class="line"><span style="color: #C9D1D9">      3) 1) </span><span style="color: #A5D6FF">"1565014577669-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test3"</span></span>
+<span class="line"><span style="color: #6A737D"># 0を指定すると最初から読み込む</span></span>
+<span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XREAD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">STREAMS</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span></span>
+<span class="line"><span style="color: #B392F0">1</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"stream-sample"</span></span>
+<span class="line"><span style="color: #E1E4E8">   </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) 1) </span><span style="color: #9ECBFF">"1565014160054-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test"</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565014529460-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test2"</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #B392F0">3</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565014577669-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test3"</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># MAXLEN を 2 に指定してキューに突っ込んでみる</span></span>
-<span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XADD stream-sample MAXLEN 2 </span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9"> message test4</span></span>
-<span class="line"><span style="color: #A5D6FF">"1565014734414-0"</span></span>
+<span class="line"><span style="color: #6A737D"># MAXLEN を 2 に指定してキューに突っ込んでみる</span></span>
+<span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XADD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">MAXLEN</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">2</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">*</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">message</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">test4</span></span>
+<span class="line"><span style="color: #B392F0">"1565014734414-0"</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># 2 個になるようにキューが先頭から削除される</span></span>
-<span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XREAD STREAMS stream-sample 0</span></span>
-<span class="line"><span style="color: #C9D1D9">1) 1) </span><span style="color: #A5D6FF">"stream-sample"</span></span>
-<span class="line"><span style="color: #C9D1D9">   2) 1) 1) </span><span style="color: #A5D6FF">"1565014577669-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test3"</span></span>
-<span class="line"><span style="color: #C9D1D9">      2) 1) </span><span style="color: #A5D6FF">"1565014734414-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test4"</span></span></code></pre>
+<span class="line"><span style="color: #6A737D"># 2 個になるようにキューが先頭から削除される</span></span>
+<span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XREAD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">STREAMS</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span></span>
+<span class="line"><span style="color: #B392F0">1</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"stream-sample"</span></span>
+<span class="line"><span style="color: #E1E4E8">   </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) 1) </span><span style="color: #9ECBFF">"1565014577669-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test3"</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565014734414-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test4"</span></span></code></pre>
 <p>これだけではキューが追加されたことを検知できないので、このままではキューとしては使えません。</p>
 <p>キューの追加を Subscribe するために XREAD で BLOCK というオプションを使います。</p>
 <h1 id="キューを待ち受ける">キューを待ち受ける</h1>
 <p><code>BLOCK 0</code>: キューを指定時間まで待ち受ける。0 を指定するとタイムアウトせずに待ち受ける。</p>
 <p>ここで新しい <code>$</code> という特殊な ID が出てきます。先のサンプルでは 0 か ID を直接指定していましたが、 <code>$</code> を指定すると XREAD をはじめたタイミングからあとに追加されたものを受け取る、という特別な振る舞いをします。</p>
 <p><a href="https://redis.io/commands/xread#the-special-codecode-id">https://redis.io/commands/xread#the-special-codecode-id</a></p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XREAD BLOCK 0 STREAMS stream-sample $</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XREAD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">BLOCK</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">STREAMS</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> $</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># キューが追加されるまで接続が開きっぱなしになるので、別プロセスから XADD してキューを追加する</span></span>
+<span class="line"><span style="color: #6A737D"># キューが追加されるまで接続が開きっぱなしになるので、別プロセスから XADD してキューを追加する</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">1) 1) </span><span style="color: #A5D6FF">"stream-sample"</span></span>
-<span class="line"><span style="color: #C9D1D9">   2) 1) 1) </span><span style="color: #A5D6FF">"1565015282007-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test"</span></span>
-<span class="line"><span style="color: #C9D1D9">(4.06s)</span></span></code></pre>
+<span class="line"><span style="color: #B392F0">1</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"stream-sample"</span></span>
+<span class="line"><span style="color: #E1E4E8">   </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) 1) </span><span style="color: #9ECBFF">"1565015282007-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test"</span></span>
+<span class="line"><span style="color: #E1E4E8">(</span><span style="color: #B392F0">4.06s</span><span style="color: #E1E4E8">)</span></span></code></pre>
 <p><code>XREAD BLOCK</code> を複数プロセスで同時に起動すると、一対多に伝播するキューが実装できます。</p>
 <p>また、XREAD には COUNT というオプションもあり、READ するキューの個数を設定することができます。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E"># 全部で3つのキューが入っている</span></span>
-<span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XREAD STREAMS stream-sample 0</span></span>
-<span class="line"><span style="color: #C9D1D9">1) 1) </span><span style="color: #A5D6FF">"stream-sample"</span></span>
-<span class="line"><span style="color: #C9D1D9">   2) 1) 1) </span><span style="color: #A5D6FF">"1565015282007-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test"</span></span>
-<span class="line"><span style="color: #C9D1D9">      2) 1) </span><span style="color: #A5D6FF">"1565016161343-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test2"</span></span>
-<span class="line"><span style="color: #C9D1D9">      3) 1) </span><span style="color: #A5D6FF">"1565016381246-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test3"</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #6A737D"># 全部で3つのキューが入っている</span></span>
+<span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XREAD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">STREAMS</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span></span>
+<span class="line"><span style="color: #B392F0">1</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"stream-sample"</span></span>
+<span class="line"><span style="color: #E1E4E8">   </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) 1) </span><span style="color: #9ECBFF">"1565015282007-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test"</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565016161343-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test2"</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #B392F0">3</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565016381246-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test3"</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># COUNT 2 を指定すると2つだけ取り出せる</span></span>
-<span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XREAD COUNT 2 STREAMS stream-sample 0</span></span>
-<span class="line"><span style="color: #C9D1D9">1) 1) </span><span style="color: #A5D6FF">"stream-sample"</span></span>
-<span class="line"><span style="color: #C9D1D9">   2) 1) 1) </span><span style="color: #A5D6FF">"1565015282007-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test"</span></span>
-<span class="line"><span style="color: #C9D1D9">      2) 1) </span><span style="color: #A5D6FF">"1565016161343-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"test2"</span></span></code></pre>
+<span class="line"><span style="color: #6A737D"># COUNT 2 を指定すると2つだけ取り出せる</span></span>
+<span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XREAD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">COUNT</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">2</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">STREAMS</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span></span>
+<span class="line"><span style="color: #B392F0">1</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"stream-sample"</span></span>
+<span class="line"><span style="color: #E1E4E8">   </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) 1) </span><span style="color: #9ECBFF">"1565015282007-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test"</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565016161343-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"test2"</span></span></code></pre>
 <p>つまり <code>XREAD BLOCK 0 COUNT 100 STREAMS stream-sample $</code> というコマンドをループし続けると、100 個のキューを読み込む consumer が作れると思いました。
 が、これは勘違いでバグを埋め込むことになっていまいました。</p>
 <h1 id="block-と-count-オプションを同時に使う落とし穴">BLOCK と COUNT オプションを同時に使う落とし穴</h1>
 <p>先に結論を言ってしまうと、ほぼ同時にキューが詰め込まれると意図とずれた挙動が発生します。手で実行しているとほぼ同時にキューが詰め込まれることがないのでなかなか気づけません。</p>
 <p>Node.js でごく短時間に 10 個のキューを追加するコードを書いてみます。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">Redis</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'ioredis'</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">redis</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">Redis</span><span style="color: #C9D1D9">({</span></span>
-<span class="line"><span style="color: #C9D1D9">  host: </span><span style="color: #A5D6FF">'127.0.0.1'</span></span>
-<span class="line"><span style="color: #C9D1D9">})</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">Redis</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">require</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'ioredis'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">redis</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">new</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">Redis</span><span style="color: #E1E4E8">({</span></span>
+<span class="line"><span style="color: #E1E4E8">  host: </span><span style="color: #9ECBFF">'127.0.0.1'</span></span>
+<span class="line"><span style="color: #E1E4E8">})</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9">() {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">promises</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> []</span></span>
+<span class="line"><span style="color: #F97583">async</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">main</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">promises</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> []</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">for</span><span style="color: #C9D1D9"> (</span><span style="color: #FF7B72">let</span><span style="color: #C9D1D9"> i </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">0</span><span style="color: #C9D1D9">; i </span><span style="color: #FF7B72">&#x3C;</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">10</span><span style="color: #C9D1D9">; i</span><span style="color: #FF7B72">++</span><span style="color: #C9D1D9">) {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">promise</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> redis.</span><span style="color: #D2A8FF">xadd</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'stream-sample'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">'*'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">'message'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">`message-${</span><span style="color: #C9D1D9">i</span><span style="color: #A5D6FF">}`</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #C9D1D9">    promises.</span><span style="color: #D2A8FF">push</span><span style="color: #C9D1D9">(promise)</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">for</span><span style="color: #E1E4E8"> (</span><span style="color: #F97583">let</span><span style="color: #E1E4E8"> i </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8">; i </span><span style="color: #F97583">&#x3C;</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">10</span><span style="color: #E1E4E8">; i</span><span style="color: #F97583">++</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">promise</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> redis.</span><span style="color: #B392F0">xadd</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'stream-sample'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'*'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'message'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">`message-${</span><span style="color: #E1E4E8">i</span><span style="color: #9ECBFF">}`</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #E1E4E8">    promises.</span><span style="color: #B392F0">push</span><span style="color: #E1E4E8">(promise)</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">Promise</span><span style="color: #C9D1D9">.</span><span style="color: #D2A8FF">all</span><span style="color: #C9D1D9">(promises)</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">Promise</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">all</span><span style="color: #E1E4E8">(promises)</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">redis.</span><span style="color: #D2A8FF">once</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'connect'</span><span style="color: #C9D1D9">, () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #D2A8FF">main</span><span style="color: #C9D1D9">()</span></span>
-<span class="line"><span style="color: #C9D1D9">    .</span><span style="color: #D2A8FF">catch</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">e</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> console.</span><span style="color: #D2A8FF">error</span><span style="color: #C9D1D9">(e))</span></span>
-<span class="line"><span style="color: #C9D1D9">    .</span><span style="color: #D2A8FF">finally</span><span style="color: #C9D1D9">(() </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> redis.</span><span style="color: #D2A8FF">disconnect</span><span style="color: #C9D1D9">())</span></span>
-<span class="line"><span style="color: #C9D1D9">})</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">redis.</span><span style="color: #B392F0">once</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'connect'</span><span style="color: #E1E4E8">, () </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">main</span><span style="color: #E1E4E8">()</span></span>
+<span class="line"><span style="color: #E1E4E8">    .</span><span style="color: #B392F0">catch</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">e</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> console.</span><span style="color: #B392F0">error</span><span style="color: #E1E4E8">(e))</span></span>
+<span class="line"><span style="color: #E1E4E8">    .</span><span style="color: #B392F0">finally</span><span style="color: #E1E4E8">(() </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> redis.</span><span style="color: #B392F0">disconnect</span><span style="color: #E1E4E8">())</span></span>
+<span class="line"><span style="color: #E1E4E8">})</span></span></code></pre>
 <p>追加されたキューを確認してみると同じ時刻に追加されたキューは ID に suffix に数字がついで区別される仕組みのようです。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XREAD STREAMS stream-sample 0</span></span>
-<span class="line"><span style="color: #C9D1D9">1) 1) </span><span style="color: #A5D6FF">"stream-sample"</span></span>
-<span class="line"><span style="color: #C9D1D9">   2)  1) 1) </span><span style="color: #A5D6FF">"1565017990806-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">          2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">             2) </span><span style="color: #A5D6FF">"message-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">       2) 1) </span><span style="color: #A5D6FF">"1565017990806-1"</span></span>
-<span class="line"><span style="color: #C9D1D9">          2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">             2) </span><span style="color: #A5D6FF">"message-1"</span></span>
-<span class="line"><span style="color: #C9D1D9">       3) 1) </span><span style="color: #A5D6FF">"1565017990807-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">          2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">             2) </span><span style="color: #A5D6FF">"message-2"</span></span>
-<span class="line"><span style="color: #C9D1D9">       4) 1) </span><span style="color: #A5D6FF">"1565017990808-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">          2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">             2) </span><span style="color: #A5D6FF">"message-3"</span></span>
-<span class="line"><span style="color: #C9D1D9">       5) 1) </span><span style="color: #A5D6FF">"1565017990808-1"</span></span>
-<span class="line"><span style="color: #C9D1D9">          2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">             2) </span><span style="color: #A5D6FF">"message-4"</span></span>
-<span class="line"><span style="color: #C9D1D9">       6) 1) </span><span style="color: #A5D6FF">"1565017990808-2"</span></span>
-<span class="line"><span style="color: #C9D1D9">          2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">             2) </span><span style="color: #A5D6FF">"message-5"</span></span>
-<span class="line"><span style="color: #C9D1D9">       7) 1) </span><span style="color: #A5D6FF">"1565017990808-3"</span></span>
-<span class="line"><span style="color: #C9D1D9">          2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">             2) </span><span style="color: #A5D6FF">"message-6"</span></span>
-<span class="line"><span style="color: #C9D1D9">       8) 1) </span><span style="color: #A5D6FF">"1565017990808-4"</span></span>
-<span class="line"><span style="color: #C9D1D9">          2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">             2) </span><span style="color: #A5D6FF">"message-7"</span></span>
-<span class="line"><span style="color: #C9D1D9">       9) 1) </span><span style="color: #A5D6FF">"1565017990808-5"</span></span>
-<span class="line"><span style="color: #C9D1D9">          2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">             2) </span><span style="color: #A5D6FF">"message-8"</span></span>
-<span class="line"><span style="color: #C9D1D9">      10) 1) </span><span style="color: #A5D6FF">"1565017990808-6"</span></span>
-<span class="line"><span style="color: #C9D1D9">          2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">             2) </span><span style="color: #A5D6FF">"message-9"</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XREAD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">STREAMS</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span></span>
+<span class="line"><span style="color: #B392F0">1</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"stream-sample"</span></span>
+<span class="line"><span style="color: #E1E4E8">   </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">)  1) 1) </span><span style="color: #9ECBFF">"1565017990806-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">             </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"message-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">       </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565017990806-1"</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">             </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"message-1"</span></span>
+<span class="line"><span style="color: #E1E4E8">       </span><span style="color: #B392F0">3</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565017990807-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">             </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"message-2"</span></span>
+<span class="line"><span style="color: #E1E4E8">       </span><span style="color: #B392F0">4</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565017990808-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">             </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"message-3"</span></span>
+<span class="line"><span style="color: #E1E4E8">       </span><span style="color: #B392F0">5</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565017990808-1"</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">             </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"message-4"</span></span>
+<span class="line"><span style="color: #E1E4E8">       </span><span style="color: #B392F0">6</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565017990808-2"</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">             </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"message-5"</span></span>
+<span class="line"><span style="color: #E1E4E8">       </span><span style="color: #B392F0">7</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565017990808-3"</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">             </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"message-6"</span></span>
+<span class="line"><span style="color: #E1E4E8">       </span><span style="color: #B392F0">8</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565017990808-4"</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">             </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"message-7"</span></span>
+<span class="line"><span style="color: #E1E4E8">       </span><span style="color: #B392F0">9</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565017990808-5"</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">             </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"message-8"</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #B392F0">10</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"1565017990808-6"</span></span>
+<span class="line"><span style="color: #E1E4E8">          </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">             </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"message-9"</span></span></code></pre>
 <p>ここで、先述の BLOCK と COUNT を使った consumer を用意してみます。期待としては <code>COUNT 20</code> としているので、新しく追加された 10 個のキューが全部とれて欲しいですが、実際にとれるのは 1 つめのに追加されたキューだけです。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">127.0.0.1:</span><span style="color: #FF7B72">6379></span><span style="color: #C9D1D9"> XREAD BLOCK 0 COUNT 20 STREAMS stream-sample $</span></span>
-<span class="line"><span style="color: #C9D1D9">1) 1) </span><span style="color: #A5D6FF">"stream-sample"</span></span>
-<span class="line"><span style="color: #C9D1D9">   2) 1) 1) </span><span style="color: #A5D6FF">"1565018255786-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">         2) 1) </span><span style="color: #A5D6FF">"message"</span></span>
-<span class="line"><span style="color: #C9D1D9">            2) </span><span style="color: #A5D6FF">"message-0"</span></span>
-<span class="line"><span style="color: #C9D1D9">(4.61s)</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">127.0.0.1:6379></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">XREAD</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">BLOCK</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">COUNT</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">20</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">STREAMS</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">stream-sample</span><span style="color: #E1E4E8"> $</span></span>
+<span class="line"><span style="color: #B392F0">1</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"stream-sample"</span></span>
+<span class="line"><span style="color: #E1E4E8">   </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) 1) </span><span style="color: #9ECBFF">"1565018255786-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">         </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) 1) </span><span style="color: #9ECBFF">"message"</span></span>
+<span class="line"><span style="color: #E1E4E8">            </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">"message-0"</span></span>
+<span class="line"><span style="color: #E1E4E8">(</span><span style="color: #B392F0">4.61s</span><span style="color: #E1E4E8">)</span></span></code></pre>
 <p>Redis の issue を調べてみると <code>$</code> を使って待ち受けているときの仕様のようです。</p>
 <p><a href="https://github.com/antirez/redis/issues/5543">https://github.com/antirez/redis/issues/5543</a></p>
 <p>確かに <code>$</code> は XREAD した時から初めて XADD された瞬間に発火する、と考えれば最初のひとつしか取り出せないというのは理解できます。</p>
 <p>しかも <code>$</code> を使った XREAD ループすると最初の 1 つ以降のキューはすでに追加されたあとなので、残り 9 個のキューは受け取れず過ぎ去ってしまいます。</p>
 <p>そこで、キューを待ち受ける consumer を作るためには、起動時には <code>$</code> で待ち受け、それ以降は最後に受け取った ID を指定するというコードが必要になります。</p>
 <p>下記のようなイメージです。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">consume</span><span style="color: #C9D1D9">(</span><span style="color: #FFA657">startId</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'$'</span><span style="color: #C9D1D9">) {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">let</span><span style="color: #C9D1D9"> nextId </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> startId </span><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> startId </span><span style="color: #FF7B72">:</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'$'</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">async</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">consume</span><span style="color: #E1E4E8">(</span><span style="color: #FFAB70">startId</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'$'</span><span style="color: #E1E4E8">) {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">let</span><span style="color: #E1E4E8"> nextId </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> startId </span><span style="color: #F97583">?</span><span style="color: #E1E4E8"> startId </span><span style="color: #F97583">:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'$'</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">res</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> redis.</span><span style="color: #D2A8FF">xread</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'BLOCK'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">'0'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">'COUNT'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">'20'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">'STREAMS'</span><span style="color: #C9D1D9">, </span><span style="color: #A5D6FF">'stream-sample'</span><span style="color: #C9D1D9">, startId)</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">for</span><span style="color: #C9D1D9"> (</span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> [, </span><span style="color: #79C0FF">val</span><span style="color: #C9D1D9">] </span><span style="color: #FF7B72">of</span><span style="color: #C9D1D9"> res) {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">for</span><span style="color: #C9D1D9"> (</span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> [</span><span style="color: #79C0FF">id</span><span style="color: #C9D1D9">, </span><span style="color: #79C0FF">messages</span><span style="color: #C9D1D9">] </span><span style="color: #FF7B72">of</span><span style="color: #C9D1D9"> val) {</span></span>
-<span class="line"><span style="color: #C9D1D9">      nextId </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> id</span></span>
-<span class="line"><span style="color: #C9D1D9">      </span><span style="color: #8B949E">// 何かしらの処理</span></span>
-<span class="line"><span style="color: #C9D1D9">    }</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">res</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> redis.</span><span style="color: #B392F0">xread</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'BLOCK'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'0'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'COUNT'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'20'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'STREAMS'</span><span style="color: #E1E4E8">, </span><span style="color: #9ECBFF">'stream-sample'</span><span style="color: #E1E4E8">, startId)</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">for</span><span style="color: #E1E4E8"> (</span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> [, </span><span style="color: #79B8FF">val</span><span style="color: #E1E4E8">] </span><span style="color: #F97583">of</span><span style="color: #E1E4E8"> res) {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #F97583">for</span><span style="color: #E1E4E8"> (</span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> [</span><span style="color: #79B8FF">id</span><span style="color: #E1E4E8">, </span><span style="color: #79B8FF">messages</span><span style="color: #E1E4E8">] </span><span style="color: #F97583">of</span><span style="color: #E1E4E8"> val) {</span></span>
+<span class="line"><span style="color: #E1E4E8">      nextId </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> id</span></span>
+<span class="line"><span style="color: #E1E4E8">      </span><span style="color: #6A737D">// 何かしらの処理</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">consume</span><span style="color: #C9D1D9">(nextId)</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">consume</span><span style="color: #E1E4E8">(nextId)</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #D2A8FF">consume</span><span style="color: #C9D1D9">()</span></span></code></pre>
+<span class="line"><span style="color: #B392F0">consume</span><span style="color: #E1E4E8">()</span></span></code></pre>
 <h1 id="まとめ">まとめ</h1>
 <p>XREAD と BLOCK, COUNT を使ってキューを実装する時は、 <code>$</code> だけでなく最後に受け取った ID を保持して読み込む ID をずらす必要があります。</p>
 </article>
+
     <hr class="astro-5GRSW2HI">
     <ul class="post-selector astro-5GRSW2HI">
      <li class="astro-5GRSW2HI"><a rel="prev" href="/2019-07-02-ubuntu-setup" class="astro-5GRSW2HI"> ← さくらで借りたUbuntu16のセットアップ</a></li>
      <li class="astro-5GRSW2HI"><a rel="next" href="/2019-10-13-vscode-vim" class="astro-5GRSW2HI">VSCode + Vim Plugin が異常に重くなる件の対処法 → </a></li>
     </ul>
-    <footer class="astro-5GRSW2HI">
-      © 2023, 
-      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
-        kohsweb
-      </a>
-    </footer>
   </main>
+
+  <footer class="astro-SCKKX6R4">
+    © 2023,
+    <a href="https://koh.dev" target="_blank" class="astro-SCKKX6R4">
+      kohsweb
+    </a>
+  </footer>
+
 </body></html>

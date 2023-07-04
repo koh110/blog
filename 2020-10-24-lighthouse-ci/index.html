@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="ja" class="astro-5GRSW2HI">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
-    <meta name="description" content="Core Web Vitals とは
+<html lang="ja" class="astro-SCKKX6R4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+  <title>Lighthouse CIでサイトのスコアを定期的にチェックしよう</title>
+  <meta name="description" content="Core Web Vitals とは
 最近のフロントエンド周辺では Google が提唱した Web Vitals と呼ばれる指標が非常に注目されています。
 これは Web で多くのユーザーが快適なユーザー体験を得るために、こういったポイン...">
-    <title>Lighthouse CIでサイトのスコアを定期的にチェックしよう</title>
-    <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
+  <meta property="og:title" content="Lighthouse CIでサイトのスコアを定期的にチェックしよう">
+  <meta name="og:description" content="Core Web Vitals とは
+最近のフロントエンド周辺では Google が提唱した Web Vitals と呼ばれる指標が非常に注目されています。
+これは Web で多くのユーザーが快適なユーザー体験を得るために、こういったポイン...">
+  <meta property="og:type">
+  <meta property="og:site_name" content="kohsweblog">
+  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
 
-  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script><link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
-<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
-</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.a66c24da.css" /></head>
+<link rel="stylesheet" href="/_astro/_post_.88d6343a.css" />
+<link rel="stylesheet" href="/_astro/_post_.c79e4623.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
+</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.598eec69.css" /></head>
+<body class="astro-SCKKX6R4">
   
-<body class="astro-5GRSW2HI">
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
   <main class="astro-5GRSW2HI">
     <header class="astro-5GRSW2HI">
       <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
@@ -28,7 +35,8 @@
         <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
       </a>
     </div>
-    <article class="astro-XSCT23V3">
+    
+  <article class="astro-XSCT23V3">
   <h1 id="core-web-vitals-とは">Core Web Vitals とは</h1>
 <p>最近のフロントエンド周辺では Google が提唱した Web Vitals と呼ばれる指標が非常に注目されています。</p>
 <p>これは Web で多くのユーザーが快適なユーザー体験を得るために、こういったポイントに特に気を使いましょう、というものを数値化したものです。</p>
@@ -94,136 +102,136 @@
 <p>Ref: <a href="https://github.com/koh110/node-install/blob/master/insall.sh">Ndoe.js のインストール</a></p>
 <p>次は MySQL のインストールです。Lighthouse CI Server は MySQL の他に SQLite や PostgreSQL でも動作します。今回は自分が使い慣れている MySQL を選択しました。
 内部的には <a href="https://github.com/sequelize/sequelize">Sequelize</a> を利用しているようです。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ sudo apt install mysql-server mysql-client</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo service mysql status</span></span>
-<span class="line"><span style="color: #C9D1D9">$ sudo mysql -u root</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">apt</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">install</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">mysql-server</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">mysql-client</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">service</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">mysql</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">status</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">sudo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">mysql</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-u</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">root</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #8B949E"># password は適切な文字列を利用してください</span></span>
-<span class="line"><span style="color: #C9D1D9">mysql</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> CREATE USER </span><span style="color: #A5D6FF">'lighthouseuser'</span><span style="color: #C9D1D9">@</span><span style="color: #A5D6FF">'localhost'</span><span style="color: #C9D1D9"> IDENTIFIED BY </span><span style="color: #A5D6FF">'password'</span><span style="color: #FF7B72">;</span></span>
-<span class="line"><span style="color: #C9D1D9">mysql</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> GRANT ALL ON lighthouse.</span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9"> TO lighthouseuser IDENTIFIED BY </span><span style="color: #A5D6FF">'password'</span><span style="color: #FF7B72">;</span></span>
-<span class="line"><span style="color: #C9D1D9">mysql</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> CREATE DATABASE lighthouse</span><span style="color: #FF7B72">;</span></span></code></pre>
+<span class="line"><span style="color: #6A737D"># password は適切な文字列を利用してください</span></span>
+<span class="line"><span style="color: #B392F0">mysql></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">CREATE</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">USER</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'lighthouseuser'@'localhost'</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">IDENTIFIED</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">BY</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'password'</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #B392F0">mysql></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">GRANT</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ALL</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ON</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lighthouse.</span><span style="color: #79B8FF">*</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">TO</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lighthouseuser</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">IDENTIFIED</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">BY</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'password'</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #B392F0">mysql></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">CREATE</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">DATABASE</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lighthouse</span><span style="color: #E1E4E8">;</span></span></code></pre>
 <p>MySQL を使って運用している場合、計測結果のアップロード時に Server 側にエラーが出ることがあります。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">SequelizeDatabaseError: Incorrect string value: </span><span style="color: #A5D6FF">'...'</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">for</span><span style="color: #C9D1D9"> column </span><span style="color: #A5D6FF">'lhr'</span><span style="color: #C9D1D9"> at row 1</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">SequelizeDatabaseError:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Incorrect</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">string</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">value:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'...'</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">for</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">column</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'lhr'</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">at</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">row</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">1</span></span></code></pre>
 <p>MySQL のエンコーディングが <code>utf8</code> の場合サロゲートペア文字が扱えないため、MySQL 側の設定を <code>utf8mb4</code> に変える必要があるようです。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">mysql</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> show variables like </span><span style="color: #A5D6FF">"chara%"</span><span style="color: #FF7B72">;</span></span>
-<span class="line"><span style="color: #C9D1D9">+--------------------------+----------------------------+</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> Variable_name            </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> Value                      </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #C9D1D9">+--------------------------+----------------------------+</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_client     </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> utf8                       </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_connection </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> utf8                       </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_database   </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> latin1                     </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_filesystem </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> binary                     </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_results    </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> utf8                       </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_server     </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> latin1                     </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_system     </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> utf8                       </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_sets_dir       </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> /usr/share/mysql/charsets/ </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #C9D1D9">+--------------------------+----------------------------+</span></span>
-<span class="line"><span style="color: #C9D1D9">8 rows </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">set</span><span style="color: #C9D1D9"> (0.00 sec)</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">mysql></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">show</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">variables</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">like</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"chara%"</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #B392F0">+--------------------------+----------------------------+</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">Variable_name</span><span style="color: #E1E4E8">            </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">Value</span><span style="color: #E1E4E8">                      </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #B392F0">+--------------------------+----------------------------+</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_client</span><span style="color: #E1E4E8">     </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">utf8</span><span style="color: #E1E4E8">                       </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_connection</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">utf8</span><span style="color: #E1E4E8">                       </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_database</span><span style="color: #E1E4E8">   </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">latin1</span><span style="color: #E1E4E8">                     </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_filesystem</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">binary</span><span style="color: #E1E4E8">                     </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_results</span><span style="color: #E1E4E8">    </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">utf8</span><span style="color: #E1E4E8">                       </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_server</span><span style="color: #E1E4E8">     </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">latin1</span><span style="color: #E1E4E8">                     </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_system</span><span style="color: #E1E4E8">     </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">utf8</span><span style="color: #E1E4E8">                       </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_sets_dir</span><span style="color: #E1E4E8">       </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">/usr/share/mysql/charsets/</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #B392F0">+--------------------------+----------------------------+</span></span>
+<span class="line"><span style="color: #B392F0">8</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">rows</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">in</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">set</span><span style="color: #E1E4E8"> (0.00 </span><span style="color: #9ECBFF">sec</span><span style="color: #E1E4E8">)</span></span></code></pre>
 <p><code>/etc/mysql/my.cnf</code> に次の設定を追加しています。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">[mysql]</span></span>
-<span class="line"><span style="color: #c9d1d9">default-character-set=utf8mb4</span></span>
-<span class="line"><span style="color: #c9d1d9"></span></span>
-<span class="line"><span style="color: #c9d1d9">[mysqld]</span></span>
-<span class="line"><span style="color: #c9d1d9">character-set-server=utf8mb4</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8">[mysql]</span></span>
+<span class="line"><span style="color: #e1e4e8">default-character-set=utf8mb4</span></span>
+<span class="line"><span style="color: #e1e4e8"></span></span>
+<span class="line"><span style="color: #e1e4e8">[mysqld]</span></span>
+<span class="line"><span style="color: #e1e4e8">character-set-server=utf8mb4</span></span></code></pre>
 <p>上記の設定を追加して MySQL サーバーを再起動すると文字コードが変わっていることがわかります。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">mysql</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> show variables like </span><span style="color: #A5D6FF">"chara%"</span><span style="color: #FF7B72">;</span></span>
-<span class="line"><span style="color: #C9D1D9">+--------------------------+----------------------------+</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> Variable_name            </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> Value                      </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #C9D1D9">+--------------------------+----------------------------+</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_client     </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> utf8mb4                    </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_connection </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> utf8mb4                    </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_database   </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> utf8mb4                    </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_filesystem </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> binary                     </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_results    </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> utf8mb4                    </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_server     </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> utf8mb4                    </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_set_system     </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> utf8                       </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> character_sets_dir       </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> /usr/share/mysql/charsets/ </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #C9D1D9">+--------------------------+----------------------------+</span></span>
-<span class="line"><span style="color: #C9D1D9">8 rows </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">set</span><span style="color: #C9D1D9"> (0.00 sec)</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">mysql></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">show</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">variables</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">like</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"chara%"</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #B392F0">+--------------------------+----------------------------+</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">Variable_name</span><span style="color: #E1E4E8">            </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">Value</span><span style="color: #E1E4E8">                      </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #B392F0">+--------------------------+----------------------------+</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_client</span><span style="color: #E1E4E8">     </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">utf8mb4</span><span style="color: #E1E4E8">                    </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_connection</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">utf8mb4</span><span style="color: #E1E4E8">                    </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_database</span><span style="color: #E1E4E8">   </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">utf8mb4</span><span style="color: #E1E4E8">                    </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_filesystem</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">binary</span><span style="color: #E1E4E8">                     </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_results</span><span style="color: #E1E4E8">    </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">utf8mb4</span><span style="color: #E1E4E8">                    </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_server</span><span style="color: #E1E4E8">     </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">utf8mb4</span><span style="color: #E1E4E8">                    </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_set_system</span><span style="color: #E1E4E8">     </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">utf8</span><span style="color: #E1E4E8">                       </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">character_sets_dir</span><span style="color: #E1E4E8">       </span><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">/usr/share/mysql/charsets/</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #B392F0">+--------------------------+----------------------------+</span></span>
+<span class="line"><span style="color: #B392F0">8</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">rows</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">in</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">set</span><span style="color: #E1E4E8"> (0.00 </span><span style="color: #9ECBFF">sec</span><span style="color: #E1E4E8">)</span></span></code></pre>
 <p>最後にアプリケーションの作成を行います。とは言っても config ファイルを用意して cli から起動するだけです。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">cd</span><span style="color: #C9D1D9"> lighthouse-ci-server</span></span>
-<span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">echo</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">"{ </span><span style="color: #79C0FF">\"</span><span style="color: #A5D6FF">private</span><span style="color: #79C0FF">\"</span><span style="color: #A5D6FF">: true }"</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> package.json</span></span>
-<span class="line"><span style="color: #C9D1D9">$ npm install -D npm install -D @lhci/cli @lhci/server mysql2</span></span>
-<span class="line"><span style="color: #C9D1D9">$ touch lighthouserc.js</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">cd</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lighthouse-ci-server</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">echo</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"{ </span><span style="color: #79B8FF">\"</span><span style="color: #9ECBFF">private</span><span style="color: #79B8FF">\"</span><span style="color: #9ECBFF">: true }"</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">package.json</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">npm</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">install</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-D</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">npm</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">install</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-D</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">@lhci/cli</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">@lhci/server</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">mysql2</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">touch</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lighthouserc.js</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">$ tree -L 1</span></span>
-<span class="line"><span style="color: #79C0FF">.</span></span>
-<span class="line"><span style="color: #C9D1D9">├── lighthouserc.js</span></span>
-<span class="line"><span style="color: #C9D1D9">├── node_modules</span></span>
-<span class="line"><span style="color: #C9D1D9">├── package.json</span></span>
-<span class="line"><span style="color: #C9D1D9">└── package-lock.json</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tree</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-L</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">1</span></span>
+<span class="line"><span style="color: #79B8FF">.</span></span>
+<span class="line"><span style="color: #B392F0">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lighthouserc.js</span></span>
+<span class="line"><span style="color: #B392F0">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">node_modules</span></span>
+<span class="line"><span style="color: #B392F0">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">package.json</span></span>
+<span class="line"><span style="color: #B392F0">└──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">package-lock.json</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">1 directory, 3 files</span></span></code></pre>
+<span class="line"><span style="color: #B392F0">1</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">directory,</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">3</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">files</span></span></code></pre>
 <p>最初はちょっとわかりにくいのですが、Server も CLI も同じ <code>lhci</code> コマンドを使って起動できます。</p>
 <p>サーバーの config 設定は<a href="https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/configuration.md#server">こちら</a>を参考にします。</p>
 <p><code>lhci</code> は内部的に <code>yags</code> に依存しているので、オプションでそれぞれの値を設定することもできます。また、モジュールを読み込んで普通のアプリケーションサーバーのように Node.js のスクリプトで起動することもできます。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> { </span><span style="color: #79C0FF">createServer</span><span style="color: #C9D1D9"> } </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'@lhci/server'</span><span style="color: #C9D1D9">)</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> { </span><span style="color: #79B8FF">createServer</span><span style="color: #E1E4E8"> } </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">require</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'@lhci/server'</span><span style="color: #E1E4E8">)</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'Starting server...'</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #D2A8FF">createServer</span><span style="color: #C9D1D9">({</span></span>
-<span class="line"><span style="color: #C9D1D9">  port: process.env.</span><span style="color: #79C0FF">PORT</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">  storage: {</span></span>
-<span class="line"><span style="color: #C9D1D9">    storageMethod: </span><span style="color: #A5D6FF">'sql'</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">    sqlDialect: </span><span style="color: #A5D6FF">'sqlite'</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">    sqlDatabasePath: </span><span style="color: #A5D6FF">'/path/to/db.sql'</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">}).</span><span style="color: #D2A8FF">then</span><span style="color: #C9D1D9">(({ </span><span style="color: #FFA657">port</span><span style="color: #C9D1D9"> }) </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> console.</span><span style="color: #D2A8FF">log</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'LHCI listening on port'</span><span style="color: #C9D1D9">, port))</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'Starting server...'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #B392F0">createServer</span><span style="color: #E1E4E8">({</span></span>
+<span class="line"><span style="color: #E1E4E8">  port: process.env.</span><span style="color: #79B8FF">PORT</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">  storage: {</span></span>
+<span class="line"><span style="color: #E1E4E8">    storageMethod: </span><span style="color: #9ECBFF">'sql'</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">    sqlDialect: </span><span style="color: #9ECBFF">'sqlite'</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">    sqlDatabasePath: </span><span style="color: #9ECBFF">'/path/to/db.sql'</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">}).</span><span style="color: #B392F0">then</span><span style="color: #E1E4E8">(({ </span><span style="color: #FFAB70">port</span><span style="color: #E1E4E8"> }) </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> console.</span><span style="color: #B392F0">log</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'LHCI listening on port'</span><span style="color: #E1E4E8">, port))</span></span></code></pre>
 <p>Ref:</p>
 <p><a href="https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/server.md#general">Server Docs</a>
 <a href="https://github.com/GoogleChrome/lighthouse-ci/blob/master/packages/cli/src/cli.js">cli.js</a></p>
 <p>サーバーの設定に必要なパラメーターはドキュメントもありますが型定義が提供されているので、ここを参照したほうがわかりやすいと思います。</p>
 <p><a href="https://github.com/GoogleChrome/lighthouse-ci/blob/master/types/server.d.ts#L178-L197">server.d.ts</a></p>
 <p>lighthouserc.js の中身は次のようになります。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">sqlConnectionUrl</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">`mysql://${</span><span style="color: #C9D1D9">process</span><span style="color: #A5D6FF">.</span><span style="color: #C9D1D9">env</span><span style="color: #A5D6FF">.</span><span style="color: #79C0FF">MYSQL_USER</span><span style="color: #A5D6FF">}:${</span><span style="color: #C9D1D9">process</span><span style="color: #A5D6FF">.</span><span style="color: #C9D1D9">env</span><span style="color: #A5D6FF">.</span><span style="color: #79C0FF">MYSQL_PASSWORD</span><span style="color: #A5D6FF">}@localhost/lighthouse`</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">sqlConnectionUrl</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">`mysql://${</span><span style="color: #E1E4E8">process</span><span style="color: #9ECBFF">.</span><span style="color: #E1E4E8">env</span><span style="color: #9ECBFF">.</span><span style="color: #79B8FF">MYSQL_USER</span><span style="color: #9ECBFF">}:${</span><span style="color: #E1E4E8">process</span><span style="color: #9ECBFF">.</span><span style="color: #E1E4E8">env</span><span style="color: #9ECBFF">.</span><span style="color: #79B8FF">MYSQL_PASSWORD</span><span style="color: #9ECBFF">}@localhost/lighthouse`</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #79C0FF">module</span><span style="color: #C9D1D9">.</span><span style="color: #79C0FF">exports</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  ci: {</span></span>
-<span class="line"><span style="color: #C9D1D9">    server: {</span></span>
-<span class="line"><span style="color: #C9D1D9">      port: process.env.</span><span style="color: #79C0FF">PORT</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">      storage: {</span></span>
-<span class="line"><span style="color: #C9D1D9">        storageMethod: </span><span style="color: #A5D6FF">'sql'</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">        sqlDialect: </span><span style="color: #A5D6FF">'mysql'</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">        sqlConnectionUrl</span></span>
-<span class="line"><span style="color: #C9D1D9">      }</span></span>
-<span class="line"><span style="color: #C9D1D9">    }</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<span class="line"><span style="color: #79B8FF">module</span><span style="color: #E1E4E8">.</span><span style="color: #79B8FF">exports</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  ci: {</span></span>
+<span class="line"><span style="color: #E1E4E8">    server: {</span></span>
+<span class="line"><span style="color: #E1E4E8">      port: process.env.</span><span style="color: #79B8FF">PORT</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">      storage: {</span></span>
+<span class="line"><span style="color: #E1E4E8">        storageMethod: </span><span style="color: #9ECBFF">'sql'</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">        sqlDialect: </span><span style="color: #9ECBFF">'mysql'</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">        sqlConnectionUrl</span></span>
+<span class="line"><span style="color: #E1E4E8">      }</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>設定ファイルを配置したらサーバーを起動してブラウザの表示を確認してみましょう。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">$ PORT=3000 MYSQL_USER=lighthouseuser MYSQL_PASSWORD=password ./node_modules/.bin/lhci server --config=./lighthouserc.js</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8">$ PORT=3000 MYSQL_USER=lighthouseuser MYSQL_PASSWORD=password ./node_modules/.bin/lhci server --config=./lighthouserc.js</span></span></code></pre>
 <p>ブラウザで開いてみると初期画面として次のような画面が表示されます。</p>
 <p><img src="/img/2020-10-24-lighthouse-ci/lighthouse-ci-server.jpg" alt="Lighthouse CI Server"></p>
 <p>MySQL 側を確認してみると必要なテーブルが自動で生成されています。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">mysql</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> use lighthouse</span><span style="color: #FF7B72">;</span></span>
-<span class="line"><span style="color: #C9D1D9">mysql</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> show tables</span><span style="color: #FF7B72">;</span></span>
-<span class="line"><span style="color: #C9D1D9">+----------------------+</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> Tables_in_lighthouse </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #C9D1D9">+----------------------+</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> SequelizeMeta        </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> builds               </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> projects             </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> runs                 </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> statistics           </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #C9D1D9">+----------------------+</span></span>
-<span class="line"><span style="color: #C9D1D9">5 rows </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">set</span><span style="color: #C9D1D9"> (0.00 sec)</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">mysql></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">use</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lighthouse</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #B392F0">mysql></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">show</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tables</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #B392F0">+----------------------+</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">Tables_in_lighthouse</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #B392F0">+----------------------+</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">SequelizeMeta</span><span style="color: #E1E4E8">        </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">builds</span><span style="color: #E1E4E8">               </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">projects</span><span style="color: #E1E4E8">             </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">runs</span><span style="color: #E1E4E8">                 </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">statistics</span><span style="color: #E1E4E8">           </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #B392F0">+----------------------+</span></span>
+<span class="line"><span style="color: #B392F0">5</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">rows</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">in</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">set</span><span style="color: #E1E4E8"> (0.00 </span><span style="color: #9ECBFF">sec</span><span style="color: #E1E4E8">)</span></span></code></pre>
 <p>サーバーの動作を確認したらデーモン化します。自分はプライベートでさくっとやる時には systemd をよく使います。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">[Unit]</span></span>
-<span class="line"><span style="color: #c9d1d9">Description=lighthouse ci server</span></span>
-<span class="line"><span style="color: #c9d1d9"></span></span>
-<span class="line"><span style="color: #c9d1d9">[Service]</span></span>
-<span class="line"><span style="color: #c9d1d9">Type=simple</span></span>
-<span class="line"><span style="color: #c9d1d9">Environment=PORT=3000</span></span>
-<span class="line"><span style="color: #c9d1d9">Environment=MYSQL_USER=lighthouseuser</span></span>
-<span class="line"><span style="color: #c9d1d9">Environment=MYSQL_PASSWORD=password</span></span>
-<span class="line"><span style="color: #c9d1d9">WorkingDirectory=/var/lighthouse/lighthouse-server</span></span>
-<span class="line"><span style="color: #c9d1d9">ExecStart=/var/lighthouse/lighthouse-serve/rnode_modules/.bin/lhcilhci server --config=/var/lighthouse/lighthouse-server/lighthouserc.js</span></span>
-<span class="line"><span style="color: #c9d1d9">User=root</span></span>
-<span class="line"><span style="color: #c9d1d9">Group=root</span></span>
-<span class="line"><span style="color: #c9d1d9">Restart=always</span></span>
-<span class="line"><span style="color: #c9d1d9">LimitNOFILE=65535</span></span>
-<span class="line"><span style="color: #c9d1d9">TimeoutStopSec=60</span></span>
-<span class="line"><span style="color: #c9d1d9"></span></span>
-<span class="line"><span style="color: #c9d1d9">[Install]</span></span>
-<span class="line"><span style="color: #c9d1d9">WantedBy=multi-user.target</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8">[Unit]</span></span>
+<span class="line"><span style="color: #e1e4e8">Description=lighthouse ci server</span></span>
+<span class="line"><span style="color: #e1e4e8"></span></span>
+<span class="line"><span style="color: #e1e4e8">[Service]</span></span>
+<span class="line"><span style="color: #e1e4e8">Type=simple</span></span>
+<span class="line"><span style="color: #e1e4e8">Environment=PORT=3000</span></span>
+<span class="line"><span style="color: #e1e4e8">Environment=MYSQL_USER=lighthouseuser</span></span>
+<span class="line"><span style="color: #e1e4e8">Environment=MYSQL_PASSWORD=password</span></span>
+<span class="line"><span style="color: #e1e4e8">WorkingDirectory=/var/lighthouse/lighthouse-server</span></span>
+<span class="line"><span style="color: #e1e4e8">ExecStart=/var/lighthouse/lighthouse-serve/rnode_modules/.bin/lhcilhci server --config=/var/lighthouse/lighthouse-server/lighthouserc.js</span></span>
+<span class="line"><span style="color: #e1e4e8">User=root</span></span>
+<span class="line"><span style="color: #e1e4e8">Group=root</span></span>
+<span class="line"><span style="color: #e1e4e8">Restart=always</span></span>
+<span class="line"><span style="color: #e1e4e8">LimitNOFILE=65535</span></span>
+<span class="line"><span style="color: #e1e4e8">TimeoutStopSec=60</span></span>
+<span class="line"><span style="color: #e1e4e8"></span></span>
+<span class="line"><span style="color: #e1e4e8">[Install]</span></span>
+<span class="line"><span style="color: #e1e4e8">WantedBy=multi-user.target</span></span></code></pre>
 <p>次は CLI で実際にスコアを計測して Server に登録してみます。</p>
 <h2 id="lighthouse-ci">Lighthouse CI</h2>
 <p>実際に CI がデータを Server に登録するまでには 3 ステップの処理を行います。</p>
@@ -237,24 +245,24 @@
 <p>今回はコミットごとの計測ではなく、定点観測を行う環境を構築するため assert ステップは飛ばして実行します。</p>
 <p>ともあれ、まずは CLI を使えるようにしないことには始まらないのでグローバルにインストールしてパスを通します。</p>
 <p>記事執筆時点での最新バージョンは 0.5.1 です。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E"># サーバーにインストールされている lhci のバージョンを調べる</span></span>
-<span class="line"><span style="color: #C9D1D9">$ curl https://your-lhci-server.example.com/version</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #6A737D"># サーバーにインストールされている lhci のバージョンを調べる</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">curl</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">https://your-lhci-server.example.com/version</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">$ npm install -g @lhci/cli@latest</span></span>
-<span class="line"><span style="color: #C9D1D9">$ lhci --version</span></span>
-<span class="line"><span style="color: #C9D1D9">0.5.1</span></span></code></pre>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">npm</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">install</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-g</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">@lhci/cli@latest</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--version</span></span>
+<span class="line"><span style="color: #B392F0">0.5.1</span></span></code></pre>
 <p>Lighthouse CI はプロジェクトという単位で複数の URL を管理することができます。</p>
 <p>なので計測をする前に、まず最初はプロジェクトの作成から入ります。<code>lhci wizard</code> コマンドを叩くと対話形式でプロジェクトの作成ができます。
 <code>lhci wizard</code> の実行が完了すると Server にプロジェクトを登録し build token と admin token を発行します。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ lhci wizard</span></span>
-<span class="line"><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> Which wizard </span><span style="color: #FF7B72">do</span><span style="color: #C9D1D9"> you want to run</span><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> new-project</span></span>
-<span class="line"><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> What is the URL of your LHCI server</span><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> http://localhost:3000</span></span>
-<span class="line"><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> What would you like to name the project</span><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> kohsweb</span></span>
-<span class="line"><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> Where is the project</span><span style="color: #A5D6FF">'s code hosted? https://github.com/koh110/lighouse-kohsweb</span></span>
-<span class="line"><span style="color: #A5D6FF">? What branch is considered the repo'</span><span style="color: #C9D1D9">s trunk or main branch</span><span style="color: #FF7B72">?</span><span style="color: #C9D1D9"> master</span></span>
-<span class="line"><span style="color: #C9D1D9">Created project kohsweb (9498cd1d-02e5-4418-a974-bda42c4513e0)</span><span style="color: #FF7B72">!</span></span>
-<span class="line"><span style="color: #C9D1D9">Use build token xxxxx-xxxx-xxxx-xxxx-xxxxxxxxx to add data.</span></span>
-<span class="line"><span style="color: #C9D1D9">Use admin token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx to manage data. KEEP THIS SECRET</span><span style="color: #FF7B72">!</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">wizard</span></span>
+<span class="line"><span style="color: #F97583">?</span><span style="color: #E1E4E8"> Which wizard </span><span style="color: #F97583">do</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">you</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">want</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">run?</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">new-project</span></span>
+<span class="line"><span style="color: #F97583">?</span><span style="color: #E1E4E8"> What is the URL of your LHCI server</span><span style="color: #F97583">?</span><span style="color: #E1E4E8"> http://localhost:3000</span></span>
+<span class="line"><span style="color: #F97583">?</span><span style="color: #E1E4E8"> What would you like to name the project</span><span style="color: #F97583">?</span><span style="color: #E1E4E8"> kohsweb</span></span>
+<span class="line"><span style="color: #F97583">?</span><span style="color: #E1E4E8"> Where is the project</span><span style="color: #9ECBFF">'s code hosted? https://github.com/koh110/lighouse-kohsweb</span></span>
+<span class="line"><span style="color: #9ECBFF">? What branch is considered the repo'</span><span style="color: #E1E4E8">s trunk or main branch</span><span style="color: #F97583">?</span><span style="color: #E1E4E8"> master</span></span>
+<span class="line"><span style="color: #B392F0">Created</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">project</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">kohsweb</span><span style="color: #E1E4E8"> (9498cd1d-02e5-4418-a974-bda42c4513e0)</span><span style="color: #F97583">!</span></span>
+<span class="line"><span style="color: #B392F0">Use</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">build</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">token</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">xxxxx-xxxx-xxxx-xxxx-xxxxxxxxx</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">add</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">data.</span></span>
+<span class="line"><span style="color: #B392F0">Use</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">admin</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">token</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">manage</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">data.</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">KEEP</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">THIS</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">SECRET!</span></span></code></pre>
 <p>Server の UI を見に行くとプロジェクトが登録されています。</p>
 <p><img src="/img/2020-10-24-lighthouse-ci/lighthouse-ci-server-2.jpg" alt="Lighthouse CI Server"></p>
 <p>先程発行された admin token を使って画面上から、プロジェクトの設定の変更や削除が可能です。</p>
@@ -263,54 +271,54 @@
 <p>まずは Server と同様に lighthouserc.js を用意します。設定項目は CLI のオプションからも渡すことはできます。複数のプロジェクトで共通する設定などをコンフィグで管理し、変動する値を CLI のオプションで渡すのがよいのではないかと思います。</p>
 <p>ひとまずサンプルとして <code>numberOfRuns</code> を設定してみましょう。Lighthouse は通信状況やアプリケーションの状態によってもスコアが変わってくるので、デフォルトで 3 回繰り返して計測します。それを 5 回実行してコンフィグファイルの挙動を確認してみます。</p>
 <p>Ref: <a href="https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/configuration.md#collect">collect の設定項目</a></p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #79C0FF">module</span><span style="color: #C9D1D9">.</span><span style="color: #79C0FF">exports</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  ci: {</span></span>
-<span class="line"><span style="color: #C9D1D9">    collect: {</span></span>
-<span class="line"><span style="color: #C9D1D9">      numberOfRuns: </span><span style="color: #79C0FF">5</span></span>
-<span class="line"><span style="color: #C9D1D9">    }</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #79B8FF">module</span><span style="color: #E1E4E8">.</span><span style="color: #79B8FF">exports</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  ci: {</span></span>
+<span class="line"><span style="color: #E1E4E8">    collect: {</span></span>
+<span class="line"><span style="color: #E1E4E8">      numberOfRuns: </span><span style="color: #79B8FF">5</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>うまく動作すると 5 回実行されることが確認できます。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ lhci collect --url=https://blog.koh.dev --config=./lighthouserc.js</span></span>
-<span class="line"><span style="color: #C9D1D9">Running Lighthouse 5 time(s) on https://blog.koh.dev</span></span>
-<span class="line"><span style="color: #C9D1D9">Run </span><span style="color: #8B949E">#1...done.</span></span>
-<span class="line"><span style="color: #C9D1D9">Run </span><span style="color: #8B949E">#2...done.</span></span>
-<span class="line"><span style="color: #C9D1D9">Run </span><span style="color: #8B949E">#3...done.</span></span>
-<span class="line"><span style="color: #C9D1D9">Run </span><span style="color: #8B949E">#4...done.</span></span>
-<span class="line"><span style="color: #C9D1D9">Run </span><span style="color: #8B949E">#5...done.</span></span>
-<span class="line"><span style="color: #C9D1D9">Done running Lighthouse</span><span style="color: #FF7B72">!</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">collect</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--url=https://blog.koh.dev</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--config=./lighthouserc.js</span></span>
+<span class="line"><span style="color: #B392F0">Running</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Lighthouse</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">5</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">time</span><span style="color: #E1E4E8">(</span><span style="color: #B392F0">s</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">on</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">https://blog.koh.dev</span></span>
+<span class="line"><span style="color: #B392F0">Run</span><span style="color: #E1E4E8"> </span><span style="color: #6A737D">#1...done.</span></span>
+<span class="line"><span style="color: #B392F0">Run</span><span style="color: #E1E4E8"> </span><span style="color: #6A737D">#2...done.</span></span>
+<span class="line"><span style="color: #B392F0">Run</span><span style="color: #E1E4E8"> </span><span style="color: #6A737D">#3...done.</span></span>
+<span class="line"><span style="color: #B392F0">Run</span><span style="color: #E1E4E8"> </span><span style="color: #6A737D">#4...done.</span></span>
+<span class="line"><span style="color: #B392F0">Run</span><span style="color: #E1E4E8"> </span><span style="color: #6A737D">#5...done.</span></span>
+<span class="line"><span style="color: #B392F0">Done</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">running</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Lighthouse!</span></span></code></pre>
 <p>GUI 環境であれば計測した結果をブラウザで確認することが可能です。計測結果は <code>.lighthouseci/</code> ディレクトリに保存されていて、ここの html を開いてくれます。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ lhci open</span></span>
-<span class="line"><span style="color: #C9D1D9">Opening median report </span><span style="color: #FF7B72">for</span><span style="color: #C9D1D9"> https://blog.koh.dev/...</span></span>
-<span class="line"><span style="color: #C9D1D9">Done</span><span style="color: #FF7B72">!</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">open</span></span>
+<span class="line"><span style="color: #B392F0">Opening</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">median</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">report</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">for</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">https://blog.koh.dev/...</span></span>
+<span class="line"><span style="color: #B392F0">Done!</span></span></code></pre>
 <p><img src="/img/2020-10-24-lighthouse-ci/lighthouse-ci.jpg" alt="Lighthouse CI"></p>
 <p>GUI 環境でない場合は Chrome が実行できなくて失敗することがあります。Chrome をインストールしてもよいですが、puppeteer モジュールの中にバンドルされている Chrome を使うのが楽だと思います。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ npm i puppeteer</span></span></code></pre>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">puppeteer</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'puppeteer'</span><span style="color: #C9D1D9">)</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">npm</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">i</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">puppeteer</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">puppeteer</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">require</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'puppeteer'</span><span style="color: #E1E4E8">)</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #79C0FF">module</span><span style="color: #C9D1D9">.</span><span style="color: #79C0FF">exports</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  ci: {</span></span>
-<span class="line"><span style="color: #C9D1D9">    collect: {</span></span>
-<span class="line"><span style="color: #C9D1D9">      chromePath: puppeteer.</span><span style="color: #D2A8FF">executablePath</span><span style="color: #C9D1D9">(),</span></span>
-<span class="line"><span style="color: #C9D1D9">      numberOfRuns: </span><span style="color: #79C0FF">5</span></span>
-<span class="line"><span style="color: #C9D1D9">    }</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<span class="line"><span style="color: #79B8FF">module</span><span style="color: #E1E4E8">.</span><span style="color: #79B8FF">exports</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  ci: {</span></span>
+<span class="line"><span style="color: #E1E4E8">    collect: {</span></span>
+<span class="line"><span style="color: #E1E4E8">      chromePath: puppeteer.</span><span style="color: #B392F0">executablePath</span><span style="color: #E1E4E8">(),</span></span>
+<span class="line"><span style="color: #E1E4E8">      numberOfRuns: </span><span style="color: #79B8FF">5</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>url オプションは複数回指定することで複数同時に計測できます。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ lhci collect --url=https://blog.koh.dev --url=https://koh.dev --config=./lighthouserc.js</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">collect</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--url=https://blog.koh.dev</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--url=https://koh.dev</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--config=./lighthouserc.js</span></span></code></pre>
 <p>これで計測は完了、としてしまってもいいですが実は Lighthouse CI はデフォルト値がスマホに合わせてあるため、このままではスマホ環境しか計測できません。</p>
 <p>Lighthouse はスマホ環境を計測する場合は CPU やネットワークを擬似的に遅くしてスマホでの動作をエミュレートしています。</p>
 <p>では具体的にどこのオプションを切り替えればいいかというと <a href="https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/configuration.md#settings">settings オプジェクト</a>の <code>emulatedFormFactor</code> を修正することで変更が可能です。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ lhci collect --url=https://blog.koh.dev --settings.emulatedFormFactor=desktop --config=./lighthouserc.js</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">collect</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--url=https://blog.koh.dev</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.emulatedFormFactor=desktop</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--config=./lighthouserc.js</span></span></code></pre>
 <p>settings オブジェクトが具体的にどんなオプションを受け付けるのかは Lighthouse の型定義ファイルをみてくださいということになっています。この辺はちょっとドキュメントが簡素で迷うことがありますね。</p>
 <p>Ref: <a href="https://github.com/GoogleChrome/lighthouse/blob/575e29b8b6634bfb280bc820efea6795f3dd9017/types/externs.d.ts#L141-L186">settings</a></p>
 <p>さあこれでデスクトップ環境も計測できるようになった、と思うと実はまだこれだけでは Chrome に内蔵されている Lighthouse とはスコアに差が出ます。（ネットワークの状況や計測環境のスペックによってもスコアは変わるのでスコアが違ったからといって一概に間違ってるとは言えませんが）</p>
 <p><code>emulatedFormFactor</code> は Lighthouse の UserAgent しか変更しないので、ネットワークや CPU のエミュレートはスマホ向けの値のままなので、Chrome 内蔵の Lighthouse の Desktop を計測した時と同じような値を取得するためにはその値に変更する必要があります。</p>
 <p>具体的にそれらの値がどこで管理されているかを探してみると <a href="https://github.com/GoogleChrome/lighthouse/blob/72f1bd47cbb6fcc95349fc936b3fb0f098a93c47/lighthouse-core/config/constants.js#L22-L50">Ligthouse のリポジトリ内で定義されています</a>。</p>
 <p>これらのエミュレートする値は throttling オブジェクトで与える事ができるので、リポジトリ内の数字を参考に渡してあげることで、やっと Chrome 内蔵の Lighthouse と同じような挙動が可能になります。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ lhci collect --url=https://blog.koh.dev --settings.emulatedFormFactor=desktop --settings.throttling.cpuSlowdownMultiplier=1 --settings.throttling.throughputKbps=10240 --settings.throttling.rttMs=40 --config=./lighthouserc.js</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">collect</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--url=https://blog.koh.dev</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.emulatedFormFactor=desktop</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.cpuSlowdownMultiplier=1</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.throughputKbps=10240</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.rttMs=40</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--config=./lighthouserc.js</span></span></code></pre>
 <p>定期的に動かす環境ではスコアを変動させる要因は少なくしたほうがよいので、今後のアップデートで値が変更される可能性も考えると Mobile の場合も固定値で指定したほうがよいかもしれません。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ lhci collect --url=https://blog.koh.dev --settings.emulatedFormFactor=mobile --settings.throttling.cpuSlowdownMultiplier=4 --settings.throttling.throughputKbps=1638.4 --settings.throttling.rttMs=150 --config=./lighthouserc.js</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">collect</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--url=https://blog.koh.dev</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.emulatedFormFactor=mobile</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.cpuSlowdownMultiplier=4</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.throughputKbps=1638.4</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.rttMs=150</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--config=./lighthouserc.js</span></span></code></pre>
 <p>ここまでで計測するコマンドを作ることができるようになりました。次はこの結果を Server にアップロードしてみましょう。</p>
 <h3 id="upload">upload</h3>
 <p>upload ステップでやっている事は <code>.lighthouse/</code> の内容を参照してターゲットとなる Server にアップロードするだけです。
@@ -318,48 +326,48 @@
 <p>Lighthouse CI が想定しているのは GitHub のコミットに紐づけて、そのコミットによってスコアが変化したかどうかを CI でテストするという使い方です。
 なので、Server に登録する際にはコミットハッシュなどの情報が必要になります。これらの情報は<a href="https://github.com/GoogleChrome/lighthouse-ci/issues/5#issuecomment-591578507">環境変数からコマンドに渡すことができる</a>ので、uplaod コマンドを実行する際に渡してあげます。</p>
 <p>もし環境変数を与えないまま単純に手元で実行しようとするとエラーがおきると思います。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ lhci upload --config=./lighthouserc.js --token=xxxxxxxxxxxxxxxxxx</span></span>
-<span class="line"><span style="color: #C9D1D9">Error: Unable to determine current </span><span style="color: #79C0FF">hash</span><span style="color: #C9D1D9"> with </span><span style="color: #A5D6FF">`git rev-parse HEAD`</span><span style="color: #C9D1D9">. This can be overridden with setting LHCI_BUILD_CONTEXT__CURRENT_HASH env.</span></span>
-<span class="line"><span style="color: #C9D1D9">    at getCurrentHash (/usr/local/lib/node_modules/@lhci/cli/node_modules/@lhci/utils/src/build-context.js:74:11)</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">upload</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--config=./lighthouserc.js</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--token=xxxxxxxxxxxxxxxxxx</span></span>
+<span class="line"><span style="color: #B392F0">Error:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Unable</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">determine</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">current</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">hash</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">with</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">`</span><span style="color: #B392F0">git</span><span style="color: #9ECBFF"> rev-parse HEAD`</span><span style="color: #79B8FF">.</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">This</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">can</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">be</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">overridden</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">with</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">setting</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">LHCI_BUILD_CONTEXT__CURRENT_HASH</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">env.</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #B392F0">at</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">getCurrentHash</span><span style="color: #E1E4E8"> (/usr/local/lib/node_modules/@lhci/cli/node_modules/@lhci/utils/src/build-context.js:74:11)</span></span></code></pre>
 <p>upload コマンドを実行するために、まずは先程の lighthouserc.js に upload 用の設定を加えます。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">puppeteer</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'puppeteer'</span><span style="color: #C9D1D9">)</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">puppeteer</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">require</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'puppeteer'</span><span style="color: #E1E4E8">)</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #79C0FF">module</span><span style="color: #C9D1D9">.</span><span style="color: #79C0FF">exports</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  ci: {</span></span>
-<span class="line"><span style="color: #C9D1D9">    collect: {</span></span>
-<span class="line"><span style="color: #C9D1D9">      chromePath: puppeteer.</span><span style="color: #D2A8FF">executablePath</span><span style="color: #C9D1D9">(),</span></span>
-<span class="line"><span style="color: #C9D1D9">      numberOfRuns: </span><span style="color: #79C0FF">5</span></span>
-<span class="line"><span style="color: #C9D1D9">    },</span></span>
-<span class="line"><span style="color: #C9D1D9">    upload: {</span></span>
-<span class="line"><span style="color: #C9D1D9">      target: </span><span style="color: #A5D6FF">'lhci'</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">      serverBaseUrl: </span><span style="color: #A5D6FF">'http://localhost:3000'</span></span>
-<span class="line"><span style="color: #C9D1D9">    }</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<span class="line"><span style="color: #79B8FF">module</span><span style="color: #E1E4E8">.</span><span style="color: #79B8FF">exports</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  ci: {</span></span>
+<span class="line"><span style="color: #E1E4E8">    collect: {</span></span>
+<span class="line"><span style="color: #E1E4E8">      chromePath: puppeteer.</span><span style="color: #B392F0">executablePath</span><span style="color: #E1E4E8">(),</span></span>
+<span class="line"><span style="color: #E1E4E8">      numberOfRuns: </span><span style="color: #79B8FF">5</span></span>
+<span class="line"><span style="color: #E1E4E8">    },</span></span>
+<span class="line"><span style="color: #E1E4E8">    upload: {</span></span>
+<span class="line"><span style="color: #E1E4E8">      target: </span><span style="color: #9ECBFF">'lhci'</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">      serverBaseUrl: </span><span style="color: #9ECBFF">'http://localhost:3000'</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>自分は次のようなシェルスクリプトを作って利用しています。<a href="https://github.com/GoogleChrome/lighthouse-ci/issues/5#issuecomment-591578507">こちらの issue</a> に記載されている方法をほぼ踏襲しながら、CURRENT_HASH や COMMIT_TIME の生成のコードを Node.js によせて少し書きかえています。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> TZ=</span><span style="color: #A5D6FF">"Asia/Tokeyo"</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__CURRENT_HASH=</span><span style="color: #A5D6FF">$(node -e "console.log(crypto.createHash('md5').update(Date.now().toString()).digest('hex'))")</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__COMMIT_TIME=</span><span style="color: #A5D6FF">$(node -e "console.log(new Date().toISOString())")</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__CURRENT_BRANCH=master</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__COMMIT_MESSAGE=</span><span style="color: #A5D6FF">"Periodic run $(node -e "console.log(new Date().toISOString())")"</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__AUTHOR=</span><span style="color: #A5D6FF">"kohta ito &#x3C;koh110@example.com>"</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__AVATAR_URL=</span><span style="color: #A5D6FF">"https://avatars2.githubusercontent.com/u/1889831"</span></span>
-<span class="line"><span style="color: #C9D1D9">lhci upload --config=./lighthouserc.js --token=xxxxxx</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> TZ</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">"Asia/Tokeyo"</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__CURRENT_HASH</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">$(</span><span style="color: #B392F0">node</span><span style="color: #9ECBFF"> </span><span style="color: #79B8FF">-e</span><span style="color: #9ECBFF"> "console.log(crypto.createHash('md5').update(Date.now().toString()).digest('hex'))")</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__COMMIT_TIME</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">$(</span><span style="color: #B392F0">node</span><span style="color: #9ECBFF"> </span><span style="color: #79B8FF">-e</span><span style="color: #9ECBFF"> "console.log(new Date().toISOString())")</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__CURRENT_BRANCH</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">master</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__COMMIT_MESSAGE</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">"Periodic run $(</span><span style="color: #B392F0">node</span><span style="color: #9ECBFF"> </span><span style="color: #79B8FF">-e</span><span style="color: #9ECBFF"> "console.log(new Date().toISOString())")"</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__AUTHOR</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">"kohta ito &#x3C;koh110@example.com>"</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__AVATAR_URL</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">"https://avatars2.githubusercontent.com/u/1889831"</span></span>
+<span class="line"><span style="color: #B392F0">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">upload</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--config=./lighthouserc.js</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--token=xxxxxx</span></span></code></pre>
 <p>シェルスクリプトを実行すると 5 個のデータがアップロードされていることがわかります。これは先程 <code>numberOfRuns</code> で指定した値分生成されたデータが全て登録されているということです。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ bash -x upload.sh</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">bash</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-x</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">upload.sh</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">...</span></span>
+<span class="line"><span style="color: #79B8FF">...</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">Saving CI project kohsweb (e498177b-0226-4de2-afd7-f3bac71afce4)</span></span>
-<span class="line"><span style="color: #C9D1D9">Saving CI build (db6f110e-e970-4559-b106-5c52fbdcc445)</span></span>
-<span class="line"><span style="color: #C9D1D9">Saved LHR to http://localhost:3000 (cbd52b66-1725-4383-8532-4d4416392616)</span></span>
-<span class="line"><span style="color: #C9D1D9">Saved LHR to http://localhost:3000 (e2667737-53d7-4310-8b76-c9d95ca8192f)</span></span>
-<span class="line"><span style="color: #C9D1D9">Saved LHR to http://localhost:3000 (eea8c09a-a675-44c7-9263-f53bc625e4f3)</span></span>
-<span class="line"><span style="color: #C9D1D9">Saved LHR to http://localhost:3000 (d24c99d0-ee6e-4e6a-93b5-84c8a2efea91)</span></span>
-<span class="line"><span style="color: #C9D1D9">Saved LHR to http://localhost:3000 (39d3361d-0aad-4427-820c-463de43ebbea)</span></span>
-<span class="line"><span style="color: #C9D1D9">Done saving build results to Lighthouse CI</span></span>
-<span class="line"><span style="color: #C9D1D9">View build diff at http://localhost:3000/app/projects/kohsweb/compare/db6f110e-e970-4559-b106-5c52fbdcc445</span></span>
-<span class="line"><span style="color: #C9D1D9">No GitHub token set, skipping GitHub status check.</span></span></code></pre>
+<span class="line"><span style="color: #B392F0">Saving</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">CI</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">project</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">kohsweb</span><span style="color: #E1E4E8"> (e498177b-0226-4de2-afd7-f3bac71afce4)</span></span>
+<span class="line"><span style="color: #B392F0">Saving</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">CI</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">build</span><span style="color: #E1E4E8"> (db6f110e-e970-4559-b106-5c52fbdcc445)</span></span>
+<span class="line"><span style="color: #B392F0">Saved</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">LHR</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">http://localhost:3000</span><span style="color: #E1E4E8"> (cbd52b66-1725-4383-8532-4d4416392616)</span></span>
+<span class="line"><span style="color: #B392F0">Saved</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">LHR</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">http://localhost:3000</span><span style="color: #E1E4E8"> (e2667737-53d7-4310-8b76-c9d95ca8192f)</span></span>
+<span class="line"><span style="color: #B392F0">Saved</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">LHR</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">http://localhost:3000</span><span style="color: #E1E4E8"> (eea8c09a-a675-44c7-9263-f53bc625e4f3)</span></span>
+<span class="line"><span style="color: #B392F0">Saved</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">LHR</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">http://localhost:3000</span><span style="color: #E1E4E8"> (d24c99d0-ee6e-4e6a-93b5-84c8a2efea91)</span></span>
+<span class="line"><span style="color: #B392F0">Saved</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">LHR</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">http://localhost:3000</span><span style="color: #E1E4E8"> (39d3361d-0aad-4427-820c-463de43ebbea)</span></span>
+<span class="line"><span style="color: #B392F0">Done</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">saving</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">build</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">results</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Lighthouse</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">CI</span></span>
+<span class="line"><span style="color: #B392F0">View</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">build</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">diff</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">at</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">http://localhost:3000/app/projects/kohsweb/compare/db6f110e-e970-4559-b106-5c52fbdcc445</span></span>
+<span class="line"><span style="color: #B392F0">No</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">GitHub</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">token</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">set,</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">skipping</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">GitHub</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">status</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">check.</span></span></code></pre>
 <p>実際に登録されたデータは次のスクリーンショットのように時系列のグラフで表示されます。（これはデータ量が少ないので見栄えが悪いですが……）</p>
 <p><img src="/img/2020-10-24-lighthouse-ci/lighthouse-ci-server-3.jpg" alt="Lighthouse CI"></p>
 <p><code>{{project name}} Builds</code> の列がそれぞれ個別の結果のリンクになっています。</p>
@@ -371,57 +379,57 @@
 最後に実運用するにあたってわかった自分が気をつけている Tips について記載します。</p>
 <h2 id="lighthousercjs">lighthouserc.js</h2>
 <p>色々とやるうちに自分は次のような設定ファイルに落ち着きました。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">puppeteer</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">require</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'puppeteer'</span><span style="color: #C9D1D9">)</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">puppeteer</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">require</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'puppeteer'</span><span style="color: #E1E4E8">)</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #79C0FF">module</span><span style="color: #C9D1D9">.</span><span style="color: #79C0FF">exports</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  ci: {</span></span>
-<span class="line"><span style="color: #C9D1D9">    collect: {</span></span>
-<span class="line"><span style="color: #C9D1D9">      chromePath: puppeteer.</span><span style="color: #D2A8FF">executablePath</span><span style="color: #C9D1D9">(),</span></span>
-<span class="line"><span style="color: #C9D1D9">      maxWaitForLoad: </span><span style="color: #79C0FF">180000</span></span>
-<span class="line"><span style="color: #C9D1D9">    },</span></span>
-<span class="line"><span style="color: #C9D1D9">    upload: {</span></span>
-<span class="line"><span style="color: #C9D1D9">      target: </span><span style="color: #A5D6FF">'lhci'</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">      serverBaseUrl: </span><span style="color: #A5D6FF">'http://localhost:3000'</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">      ignoreDuplicateBuildFailure: </span><span style="color: #79C0FF">true</span></span>
-<span class="line"><span style="color: #C9D1D9">    }</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<span class="line"><span style="color: #79B8FF">module</span><span style="color: #E1E4E8">.</span><span style="color: #79B8FF">exports</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  ci: {</span></span>
+<span class="line"><span style="color: #E1E4E8">    collect: {</span></span>
+<span class="line"><span style="color: #E1E4E8">      chromePath: puppeteer.</span><span style="color: #B392F0">executablePath</span><span style="color: #E1E4E8">(),</span></span>
+<span class="line"><span style="color: #E1E4E8">      maxWaitForLoad: </span><span style="color: #79B8FF">180000</span></span>
+<span class="line"><span style="color: #E1E4E8">    },</span></span>
+<span class="line"><span style="color: #E1E4E8">    upload: {</span></span>
+<span class="line"><span style="color: #E1E4E8">      target: </span><span style="color: #9ECBFF">'lhci'</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">      serverBaseUrl: </span><span style="color: #9ECBFF">'http://localhost:3000'</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">      ignoreDuplicateBuildFailure: </span><span style="color: #79B8FF">true</span></span>
+<span class="line"><span style="color: #E1E4E8">    }</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>解説時と違い <code>numberOfRuns</code> はデフォルト値のままです。増やしてもそんなに問題はないのですが、これは運用コストの問題です。
 upload の箇所でも説明したのですが、5 回実行すると 5 個のデータが生成され登録されます。（実際は紐づく Table 数でもうちょっとレコード数は増えます）
 これが結構馬鹿にならないデータ量になるのでデフォルトの値に戻しました。</p>
 <p>また、実際に画面に表示されているのは、同じ buildId の中の representative フラグが 1 となっているもののみです。
 他のデータは表示はされないのでゴミデータに近いものになるので、最小限にしたいと思っています。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">mysql> select id,buildId,representative from runs limit 10;</span></span>
-<span class="line"><span style="color: #c9d1d9">+--------------------------------------+--------------------------------------+----------------+</span></span>
-<span class="line"><span style="color: #c9d1d9">| id                                   | buildId                              | representative |</span></span>
-<span class="line"><span style="color: #c9d1d9">+--------------------------------------+--------------------------------------+----------------+</span></span>
-<span class="line"><span style="color: #c9d1d9">| 39d3361d-0aad-4427-820c-463de43ebbea | db6f110e-e970-4559-b106-5c52fbdcc445 |              0 |</span></span>
-<span class="line"><span style="color: #c9d1d9">| 4d7f18ec-1b35-4655-a846-35fbdd6706a7 | 480f155c-64ba-4c14-a8ee-275a88772dfc |              1 |</span></span>
-<span class="line"><span style="color: #c9d1d9">| 551f4b89-82aa-434f-bab4-db9d93772517 | 7e50d809-03e3-4588-b2a2-16924c55c0cd |              0 |</span></span>
-<span class="line"><span style="color: #c9d1d9">| 68c429ff-b1de-491f-8d16-b4fb0394c982 | 3c4813ee-1d23-4b52-8c16-f240366dec4e |              0 |</span></span>
-<span class="line"><span style="color: #c9d1d9">| 8f3f9293-cdec-4a03-9d88-521d8488c346 | 480f155c-64ba-4c14-a8ee-275a88772dfc |              0 |</span></span>
-<span class="line"><span style="color: #c9d1d9">| 9fd30cef-77b0-4dfa-b4fd-58a3a729faed | aea732c5-11e8-4755-8a8a-48cd9d869d17 |              1 |</span></span>
-<span class="line"><span style="color: #c9d1d9">| b72cad60-6b8c-4e6f-885c-b8292d6658ee | 3c4813ee-1d23-4b52-8c16-f240366dec4e |              0 |</span></span>
-<span class="line"><span style="color: #c9d1d9">| bc6da55f-22ec-4fda-975e-d29c5194baa6 | 480f155c-64ba-4c14-a8ee-275a88772dfc |              0 |</span></span>
-<span class="line"><span style="color: #c9d1d9">| cbd52b66-1725-4383-8532-4d4416392616 | db6f110e-e970-4559-b106-5c52fbdcc445 |              0 |</span></span>
-<span class="line"><span style="color: #c9d1d9">| cecc001d-661f-4159-a0a4-f4c9f9f09104 | 3c4813ee-1d23-4b52-8c16-f240366dec4e |              1 |</span></span>
-<span class="line"><span style="color: #c9d1d9">+--------------------------------------+--------------------------------------+----------------+</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8">mysql> select id,buildId,representative from runs limit 10;</span></span>
+<span class="line"><span style="color: #e1e4e8">+--------------------------------------+--------------------------------------+----------------+</span></span>
+<span class="line"><span style="color: #e1e4e8">| id                                   | buildId                              | representative |</span></span>
+<span class="line"><span style="color: #e1e4e8">+--------------------------------------+--------------------------------------+----------------+</span></span>
+<span class="line"><span style="color: #e1e4e8">| 39d3361d-0aad-4427-820c-463de43ebbea | db6f110e-e970-4559-b106-5c52fbdcc445 |              0 |</span></span>
+<span class="line"><span style="color: #e1e4e8">| 4d7f18ec-1b35-4655-a846-35fbdd6706a7 | 480f155c-64ba-4c14-a8ee-275a88772dfc |              1 |</span></span>
+<span class="line"><span style="color: #e1e4e8">| 551f4b89-82aa-434f-bab4-db9d93772517 | 7e50d809-03e3-4588-b2a2-16924c55c0cd |              0 |</span></span>
+<span class="line"><span style="color: #e1e4e8">| 68c429ff-b1de-491f-8d16-b4fb0394c982 | 3c4813ee-1d23-4b52-8c16-f240366dec4e |              0 |</span></span>
+<span class="line"><span style="color: #e1e4e8">| 8f3f9293-cdec-4a03-9d88-521d8488c346 | 480f155c-64ba-4c14-a8ee-275a88772dfc |              0 |</span></span>
+<span class="line"><span style="color: #e1e4e8">| 9fd30cef-77b0-4dfa-b4fd-58a3a729faed | aea732c5-11e8-4755-8a8a-48cd9d869d17 |              1 |</span></span>
+<span class="line"><span style="color: #e1e4e8">| b72cad60-6b8c-4e6f-885c-b8292d6658ee | 3c4813ee-1d23-4b52-8c16-f240366dec4e |              0 |</span></span>
+<span class="line"><span style="color: #e1e4e8">| bc6da55f-22ec-4fda-975e-d29c5194baa6 | 480f155c-64ba-4c14-a8ee-275a88772dfc |              0 |</span></span>
+<span class="line"><span style="color: #e1e4e8">| cbd52b66-1725-4383-8532-4d4416392616 | db6f110e-e970-4559-b106-5c52fbdcc445 |              0 |</span></span>
+<span class="line"><span style="color: #e1e4e8">| cecc001d-661f-4159-a0a4-f4c9f9f09104 | 3c4813ee-1d23-4b52-8c16-f240366dec4e |              1 |</span></span>
+<span class="line"><span style="color: #e1e4e8">+--------------------------------------+--------------------------------------+----------------+</span></span></code></pre>
 <p>upload の設定項目にある <code>ignoreDuplicateBuildFailure</code> は入れなくても問題ないのですが、検証時に同じ HASH でアップロードしようとするとエラーになったりするので、検証時の挙動を楽にするために入れています。</p>
 <h2 id="定期的な実行">定期的な実行</h2>
 <p>これは cron による実行で問題ありません。次のようなコードを cron などで定期実行する事で Lighthouse のスコアを定期的に取得しています。</p>
 <p>ここでの Tips は <code>--addictive</code> オプションと mobile を測定する時に <code>?mobile</code> というクエリパラメータを付与している点です。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">lhci collect --url=https://blog.koh.dev --settings.emulatedFormFactor=desktop --settings.throttling.cpuSlowdownMultiplier=1 --settings.throttling.throughputKbps=10240 --settings.throttling.rttMs=40 --config=/path/to/lighthouserc.js</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">collect</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--url=https://blog.koh.dev</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.emulatedFormFactor=desktop</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.cpuSlowdownMultiplier=1</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.throughputKbps=10240</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.rttMs=40</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--config=/path/to/lighthouserc.js</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">lhci collect --url=https://blog.koh.dev</span><span style="color: #FF7B72">?</span><span style="color: #C9D1D9">mobile --settings.emulatedFormFactor=mobile --settings.throttling.cpuSlowdownMultiplier=4 --settings.throttling.throughputKbps=1638.4 --settings.throttling.rttMs=150 --config=/path/to/lighthouserc.js --additive</span></span>
+<span class="line"><span style="color: #B392F0">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">collect</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--url=https://blog.koh.dev</span><span style="color: #F97583">?</span><span style="color: #79B8FF">mobile</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.emulatedFormFactor=mobile</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.cpuSlowdownMultiplier=4</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.throughputKbps=1638.4</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--settings.throttling.rttMs=150</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--config=/path/to/lighthouserc.js</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--additive</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> TZ=</span><span style="color: #A5D6FF">"Asia/Tokeyo"</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__CURRENT_HASH=</span><span style="color: #A5D6FF">$(node -e "console.log(crypto.createHash('md5').update(Date.now().toString()).digest('hex'))")</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__COMMIT_TIME=</span><span style="color: #A5D6FF">$(node -e "console.log(new Date().toISOString())")</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__CURRENT_BRANCH=master</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__COMMIT_MESSAGE=</span><span style="color: #A5D6FF">"Periodic run $(node -e "console.log(new Date().toISOString())")"</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__AUTHOR=</span><span style="color: #A5D6FF">"kohta ito &#x3C;koh110@example.com>"</span></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> LHCI_BUILD_CONTEXT__AVATAR_URL=</span><span style="color: #A5D6FF">"https://avatars2.githubusercontent.com/u/1889831"</span></span>
-<span class="line"><span style="color: #C9D1D9">lhci upload --config=./lighthouserc.js --token=xxxxxx</span></span></code></pre>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> TZ</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">"Asia/Tokeyo"</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__CURRENT_HASH</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">$(</span><span style="color: #B392F0">node</span><span style="color: #9ECBFF"> </span><span style="color: #79B8FF">-e</span><span style="color: #9ECBFF"> "console.log(crypto.createHash('md5').update(Date.now().toString()).digest('hex'))")</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__COMMIT_TIME</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">$(</span><span style="color: #B392F0">node</span><span style="color: #9ECBFF"> </span><span style="color: #79B8FF">-e</span><span style="color: #9ECBFF"> "console.log(new Date().toISOString())")</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__CURRENT_BRANCH</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">master</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__COMMIT_MESSAGE</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">"Periodic run $(</span><span style="color: #B392F0">node</span><span style="color: #9ECBFF"> </span><span style="color: #79B8FF">-e</span><span style="color: #9ECBFF"> "console.log(new Date().toISOString())")"</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__AUTHOR</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">"kohta ito &#x3C;koh110@example.com>"</span></span>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> LHCI_BUILD_CONTEXT__AVATAR_URL</span><span style="color: #F97583">=</span><span style="color: #9ECBFF">"https://avatars2.githubusercontent.com/u/1889831"</span></span>
+<span class="line"><span style="color: #B392F0">lhci</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">upload</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--config=./lighthouserc.js</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">--token=xxxxxx</span></span></code></pre>
 <p><code>--addictive</code> は collect コマンドを複数回実行する場合に必要になるオプションです。</p>
 <p>collect コマンドは実行するたびに <code>.lighthouse/</code> ディレクトリをクリアします。これは定期実行するにあたってはありがたい機能なのですが、複数の URL をパラメータを変えて計測する場合にはちょっと困ります。
 なので上記の例では <code>--addictive</code> で mobile の計測を行う場合に、上書きして消してしまう事を防いでいます。</p>
@@ -431,17 +439,17 @@ Lighthouse CI は URL 単位でデータを扱うため、同じ画面の Deskto
 <h2 id="mysql-容量問題">MySQL 容量問題</h2>
 <p>Lighthouse CI はよくできたツールで、実運用にあたってあまり困る部分がありません。唯一困るのは割と富豪的なリソースの使い方をするところです。</p>
 <p>テーブル数は少ないのですが、このうち実行結果を保持する runs が非常に大きな容量を食っていきます。自分が実際に運用している計測環境では 7GB/月の速度でデータ量が増えています。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">mysql</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> show tables</span><span style="color: #FF7B72">;</span></span>
-<span class="line"><span style="color: #C9D1D9">+----------------------+</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> Tables_in_lighthouse </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #C9D1D9">+----------------------+</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> SequelizeMeta        </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> builds               </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> projects             </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> runs                 </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> statistics           </span><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #C9D1D9">+----------------------+</span></span>
-<span class="line"><span style="color: #C9D1D9">5 rows </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">set</span><span style="color: #C9D1D9"> (0.00 sec)</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">mysql></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">show</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tables</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #B392F0">+----------------------+</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">Tables_in_lighthouse</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #B392F0">+----------------------+</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">SequelizeMeta</span><span style="color: #E1E4E8">        </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">builds</span><span style="color: #E1E4E8">               </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">projects</span><span style="color: #E1E4E8">             </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">runs</span><span style="color: #E1E4E8">                 </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">statistics</span><span style="color: #E1E4E8">           </span><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #B392F0">+----------------------+</span></span>
+<span class="line"><span style="color: #B392F0">5</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">rows</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">in</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">set</span><span style="color: #E1E4E8"> (0.00 </span><span style="color: #9ECBFF">sec</span><span style="color: #E1E4E8">)</span></span></code></pre>
 <p>レコードの中身を覗いてみるとわかるのですが、計測結果の json が文字列で保存されています。さらに結果に時系列のスクリーンショットデータが base64 エンコードで保存されているため、結構な容量を持っていかれます。</p>
 <p>今のところの自分は次の対処をしています。</p>
 <ul>
@@ -449,30 +457,33 @@ Lighthouse CI は URL 単位でデータを扱うため、同じ画面の Deskto
 <li>古いデータを定期的に削除する</li>
 </ul>
 <p>uplaod の箇所でも少し触れましたが、表示するデータは representative が 1 となっているデータのみです。なので <code>representative = 0</code> となっているデータは今の所必要ありません。これを定期的に削除します。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">mysql</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> SELECT COUNT(</span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9">) FROM runs WHERE representative = 0</span><span style="color: #FF7B72">;</span></span>
-<span class="line"><span style="color: #C9D1D9">mysql</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> DELETE FROM runs WHERE representative = 0</span><span style="color: #FF7B72">;</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">mysql></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">SELECT</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">COUNT</span><span style="color: #E1E4E8">(</span><span style="color: #F97583">*</span><span style="color: #E1E4E8">) </span><span style="color: #9ECBFF">FROM</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">runs</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">WHERE</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">representative</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #B392F0">mysql></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">DELETE</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">FROM</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">runs</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">WHERE</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">representative</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span><span style="color: #E1E4E8">;</span></span></code></pre>
 <p>もうひとつは Lighthouse CI Server の設定に <code>deleteOldBuildsCron</code> を設定を追加して、一定期間以上のデータを削除することです。
 この設定を追加することで、指定した期間（30 日以上等）のデータを削除する設定です。</p>
 <p>Ref: <a href="https://github.com/GoogleChrome/lighthouse-ci/pull/471">deleteOldBuildsCron</a></p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #c9d1d9">deleteOldBuildsCron?: {</span></span>
-<span class="line"><span style="color: #c9d1d9">  schedule: string;</span></span>
-<span class="line"><span style="color: #c9d1d9">  maxAgeInDays: number;</span></span>
-<span class="line"><span style="color: #c9d1d9">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #e1e4e8">deleteOldBuildsCron?: {</span></span>
+<span class="line"><span style="color: #e1e4e8">  schedule: string;</span></span>
+<span class="line"><span style="color: #e1e4e8">  maxAgeInDays: number;</span></span>
+<span class="line"><span style="color: #e1e4e8">}</span></span></code></pre>
 <p>自分が実運用上データ容量で困っていたので issue で相談したところ、こういう機能はどうかと返答をもらったので PR を送ったところ取り入れてもらえました。</p>
 <h1 id="まとめ">まとめ</h1>
 <p>Lighthouse CI についてコミットベースではなく定期実行でスコアを計測する方法と運用上の Tips をまとめました。</p>
 <p>Web のパフォーマンスアップをするためにはともあれまず計測をして、現在地点を知らないといけません。Ligthouse CI で自分たちのサイトのパフォーマンスを知ってスコアの改善につなげていきましょう！</p>
 </article>
+
     <hr class="astro-5GRSW2HI">
     <ul class="post-selector astro-5GRSW2HI">
      <li class="astro-5GRSW2HI"><a rel="prev" href="/2020-05-13-async-iterator" class="astro-5GRSW2HI"> ← AsyncIteratorと落とし穴</a></li>
      <li class="astro-5GRSW2HI"><a rel="next" href="/2022-07-02-jest-speedup" class="astro-5GRSW2HI">jestでDBありのテストを高速化する → </a></li>
     </ul>
-    <footer class="astro-5GRSW2HI">
-      © 2023, 
-      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
-        kohsweb
-      </a>
-    </footer>
   </main>
+
+  <footer class="astro-SCKKX6R4">
+    © 2023,
+    <a href="https://koh.dev" target="_blank" class="astro-SCKKX6R4">
+      kohsweb
+    </a>
+  </footer>
+
 </body></html>

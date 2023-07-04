@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="ja" class="astro-5GRSW2HI">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
-    <meta name="description" content="はじめに
+<html lang="ja" class="astro-SCKKX6R4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+  <title>MongoDB + Jestのテスト方法</title>
+  <meta name="description" content="はじめに
 MongoDB のテストを書いて、自分なりの方法が落ち着いたのでまとめる。
 結論: mongodb-memory-server を利用する。
 本物の MongoDB を使う方法（不採用）
 自分は middleware なども含めて...">
-    <title>MongoDB + Jestのテスト方法</title>
-    <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
+  <meta property="og:title" content="MongoDB + Jestのテスト方法">
+  <meta name="og:description" content="はじめに
+MongoDB のテストを書いて、自分なりの方法が落ち着いたのでまとめる。
+結論: mongodb-memory-server を利用する。
+本物の MongoDB を使う方法（不採用）
+自分は middleware なども含めて...">
+  <meta property="og:type">
+  <meta property="og:site_name" content="kohsweblog">
+  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
 
-  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script><link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
-<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
-</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.a66c24da.css" /></head>
+<link rel="stylesheet" href="/_astro/_post_.88d6343a.css" />
+<link rel="stylesheet" href="/_astro/_post_.c79e4623.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
+</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.598eec69.css" /></head>
+<body class="astro-SCKKX6R4">
   
-<body class="astro-5GRSW2HI">
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
   <main class="astro-5GRSW2HI">
     <header class="astro-5GRSW2HI">
       <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
@@ -30,7 +39,8 @@ MongoDB のテストを書いて、自分なりの方法が落ち着いたので
         <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
       </a>
     </div>
-    <article class="astro-XSCT23V3">
+    
+  <article class="astro-XSCT23V3">
   <h2 id="はじめに">はじめに</h2>
 <p>MongoDB のテストを書いて、自分なりの方法が落ち着いたのでまとめる。</p>
 <p>結論: <a href="https://www.npmjs.com/package/mongodb-memory-server" target="_blank">mongodb-memory-server</a> を利用する。</p>
@@ -53,50 +63,53 @@ MongoDB のテストを書いて、自分なりの方法が落ち着いたので
 <p><code>@shelf/jest-mongodb</code> を参考に Setup/Teardown のスクリプトを自分で用意した。</p>
 <p>setup.ts で MongoMemoryServer インスタンスを起動して global に。接続用の URI はアプリケーションが環境変数から読み込む仕様だったので環境変数に。</p>
 <p>TypeScript で書いているわけだし本来は global の namespace にきちんと MongoMemoryServer の型を追加するべきなんだろうけど、テストコードでこのインスタンスにふれる事も少ないので any としてしまった。TypeScript は頑張りすぎないように書く方針。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { MongoMemoryServer } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'mongodb-memory-server'</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> { MongoMemoryServer } </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'mongodb-memory-server'</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">export</span><span style="color: #FFA657"> </span><span style="color: #FF7B72">default</span><span style="color: #FFA657"> </span><span style="color: #FF7B72">async</span><span style="color: #FFA657"> </span><span style="color: #FF7B72">function</span><span style="color: #FFA657">() </span><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">mongoServer</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">new</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">MongoMemoryServer</span><span style="color: #C9D1D9">()</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">mongoUri</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> mongoServer.</span><span style="color: #D2A8FF">getConnectionString</span><span style="color: #C9D1D9">()</span></span>
-<span class="line"><span style="color: #C9D1D9">  ;(global </span><span style="color: #FF7B72">as</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">any</span><span style="color: #C9D1D9">).</span><span style="color: #79C0FF">MONGO_MEMORY_SERVER</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> mongoServer</span></span>
-<span class="line"><span style="color: #C9D1D9">  process.env.</span><span style="color: #79C0FF">MONGODB_TEST_URI</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> mongoUri</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">default</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">async</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">mongoServer</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">new</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">MongoMemoryServer</span><span style="color: #E1E4E8">()</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">mongoUri</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> mongoServer.</span><span style="color: #B392F0">getConnectionString</span><span style="color: #E1E4E8">()</span></span>
+<span class="line"><span style="color: #E1E4E8">  ;(global </span><span style="color: #F97583">as</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">any</span><span style="color: #E1E4E8">).</span><span style="color: #79B8FF">MONGO_MEMORY_SERVER</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> mongoServer</span></span>
+<span class="line"><span style="color: #E1E4E8">  process.env.</span><span style="color: #79B8FF">MONGODB_TEST_URI</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> mongoUri</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>最近は ; 省略派なので global への追加部分がちょっと読みづらくなってしまったが、あまり頻繁に手を加える部分じゃないしこのままとした。</p>
 <p>teardown.ts は単純に global にある MongoMemoryServer を停止して終了。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">export</span><span style="color: #FFA657"> </span><span style="color: #FF7B72">default</span><span style="color: #FFA657"> </span><span style="color: #FF7B72">async</span><span style="color: #FFA657"> </span><span style="color: #FF7B72">function</span><span style="color: #FFA657">() </span><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> (global </span><span style="color: #FF7B72">as</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">any</span><span style="color: #C9D1D9">).</span><span style="color: #79C0FF">MONGO_MEMORY_SERVER</span><span style="color: #C9D1D9">.</span><span style="color: #D2A8FF">stop</span><span style="color: #C9D1D9">()</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">default</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">async</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">function</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> (global </span><span style="color: #F97583">as</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">any</span><span style="color: #E1E4E8">).</span><span style="color: #79B8FF">MONGO_MEMORY_SERVER</span><span style="color: #E1E4E8">.</span><span style="color: #B392F0">stop</span><span style="color: #E1E4E8">()</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>あとはテストの beforeAll と afterAll で db に接続すればテストができる。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">let</span><span style="color: #C9D1D9"> client </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">null</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #E1E4E8"> client </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">null</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #D2A8FF">beforeAll</span><span style="color: #C9D1D9">(</span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  client </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> MongoClient.</span><span style="color: #D2A8FF">connect</span><span style="color: #C9D1D9">(process.env.</span><span style="color: #79C0FF">MONGODB_TEST_URI</span><span style="color: #C9D1D9">, {</span></span>
-<span class="line"><span style="color: #C9D1D9">    useNewUrlParser: </span><span style="color: #79C0FF">true</span></span>
-<span class="line"><span style="color: #C9D1D9">  })</span></span>
-<span class="line"><span style="color: #C9D1D9">})</span></span>
+<span class="line"><span style="color: #B392F0">beforeAll</span><span style="color: #E1E4E8">(</span><span style="color: #F97583">async</span><span style="color: #E1E4E8"> () </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  client </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> MongoClient.</span><span style="color: #B392F0">connect</span><span style="color: #E1E4E8">(process.env.</span><span style="color: #79B8FF">MONGODB_TEST_URI</span><span style="color: #E1E4E8">, {</span></span>
+<span class="line"><span style="color: #E1E4E8">    useNewUrlParser: </span><span style="color: #79B8FF">true</span></span>
+<span class="line"><span style="color: #E1E4E8">  })</span></span>
+<span class="line"><span style="color: #E1E4E8">})</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #D2A8FF">afterAll</span><span style="color: #C9D1D9">(</span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">await</span><span style="color: #C9D1D9"> client.</span><span style="color: #D2A8FF">close</span><span style="color: #C9D1D9">()</span></span>
-<span class="line"><span style="color: #C9D1D9">})</span></span>
+<span class="line"><span style="color: #B392F0">afterAll</span><span style="color: #E1E4E8">(</span><span style="color: #F97583">async</span><span style="color: #E1E4E8"> () </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">await</span><span style="color: #E1E4E8"> client.</span><span style="color: #B392F0">close</span><span style="color: #E1E4E8">()</span></span>
+<span class="line"><span style="color: #E1E4E8">})</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #D2A8FF">test</span><span style="color: #C9D1D9">(</span><span style="color: #A5D6FF">'...'</span><span style="color: #C9D1D9">, </span><span style="color: #FF7B72">async</span><span style="color: #C9D1D9"> () </span><span style="color: #FF7B72">=></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #8B949E">// test</span></span>
-<span class="line"><span style="color: #C9D1D9">})</span></span></code></pre>
+<span class="line"><span style="color: #B392F0">test</span><span style="color: #E1E4E8">(</span><span style="color: #9ECBFF">'...'</span><span style="color: #E1E4E8">, </span><span style="color: #F97583">async</span><span style="color: #E1E4E8"> () </span><span style="color: #F97583">=></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #6A737D">// test</span></span>
+<span class="line"><span style="color: #E1E4E8">})</span></span></code></pre>
 <p>メモリ上で動くので高速に動作するし、並列テストも容易。さらに実際の DB を用意する必要がなくなったので CI 上でも実行しやすくなった。</p>
 <p>実際の MongoDB で動かすのはパターンを絞って e2e テストなどで対応しようと思う。</p>
 <h2 id="まとめ">まとめ</h2>
 <p><a href="https://www.npmjs.com/package/mongodb-memory-server" target="_blank">mongodb-memory-server</a> を利用して MongoDB + Jest のテストをできるようにした。</p>
 </article>
+
     <hr class="astro-5GRSW2HI">
     <ul class="post-selector astro-5GRSW2HI">
      <li class="astro-5GRSW2HI"><a rel="prev" href="/2019-06-07-mongodb-typescript" class="astro-5GRSW2HI"> ← MongoDB + Node.js + TypeScriptが強力だった</a></li>
      <li class="astro-5GRSW2HI"><a rel="next" href="/2019-07-02-ubuntu-setup" class="astro-5GRSW2HI">さくらで借りたUbuntu16のセットアップ → </a></li>
     </ul>
-    <footer class="astro-5GRSW2HI">
-      © 2023, 
-      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
-        kohsweb
-      </a>
-    </footer>
   </main>
+
+  <footer class="astro-SCKKX6R4">
+    © 2023,
+    <a href="https://koh.dev" target="_blank" class="astro-SCKKX6R4">
+      kohsweb
+    </a>
+  </footer>
+
 </body></html>

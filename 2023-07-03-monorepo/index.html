@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="ja" class="astro-5GRSW2HI">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
-    <meta name="description" content="はじめに
-https://twitter.com/koh110/status/1617510034266808322
+<html lang="ja" class="astro-SCKKX6R4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/svg+xml" href="/favicon.jpg">
+  <title>TypeScriptのモノレポ構成を考える</title>
+  <meta name="description" content="はじめに
 あまりモノレポの構成について語られている記事が多くないなと感じたので、現時点で自分が考えている設計をまとめてみる。
-クライ...">
-    <title>TypeScriptのモノレポ構成を考える</title>
-    <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
+以前にTwitterでディレクトリ構成と内容については言及したが、実際に利用する技術についてはあまり触れなかったの...">
+  <meta property="og:title" content="TypeScriptのモノレポ構成を考える">
+  <meta name="og:description" content="はじめに
+あまりモノレポの構成について語られている記事が多くないなと感じたので、現時点で自分が考えている設計をまとめてみる。
+以前にTwitterでディレクトリ構成と内容については言及したが、実際に利用する技術についてはあまり触れなかったの...">
+  <meta property="og:type">
+  <meta property="og:site_name" content="kohsweblog">
+  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNBJ1CBWWX"></script>
 
-  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script><link rel="stylesheet" href="/_astro/index.ec7e4e1e.css" />
-<link rel="stylesheet" href="/_astro/_post_.f9f0872e.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
-</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.a66c24da.css" /></head>
+<link rel="stylesheet" href="/_astro/_post_.88d6343a.css" />
+<link rel="stylesheet" href="/_astro/_post_.c79e4623.css" /><script type="module">window.dataLayer=window.dataLayer||[];function a(){dataLayer.push(arguments)}a("js",new Date);a("config","G-ZNBJ1CBWWX");
+</script><link rel="stylesheet" href="/_astro/MarkdownLayout.astro_astro_type_style_index_0_lang.598eec69.css" /></head>
+<body class="astro-SCKKX6R4">
   
-<body class="astro-5GRSW2HI">
+  <script src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript" async></script>
   <main class="astro-5GRSW2HI">
     <header class="astro-5GRSW2HI">
       <h3 class="astro-5GRSW2HI"><a href="/" class="astro-5GRSW2HI">kohsweblog</a></h3>
@@ -29,10 +35,12 @@ https://twitter.com/koh110/status/1617510034266808322
         <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" class="astro-5GRSW2HI">
       </a>
     </div>
-    <article class="astro-XSCT23V3">
+    
+  <article class="astro-XSCT23V3">
   <h1 id="はじめに">はじめに</h1>
-<p><a href="https://twitter.com/koh110/status/1617510034266808322">https://twitter.com/koh110/status/1617510034266808322</a></p>
 <p>あまりモノレポの構成について語られている記事が多くないなと感じたので、現時点で自分が考えている設計をまとめてみる。</p>
+<p>以前にTwitterでディレクトリ構成と内容については言及したが、実際に利用する技術についてはあまり触れなかったので改めて検証してみた。</p>
+<p><a href="https://twitter.com/koh110/status/1617510034266808322">https://twitter.com/koh110/status/1617510034266808322</a></p>
 <p>クライアントサイドとサーバーサイドのコード共有については下記の記事がよくまとまっていた。
 <a href="https://capelski.medium.com/effective-code-sharing-in-typescript-monorepos-475f9600f6b4">https://capelski.medium.com/effective-code-sharing-in-typescript-monorepos-475f9600f6b4</a></p>
 <p>上記の記事の構成も参考にしつつ、自分の考えも加えて検証していく。</p>
@@ -84,38 +92,38 @@ webpack等の設定を適切にいじる必要がある。あまり建設的な�
 <p><code>dist/assets/index-xxx.js</code> を見るとdayjsごとビルドされていることがわかる。</p>
 <h3 id="backend">backend</h3>
 <p>shared/ 以下で依存しているライブラリは shared/node_modules/ を見てほしいが backend/dist のディレクトリ構成的に backend/node_modules/ を見てしまう</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ npm start</span></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> prestart</span></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> rm -rf dist </span><span style="color: #FF7B72">&#x26;&#x26;</span><span style="color: #C9D1D9"> tsc</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">npm</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">start</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> prestart</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> rm -rf dist &#x26;&#x26; </span><span style="color: #B392F0">tsc</span></span>
 <span class="line"></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> start</span></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> PORT=3001 node dist/backend/src/server.js</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> start</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> PORT=3001 node dist/backend/src/server.js</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">node:internal/errors:491</span></span>
-<span class="line"><span style="color: #C9D1D9">    ErrorCaptureStackTrace(err)</span><span style="color: #FF7B72">;</span></span>
-<span class="line"><span style="color: #C9D1D9">    ^</span></span>
+<span class="line"><span style="color: #B392F0">node:internal/errors:491</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #B392F0">ErrorCaptureStackTrace(err</span><span style="color: #E1E4E8">);</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #B392F0">^</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">Error [ERR_MODULE_NOT_FOUND]: Cannot find package </span><span style="color: #A5D6FF">'dayjs'</span><span style="color: #C9D1D9"> imported from /xxx/monorepo-test-relative-path/backend/dist/shared/src/date-util.js</span></span></code></pre>
+<span class="line"><span style="color: #B392F0">Error</span><span style="color: #E1E4E8"> [ERR_MODULE_NOT_FOUND]: Cannot find package </span><span style="color: #9ECBFF">'dayjs'</span><span style="color: #E1E4E8"> imported from /xxx/monorepo-test-relative-path/backend/dist/shared/src/date-util.js</span></span></code></pre>
 <p>backendのtsconfigに <code>"rootDir": "."</code> をセットしないことに注意</p>
 <p>相対パスで <code>backend/</code> を超える指定をしているため、rootDirの指定をするとビルド時にエラーが発生する</p>
 <blockquote>
 <p>src/server.ts:3:32 - error TS6059: File ‘/xxx/monorepo-test-relative-path/shared/src/date-util.ts’ is not under ‘rootDir’ ‘/xxx/monorepo-test-relative-path/backend’. ‘rootDir’ is expected to contain all source files.</p>
 </blockquote>
 <p>rootDirの指定をしないと dist/ 以下にbackendとsharedを含めたディレクトリ構成でビルドされる</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">backend</span></span>
-<span class="line"><span style="color: #C9D1D9">├── dist</span></span>
-<span class="line"><span style="color: #C9D1D9">│   ├── backend</span></span>
-<span class="line"><span style="color: #C9D1D9">│   │   └── src</span></span>
-<span class="line"><span style="color: #C9D1D9">│   │       └── server.js</span></span>
-<span class="line"><span style="color: #C9D1D9">│   └── shared</span></span>
-<span class="line"><span style="color: #C9D1D9">│       └── src</span></span>
-<span class="line"><span style="color: #C9D1D9">│           └── date-util.js</span></span>
-<span class="line"><span style="color: #C9D1D9">├── src</span></span>
-<span class="line"><span style="color: #C9D1D9">│   └── server.ts</span></span>
-<span class="line"><span style="color: #C9D1D9">├── package-lock.json</span></span>
-<span class="line"><span style="color: #C9D1D9">├── package.json</span></span>
-<span class="line"><span style="color: #C9D1D9">└── tsconfig.json</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">backend</span></span>
+<span class="line"><span style="color: #B392F0">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dist</span></span>
+<span class="line"><span style="color: #B392F0">│  </span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">backend</span></span>
+<span class="line"><span style="color: #B392F0">│  </span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">│  </span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">└──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">src</span></span>
+<span class="line"><span style="color: #B392F0">│  </span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">│  </span><span style="color: #E1E4E8">     </span><span style="color: #9ECBFF">└──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">server.js</span></span>
+<span class="line"><span style="color: #B392F0">│  </span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">└──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">shared</span></span>
+<span class="line"><span style="color: #B392F0">│  </span><span style="color: #E1E4E8">     </span><span style="color: #9ECBFF">└──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">src</span></span>
+<span class="line"><span style="color: #B392F0">│  </span><span style="color: #E1E4E8">         </span><span style="color: #9ECBFF">└──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">date-util.js</span></span>
+<span class="line"><span style="color: #B392F0">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">src</span></span>
+<span class="line"><span style="color: #B392F0">│  </span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">└──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">server.ts</span></span>
+<span class="line"><span style="color: #B392F0">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">package-lock.json</span></span>
+<span class="line"><span style="color: #B392F0">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">package.json</span></span>
+<span class="line"><span style="color: #B392F0">└──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tsconfig.json</span></span></code></pre>
 <h2 id="npmのローカルパス指定を利用する方法">npmのローカルパス指定を利用する方法</h2>
 <p>npmのローカルパスしていで共通モジュールを読み込む方法について下記のリポジトリで検証を行った。</p>
 <p><a href="https://github.com/koh110/monorepo-test-npm-file">https://github.com/koh110/monorepo-test-npm-file</a></p>
@@ -129,16 +137,16 @@ webpack等の設定を適切にいじる必要がある。あまり建設的な�
 <p>npmはdependenciesにローカルパスを指定が可能。</p>
 <p><a href="https://docs.npmjs.com/cli/v9/configuring-npm/package-json#local-paths">https://docs.npmjs.com/cli/v9/configuring-npm/package-json#local-paths</a></p>
 <p>dependenciesに次のように <code>file:</code> からはじまるパスを指定し、<code>npm install</code> をするとnode_modules以下に指定したパスのシンボリックリンクが作成される。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"dependencies"</span><span style="color: #C9D1D9">: {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #7EE787">"@my-module/shared"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"file:../shared"</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ ls -la node_modules/@my-module</span></span>
-<span class="line"><span style="color: #C9D1D9">total 0</span></span>
-<span class="line"><span style="color: #C9D1D9">drwxr-xr-x   3 kohtaito  staff    96  5  8 18:00 ./</span></span>
-<span class="line"><span style="color: #C9D1D9">drwxr-xr-x  63 kohtaito  staff  2016  5  8 18:00 ../</span></span>
-<span class="line"><span style="color: #C9D1D9">lrwxr-xr-x   1 kohtaito  staff    15  5  8 18:00 shared@ -</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> ../../../shared</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">{</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"dependencies"</span><span style="color: #E1E4E8">: {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">"@my-module/shared"</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"file:../shared"</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ls</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-la</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">node_modules/@my-module</span></span>
+<span class="line"><span style="color: #B392F0">total</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">0</span></span>
+<span class="line"><span style="color: #B392F0">drwxr-xr-x</span><span style="color: #E1E4E8">   </span><span style="color: #79B8FF">3</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">kohtaito</span><span style="color: #E1E4E8">  </span><span style="color: #9ECBFF">staff</span><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">96</span><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">5</span><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">8</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">18</span><span style="color: #9ECBFF">:00</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">./</span></span>
+<span class="line"><span style="color: #B392F0">drwxr-xr-x</span><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">63</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">kohtaito</span><span style="color: #E1E4E8">  </span><span style="color: #9ECBFF">staff</span><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">2016</span><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">5</span><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">8</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">18</span><span style="color: #9ECBFF">:00</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">../</span></span>
+<span class="line"><span style="color: #B392F0">lrwxr-xr-x</span><span style="color: #E1E4E8">   </span><span style="color: #79B8FF">1</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">kohtaito</span><span style="color: #E1E4E8">  </span><span style="color: #9ECBFF">staff</span><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">15</span><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">5</span><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">8</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">18</span><span style="color: #9ECBFF">:00</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">shared@</span><span style="color: #E1E4E8"> -</span><span style="color: #F97583">></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">../../../shared</span></span></code></pre>
 <p>ここではsharedを事前ビルドしていないくてもビルドできるようにtsconfigのProject Referencesを利用する。
 <a href="https://www.typescriptlang.org/docs/handbook/project-references.html">https://www.typescriptlang.org/docs/handbook/project-references.html</a></p>
 <h3 id="メリット-1">メリット</h3>
@@ -153,59 +161,59 @@ webpack等の設定を適切にいじる必要がある。あまり建設的な�
 </ul>
 <h3 id="frontend-create-react-app-1">frontend (create-react-app)</h3>
 <p>パッケージの依存にsharedを入れておけばバンドラーが参照してビルド成果物に含めてくれる</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"dependencies"</span><span style="color: #C9D1D9">: {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #7EE787">"@my-module/shared"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"file:../shared"</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">{</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"dependencies"</span><span style="color: #E1E4E8">: {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">"@my-module/shared"</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"file:../shared"</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>TypeScriptのビルドがtscじゃないため、Project Referencesが効かない。</p>
 <p>そのためsharedは事前ビルドが必要</p>
 <h3 id="frontend-vite">frontend (vite)</h3>
 <p>パッケージの依存にsharedを入れておけばバンドラーが参照してビルド成果物に含めてくれる</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"dependencies"</span><span style="color: #C9D1D9">: {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #7EE787">"@my-module/shared"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"file:../shared"</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">{</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"dependencies"</span><span style="color: #E1E4E8">: {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">"@my-module/shared"</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"file:../shared"</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>create-react-appと同様にTypeScriptのビルドがtscじゃないため、Project Referencesが効かない。</p>
 <p>そのためsharedは事前ビルドが必要</p>
 <h3 id="backend-1">backend</h3>
 <p>tscを実行すればsharedもビルドされるので、事前ビルドは不要だが、sharedのディレクトリで事前にnpm installは必要。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"dependencies"</span><span style="color: #C9D1D9">: {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #7EE787">"@my-module/shared"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"file:../shared"</span></span>
-<span class="line"><span style="color: #C9D1D9">  }</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">// tsconfig.json</span></span>
-<span class="line"><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"references"</span><span style="color: #C9D1D9">: [{ </span><span style="color: #7EE787">"path"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"../shared"</span><span style="color: #C9D1D9"> }]</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">{</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"dependencies"</span><span style="color: #E1E4E8">: {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">"@my-module/shared"</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"file:../shared"</span></span>
+<span class="line"><span style="color: #E1E4E8">  }</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #6A737D">// tsconfig.json</span></span>
+<span class="line"><span style="color: #E1E4E8">{</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"references"</span><span style="color: #E1E4E8">: [{ </span><span style="color: #79B8FF">"path"</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"../shared"</span><span style="color: #E1E4E8"> }]</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>sharedの依存ライブラリは <code>shapred/node_modules</code> を参照してくれる。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ npm start</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">npm</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">start</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> prestart</span></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> rm -rf dist </span><span style="color: #FF7B72">&#x26;&#x26;</span><span style="color: #C9D1D9"> npm run tsc</span></span>
-<span class="line"></span>
-<span class="line"></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> tsc</span></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> tsc --build tsconfig.json</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> prestart</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> rm -rf dist &#x26;&#x26; </span><span style="color: #B392F0">npm</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">run</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tsc</span></span>
 <span class="line"></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> start</span></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> PORT=3001 node dist/server.js</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> tsc</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> tsc --build tsconfig.json</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">listen on { address: </span><span style="color: #A5D6FF">'::'</span><span style="color: #C9D1D9">, family: </span><span style="color: #A5D6FF">'IPv6'</span><span style="color: #C9D1D9">, port: 3001 }</span></span>
-<span class="line"><span style="color: #C9D1D9">2023/07/03</span></span></code></pre>
+<span class="line"></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> start</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> PORT=3001 node dist/server.js</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #B392F0">listen</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">on</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">{</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">address:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'::',</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">family:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'IPv6',</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">port:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">3001</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">}</span></span>
+<span class="line"><span style="color: #B392F0">2023/07/03</span></span></code></pre>
 <h2 id="シンボリックリンクを利用する方法">シンボリックリンクを利用する方法</h2>
 <p>npmのローカルパスしていで共通モジュールを読み込む方法について下記のリポジトリで検証を行った。</p>
 <p><a href="https://github.com/koh110/monorepo-test-symbolic-link">https://github.com/koh110/monorepo-test-symbolic-link</a></p>
@@ -232,46 +240,46 @@ webpack等の設定を適切にいじる必要がある。あまり建設的な�
 </li>
 </ul>
 <h3 id="frontend-create-react-app-2">frontend (create-react-app)</h3>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">cd</span><span style="color: #C9D1D9"> frontend/src</span></span>
-<span class="line"><span style="color: #C9D1D9">$ ln -s ../../shared/src ./shared</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">cd</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">frontend/src</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ln</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-s</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">../../shared/src</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">./shared</span></span></code></pre>
 <p>そのまま実行しようとすると <code>Module parse failed: Unexpected token</code> というエラーが発生した</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">Failed to compile.</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">Failed</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">compile.</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">Module parse failed: Unexpected token (6:35)</span></span>
-<span class="line"><span style="color: #C9D1D9">File was processed with these loaders:</span></span>
-<span class="line"><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9"> ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js</span></span>
-<span class="line"><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9"> ./node_modules/source-map-loader/dist/cjs.js</span></span>
-<span class="line"><span style="color: #C9D1D9">You may need an additional loader to handle the result of these loaders.</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> import dayjs from </span><span style="color: #A5D6FF">'dayjs'</span></span>
-<span class="line"><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> const toFormatString = (date: Date): string =</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9">   </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> dayjs(date).format(</span><span style="color: #A5D6FF">'YYYY/MM/DD'</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> }</span></span>
-<span class="line"><span style="color: #C9D1D9">ERROR </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> ../shared/src/date-util.ts 6:35</span></span>
-<span class="line"><span style="color: #C9D1D9">Module parse failed: Unexpected token (6:35)</span></span>
-<span class="line"><span style="color: #C9D1D9">File was processed with these loaders:</span></span>
-<span class="line"><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9"> ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js</span></span>
-<span class="line"><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">*</span><span style="color: #C9D1D9"> ./node_modules/source-map-loader/dist/cjs.js</span></span>
-<span class="line"><span style="color: #C9D1D9">You may need an additional loader to handle the result of these loaders.</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> import dayjs from </span><span style="color: #A5D6FF">'dayjs'</span></span>
-<span class="line"><span style="color: #FF7B72">|</span></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> const toFormatString = (date: Date): string =</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9">   </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> dayjs(date).format(</span><span style="color: #A5D6FF">'YYYY/MM/DD'</span><span style="color: #C9D1D9">)</span></span>
-<span class="line"><span style="color: #FF7B72">|</span><span style="color: #C9D1D9"> }</span></span>
+<span class="line"><span style="color: #B392F0">Module</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">parse</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">failed:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Unexpected</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">token</span><span style="color: #E1E4E8"> (6:35)</span></span>
+<span class="line"><span style="color: #B392F0">File</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">was</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">processed</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">with</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">these</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">loaders:</span></span>
+<span class="line"><span style="color: #E1E4E8"> </span><span style="color: #B392F0">*</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js</span></span>
+<span class="line"><span style="color: #E1E4E8"> </span><span style="color: #B392F0">*</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">./node_modules/source-map-loader/dist/cjs.js</span></span>
+<span class="line"><span style="color: #B392F0">You</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">may</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">need</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">an</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">additional</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">loader</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">handle</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">the</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">result</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">of</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">these</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">loaders.</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">import</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dayjs</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'dayjs'</span></span>
+<span class="line"><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> export const toFormatString = (</span><span style="color: #B392F0">date:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Date</span><span style="color: #E1E4E8">): string =</span><span style="color: #F97583">></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8">   </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dayjs</span><span style="color: #E1E4E8">(</span><span style="color: #B392F0">date</span><span style="color: #E1E4E8">)</span><span style="color: #9ECBFF">.format</span><span style="color: #E1E4E8">(</span><span style="color: #B392F0">'YYYY/MM/DD'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> }</span></span>
+<span class="line"><span style="color: #B392F0">ERROR</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">in</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">../shared/src/date-util.ts</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">6</span><span style="color: #9ECBFF">:35</span></span>
+<span class="line"><span style="color: #B392F0">Module</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">parse</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">failed:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Unexpected</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">token</span><span style="color: #E1E4E8"> (6:35)</span></span>
+<span class="line"><span style="color: #B392F0">File</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">was</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">processed</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">with</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">these</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">loaders:</span></span>
+<span class="line"><span style="color: #E1E4E8"> </span><span style="color: #B392F0">*</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js</span></span>
+<span class="line"><span style="color: #E1E4E8"> </span><span style="color: #B392F0">*</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">./node_modules/source-map-loader/dist/cjs.js</span></span>
+<span class="line"><span style="color: #B392F0">You</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">may</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">need</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">an</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">additional</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">loader</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">handle</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">the</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">result</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">of</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">these</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">loaders.</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">import</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dayjs</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'dayjs'</span></span>
+<span class="line"><span style="color: #F97583">|</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> export const toFormatString = (</span><span style="color: #B392F0">date:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Date</span><span style="color: #E1E4E8">): string =</span><span style="color: #F97583">></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8">   </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dayjs</span><span style="color: #E1E4E8">(</span><span style="color: #B392F0">date</span><span style="color: #E1E4E8">)</span><span style="color: #9ECBFF">.format</span><span style="color: #E1E4E8">(</span><span style="color: #B392F0">'YYYY/MM/DD'</span><span style="color: #E1E4E8">)</span></span>
+<span class="line"><span style="color: #F97583">|</span><span style="color: #E1E4E8"> }</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">webpack compiled with 1 error</span></span>
-<span class="line"><span style="color: #C9D1D9">No issues found.</span></span>
-<span class="line"><span style="color: #C9D1D9">One of your dependencies, babel-preset-react-app, is importing the</span></span>
-<span class="line"><span style="color: #A5D6FF">"@babel/plugin-proposal-private-property-in-object"</span><span style="color: #C9D1D9"> package without</span></span>
-<span class="line"><span style="color: #C9D1D9">declaring it </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> its dependencies. This is currently working because</span></span>
-<span class="line"><span style="color: #A5D6FF">"@babel/plugin-proposal-private-property-in-object"</span><span style="color: #C9D1D9"> is already </span><span style="color: #FF7B72">in</span><span style="color: #C9D1D9"> your</span></span>
-<span class="line"><span style="color: #C9D1D9">node_modules folder </span><span style="color: #FF7B72">for</span><span style="color: #C9D1D9"> unrelated reasons, but it may </span><span style="color: #79C0FF">break</span><span style="color: #C9D1D9"> at any time.</span></span>
+<span class="line"><span style="color: #B392F0">webpack</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">compiled</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">with</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">1</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">error</span></span>
+<span class="line"><span style="color: #B392F0">No</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">issues</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">found.</span></span>
+<span class="line"><span style="color: #B392F0">One</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">of</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">your</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dependencies,</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">babel-preset-react-app,</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">is</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">importing</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">the</span></span>
+<span class="line"><span style="color: #B392F0">"@babel/plugin-proposal-private-property-in-object"</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">package</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">without</span></span>
+<span class="line"><span style="color: #B392F0">declaring</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">it</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">in</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">its</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dependencies.</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">This</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">is</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">currently</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">working</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">because</span></span>
+<span class="line"><span style="color: #B392F0">"@babel/plugin-proposal-private-property-in-object"</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">is</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">already</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">in</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">your</span></span>
+<span class="line"><span style="color: #B392F0">node_modules</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">folder</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">for</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">unrelated</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">reasons,</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">but</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">it</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">may</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">break</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">at</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">any</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">time.</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">babel-preset-react-app is part of the create-react-app project, which</span></span>
-<span class="line"><span style="color: #C9D1D9">is not maintianed anymore. It is thus unlikely that this bug will</span></span>
-<span class="line"><span style="color: #C9D1D9">ever be fixed. Add </span><span style="color: #A5D6FF">"@babel/plugin-proposal-private-property-in-object"</span><span style="color: #C9D1D9"> to</span></span>
-<span class="line"><span style="color: #C9D1D9">your devDependencies to work around this error. This will make this message</span></span>
-<span class="line"><span style="color: #C9D1D9">go away.</span></span></code></pre>
+<span class="line"><span style="color: #B392F0">babel-preset-react-app</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">is</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">part</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">of</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">the</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">create-react-app</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">project,</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">which</span></span>
+<span class="line"><span style="color: #B392F0">is</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">not</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">maintianed</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">anymore.</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">It</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">is</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">thus</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">unlikely</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">that</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">this</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">bug</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">will</span></span>
+<span class="line"><span style="color: #B392F0">ever</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">be</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">fixed.</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">Add</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"@babel/plugin-proposal-private-property-in-object"</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span></span>
+<span class="line"><span style="color: #B392F0">your</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">devDependencies</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">to</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">work</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">around</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">this</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">error.</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">This</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">will</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">make</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">this</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">message</span></span>
+<span class="line"><span style="color: #B392F0">go</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">away.</span></span></code></pre>
 <p>webpackのシンボリックリンクの解決方法に依存する挙動っぽいので <code>resolve.symlink</code> をfalseにすれば解消しそうな感じ</p>
 <p><a href="https://webpack.js.org/configuration/resolve/#resolvesymlinks">https://webpack.js.org/configuration/resolve/#resolvesymlinks</a></p>
 <p>回避策はいくつか提示されているが、ejectしたりwebpackを露出させる必要がありそう。</p>
@@ -280,46 +288,46 @@ webpack等の設定を適切にいじる必要がある。あまり建設的な�
 <p><a href="https://github.com/facebook/create-react-app/pull/7993">https://github.com/facebook/create-react-app/pull/7993</a></p>
 <p>できないことはないがやらないほうが無難という印象</p>
 <h3 id="frontend-vite-1">frontend (vite)</h3>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">cd</span><span style="color: #C9D1D9"> frontend-vite/src</span></span>
-<span class="line"><span style="color: #C9D1D9">$ ln -s ../../shared/src ./shared</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">cd</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">frontend-vite/src</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ln</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-s</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">../../shared/src</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">./shared</span></span></code></pre>
 <p>viteはシンボリックリンク先の絶対パスを取得してビルドしていた。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">18:01:04 [vite] Internal server error: Failed to resolve import </span><span style="color: #A5D6FF">"dayjs"</span><span style="color: #C9D1D9"> from </span><span style="color: #A5D6FF">"../shared/src/date-util.ts"</span><span style="color: #C9D1D9">. Does the file exist</span><span style="color: #FF7B72">?</span></span>
-<span class="line"><span style="color: #C9D1D9">  Plugin: vite:import-analysis</span></span>
-<span class="line"><span style="color: #C9D1D9">  File: /xxx/monorepo-test-symbolic-link/shared/src/date-util.ts:1:18</span></span>
-<span class="line"><span style="color: #C9D1D9">  1  </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9">  import dayjs from </span><span style="color: #A5D6FF">"dayjs"</span><span style="color: #FF7B72">;</span></span>
-<span class="line"><span style="color: #C9D1D9">     </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9">                     ^</span></span>
-<span class="line"><span style="color: #C9D1D9">  2  </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">export</span><span style="color: #C9D1D9"> const toFormatString = (date) =</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> {</span></span>
-<span class="line"><span style="color: #C9D1D9">  3  </span><span style="color: #FF7B72">|</span><span style="color: #C9D1D9">    </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> dayjs(date).format(</span><span style="color: #A5D6FF">"YYYY/MM/DD"</span><span style="color: #C9D1D9">)</span><span style="color: #FF7B72">;</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">18:01:04</span><span style="color: #E1E4E8"> [vite] Internal server error: Failed to resolve import </span><span style="color: #9ECBFF">"dayjs"</span><span style="color: #E1E4E8"> from </span><span style="color: #9ECBFF">"../shared/src/date-util.ts"</span><span style="color: #E1E4E8">. Does the file exist</span><span style="color: #F97583">?</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">Plugin:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">vite:import-analysis</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">File:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">/xxx/monorepo-test-symbolic-link/shared/src/date-util.ts:1:18</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">1</span><span style="color: #E1E4E8">  </span><span style="color: #F97583">|</span><span style="color: #E1E4E8">  </span><span style="color: #B392F0">import</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dayjs</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">"dayjs"</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #E1E4E8">     </span><span style="color: #F97583">|</span><span style="color: #E1E4E8">                     </span><span style="color: #B392F0">^</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">2</span><span style="color: #E1E4E8">  </span><span style="color: #F97583">|</span><span style="color: #E1E4E8">  </span><span style="color: #F97583">export</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">const</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">toFormatString</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">=</span><span style="color: #E1E4E8"> (date) =</span><span style="color: #F97583">></span><span style="color: #E1E4E8"> {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">3</span><span style="color: #E1E4E8">  </span><span style="color: #F97583">|</span><span style="color: #E1E4E8">    </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">dayjs</span><span style="color: #E1E4E8">(</span><span style="color: #B392F0">date</span><span style="color: #E1E4E8">)</span><span style="color: #9ECBFF">.format</span><span style="color: #E1E4E8">(</span><span style="color: #B392F0">"YYYY/MM/DD"</span><span style="color: #E1E4E8">);</span></span></code></pre>
 <p>なのでdayjsはshared/node_modules以下のものが参照される。</p>
 <h3 id="backend-2">backend</h3>
 <p>backend（tsc）はシンボリックリンクを通常のファイルのように解決できたが、dayjsはbackend/package.jsonに記述しないといけない。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">cd</span><span style="color: #C9D1D9"> backend/src</span></span>
-<span class="line"><span style="color: #C9D1D9">$ ln -s ../../shared/src ./shared</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">cd</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">backend/src</span></span>
+<span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">ln</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-s</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">../../shared/src</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">./shared</span></span></code></pre>
 <h2 id="npm-workspaces機能を利用する方法">npm workspaces機能を利用する方法</h2>
 <p>npm workspacesで管理する方法について下記のリポジトリで検証を行った。</p>
 <p><a href="https://github.com/koh110/monorepo-test-workspaces">https://github.com/koh110/monorepo-test-workspaces</a></p>
 <p>自分はモノレポ管理ツールとしてはnpm workpsacesを利用することが多いのでこちらで検証する。ここはyarnでもpnpmなんでもよいと思う。</p>
 <p>プロジェクトルートにあるpackage.jsonにworkspacesを記述して、それぞれのパッケージをworkspacesで管理すると宣言する。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"workspaces"</span><span style="color: #C9D1D9">: [</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #A5D6FF">"backend"</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #A5D6FF">"frontend"</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #A5D6FF">"frontend-vite"</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #A5D6FF">"shared"</span></span>
-<span class="line"><span style="color: #C9D1D9">  ]</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">{</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"workspaces"</span><span style="color: #E1E4E8">: [</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #9ECBFF">"backend"</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #9ECBFF">"frontend"</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #9ECBFF">"frontend-vite"</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #9ECBFF">"shared"</span></span>
+<span class="line"><span style="color: #E1E4E8">  ]</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>workspacesを設定しプロジェクトルートで <code>npm install</code> を行うと node_modules 以下にそれぞれのパッケージのシンボリックリンクが作成される</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">root</span></span>
-<span class="line"><span style="color: #C9D1D9">├── node_modules</span></span>
-<span class="line"><span style="color: #C9D1D9">│   ├── @my-module/shared -</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> ../../shared</span></span>
-<span class="line"><span style="color: #C9D1D9">│   ├── backend -</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> ../../backend</span></span>
-<span class="line"><span style="color: #C9D1D9">│   ├── frontend -</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> ../../frontend</span></span>
-<span class="line"><span style="color: #C9D1D9">│   └── frontend-vite -</span><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> ../../frontend-vite</span></span>
-<span class="line"><span style="color: #C9D1D9">├── package-lock.json</span></span>
-<span class="line"><span style="color: #C9D1D9">├── package.json</span></span>
-<span class="line"><span style="color: #C9D1D9">└── tsconfig.json</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">root</span></span>
+<span class="line"><span style="color: #B392F0">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">node_modules</span></span>
+<span class="line"><span style="color: #B392F0">│  </span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">@my-module/shared</span><span style="color: #E1E4E8"> -</span><span style="color: #F97583">></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">../../shared</span></span>
+<span class="line"><span style="color: #B392F0">│  </span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">backend</span><span style="color: #E1E4E8"> -</span><span style="color: #F97583">></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">../../backend</span></span>
+<span class="line"><span style="color: #B392F0">│  </span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">frontend</span><span style="color: #E1E4E8"> -</span><span style="color: #F97583">></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">../../frontend</span></span>
+<span class="line"><span style="color: #B392F0">│  </span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">└──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">frontend-vite</span><span style="color: #E1E4E8"> -</span><span style="color: #F97583">></span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">../../frontend-vite</span></span>
+<span class="line"><span style="color: #B392F0">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">package-lock.json</span></span>
+<span class="line"><span style="color: #B392F0">├──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">package.json</span></span>
+<span class="line"><span style="color: #B392F0">└──</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tsconfig.json</span></span></code></pre>
 <p>npmのローカルパス指定に似ているが、このシンボリックリンクによって各々のパッケージが解決可能になる</p>
 <p>基本的に <code>file:xx</code> の上位互換と考えてよいと思われる。</p>
 <p>また、プロジェクトルートで <code>npm start -w backend</code> のように実行するパッケージを指定してそれぞれのスクリプトを起動できるようになる。</p>
@@ -337,74 +345,77 @@ webpack等の設定を適切にいじる必要がある。あまり建設的な�
 </ul>
 <h3 id="frontend-create-react-app-3">frontend (create-react-app)</h3>
 <p>node_modules以下の依存モジュールと同様にバンドラーが解釈してくれるため、特に追記は必要なく、次のような記述ができる。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'./App.css'</span><span style="color: #C9D1D9">;</span></span>
-<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { toFormatString } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'@my-module/shared/src/date-util.js'</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'./App.css'</span><span style="color: #E1E4E8">;</span></span>
+<span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> { toFormatString } </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'@my-module/shared/src/date-util.js'</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">function</span><span style="color: #C9D1D9"> </span><span style="color: #D2A8FF">App</span><span style="color: #C9D1D9">() {</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FF7B72">return</span><span style="color: #C9D1D9"> (</span></span></code></pre>
+<span class="line"><span style="color: #F97583">function</span><span style="color: #E1E4E8"> </span><span style="color: #B392F0">App</span><span style="color: #E1E4E8">() {</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #F97583">return</span><span style="color: #E1E4E8"> (</span></span></code></pre>
 <p>TypeScriptのビルドがtscじゃないため、Project Referencesが効かない。</p>
 <p>そのためsharedは事前ビルドが必要</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ npm run build -w shared</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">npm</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">run</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">build</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-w</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">shared</span></span></code></pre>
 <h3 id="frontend-vite-2">frontend (vite)</h3>
 <p>同上</p>
 <h3 id="backend-3">backend</h3>
 <p>npmのローカルパス指定する方法と比較するとpackage.jsonのdependenciesに <code>file:xx</code> がいらなくなる。</p>
 <p>先の検証と同様にProject Referencesにsharedを指定することで事前ビルドがいらなくなる。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">// tsconfig.json</span></span>
-<span class="line"><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"references"</span><span style="color: #C9D1D9">: [{ </span><span style="color: #7EE787">"path"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"../shared"</span><span style="color: #C9D1D9"> }]</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #6A737D">// tsconfig.json</span></span>
+<span class="line"><span style="color: #E1E4E8">{</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"references"</span><span style="color: #E1E4E8">: [{ </span><span style="color: #79B8FF">"path"</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"../shared"</span><span style="color: #E1E4E8"> }]</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>sharedの依存ライブラリは <code>shapred/node_modules</code> を参照してくれる。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ npm start -w backend</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #B392F0">$</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">npm</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">start</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">-w</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">backend</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> prestart</span></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> rm -rf dist </span><span style="color: #FF7B72">&#x26;&#x26;</span><span style="color: #C9D1D9"> npm run tsc</span></span>
-<span class="line"></span>
-<span class="line"></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> tsc</span></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> tsc --build tsconfig.json</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> prestart</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> rm -rf dist &#x26;&#x26; </span><span style="color: #B392F0">npm</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">run</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">tsc</span></span>
 <span class="line"></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> start</span></span>
-<span class="line"><span style="color: #FF7B72">></span><span style="color: #C9D1D9"> PORT=3001 node dist/server.js</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> tsc</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> tsc --build tsconfig.json</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #C9D1D9">listen on { address: </span><span style="color: #A5D6FF">'::'</span><span style="color: #C9D1D9">, family: </span><span style="color: #A5D6FF">'IPv6'</span><span style="color: #C9D1D9">, port: 3001 }</span></span>
-<span class="line"><span style="color: #C9D1D9">2023/07/03</span></span></code></pre>
+<span class="line"></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> start</span></span>
+<span class="line"><span style="color: #F97583">></span><span style="color: #E1E4E8"> PORT=3001 node dist/server.js</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #B392F0">listen</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">on</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">{</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">address:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'::',</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">family:</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'IPv6',</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">port:</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">3001</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">}</span></span>
+<span class="line"><span style="color: #B392F0">2023/07/03</span></span></code></pre>
 <h2 id="おまけ-nodejs--typescriptでモノレポ管理する際のtips">おまけ: Node.js + TypeScriptでモノレポ管理する際のTips</h2>
 <p>importする側は <code>{{package-name}}/src/{{file-name}}</code> を読み込む。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #8B949E">// backend/server.ts</span></span>
-<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> http </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'http'</span></span>
-<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> express </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'express'</span></span>
-<span class="line"><span style="color: #FF7B72">import</span><span style="color: #C9D1D9"> { toFormatString } </span><span style="color: #FF7B72">from</span><span style="color: #C9D1D9"> </span><span style="color: #A5D6FF">'@my-module/shared/src/date-util.js'</span></span>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #6A737D">// backend/server.ts</span></span>
+<span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> http </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'http'</span></span>
+<span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> express </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'express'</span></span>
+<span class="line"><span style="color: #F97583">import</span><span style="color: #E1E4E8"> { toFormatString } </span><span style="color: #F97583">from</span><span style="color: #E1E4E8"> </span><span style="color: #9ECBFF">'@my-module/shared/src/date-util.js'</span></span>
 <span class="line"></span>
-<span class="line"><span style="color: #FF7B72">const</span><span style="color: #C9D1D9"> </span><span style="color: #79C0FF">PORT</span><span style="color: #C9D1D9"> </span><span style="color: #FF7B72">=</span><span style="color: #C9D1D9"> process.env.</span><span style="color: #79C0FF">PORT</span></span></code></pre>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #E1E4E8"> </span><span style="color: #79B8FF">PORT</span><span style="color: #E1E4E8"> </span><span style="color: #F97583">=</span><span style="color: #E1E4E8"> process.env.</span><span style="color: #79B8FF">PORT</span></span></code></pre>
 <p>こう指定することで <code>backend/server.ts</code> では <code>shared/src/date-util.ts</code> がimportのDefinitionに紐付けられる。つまりVSCodeなどで <code>Go to Definition</code> した際に実際にいじるべきファイルにジャンプできるようになる。</p>
 <p>次に、読み込まれる側のパッケージではexportsでビルド結果のdist以下に吐き出される実態ファイルを指定する。</p>
-<pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">{</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"private"</span><span style="color: #C9D1D9">: </span><span style="color: #79C0FF">true</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"name"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"@my-module/shared"</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"type"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"module"</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #7EE787">"exports"</span><span style="color: #C9D1D9">: {</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #7EE787">"."</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"./dist/index.js"</span><span style="color: #C9D1D9">,</span></span>
-<span class="line"><span style="color: #C9D1D9">    </span><span style="color: #7EE787">"./src/date-util.js"</span><span style="color: #C9D1D9">: </span><span style="color: #A5D6FF">"./dist/src/date-util.js"</span></span>
-<span class="line"><span style="color: #C9D1D9">  },</span></span>
-<span class="line"><span style="color: #C9D1D9">  </span><span style="color: #FFA198">...</span></span>
-<span class="line"><span style="color: #C9D1D9">}</span></span></code></pre>
+<pre is:raw="" class="astro-code github-dark" style="background-color: #24292e; overflow-x: auto;" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">{</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"private"</span><span style="color: #E1E4E8">: </span><span style="color: #79B8FF">true</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"name"</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"@my-module/shared"</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"type"</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"module"</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #79B8FF">"exports"</span><span style="color: #E1E4E8">: {</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">"."</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"./dist/index.js"</span><span style="color: #E1E4E8">,</span></span>
+<span class="line"><span style="color: #E1E4E8">    </span><span style="color: #79B8FF">"./src/date-util.js"</span><span style="color: #E1E4E8">: </span><span style="color: #9ECBFF">"./dist/src/date-util.js"</span></span>
+<span class="line"><span style="color: #E1E4E8">  },</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #FDAEB7; font-style: italic">...</span></span>
+<span class="line"><span style="color: #E1E4E8">}</span></span></code></pre>
 <p>こうすることで <code>@my-module/shared/src/date-util.js</code> がimportされた場合にNode.jsが実際に解決する実態を <code>shared/dist/src/date-util.js</code> にすげ替えることができる。</p>
 <p>backendなどのimportでdistの方を指定してしまうと、<code>Go to Definition</code> した際にビルドされたファイルが出てきてしまうので、sharedのファイルを更新したいときに一手間必要になる。</p>
 <p>このように組み合わせると開発効率もよいのではないかと考えている。</p>
 </article>
+
     <hr class="astro-5GRSW2HI">
     <ul class="post-selector astro-5GRSW2HI">
      <li class="astro-5GRSW2HI"><a rel="prev" href="/2023-03-25-carta-book" class="astro-5GRSW2HI"> ← 事業をエンジニアリングする技術者たち書評</a></li>
      
     </ul>
-    <footer class="astro-5GRSW2HI">
-      © 2023, 
-      <a href="https://koh.dev" target="_blank" class="astro-5GRSW2HI">
-        kohsweb
-      </a>
-    </footer>
   </main>
+
+  <footer class="astro-SCKKX6R4">
+    © 2023,
+    <a href="https://koh.dev" target="_blank" class="astro-SCKKX6R4">
+      kohsweb
+    </a>
+  </footer>
+
 </body></html>
