@@ -313,7 +313,7 @@ your devDependencies to work around this error. This will make this message
 go away.
 ```
 
-webpackのシンボリックリンクの解決方法に依存する挙動っぽいので `resolve.symlink` をfalseにすれば解消しそうとな感じ
+webpackのシンボリックリンクの解決方法に依存する挙動っぽいので `resolve.symlink` をfalseにすれば解消しそうな感じ
 
 https://webpack.js.org/configuration/resolve/#resolvesymlinks
 
@@ -358,6 +358,10 @@ $ ln -s ../../shared/src ./shared
 ```
 
 ## npm workspaces機能を利用する方法
+
+npm workspacesで管理する方法について下記のリポジトリで検証を行った。
+
+https://github.com/koh110/monorepo-test-workspaces
 
 自分はモノレポ管理ツールとしてはnpm workpsacesを利用することが多いのでこちらで検証する。ここはyarnでもpnpmなんでもよいと思う。
 
