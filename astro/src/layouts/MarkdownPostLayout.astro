@@ -2,8 +2,9 @@
 import type { CollectionEntry } from 'astro:content'
 import '../styles/global.css'
 import Layout from './Layout.astro'
-import Ga from '../components/ga.astro'
 import TweetButton from '../components/TweetButton.astro'
+import Footer from '../components/Footer.astro'
+import OgImage from '../components/OgImage.jsx'
 import { createDescription } from '../lib/post'
 
 export type Props = {
@@ -15,10 +16,20 @@ export type Props = {
 const { post, prev, next } = Astro.props
 const description = createDescription(post)
 
+const ogImagePath = `/ogimg/${post.slug}.png`
+const imgFlag = true
+
 ---
 
-<Layout title={post.data.title} description={description}>
+<Layout
+  title={post.data.title}
+  description={description}
+  content="article"
+  ogImagePath={ogImagePath}
+  path={`/${post.slug}`}
+>
   <script
+    slot="scripts"
     src="https://b.st-hatena.com/js/bookmark_button.js"
     type="text/javascript"
     async
@@ -47,12 +58,19 @@ const description = createDescription(post)
         />
       </a>
     </div>
+    <div class="og">
+      <div class="image">
+        {imgFlag && <img style={{ maxWidth: '100%' }} src={`/ogimg/${post.slug}.png`} alt="og image" />}
+        {!imgFlag && <OgImage title={post.data.title} />}
+      </div>
+    </div>
     <slot />
     <hr>
     <ul class="post-selector">
      {prev && <li><a rel="prev" href={`/${prev.slug}`}> ← {prev.data.title}</a></li>}
      {next && <li><a rel="next" href={`/${next.slug}`}>{next.data.title} → </a></li>}
     </ul>
+    <Footer />
   </main>
 </Layout>
 
@@ -64,6 +82,13 @@ const description = createDescription(post)
   }
   .social {
     margin: 1em 0 0 0;
+  }
+  .og {
+    width: 100%;
+    margin-top: 1em;
+  }
+  .og .image {
+    aspect-ratio: 1200 / 630;
   }
   .post-selector {
     display: flex;

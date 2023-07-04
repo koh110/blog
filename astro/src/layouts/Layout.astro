@@ -5,10 +5,13 @@ import Ga from '../components/ga.astro'
 export type Props = {
   title: string;
   description: string;
-  content: 'website' | 'artcle'
+  content: 'website' | 'article'
+  ogImagePath?: string;
+  path: string;
 }
 
-const { title, description, content } = Astro.props;
+const { title, description, content, ogImagePath, path } = Astro.props;
+
 ---
 
 <!DOCTYPE html>
@@ -20,19 +23,17 @@ const { title, description, content } = Astro.props;
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta property="og:title" content={title} />
+  { ogImagePath && <meta property="og:image" content={`https://blog.koh.dev${ogImagePath}`} />}
+  <meta property="og:url" content={`https://blog.koh.dev${path}`} />
   <meta name="og:description" content={description} />
   <meta property="og:type" content={content} />
   <meta property="og:site_name" content="kohsweblog" />
+  <meta name="twitter:card" content="summary_large_image" />
   <Ga />
 </head>
 <body>
   <slot />
-  <footer>
-    © {new Date().getFullYear()},
-    <a href="https://koh.dev" target="_blank">
-      kohsweb
-    </a>
-  </footer>
+  <slot name="scripts" />
 </body>
 </html>
 <style is:global>
@@ -40,12 +41,4 @@ const { title, description, content } = Astro.props;
     --accent: 124, 58, 237;
     --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
   }
-</style>
-<style>
-footer {
-  margin: 2em 0 0 0;
-  padding: 1em 0 1em 0;
-  text-align: center;
-  border-top: 1px solid #ccc;
-}
 </style>
