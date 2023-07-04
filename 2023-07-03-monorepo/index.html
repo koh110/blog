@@ -272,7 +272,7 @@ webpack等の設定を適切にいじる必要がある。あまり建設的な�
 <span class="line"><span style="color: #C9D1D9">ever be fixed. Add </span><span style="color: #A5D6FF">"@babel/plugin-proposal-private-property-in-object"</span><span style="color: #C9D1D9"> to</span></span>
 <span class="line"><span style="color: #C9D1D9">your devDependencies to work around this error. This will make this message</span></span>
 <span class="line"><span style="color: #C9D1D9">go away.</span></span></code></pre>
-<p>webpackのシンボリックリンクの解決方法に依存する挙動っぽいので <code>resolve.symlink</code> をfalseにすれば解消しそうとな感じ</p>
+<p>webpackのシンボリックリンクの解決方法に依存する挙動っぽいので <code>resolve.symlink</code> をfalseにすれば解消しそうな感じ</p>
 <p><a href="https://webpack.js.org/configuration/resolve/#resolvesymlinks">https://webpack.js.org/configuration/resolve/#resolvesymlinks</a></p>
 <p>回避策はいくつか提示されているが、ejectしたりwebpackを露出させる必要がありそう。</p>
 <p><a href="https://github.com/facebook/create-react-app/issues/3547">https://github.com/facebook/create-react-app/issues/3547</a></p>
@@ -296,6 +296,8 @@ webpack等の設定を適切にいじる必要がある。あまり建設的な�
 <pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">$ </span><span style="color: #79C0FF">cd</span><span style="color: #C9D1D9"> backend/src</span></span>
 <span class="line"><span style="color: #C9D1D9">$ ln -s ../../shared/src ./shared</span></span></code></pre>
 <h2 id="npm-workspaces機能を利用する方法">npm workspaces機能を利用する方法</h2>
+<p>npm workspacesで管理する方法について下記のリポジトリで検証を行った。</p>
+<p><a href="https://github.com/koh110/monorepo-test-workspaces">https://github.com/koh110/monorepo-test-workspaces</a></p>
 <p>自分はモノレポ管理ツールとしてはnpm workpsacesを利用することが多いのでこちらで検証する。ここはyarnでもpnpmなんでもよいと思う。</p>
 <p>プロジェクトルートにあるpackage.jsonにworkspacesを記述して、それぞれのパッケージをworkspacesで管理すると宣言する。</p>
 <pre is:raw="" class="astro-code" style="background-color: #0d1117; overflow-x: auto;"><code><span class="line"><span style="color: #C9D1D9">{</span></span>
