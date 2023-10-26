@@ -1,0 +1,36 @@
+---
+import type { MarkdownHeading } from 'astro'
+import TocHead from './TocHead.astro'
+import { buildToc } from '../../lib/post'
+
+export type Props = {
+  headings: MarkdownHeading[]
+}
+
+const { headings } = Astro.props
+
+const toc = buildToc(headings)
+
+---
+
+<nav class="toc">
+  <ul>
+    {toc.map((t) => {
+      return <TocHead toc={t} />
+    })}
+  </ul>
+</nav>
+
+<style>
+  .toc {
+    border: 1px solid var(--color-border);
+    margin-top: 1em;
+    padding: 1em;
+    font-size: 0.85em;
+  }
+  ul {
+    margin: 0;
+    list-style: none;
+    padding-inline-start: 1em;
+  }
+</style>

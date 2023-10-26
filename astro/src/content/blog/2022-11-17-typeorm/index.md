@@ -5,7 +5,7 @@ date: '2022-11-17'
 tags: ['nodejs', 'typeorm']
 ---
 
-# TypeORMのアップデート
+## TypeORMのアップデート
 
 NestJSで利用しているTypeORMのバージョンをv0.2からv0.3に引き上げた。
 v0.3ではかなりの破壊的変更が入っていたため、結構大変な作業だったのでやり方と方針を備忘録にまとめる。
@@ -18,7 +18,7 @@ v0.3ではかなりの破壊的変更が入っていたため、結構大変な�
 2. CustomRepositoryの定義方法がclassからobjectに変更
 3. findのwhereが `{ id: undefined }` の時の返却値が、空配列から全件取得に変更
 
-## ConnectionからDataSourceに変更
+### ConnectionからDataSourceに変更
 
 データベースへの接続がDataSourceオブジェクトを生成する形に変更された。
 また`ormconfig.js`ファイルから自動で読み込む仕組みがなくなったため、configファイルを直接importで指定する必要がある。
@@ -47,7 +47,7 @@ import ormconfig from './ormconfig';
 })
 ```
 
-## CustomRepositoryの定義方法がobjectに変更
+### CustomRepositoryの定義方法がobjectに変更
 
 元々のCustomRepositoryの定義方法はclassに対してEntityRepositoryデコレータでEntityを紐づける形。
 
@@ -203,7 +203,7 @@ const repo = getManager().getCustomRepository(BarRepository);
 const repo = dataSource.manager.withRepository(BarRepository);
 ```
 
-## findのwhere条件を変更
+### findのwhere条件を変更
 
 動的にfind条件を変更するメソッドで `{ id: undefined }` になるパターンがあった。
 
@@ -213,7 +213,7 @@ const repo = dataSource.manager.withRepository(BarRepository);
 
 テスト書いてあって助かった。
 
-# 感想
+## 感想
 
 個人的にCustomRepositoryが一番大きな破壊的変更だった。
 

@@ -5,7 +5,7 @@ date: '2020-10-24'
 tags: ['nodejs', 'lighthouse']
 ---
 
-# Core Web Vitals とは
+## Core Web Vitals とは
 
 最近のフロントエンド周辺では Google が提唱した Web Vitals と呼ばれる指標が非常に注目されています。
 
@@ -35,13 +35,13 @@ Ref: [さらに高速なウェブへの移行に向けて](https://developers-jp
 
 ![Chrome SpeedBadge](/img/2020-10-24-lighthouse-ci/chrome-badge.jpg)
 
-# Core Web Vitals の計測
+## Core Web Vitals の計測
 
 言葉にしてしまえばどの指標も当たり前のように聞こえてしまう話ですが、これら全てをシステムを作っている段階で気にしながら開発するのは非常に難易度が高いことです。そこで、これらのスコアを特定のタイミングで可視化することが重要になります。
 
 そのためにいくつかのツールが提供されています。
 
-## CrUX, SearchConsole
+### CrUX, SearchConsole
 
 先程の指標は実際に（Chrome を利用している）ユーザーがどのような影響を受けたかを集めたデータ（フィールドデータ）によって計測されます。
 
@@ -58,7 +58,7 @@ Ref:
 
 とはいえ悲しんでばかりもいられないので他の方法でスコアを計測します。
 
-## PageSpeed Insights, Lighthouse
+### PageSpeed Insights, Lighthouse
 
 では十分フィールドデータが集められない環境ではどうやってスコアを計測するのか。ここで登場するのが PageSpeed Insights や Lighthouse です。
 
@@ -89,7 +89,7 @@ Ref:
 
 つまり CI に組み込んだり、cron で回したくなるのが自然な発想でしょう。それを実現するために Lighthouse をラップした Lighthouse CI というツールが提供されています。
 
-# Lighthouse CI の構築
+## Lighthouse CI の構築
 
 Ligthouse CI とは Lighthouse を CI のステップに組み込むことができるツールです。データを貯め込み可視化する server と、計測を行って server に送信する cli の 2 つのパッケージから構成されています。
 
@@ -97,7 +97,7 @@ https://github.com/GoogleChrome/lighthouse-ci
 
 実際にどのようにして Lighthouse CI を構築・運用していくのかを、Ubuntu 上で実行しながら解説していきます。
 
-## Lighthouse CI Server の構築
+### Lighthouse CI Server の構築
 
 Server の構築方法を簡単にまとめると次の 3 ステップになります。公式の手順は[こちら](https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/server.md)です。
 
@@ -295,7 +295,7 @@ WantedBy=multi-user.target
 
 次は CLI で実際にスコアを計測して Server に登録してみます。
 
-## Lighthouse CI
+### Lighthouse CI
 
 実際に CI がデータを Server に登録するまでには 3 ステップの処理を行います。
 
@@ -346,7 +346,7 @@ Server の UI を見に行くとプロジェクトが登録されています。
 
 build token は upload ステップで Server にデータを登録するために必要となります。
 
-### collect
+#### collect
 
 まずは Server と同様に lighthouserc.js を用意します。設定項目は CLI のオプションからも渡すことはできます。複数のプロジェクトで共通する設定などをコンフィグで管理し、変動する値を CLI のオプションで渡すのがよいのではないかと思います。
 
@@ -446,7 +446,7 @@ $ lhci collect --url=https://blog.koh.dev --settings.emulatedFormFactor=mobile -
 
 ここまでで計測するコマンドを作ることができるようになりました。次はこの結果を Server にアップロードしてみましょう。
 
-### upload
+#### upload
 
 upload ステップでやっている事は `.lighthouse/` の内容を参照してターゲットとなる Server にアップロードするだけです。
 言葉にすると非常にシンプルですが、時間をトリガーにしてスコアの定点観測を行うためには少し工夫が必要になります。
@@ -525,12 +525,12 @@ No GitHub token set, skipping GitHub status check.
 
 また、右上にある `COMPARE` を hover すると `Open Report` というリンクが出てきます。これをクリックすると、そのコミットのスコア（いつも見慣れている Lighthouse の画面）を見ることもできます。（自分はこの機能をよく使います）
 
-# Lighthouse CI の運用 Tips
+## Lighthouse CI の運用 Tips
 
 今までの内容で Lighthouse CI の環境を構築する具体的な方法と、データの登録方法について解説しました。
 最後に実運用するにあたってわかった自分が気をつけている Tips について記載します。
 
-## lighthouserc.js
+### lighthouserc.js
 
 色々とやるうちに自分は次のような設定ファイルに落ち着きました。
 
@@ -579,7 +579,7 @@ mysql> select id,buildId,representative from runs limit 10;
 
 upload の設定項目にある `ignoreDuplicateBuildFailure` は入れなくても問題ないのですが、検証時に同じ HASH でアップロードしようとするとエラーになったりするので、検証時の挙動を楽にするために入れています。
 
-## 定期的な実行
+### 定期的な実行
 
 これは cron による実行で問題ありません。次のようなコードを cron などで定期実行する事で Lighthouse のスコアを定期的に取得しています。
 
@@ -609,7 +609,7 @@ collect コマンドは実行するたびに `.lighthouse/` ディレクトリ�
 Lighthouse CI は URL 単位でデータを扱うため、同じ画面の Desktop/Mobile の両方を計測しようとすると困ります。なので何かしらのクエリパラメータを与えることで別 URL として管理するようにしています。
 また、mobile という文字列が入っていることで、その結果がどちらの UserAgent で計測したのかの視認性をよくするためにも利用しています。
 
-## MySQL 容量問題
+### MySQL 容量問題
 
 Lighthouse CI はよくできたツールで、実運用にあたってあまり困る部分がありません。唯一困るのは割と富豪的なリソースの使い方をするところです。
 
@@ -657,7 +657,7 @@ deleteOldBuildsCron?: {
 
 自分が実運用上データ容量で困っていたので issue で相談したところ、こういう機能はどうかと返答をもらったので PR を送ったところ取り入れてもらえました。
 
-# まとめ
+## まとめ
 
 Lighthouse CI についてコミットベースではなく定期実行でスコアを計測する方法と運用上の Tips をまとめました。
 

@@ -22,10 +22,10 @@ const next = index + 1 <= allPosts.length - 1 ? allPosts[index + 1] : null
 
 const entry = await getEntryBySlug('blog', Astro.params.post!)
 
-const { Content } = await entry!.render()
+const { Content, headings } = await entry!.render()
 
 ---
 
-<Layout post={entry!} prev={prev} next={next}>
+<Layout post={entry!} prev={prev} next={next} headings={headings}>
   <Content />
 </Layout>

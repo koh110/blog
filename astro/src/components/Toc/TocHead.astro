@@ -1,0 +1,49 @@
+---
+import { type Toc } from '../../lib/post'
+
+export type Props = {
+  toc: Toc
+}
+
+const { toc } = Astro.props
+const text = toc.text.replace(/link$/, '')
+
+---
+
+<li>
+  <div class="item">
+    <span class="icon material-symbols-outlined">navigate_next</span>
+    <a href={'#' + toc.slug}>
+      {text}
+    </a>
+  </div>
+  {
+    toc.children.length > 0 && (
+      <ul>
+        {
+          toc.children.map((c) => {
+            return <Astro.self toc={c} />
+          })
+        }
+      </ul>
+    )
+  }
+</li>
+
+<style>
+  ul {
+    margin: 0;
+    list-style: none;
+    padding-inline-start: 2em;
+  }
+  li {
+    margin-top: 0.87em;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+  }
+  .icon {
+    color: hsla(230, 41%, 56%, 1);
+  }
+</style>

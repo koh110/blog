@@ -5,7 +5,7 @@ date: '2020-01-01'
 tags: ['wireguard']
 ---
 
-# まえおき
+## まえおき
 
 自分は普段 MacBook Pro の 13 インチを開発機として利用しています。メモリは 16GB にしているので Web 開発をする時にはあまり不便に感じることはありません。
 ただ、サービスの開発のステージ環境や、自宅内の自動化や副業で受けている調査案件などはそれぞれ環境ごとに仮想サーバを立ち上げています。
@@ -24,7 +24,7 @@ tags: ['wireguard']
 
 Hyper-V にたてないで Raspberry Pi で構築した理由は、Windows が落ちたときに VPN が落ちてしまうと外から何もできなくなってしまうので、物理的に分割したかったからです。
 
-# WireGuard のインストール
+## WireGuard のインストール
 
 Raspberry Pi の OS は情報が多そうだったので無難に Raspbian を選択しました。
 
@@ -59,7 +59,7 @@ $ sudo apt-get install wireguard
 net.ipv4.ip_forward=1
 ```
 
-# WireGuard の設定
+## WireGuard の設定
 
 まずは VPN を使って外部ネットワークから Raspberry Pi に ssh できるようにします。それができたら Raspberry Pi を踏み台に他のサーバにも ssh できるようにします。
 
@@ -152,7 +152,7 @@ $ sudo wg-quick up wg0
 $ ssh 10.0.0.1
 ```
 
-# LAN 内の他の機器にも VPN ごしに接続できるようにする
+## LAN 内の他の機器にも VPN ごしに接続できるようにする
 
 この状態では Raspberry Pi 以外にアクセスできないので、Raspberry Pi を踏み台にして家の LAN 内の機器にアクセスできるようにします。
 
@@ -173,7 +173,7 @@ AllowedIPs = 10.0.0.1/32, 192.168.11.0/24
 
 この設定で Mac から 192.168.11.0/24 のレンジにある機器に到達できるようになります。（もちろん ssh だけでなく Remote Desktop 等もできます）
 
-# WireGuard を自動起動させる
+## WireGuard を自動起動させる
 
 このままだと Raspberry Pi が再起動すると WireGuard が自動起動しないので、systemctl で自動起動するようにします。
 
@@ -181,7 +181,7 @@ AllowedIPs = 10.0.0.1/32, 192.168.11.0/24
 $ sudo systemctl start wg-quick@wg0
 ```
 
-# おわりに
+## おわりに
 
 これで WireGuard を利用して外部ネットワークから自宅の開発サーバにアクセスできるようになりました。
 

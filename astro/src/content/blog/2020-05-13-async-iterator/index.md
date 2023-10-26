@@ -15,7 +15,7 @@ Node.js において Stream の処理というのはなくてはならないも�
 
 そこでこの記事では今まで書きにくかった Stream や Events のスマートな扱い方、その落とし穴と回避方法をまとめます。
 
-# for await...of
+## for await...of
 
 `for await...of` は非同期な iterator オブジェクトを反復処理できる構文です。[MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/for-await...of)
 
@@ -81,7 +81,7 @@ main().catch((e) => console.error(e))
 
 このあたりは [さよなら Stream](https://qiita.com/koh110/items/0fba3acbce38916928f1) で詳細に説明しているので、そちらを参照してください。
 
-# Events.on, Events.once
+## Events.on, Events.once
 
 サードパーティ製のモジュールでも Stream を利用しているモジュールはたくさんあります。例えば Redis に接続するモジュールの [ioredis](https://www.npmjs.com/package/ioredis) などはよく目にするのではないでしょうか。
 
@@ -123,7 +123,7 @@ ioredis は Stream を継承したオブジェクトになりますが、ready �
 
 独自のイベントを AsyncIterator (Promise) で処理したい時に役に立つのが [events.on](https://nodejs.org/api/events.html#events_events_on_emitter_eventname), [events.once](https://nodejs.org/api/events.html#events_events_once_emitter_name)です。
 
-## events.on
+### events.on
 
 下記は Node.js ドキュメントのサンプルコードに sleep 処理を加えたものです。独自に定義した `foo` というイベントに対して AsyncIterator で処理することができるようになっているのがわかるかと思います。
 
@@ -151,7 +151,7 @@ main().catch(console.error)
 
 Stream は EventEmitter を継承したオブジェクトなので、この関数を利用することで、独自のイベントを AsyncIterator や Promise で処理することができるようになります。
 
-## events.once
+### events.once
 
 先程の Redis の例を `events.once` を利用して書き直してみましょう。 `events.once` は Promise を返却するので await で待ち受けることができるようになります。
 
@@ -185,7 +185,7 @@ async/await で処理ができるようになったので、初期化処理な�
 
 上のコードみて、なぜ `redis.on('error', ...)` で catch しているのか疑問に思う人がいるかもしれません。少しずつ解説していきます。
 
-## once に潜む落とし穴 -タイミング-
+### once に潜む落とし穴 -タイミング-
 
 上記の例では once で待ち受ける例がひとつの Stream しかありません。これが 2 つのストリームになるとどうでしょうか。
 
@@ -303,7 +303,7 @@ e1 and e2
 done
 ```
 
-## once に潜む落とし穴 -エラーハンドリング-
+### once に潜む落とし穴 -エラーハンドリング-
 
 正常に動作する場合は先程までのコードで問題ありません。では Stream が error を emit した場合はどうでしょうか。
 
@@ -429,6 +429,6 @@ main()
   .catch((e) => console.log('catch', e))
 ```
 
-# まとめ
+## まとめ
 
 AsyncIterator の使い方と `events.on`, `events.once` を使ってスマートに Stream を扱う方法と、その落とし穴 & 回避策をまとめました。

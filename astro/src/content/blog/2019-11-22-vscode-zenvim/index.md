@@ -17,7 +17,7 @@ tags: ['vscode']
 - `Ctrl + [` で Esc
 - yank や paste がクリップボードを共有
 
-# 事前調査
+## 事前調査
 
 前回みつけた [issue](https://github.com/VSCodeVim/Vim/issues/2021) の中や Stack Overflow などでは代替手段として [Simple Vim](https://marketplace.visualstudio.com/items?itemName=jpotterm.simple-vim) が紹介されていた。
 
@@ -31,7 +31,7 @@ tags: ['vscode']
 
 余談だが、作るために https://github.com/VSCodeVim/Vim のコードを読んでみたところ、再現を目指しているせいか高度な抽象化が行われてたり内部に自分でマイクロタスクキューを実装していたりと高度すぎる実装でほとんど参考にならなかった。
 
-# Hello World
+## Hello World
 
 まずは公式のドキュメントの [get started](https://code.visualstudio.com/api/get-started/your-first-extension) を写経から開始した。
 
@@ -47,13 +47,13 @@ TypeScript で作成を始めると VSCode API の型が取れるので、ある
 
 Debug を開始するとまっさらな VSCode の上に書いた拡張を適用した VSCode が立ち上がってくる。
 
-# 拡張の作り込み
+## 拡張の作り込み
 
 `src/extension.ts` がエントリポイントなのでそこに内部の実装をしていく。(package.json の main プロパティで変更はできそう)
 
 `function activate(context: vscode.ExtensionContext)` が VSCode が立ち上がったときに呼び出されるときのライフサイクルイベントに対する hook になる。
 
-## registerCommand
+### registerCommand
 
 `vscode.commands.registerCommand(key, handler)` という API で VSCode のイベントに bind できる。
 
@@ -74,7 +74,7 @@ register('type', e => { ... })
 register('cut', () => { ... })
 ```
 
-## 入力 event hook
+### 入力 event hook
 
 [公式のサンプル](https://github.com/microsoft/vscode-extension-samples/tree/master/vim-sample)を眺めてみると `type` というエディタの入力に hook できるイベントがあるので、ここにハンドラを追加するとデフォルトのキー移動を含むキー入力時の挙動を奪える。
 
@@ -101,7 +101,7 @@ context.subscriptions.push(
 )
 ```
 
-## Ctrl キーを含む event hook
+### Ctrl キーを含む event hook
 
 `type` イベントはブラウザと違って Esc や meta キーの入力を取ることができない。
 
@@ -182,11 +182,11 @@ context.subscriptions.push(
 )
 ```
 
-## Clipboard
+### Clipboard
 
 独自のクリップボード機構を作ってもよかったのだけど、なるべくシンプルに保ちたかったので VSCode の Clipboard API を利用することにした。
 
-### copy
+#### copy
 
 copy は簡単で、選択範囲オブジェクトを getText にわたすとテキストが取得できるので、取れたテキストを vscode.env.clipboard.writeText でクリップボードに書き込む。
 
@@ -199,7 +199,7 @@ const text = editor.document.getText(editor.selection)
 vscode.env.clipboard.writeText(text)
 ```
 
-### cut
+#### cut
 
 cut するときは コピーした内容を削除しなければならないので editor オブジェクトに生えている edit関数の callback に返ってくる editBuilder を利用する。edit関数は非同期で呼び出される。
 
@@ -216,7 +216,7 @@ await editor.edit(editBuilder => {
 })
 ```
 
-### paste
+#### paste
 
 paste は vscode.env.clipboard.readText() で読みだしたテキストをカーソル位置に挿入する。 editorBuilder.insert で場所とテキストを指定すると指定の場所にテキストを挿入できる。
 
@@ -230,7 +230,7 @@ await editor.edit(editBuilder => {
 })
 ```
 
-## Coursor Jump
+### Coursor Jump
 
 意外なことに VSCode の API にはカーソルをジャンプする API がない。（上下左右は cursorMove という API がある）
 
@@ -260,7 +260,7 @@ export function jumpCursor(
 }
 ```
 
-# マーケットプレイスへ公開
+## マーケットプレイスへ公開
 
 公式のドキュメントは[ここ](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
 
@@ -276,17 +276,17 @@ Token につける権限もかなり細かく設定でき、npmに比べて安�
 * npm で vsce コマンドをインストールしてログインする
 * vsce publish でマーケットプレイスに公開する
 
-## Azure DevOps にアカウントを作成する
+### Azure DevOps にアカウントを作成する
 
 特に料金はかからないので Windows のアカウントか GitHub でログインする。
 
-## Publish するための Token を取得する
+### Publish するための Token を取得する
 
 名前はなんでもいいが `all accessible accounts` を選択しないと Token を入力する段階で `ERROR  Failed request: (401)` となり vsce にログインできないので注意。
 
 https://code.visualstudio.com/api/working-with-extensions/publishing-extension#i-get-403-forbidden-or-401-unauthorized-error-when-i-try-to-publish-my-extension
 
-## Token を取得する
+### Token を取得する
 
 [ドキュメント](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token)のスクリーンショットは少し古く Security が存在しなかった。
 
@@ -298,7 +298,7 @@ New Token から適当に名前をつけて権限をつける。今回必要な�
 
 Token は絶対に Expiration をつけなればならないらしく、最長でも半年程度で revoke するらしい。
 
-## npm で vsce コマンドをインストールしてログインする
+### npm で vsce コマンドをインストールしてログインする
 
 正直グローバルインストールは好きじゃないが、毎回 npx で login もできないのでグローバルにインストールする。
 
@@ -324,7 +324,7 @@ Azure DevOps で作成した Personal Access Token を publisher に紐付ける
 $ vsce publish -p {{token}}
 ```
 
-## vsce publish でマーケットプレイスに公開する
+### vsce publish でマーケットプレイスに公開する
 
 `major`, `minor`, `patch` のどれかのバージョンを指定して publish コマンをを実行すると該当のバージョンが上がって publish され、ついでに Git のタグが切られる。
 
@@ -334,7 +334,7 @@ $ vsce publish -p {{token}}
 $ vsce publish {{major | minor | patch}}
 ```
 
-# おわりに
+## おわりに
 
 ひさしぶりに新しいプラットフォームにソフトウェアを公開したが、昔に比べて環境が色々と洗練されてきた気がする。
 

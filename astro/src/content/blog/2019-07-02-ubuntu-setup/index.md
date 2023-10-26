@@ -5,7 +5,7 @@ date: '2019-07-02'
 tags: ['linux', 'ubuntu']
 ---
 
-# さくら
+## さくら
 
 パケットフィルタに最初は ssh しか設定されていないので http (80,443) を追加する。
 
@@ -28,7 +28,7 @@ $ sudo apt update
 + PermitRootLogin no
 ```
 
-# Node.js のインストール
+## Node.js のインストール
 
 ```bash
 $ wget http://nodejs.org/dist/v12.5.0/node-v12.5.0-linux-x64.tar.gz
@@ -37,7 +37,7 @@ $ sudo tar -C /usr/local --strip-components 1 -xaf node-v12.5.0-linux-x64.tar.gz
 $ sudo chown -R root:root /usr/local/bin/
 ```
 
-# nginx のインストール
+## nginx のインストール
 
 apt 用の GPG key を取得する
 
@@ -63,7 +63,7 @@ $ sudo apt install nginx=1.10.*
 $ sudo systemctl status nginx
 ```
 
-# MongoDB のインストール
+## MongoDB のインストール
 
 公式にチュートリアルがある
 
@@ -87,7 +87,7 @@ $ echo "mongodb-org-tools hold" | sudo dpkg --set-selections
 $ sudo service mongod start
 ```
 
-# Redis のインストール
+## Redis のインストール
 
 https://redis.io/download#installation
 
