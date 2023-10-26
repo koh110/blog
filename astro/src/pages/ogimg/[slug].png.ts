@@ -41,7 +41,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 
-export const get = async (context: APIContext) => {
+export const GET = async (context: APIContext) => {
   if (!context.params.slug) {
     return new Response('No Slug', { status: 400, statusText: 'No Slug' })
   }
@@ -75,5 +75,5 @@ export const get = async (context: APIContext) => {
   )
   const body = await sharp(Buffer.from(svg)).png().toBuffer()
 
-  return { body: body, encoding: "binary" };
+  return new Response(body)
 }

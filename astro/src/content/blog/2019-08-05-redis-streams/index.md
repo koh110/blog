@@ -91,7 +91,7 @@ Pub/Sub は Subscribe したら揮発してしまうのに対して、Streams �
 
 キューの追加を Subscribe するために XREAD で BLOCK というオプションを使います。
 
-# キューを待ち受ける
+## キューを待ち受ける
 
 `BLOCK 0`: キューを指定時間まで待ち受ける。0 を指定するとタイムアウトせずに待ち受ける。
 
@@ -251,6 +251,6 @@ async function consume(startId = '$') {
 consume()
 ```
 
-# まとめ
+## まとめ
 
 XREAD と BLOCK, COUNT を使ってキューを実装する時は、 `$` だけでなく最後に受け取った ID を保持して読み込む ID をずらす必要があります。
