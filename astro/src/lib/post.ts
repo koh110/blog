@@ -1,13 +1,13 @@
 import type { CollectionEntry } from 'astro:content'
 import type { MarkdownHeading } from 'astro'
-import { marked } from 'marked'
-import { JSDOM } from 'jsdom'
-const { window: { document } } = new JSDOM('')
+import { remark } from 'remark'
+import remarkHtml from 'remark-html'
 
-export const createDescription = (post: CollectionEntry<'blog'>) => {
-  const div = document.createElement('div')
-  div.innerHTML = marked.parse(post.body)
-  const clean = div.textContent ?? div.innerText ?? ''
+export const createDescription = async (post: CollectionEntry<'blog'>) => {
+  const file = await remark()
+    .use(remarkHtml)
+    .process(post.body)
+  const clean = String(file).replace(/<[^>]*>?/gm, '');
   const desc = clean.slice(0, 120)
   return `${desc}${desc.length >= 120 ? '...' : ''}`
 }

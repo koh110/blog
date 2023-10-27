@@ -25,7 +25,7 @@ for (let i = allPosts.length - 1; i >= 0; i--) {
   const post = allPosts[i]
   showPosts.push({
     ...post,
-    description: createDescription(post)
+    description: await createDescription(post)
   })
 }
 

@@ -7,7 +7,7 @@ import TweetButton from '../components/TweetButton.astro'
 import Footer from '../components/Footer.astro'
 import OgImage from '../components/OgImage.jsx'
 import Toc from '../components/Toc/Toc.astro'
-import { createDescription, buildToc } from '../lib/post'
+import { createDescription } from '../lib/post'
 
 export type Props = {
   post: CollectionEntry<'blog'>
@@ -17,7 +17,7 @@ export type Props = {
 }
 
 const { post, prev, next, headings } = Astro.props
-const description = createDescription(post)
+const description = await createDescription(post)
 
 const ogImagePath = `/ogimg/${post.slug}.png`
 const imgFlag = true
