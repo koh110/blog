@@ -9,7 +9,11 @@ tags: ['nodejs', 'frontend', 'security', 'book']
 
 2023/02/13に発売された「フロントエンド開発のためのセキュリティ入門」を読みました。
 
-<a href="https://www.amazon.co.jp/dp/B0BQM1KMBG?&linkCode=li3&tag=koh11001-22&linkId=6f10a301ca8ec5a8ff90824f3f086ca4&language=ja_JP&ref_=as_li_ss_il" target="_blank"><img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0BQM1KMBG&Format=_SL250_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=koh11001-22&language=ja_JP" ></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=koh11001-22&language=ja_JP&l=li3&o=9&a=B0BQM1KMBG" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<a href="https://amzn.to/3HkyY1g" target="_blank">
+  <img src="/img/2023-03-13-frontend-security/frontend-security-book.jpg" style="aspect-ratio: 1058 / 1500;max-width: 240px;" />
+</a>
+
+<a href="https://amzn.to/3HkyY1g" target="_blank">Amazon</a>
 
 自著の実践Node.js入門と発売日が近かった事もあり、Node学園41時限目で著者の<a href="https://twitter.com/shisama_" target="_blank">shisama</a>さんとLTをさせていただきました。
 
@@ -24,7 +28,11 @@ https://nodejs.connpass.com/event/275061/
 セキュリティの良著といえば特丸本が思い浮かびます。
 解説も再現方法も重厚で日本語で読める書籍で一度は読んでおいたほうがよい本ではありますが、はじめてセキュリティについて触れようと思うフロントエンドエンジニアにとっては少しひるんでしまう面もあると思います。
 
-<a href="https://www.amazon.co.jp/%E4%BD%93%E7%B3%BB%E7%9A%84%E3%81%AB%E5%AD%A6%E3%81%B6-%E5%AE%89%E5%85%A8%E3%81%AAWeb%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E4%BD%9C%E3%82%8A%E6%96%B9-%E7%AC%AC2%E7%89%88%EF%BC%BB%E5%9B%BA%E5%AE%9A%E7%89%88%EF%BC%BD-%E8%84%86%E5%BC%B1%E6%80%A7%E3%81%8C%E7%94%9F%E3%81%BE%E3%82%8C%E3%82%8B%E5%8E%9F%E7%90%86%E3%81%A8%E5%AF%BE%E7%AD%96%E3%81%AE%E5%AE%9F%E8%B7%B5-%E5%BE%B3%E4%B8%B8-%E6%B5%A9-ebook/dp/B07DVY4H3M?_encoding=UTF8&qid=&sr=&linkCode=li3&tag=koh11001-22&linkId=512c80a3103316e304b0058c0aad0bb4&language=ja_JP&ref_=as_li_ss_il" target="_blank"><img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B07DVY4H3M&Format=_SL250_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=koh11001-22&language=ja_JP" ></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=koh11001-22&language=ja_JP&l=li3&o=9&a=B07DVY4H3M" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<a href="https://amzn.to/3O7iKfN" target="_blank">
+  <img src="/img/2023-03-13-frontend-security/tokumaru-security-book.jpg" style="aspect-ratio: 1058 / 1500;max-width: 240px;" />
+</a>
+
+<a href="https://amzn.to/3O7iKfN" target="_blank">Amazon</a>
 
 「フロントエンド開発のためのセキュリティ入門」はもう少しフロントエンドよりの視点から執筆されていて、はじめてこういったジャンルに触れるフロントエンドエンジニアにとっては中間を埋めるのによいステップであると感じました。
 

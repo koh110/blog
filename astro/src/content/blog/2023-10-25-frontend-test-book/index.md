@@ -9,13 +9,21 @@ tags: ['nodejs', 'frontend', 'test', 'book']
 
 2023/04/24に発売された「フロントエンド開発のためのテスト入門」を読了したので、読みながらとったメモをもとに感想や自分の考えと違ったところなどをまとめる。
 
-<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=koh11001-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B0BWR5GHMP&linkId=e84e049c259897a0212e5c8922623a5e"></iframe>
+<a href="https://amzn.to/3HmI9yp" target="_blank">
+  <img src="/img/2023-10-25-frontend-test-book/frontend-test-book.jpg" style="aspect-ratio: 1058 / 1500;max-width: 240px;" />
+</a>
+
+<a href="https://amzn.to/3HmI9yp" target="_blank">Amazon</a>
 
 全体的に非常に参考になる内容が多いが、特に後半にいくにつれて加速度的に参考になる内容が増え非常に良著であると感じた。
 
 実践Node.js入門でもテストはある程度量をとって記述しているが、テストそのものがメインではないため情報や考え方として落ちている内容の多くがこの本で補完されている。自著を読んだ人には同時に本書もおすすめしていこうと思っている。
 
-<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=koh11001-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B0BRPT1M95&linkId=1e21c27031bb34ef5c46426045a8fa5e"></iframe>
+<a href="https://amzn.to/3vErBPU" target="_blank">
+  <img src="/img/2023-10-25-frontend-test-book/nodejs-book.jpg" style="aspect-ratio: 1058 / 1500;max-width: 240px;" />
+</a>
+
+<a href="https://amzn.to/3vErBPU" target="_blank">Amazon</a>
 
 自分はフロントエンドのテストはバックエンドに比べて優先度が低くなる傾向にある。
 

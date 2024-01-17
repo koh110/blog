@@ -13,11 +13,16 @@ tags: ['nodejs']
 
 電子書籍版はKindleとGihyo Digital Publishingから購入できます。
 
-<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=FFFFFF&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=koh110088-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B0BRPT1M95&linkId=7f1ea5638a9f16794eb0739900f5a712"></iframe>
+<a href="https://amzn.to/3vErBPU" target="_blank">
+  <img src="/img/2023-01-26-nodejs-book/nodejs-book.jpg" style="aspect-ratio: 1058 / 1500;max-width: 240px;" />
+</a>
+
+<a href="https://amzn.to/3vErBPU" target="_blank">Amazon</a>
 
 技術評論社様のほうではPDFとEPUB形式で購読可能です。
 
 https://gihyo.jp/book/2023/978-4-297-12956-9
+
 
 ## 内容
 
