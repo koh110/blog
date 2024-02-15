@@ -11,13 +11,17 @@ tags: ['book']
 
 ## 書籍の概要
 
-<a href="https://www.amazon.co.jp/%E4%BA%8B%E6%A5%AD%E3%82%92%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8B%E6%8A%80%E8%A1%93%E8%80%85%E3%81%9F%E3%81%A1-%E3%83%95%E3%83%AB%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E9%96%8B%E7%99%BA%E8%80%85%E3%81%8C%E3%81%A4%E3%81%8F%E3%82%8BCARTA%E3%81%AE%E7%8F%BE%E5%A0%B4-%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BECARTA-HOLDINGS-%E7%9B%A3%E4%BF%AE-ebook/dp/B0BPX6YYQL?keywords=%E4%BA%8B%E6%A5%AD%E3%82%92%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8B%E6%8A%80%E8%A1%93%E8%80%85%E3%81%9F%E3%81%A1&qid=1679730898&sprefix=%E4%BA%8B%E6%A5%AD%E3%82%92%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%2Caps%2C167&sr=8-1&linkCode=li3&tag=koh11001-22&linkId=e46aa9ef60263fd71aa54a2958fa90c1&language=ja_JP&ref_=as_li_ss_il" target="_blank"><img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0BPX6YYQL&Format=_SL250_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=koh11001-22&language=ja_JP" ></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=koh11001-22&language=ja_JP&l=li3&o=9&a=B0BPX6YYQL" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<a href="https://amzn.to/3I0W79n" target="_blank">
+  <img src="/img/2023-03-25-carta-book/carta-book.jpg" style="aspect-ratio: 1058 / 1500;max-width: 240px;" />
+</a>
 
 <a href="https://cartaholdings.co.jp/" target="_blank">VOYAGE GROUP</a>のグループ会社それぞれの仕事内容、チームの特徴、技術スタックやプロジェクトの進め方、考え方などが章ごとにまとめられている。
 
 2020年に発行された「Engineers in VOYAGE」の改題改訂版。VOYAGE GROUPとサイバー・コミュニケーションズが経営統合しCARTA HOLDINGSに変わったため、題も変更になり内容も追記されている。
 
-<a href="https://www.amazon.co.jp/Engineers-VOYAGE-%E4%BA%8B%E6%A5%AD%E3%82%92%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8B%E6%8A%80%E8%A1%93%E8%80%85%E3%81%9F%E3%81%A1-%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEVOYAGE-GROUP/dp/4908686092?keywords=%E4%BA%8B%E6%A5%AD%E3%82%92%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8B%E6%8A%80%E8%A1%93%E8%80%85%E3%81%9F%E3%81%A1&qid=1679730898&sprefix=%E4%BA%8B%E6%A5%AD%E3%82%92%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%2Caps%2C167&sr=8-2&linkCode=li3&tag=koh11001-22&linkId=8b5591e5da42dc9a66dce09038759243&language=ja_JP&ref_=as_li_ss_il" target="_blank"><img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=4908686092&Format=_SL250_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=koh11001-22&language=ja_JP" ></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=koh11001-22&language=ja_JP&l=li3&o=9&a=4908686092" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+<a href="https://amzn.to/3OLt79o" target="_blank">
+  <img src="/img/2023-03-25-carta-book/voyage-book.jpg" style="aspect-ratio: 1058 / 1500;max-width: 240px;" />
+</a>
 
 それぞれの章に2年たって現状ではどうなったかが追加されている。
 
