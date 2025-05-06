@@ -12,7 +12,7 @@ export const createDescription = async (post: CollectionEntry<'blog'>) => {
   return `${desc}${desc.length >= 120 ? '...' : ''}`
 }
 
-export type Toc = MarkdownHeading & { children: MarkdownHeading[] }
+export type Toc = MarkdownHeading & { children?: MarkdownHeading[] }
 
 export function buildToc(headings: MarkdownHeading[]) {
   const minDepath = Math.min(...headings.map(h => h.depth))
@@ -25,7 +25,7 @@ export function buildToc(headings: MarkdownHeading[]) {
       toc.push(heading)
       continue
     }
-    depthMap[heading.depth - 1].children.push(heading)
+    depthMap[heading.depth - 1].children?.push(heading)
   }
   return toc
 }

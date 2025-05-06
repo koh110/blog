@@ -19,7 +19,7 @@ export type Props = {
 const { post, prev, next, headings } = Astro.props
 const description = await createDescription(post)
 
-const ogImagePath = `/ogimg/${post.slug}.png`
+const ogImagePath = `/ogimg/${post.id}.png`
 const imgFlag = true
 
 ---
@@ -29,7 +29,7 @@ const imgFlag = true
   description={description}
   content="article"
   ogImagePath={ogImagePath}
-  path={`/${post.slug}`}
+  path={`/${post.id}`}
 >
   <script
     slot="scripts"
@@ -73,7 +73,7 @@ const imgFlag = true
     </div>
     <div class="og">
       <div class="image">
-        {imgFlag && <img style={{ maxWidth: '100%' }} src={`/ogimg/${post.slug}.png`} alt="og image" />}
+        {imgFlag && <img style={{ maxWidth: '100%' }} src={`/ogimg/${post.id}.png`} alt="og image" />}
         {!imgFlag && <OgImage title={post.data.title} />}
       </div>
     </div>
@@ -81,8 +81,8 @@ const imgFlag = true
     <slot />
     <hr>
     <ul class="post-selector">
-     {prev && <li><a rel="prev" href={`/${prev.slug}`}> ← {prev.data.title}</a></li>}
-     {next && <li><a rel="next" href={`/${next.slug}`}>{next.data.title} → </a></li>}
+     {prev && <li><a rel="prev" href={`/${prev.id}`}> ← {prev.data.title}</a></li>}
+     {next && <li><a rel="next" href={`/${next.id}`}>{next.data.title} → </a></li>}
     </ul>
     <Footer />
   </main>
