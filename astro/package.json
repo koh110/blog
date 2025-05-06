@@ -12,6 +12,7 @@
     "serve": "serve ./dist -l 3000"
   },
   "dependencies": {
+    "@astrojs/prism": "^3.2.0",
     "@astrojs/react": "^4.2.7",
     "astro": "^5.7.10",
     "react": "^19.1.0",

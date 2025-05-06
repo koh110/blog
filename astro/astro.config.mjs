@@ -10,6 +10,7 @@ export default defineConfig({
   integrations: [react()],
   // https://docs.astro.build/en/reference/configuration-reference/#markdown-options
   markdown: {
+    syntaxHighlight: 'prism',
     rehypePlugins: [
       rehypeSlug,
       [

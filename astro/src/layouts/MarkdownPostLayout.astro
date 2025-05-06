@@ -31,6 +31,7 @@ const imgFlag = true
   ogImagePath={ogImagePath}
   path={`/${post.id}`}
 >
+  <link slot="head" href="/themes/prism-vsc-dark-plus.css" rel="stylesheet" />
   <script
     slot="scripts"
     src="https://b.st-hatena.com/js/bookmark_button.js"
@@ -93,6 +94,20 @@ const imgFlag = true
     margin: auto;
     padding: 1.5rem;
     max-width: 50em;
+  }
+  main :global(img) {
+    max-width: 100%;
+    height: auto;
+  }
+  main :global(p) :global(code), main :global(li) :global(code) {
+    color: #CFD4D4;
+    background-color: #1e1e1e;
+    padding: 0.2em 0.4em;
+  }
+  main :global(h2) :global(a) :global(.material-symbols-outlined) {
+    padding-left: 0.2em;
+    font-size: 1.2em;
+    vertical-align: middle;
   }
   hr {
     margin: 4em 0 4em 0;
