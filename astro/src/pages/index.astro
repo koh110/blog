@@ -45,7 +45,7 @@ for (let i = allPosts.length - 1; i >= 0; i--) {
     <div>
       {showPosts.map((post) => (
         <div class="post">
-          <h3><a href={`/${post.slug}`}>{post.data.title}</a></h3>
+          <h3><a href={`/${post.id}`}>{post.data.title}</a></h3>
           <small><date>{post.data.date}</date></small>
           <p>{post.description}</p>
         </div>

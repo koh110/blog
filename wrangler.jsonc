@@ -1,0 +1,7 @@
+{
+  "name": "blog-worker",
+  "compatibility_date": "2025-04-02",
+  "assets": {
+    "directory": "./astro/dist"
+  }
+}

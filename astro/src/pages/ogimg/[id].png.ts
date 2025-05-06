@@ -31,7 +31,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const result = posts.map((post) => {
     return {
-      params: { slug: post.slug },
+      params: { id: post.id },
       props: {
         post
       }
@@ -42,8 +42,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 
 export const GET = async (context: APIContext) => {
-  if (!context.params.slug) {
-    return new Response('No Slug', { status: 400, statusText: 'No Slug' })
+  if (!context.params.id) {
+    return new Response('No id', { status: 400, statusText: 'No Slug' })
   }
   const post = context.props.post;
   if (!post) {

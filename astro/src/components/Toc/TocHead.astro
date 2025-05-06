@@ -18,10 +18,10 @@ const text = toc.text.replace(/link$/, '')
     </a>
   </div>
   {
-    toc.children.length > 0 && (
+    toc.children && toc.children.length > 0 && (
       <ul>
         {
-          toc.children.map((c) => {
+          toc.children?.map((c) => {
             return <Astro.self toc={c} />
           })
         }
