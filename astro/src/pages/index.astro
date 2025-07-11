@@ -1,12 +1,11 @@
 ---
 import type { GetStaticPathsOptions } from 'astro'
-import { getCollection } from 'astro:content'
 import Layout from '../layouts/Layout.astro'
 import Footer from '../components/Footer.astro'
-import { createDescription } from '../lib/post'
+import { createDescription, getAllPosts } from '../lib/post'
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const allPosts = await getCollection('blog')
+  const allPosts = await getAllPosts()
 
   const data: { params: { id: string }; props: any }[] = allPosts.map((post) => {
     return {
@@ -18,7 +17,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   return paginate(data, { pageSize: 1 })
 }
 
-const allPosts = await getCollection('blog')
+const allPosts = await getAllPosts()
 
 const showPosts: (typeof allPosts[number] & { description: string })[] = []
 for (let i = allPosts.length - 1; i >= 0; i--) {

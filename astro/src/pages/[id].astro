@@ -1,9 +1,10 @@
 ---
 import { getCollection, getEntry, render } from 'astro:content'
 import Layout from '../layouts/MarkdownPostLayout.astro'
+import { getAllPosts } from '../lib/post'
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('blog')
+  const allPosts = await getAllPosts()
 
   const data = allPosts.map((post) => {
     return {
@@ -17,7 +18,7 @@ export async function getStaticPaths() {
   return data
 }
 
-const allPosts = (await getCollection('blog'))
+const allPosts = (await getAllPosts())
 const index = allPosts.findIndex((e) => e.id === Astro.props.post.id)
 const prev = index - 1 >= 0 ? allPosts[index - 1] : null
 const next = index + 1 <= allPosts.length - 1 ? allPosts[index + 1] : null
