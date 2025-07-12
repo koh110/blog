@@ -20,7 +20,7 @@ https://github.com/koh110/vitest-beforeeach
 - mockの設定/reset
 - seedsの投入
 
-このうち、前者mockの設定/resetはbeforeEachではなくbeforeAll or すべての個別テストごとに設定すべきなのではと考えている。　　
+このうち、前者mockの設定/resetはbeforeEachではなくbeforeAll or すべての個別テストごとに設定すべきなのではと考えている。  
 これは自分がテスト単体での移植性を重視している（テスト単体をコピペしてもなるべくそのまま動かせる）ので、beforeEachでやってしまうとあるテストに関係のないmock化やmockのresetが入り込んでしまう可能性があると考えているのが理由である。
 
 後者のseedsの投入については共通するseedをテストごとに投入したいというニーズも、beforeEachで行われることが多いが、そのseedのデータにアクセスしようとすると、一旦testのスコープの外にデータの参照を逃がす等しないといけないため、きれいにかけていなかった。
@@ -48,11 +48,11 @@ test('test1', async () => {
 
 また、beforeEachでseedの生成をやってしまうと、個別のテストで走らなくてもよいシーンでもseedの生成が必ず走ってしまうため無駄なDBアクセスが発生し、テスト速度低下の要因にもなりえる。  
 そして何10件も共通するデータをテストごとに書くのは冗長で面倒くさい。シンプルに移植性なども考えれば共通のseed生成関数を作ってテストの前で呼び出せばいいが、もっとうまい方法はないのかと考えていた。  
-vitestのドキュメントを読んでいたところ、Text Contextの拡張がちょうどこれらの要件にマッチしているということに気付いたので、この実装を試してみることにした。
+vitestのドキュメントを読んでいたところ、Test Contextの拡張がちょうどこれらの要件にマッチしているということに気付いたので、この実装を試してみることにした。
 
-## Text Context
+## Test Context
 
-[Text Context](https://vitest.dev/guide/test-context)
+[Test Context](https://vitest.dev/guide/test-context)
 
 vitestにはデフォルトでもいくつかテストごとに独立したContextを取得する方法が用意されている。
 
@@ -113,7 +113,7 @@ test('test1', async ({ seeds }) => {
 
 contextを経由することでletによるスコープ外へのアクセスをなくしてseedデータにアクセスできるようになった。
 
-また、`test.extend` による拡張のよい所はコンテキストにアクセスしない限りは実行されないという点だ。　
+また、`test.extend` による拡張のよい所はcontextにアクセスしない限りは実行されないという点だ。　
 
 ```javascript
 const test = baseTest.extend<{
