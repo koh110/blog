@@ -20,7 +20,7 @@ https://github.com/koh110/vitest-beforeeach
 - mockの設定/reset
 - seedsの投入
 
-このうち、前者mockの設定/resetはbeforeEachではなくbeforeAll or すべての個別テストごとに設定すべきなのではと考えている。　　
+このうち、前者mockの設定/resetはbeforeEachではなくbeforeAll or すべての個別テストごとに設定すべきなのではと考えている。  
 これは自分がテスト単体での移植性を重視している（テスト単体をコピペしてもなるべくそのまま動かせる）ので、beforeEachでやってしまうとあるテストに関係のないmock化やmockのresetが入り込んでしまう可能性があると考えているのが理由である。
 
 後者のseedsの投入については共通するseedをテストごとに投入したいというニーズも、beforeEachで行われることが多いが、そのseedのデータにアクセスしようとすると、一旦testのスコープの外にデータの参照を逃がす等しないといけないため、きれいにかけていなかった。
@@ -113,7 +113,7 @@ test('test1', async ({ seeds }) => {
 
 contextを経由することでletによるスコープ外へのアクセスをなくしてseedデータにアクセスできるようになった。
 
-また、`test.extend` による拡張のよい所はコンテキストにアクセスしない限りは実行されないという点だ。　
+また、`test.extend` による拡張のよい所はcontextにアクセスしない限りは実行されないという点だ。　
 
 ```javascript
 const test = baseTest.extend<{
